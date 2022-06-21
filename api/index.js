@@ -24,10 +24,10 @@
 
 require('dotenv').config()
 const mongoose = require("mongoose");
-const {MONGO_PASS} = process.env;
+const {MONGO_PASS, PORT} = process.env;
 const server = require('./src/app.js');
 // const connectDb = require("./src/db")
-const port = 9000;
+
 
 mongoose
     .connect(`mongodb+srv://henrymatch:${MONGO_PASS}@henrymatch.wotfr.mongodb.net/?retryWrites=true&w=majority`)
@@ -36,4 +36,4 @@ mongoose
 
 
 
-server.listen(port, () => console.log("server listening on " + port))
+server.listen(PORT, () => console.log("server listening on " + PORT))
