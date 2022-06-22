@@ -11,6 +11,7 @@ const router = express.Router();
 
 router.get("/users", userGet);
 router.post('/users', userPost);
+router.put("/users/:id", userPut)
 router.put("/users/:id", userPut);
 router.delete("/users/:id", userDelete);
 router.post('/interests', interestsPost);
