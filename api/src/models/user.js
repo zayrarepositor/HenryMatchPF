@@ -22,9 +22,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    role: {
-        type: String,
-        // consultar cual es el fin de esto.
+    premium: {
+        type: Boolean,
+        default: false        
+    },
+    active: {
+        type: Boolean,
+        default: false,        
     },
     image: {
         type: String,
