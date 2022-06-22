@@ -23,4 +23,4 @@ const userGet = (req, res) =>{
 
 module.exports = {
     userGet
-}
+};
