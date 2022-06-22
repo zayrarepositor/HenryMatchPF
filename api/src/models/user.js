@@ -1,4 +1,5 @@
-const mongoose = require ('mongoose')
+const mongoose = require('mongoose')
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -9,7 +10,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     birthday: {
-        type: Date,
+        type: String,
         required: true
     },
     nickname: {
@@ -45,10 +46,21 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['m1', 'm2', 'm3', 'm4', 'graduate']
     },
+
     matches: {
         type: [String],
     },
 
+
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    }
+develop
 })
 
 module.exports = mongoose.model('Users', userSchema)

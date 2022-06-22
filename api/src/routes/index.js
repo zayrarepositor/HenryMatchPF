@@ -1,6 +1,11 @@
-const { Router } = require('express')
+const express = require('express');
+const { userGet } = require('../controllers/userGet');
+const { userPost } = require('../controllers/userPost');
 
-const router = Router();
+const router = express.Router();
+
+router.get("/users",userGet);
+router.post('/users', userPost);
 
 
 
