@@ -9,7 +9,4 @@ router.post('/users', userPost);
 
 
 
-
-
-
 module.exports = router;
