@@ -44,7 +44,11 @@ const userSchema = new mongoose.Schema({
     henryLevel: {
         type: String,
         enum: ['m1', 'm2', 'm3', 'm4', 'graduate']
-    }
+    },
+    matches: {
+        type: [String],
+    },
+
 })
 
 module.exports = mongoose.model('Users', userSchema)
