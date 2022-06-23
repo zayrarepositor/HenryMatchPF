@@ -16,9 +16,6 @@ const server = express();
 //Settings
 server.set('port', process.env.PORT || 9000);
 
-// if(process.env.NODE_ENV === 'produccion'){
-//   server.use(express.static('client/build'));
-// }
 server.name = 'API';
 
 server.use(cors())
@@ -35,6 +32,8 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
+
+
 
 server.use('/', routes);
 
