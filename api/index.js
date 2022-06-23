@@ -24,16 +24,16 @@
 
 require('dotenv').config()
 const mongoose = require("mongoose");
-const {MONGO_PASS, PORT} = process.env;
+const {MONGODB_URI, PORT} = process.env;
 const server = require('./src/app.js');
-// const connectDb = require("./src/db")
+
 
 
 mongoose
-    .connect(`mongodb+srv://henrymatch:${MONGO_PASS}@henrymatch.wotfr.mongodb.net/?retryWrites=true&w=majority`)
+    .connect(MONGODB_URI),{
+        useNewUrlParser:true
+    }
     .then(() => console.log("Connected to MongoDB Atlas"))
     .catch((error) => console.error(error))
-
-
 
 server.listen(PORT, () => console.log("server listening on " + PORT))
