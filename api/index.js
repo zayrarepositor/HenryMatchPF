@@ -30,9 +30,9 @@ const server = require('./src/app.js');
 
 
 mongoose
-    .connect(MONGODB_URI),{
+    .connect(MONGODB_URI,{
         useNewUrlParser:true
-    }
+    })
     .then(() => console.log("Connected to MongoDB Atlas"))
     .catch((error) => console.error(error))
 
