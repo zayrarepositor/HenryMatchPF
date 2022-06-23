@@ -21,7 +21,4 @@ router.get('/interests', interestsGet);
 
 
 
-
-
-
 module.exports = router;
