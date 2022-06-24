@@ -33,22 +33,7 @@ export function getUsers() {
   };
 }
 
-//ARTUR TENEMOS QUE HABLAR DE ESTA FUNCTION INCOMPLETA!!! URL A MODIFICAR SI SE RESUELVE EN EL BACK
-export function getUsersByGender(gender) {
-  return async function (dispatch) {
-    try {
-      const users = await axios.get(url); //A MODIFICAR
-      return dispatch({
-        type: GET_USER_BY_GENDER,
-        payload: users.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}
-
-//FUNCTION A REVISAR SI FUNCIONA!!! URL A REVISAR!! CUANDO LO HAGAS BORRA EL COMENTARIO
+//FUNCTION SIN REVISAR!!! URL A REVISAR!! CUANDO LO HAGAS BORRA EL COMENTARIO
 export function getUsersById(id) {
   return async function (dispatch) {
     try {
@@ -63,6 +48,7 @@ export function getUsersById(id) {
   };
 }
 
+//FUNCION A REVISAR!!! CUANDO LO HAGAS BORRA ESTE COMENTARIO
 export function createUser(data) {
   return async function (dispatch) {
     try {
@@ -92,6 +78,13 @@ export function updateUser(id, data) {
 }
 
 //----ACTION CREATORS---//EL RESTO DE LAS FUNCIONES VAN AQUI:
+
+export function getUsersByGender(gender) {
+  return dispatch({
+    type: GET_USER_BY_GENDER,
+    payload: users.data,
+  });
+}
 
 export function clearUserDetail(payload) {
   return {
