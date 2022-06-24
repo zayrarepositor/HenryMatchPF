@@ -18,10 +18,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    password: {
-        type: String,
-        required: true
-    },
     premium: {
         type: Boolean,
         default: false        
@@ -45,7 +41,13 @@ const userSchema = new mongoose.Schema({
     },
     henryLevel: {
         type: String,
-        enum: ['m1', 'm2', 'm3', 'm4', 'graduate']
+        enum: ['m1', 'm2', 'm3', 'm4',"pi","pf",'graduate']
+    },
+    likeRecieved:{
+        type: [String]
+    },
+    likeGiven:{
+        type: [String]
     },
     matches: {
         type: [String],
