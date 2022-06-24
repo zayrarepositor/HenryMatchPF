@@ -9,6 +9,7 @@ import Header from "../../components/Header/Header";
 import ButtonSwipe from "../../components/ButtonSwipe/ButtonSwipe";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader";
+import Detail from '../../components/Detail/Detail';
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 import { getUsers } from "../../redux/actions";
@@ -61,9 +62,11 @@ const Home = () => {
       {isAuthenticated && usersSelected.length > 0 ? (
         <Box>
           <Header />
+          <TemporaryDrawer />
           <Card usersSelected={usersSelected}></Card>
           <ButtonSwipe />
-          <TemporaryDrawer />
+          <Detail />
+         
         </Box>
       ) : (
         <>
