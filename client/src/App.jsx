@@ -2,17 +2,20 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
-import Login from "./pages/Login/Login";
-import Home from "./pages/Home";
-import { UIProvider } from './components/Context/ContextUI'
+import ChatRoom from "./pages/ChatRoom/ChatRoom";
+import Desktop from "./pages/Desktop/Desktop";
+import Home from "./pages/Home/Home";
+import Profile from "./pages/Profile/Profile";
 
 export const App = () => {
   return (
     <UIProvider>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route exact path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/desktop" element={<Desktop />} />
+        <Route path="/chatroom" element={<ChatRoom />} />
       </Routes>
     </BrowserRouter>
     </UIProvider>
