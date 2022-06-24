@@ -9,6 +9,7 @@ import HenryGirl from "../../assets/HenryGirl.jpg";
 import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import TemporaryDrawer from './../../components/SideBar/index';
 
 function Copyright(props) {
   return (
@@ -39,10 +40,12 @@ const Home = () => {
         </>
       )}
       {isAuthenticated ? (
+        
         <Box>
           <Header />
           <Card />
           <ButtonSwipe />
+          <TemporaryDrawer />
         </Box>
       ) : (
         <>
