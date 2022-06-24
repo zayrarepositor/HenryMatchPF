@@ -1,10 +1,10 @@
 .buttonSwipe {
     display: flex;
-    width: 100%;
+    width: 84%;
     position: fixed;
-    bottom: 10vh;
+    bottom: 6vh;
     justify-content: space-evenly;
-    
+   
 }
 
 .buttonSwipe .MuiIconButton-root {
