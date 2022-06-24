@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import "../Card/Card.css";
 import CardUser from "react-tinder-card";
+import InfoIcon from "@mui/icons-material/Info";
+import { IconButton } from "@mui/material";
+import { useUIContext } from "../Context/ContextUI";
 
 const Card = () => {
+  const { setshowDetailBox } = useUIContext();
+
   const [user, setUser] = useState([
     {
       name: "Ro",
@@ -17,7 +22,7 @@ const Card = () => {
     <div>
       <div className="tarjetasTinder">
         <div className="tarjetasTinder__contenedor">
-          {user?.map((p) => (
+          {user.map((p) => (
             <CardUser
               className="swipe"
               key={p.name}
@@ -26,6 +31,9 @@ const Card = () => {
                 className="tarjeta"
                 style={{ backgroundImage: `url(${p.url})` }}>
                 <h2>{p.name}</h2>
+                <IconButton sx={{ left: 555, top: -5 }}>
+                  <InfoIcon onClick={() => setshowDetailBox(true)} />
+                </IconButton>
               </div>
             </CardUser>
           ))}

@@ -9,6 +9,7 @@ import Profile from "./pages/Profile/Profile";
 
 export const App = () => {
   return (
+    <UIProvider>
     <BrowserRouter>
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -17,5 +18,6 @@ export const App = () => {
         <Route path="/chatroom" element={<ChatRoom />} />
       </Routes>
     </BrowserRouter>
+    </UIProvider>
   );
 };

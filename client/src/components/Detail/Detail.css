@@ -1,0 +1,11 @@
+.detailContainer{
+    position: absolute;
+    border-radius: 2px;
+    top:140px;
+    left:1018px;
+    height:56.5vh;
+    width: 300px;
+    background: #FEFE01;
+    opacity: 0.4;
+
+}
