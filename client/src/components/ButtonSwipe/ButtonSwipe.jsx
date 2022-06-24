@@ -11,20 +11,20 @@ import { Grid } from '@mui/material';
 function ButtonSwipe() {
   return (
     <div className='buttonSwipe'>
-        <Grid item xl={9} spacing={3} >
+        <Grid item xl={9}  >
       {/*   <IconButton className='buttonSwipe__replay'>
             <ReplayIcon font='large'/> 
         </IconButton> */}
         </Grid>
-        <IconButton className='buttonSwipe__close'>
+        <IconButton color='secondary' size="large">
             <CloseIcon font='large'/> 
         </IconButton>
 
-        <IconButton className='buttonSwipe__star'>
+        <IconButton color='secondary' size="large">
             <StarPurple500Icon font='large'/> 
         </IconButton>
 
-        <IconButton className='buttonSwipe__fav'>
+        <IconButton color='primary' size="large">
             <FavoriteIcon font='large'/> 
         </IconButton>
 

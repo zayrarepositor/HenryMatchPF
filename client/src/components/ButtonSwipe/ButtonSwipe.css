@@ -1,6 +1,6 @@
 .buttonSwipe {
     display: flex;
-    width: 90%;
+    width: 84%;
     position: fixed;
     bottom: 6vh;
     justify-content: space-evenly;
