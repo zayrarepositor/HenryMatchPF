@@ -10,7 +10,10 @@ import StarPurple500Icon from '@mui/icons-material/StarPurple500';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import InfoIcon from "@mui/icons-material/Info";
+import { DetailContainer, Box, Info} from '../Card/Detail'
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import CakeIcon from '@mui/icons-material/Cake';
 
 function Card() {
   const db = useSelector((state) => state.users);
@@ -78,13 +81,35 @@ function Card() {
                 <div className="carddd">
                     <div>
                     <h3>{character.name} {character.age}</h3>
+                    
                     </div>
-                    <div
+                    <DetailContainer
                     style={{ backgroundImage: "url(" + character.image + ")" }}
                     className="inter"
                     >
-                    </div>
+                    
+                <Info>
+                    <IconButton>
+                      <InfoIcon  />
+                    </IconButton>
+                <Box>
+                    <hr/>
+                    {character.description}
+                    <hr></hr>
+                    <PersonOutlineIcon/> {character.gender}
+                    <hr/>
+                    <CakeIcon/> {character.birthday}
+                    <hr/>
+                    Etapa del Bootcamp: {character.henryLevel}
+                 
+                   
+                </Box>
+                </Info>
+                </DetailContainer>
+                    
+                    
                 </div>
+                
           </TinderCard>
         ))}
       </div>
