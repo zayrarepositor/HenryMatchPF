@@ -67,8 +67,10 @@ const Home = () => {
         <Box>
           <Header />
           <TemporaryDrawer />
-          <Card></Card>
-          <Detail></Detail>
+
+          <Card usersSelected={usersSelected}></Card>
+          
+          <Detail />
         </Box>
       ) : (
         <>

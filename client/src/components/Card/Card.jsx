@@ -34,20 +34,15 @@ function Card() {
 
   const canSwipe = currentIndex >= 0;
 
-  const swiped = (direction, nameToDelete, index, id) => {
-    console.log(
-      "a",
-      nameToDelete,
-      "lo enviaste a la",
-      direction,
-      "y tiene el id",
-      id
-    );
+
+    const swiped = (direction, nameToDelete, index, id) => {
+    console.log('a', nameToDelete, 'lo enviaste a la', direction, 'y tiene el id', id);
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
   };
 
   const outOfFrame = (name, idx) => {
+
     currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
   };
 
@@ -69,21 +64,24 @@ function Card() {
       <div className="card">
         {db.map((character, index) => (
           <TinderCard
-            ref={childRefs[index]}
-            className="swipe"
-            key={character._id}
-            onSwipe={(dir) => swiped(dir, character.name, index, character._id)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}>
-            <div className="carddd">
-              <div>
-                <h3>
-                  {character.name} {character.age}
-                </h3>
-              </div>
-              <div
-                style={{ backgroundImage: "url(" + character.image + ")" }}
-                className="inter"></div>
-            </div>
+                ref={childRefs[index]}
+                className="swipe"
+                preventSwipe={['up','down']}
+                key={character.id}
+                onSwipe={(dir) => swiped(dir, character.name, index, character._id)}
+                onCardLeftScreen={() => outOfFrame(character.name, index)}
+                >
+                <div className="carddd">
+                    <div>
+                    <h3>{character.name} {character.age}</h3>
+                    </div>
+                    <div
+                    style={{ backgroundImage: "url(" + character.image + ")" }}
+                    className="inter"
+                    >
+                    </div>
+                </div>
+
           </TinderCard>
         ))}
       </div>
