@@ -1,7 +1,7 @@
 import React from "react";
 
 const ChatRoom = () => {
-  return <div>ChatRoom</div>;
+  return <div>chatroom</div>;
 };
 
 export default ChatRoom;
