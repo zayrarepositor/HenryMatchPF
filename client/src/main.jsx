@@ -11,16 +11,16 @@ import { App } from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <Auth0Provider
-        domain="dev-83yzfxae.us.auth0.com"
-        clientId="9mlZRiov0RPOd4jMVCgu52HjlumqbRqE"
-        redirectUri={window.location.origin}
-      >
-        <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <Auth0Provider
+          domain="dev-83yzfxae.us.auth0.com"
+          clientId="9mlZRiov0RPOd4jMVCgu52HjlumqbRqE"
+          redirectUri={window.location.origin}
+        >
           <App />
-        </ThemeProvider>
-      </Auth0Provider>
-    </Provider>
+        </Auth0Provider>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>
 );
