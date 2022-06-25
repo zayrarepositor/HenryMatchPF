@@ -55,7 +55,7 @@ export function createUser(data) {
       const user = await axios.post(url, data);
       return dispatch({
         type: CREATE_USER,
-        payload,
+        payload: user.data,
       });
     } catch (error) {
       return error;
@@ -94,6 +94,5 @@ export function clearUserDetail(payload) {
 }
 
 //FUNCION PARA CLEAR_MESSAGE
-
 
 /* cuando le das a la imagen a laderecha se actuialice un PUT en el usuario el id de quien le dio like */

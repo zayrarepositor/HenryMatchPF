@@ -1,7 +1,7 @@
 //-----GET------//
 
 export const GET_USERS = "GET_USERS";
-//PRIORIDAD ALTA
+//DONE!
 
 export const GET_USER_BY_GENDER = "GET_USER_BY_ID";
 //PRIORIDAD ALTA

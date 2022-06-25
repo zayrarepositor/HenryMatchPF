@@ -6,7 +6,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
 import LoginButton from "../../components/LoginButton/LoginButton";
 import Header from "../../components/Header/Header";
-
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader";
 import Detail from "../../components/Detail/Detail";
@@ -29,8 +28,7 @@ function Copyright(props) {
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}
-    >
+      {...props}>
       <Link color="inherit" href="#">
         Henry Match
       </Link>{" "}
@@ -48,9 +46,15 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(getUsers());
-    //AQUI VA UNA FUNCION PARA QUE, EN EL MOMENTO EN QUE ES AUTENTICADO EL USUARIO, BUSQUE EN USERSSELECTED (parte del store) A VER SI TENEMOS ALMACENADO A ALGUIEN CON ESE MAIL (FIND) => CON ESE USUARIO, SI LO TENEMOS EN USERSSELECTED, PUEDO SETEAR UN ESTADO LOCAL(localUser, setLocalUser) O EL USERDETAIL DEL STORE (A PENSAR CUAL NOS CONVIENE MAS).
-    //EN LOS DATOS DE ESE USUARIO ESTA EL GENERO QUE BUSCA(genderInt) ASI QUE EN ESTE COMPONENTE - en otro useEffect que dependa de si tenemos info del localUser - CREAMOS UNA FUNCION PARA FILTRAR Y MANDAR AL COMPONENTE CARD LOS USUARIOS QUE COINCIDAN CON EL genderInt DEL LOCALUSER('female' o 'male')
   }, [isAuthenticated]);
+
+  //RENDERIZADO CONDICIONAL DEL COMPONENTE MODAL CON LO MINIMO PARA CREAR UN USUARIO
+
+  //ANTES DE CREAR EL USUARIO VERIFICO QUE NO LO TENGA YA EN LA BASE DE DATOS (EL UNICO ATRIBUTO QUE SE ME OCURRE ES nickname)
+
+  // FUNCIONALIDAD PARA FILTRAR Y MANDAR AL COMPONENTE CARD LOS USUARIOS QUE COINCIDAN CON EL genderInt DEL USUARIO('hombres mujeres ambos')
+
+  //REVISAR EL RENDERIZADO CONDICIONAL DEL COMPONENTE LOADER
 
   return (
     <>
@@ -63,6 +67,7 @@ const Home = () => {
         <Box>
           <Header />
           <TemporaryDrawer />
+
           <Card usersSelected={usersSelected}></Card>
           
           <Detail />
@@ -94,8 +99,7 @@ const Home = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square
-            >
+              square>
               <Box
                 sx={{
                   my: 8,
@@ -103,8 +107,7 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}
-              >
+                }}>
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     ! Encuentra el Amor en Henry ! Matchea y chateá con Alumnos
