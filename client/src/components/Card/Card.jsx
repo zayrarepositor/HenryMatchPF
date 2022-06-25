@@ -11,7 +11,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { IconButton } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import InfoIcon from "@mui/icons-material/Info";
-import { DetailContainer, Box, Info} from '../Card/Detail'
+import { DetailContainer, Box, Info} from './DetailStyle'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import CakeIcon from '@mui/icons-material/Cake';
 
@@ -81,31 +81,27 @@ function Card() {
                 <div className="carddd">
                     <div>
                     <h3>{character.name} {character.age}</h3>
-                    
                     </div>
                     <DetailContainer
-                    style={{ backgroundImage: "url(" + character.image + ")" }}
-                    className="inter"
-                    >
-                    
-                <Info>
-                    <IconButton>
-                      <InfoIcon  />
-                    </IconButton>
-                <Box>
-                    <hr/>
-                    {character.description}
-                    <hr></hr>
-                    <PersonOutlineIcon/> {character.gender}
-                    <hr/>
-                    <CakeIcon/> {character.birthday}
-                    <hr/>
-                    Etapa del Bootcamp: {character.henryLevel}
-                 
-                   
-                </Box>
-                </Info>
-                </DetailContainer>
+                        style={{ backgroundImage: "url(" + character.image + ")" }}
+                        className="inter"
+                        >
+                        <Info>
+                        <IconButton>
+                        <InfoIcon />
+                        </IconButton>
+                        <Box>
+                            <hr/>
+                            {character.description}
+                            <hr></hr>
+                            <PersonOutlineIcon/> {character.gender}
+                            <hr/>
+                            <CakeIcon/> {character.birthday}
+                            <hr/>
+                            Etapa del Bootcamp: {character.henryLevel}
+                        </Box>
+                        </Info>
+                    </DetailContainer>
                     
                     
                 </div>
