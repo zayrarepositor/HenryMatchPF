@@ -8,6 +8,7 @@ import LoginButton from "../../components/LoginButton/LoginButton";
 import Loader from "../../components/Loader/Loader";
 import Form from "../../components/Form/Form";
 
+
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
 //======ESTILO E IMAGENES
@@ -99,22 +100,16 @@ const Profile = () => {
               </ImageListItem>
             ))}
           </ImageList>
-          <p>
+          {/* <p>
             FOTOS: añadir archivos,SOBRE(user.name): 500 caracteres,INTERESES:
             musica, cine, dibujo, videojuegos, juegos de mesa, juegos de
             estrategia, netflix, baile,manualidades, pintura, lectura, ESTILO DE
             VIDA: signo zodiacal/mascotas/tabaco/cargo/empresa/formacion/vivo
             en/genero/mostrar mi edad/mostrar mi distancia
           </p>
-          <Form></Form>
+          <Form></Form> */}
           <LogoutButton />
-          <div>
-          {isAuthenticated&&(
-        
-            <UserPost/>
-          )
-          }
-          </div>
+          
         </>
       ) : (
         <h1>es el profile pero no estas loggeado</h1>

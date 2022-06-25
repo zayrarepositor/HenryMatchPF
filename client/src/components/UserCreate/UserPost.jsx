@@ -1,28 +1,32 @@
 import * as React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {createUser} from "../../Redux/actions/index"
 import { useAuth0 } from "@auth0/auth0-react";
 
 const UserPost = () =>{
 const { user, isAuthenticated, isLoading } = useAuth0();
+const userNick = useSelector(state => state.state);
 const navigate = useNavigate();
 const dispatch = useDispatch()
 
 
 const [input, setInput] = useState({
       
-      name:user.name,
+      name:user?.name? user?.name : "ExampleName",
       age: "",
-      birthday: user.nickname,
-      nickname: user.sub,
-      email: user.email,
-      image: user.picture,
+      birthday:"",
+      nickname:user?.sub ,
+      email: user?.email? user?.email : "EmailExample@gmail.com",
+      image: user?.picture,
       gender: "",
       genderInt: "",
       description:"",
-      password:"123"
+      password:"null",
+      likeGiven:[],
+      likeRecieved:[],
+
      
 })
 
@@ -44,88 +48,11 @@ function handleSubmit(e){
   return (
     <div>
       
-       {/* <form onSubmit={(e)=>handleSubmit(e)}> */}
-
-            {/* <h1>post</h1> */}
-            {/* <Link to="/"> */}
-                {/* <button type="submit">Back</button> */}
-            {/* </Link> */}
-       {/* </form>  */}
-        <h1>post</h1>
-       <form onSubmit={(e) => handleSubmit(e)}>
-              <div>
-                <label></label>
-                <input
-                  type="text"
-                  value={input.name}
-                  name="name"
-                  placeholder="Name"
-                  onChange={(e) => handleChange(e)}
-                /> 
-              </div>
-              {/* ###################################### */}
-              <div>
-                <label></label>
-                <input
-               
-                  type="text"
-                  value={input.nickname}
-                  name="nickname"
-                  placeholder="nickname"
-                  onChange={(e) => handleChange(e)}
-                /> 
-              </div>
-              {/* ###################################### */}
-              {/* <div>
-                <label></label>
-                <input
-               
-                  type="text"
-                  value={input.email}
-                  name="email"
-                  placeholder="email"
-                  onChange={(e) => handleChange(e)}
-                /> 
-              </div> */}
-              {/* ###################################### */}
-              {/* <div>
-                <label></label>
-                <input
-               
-                  type="text"
-                  value={input.image}
-                  name="image"
-                  placeholder="image"
-                  onChange={(e) => handleChange(e)}
-                /> 
-              </div> */}
-              {/* ###################################### */}
-              {/* <div>
-                <label></label>
-                <input
-               
-                  type="text"
-                  value={input.description}
-                  name="description"
-                  placeholder="description"
-                  onChange={(e) => handleChange(e)}
-                /> 
-              </div> */}
-              {/* ###################################### */}
-              {/* <div>
-                <label></label>
-                <input
-               
-                  type="text"
-                  value={input.password}
-                  name="password"
-                  placeholder="password"
-                  onChange={(e) => handleChange(e)}
-                /> 
-              </div> */}
-              {/* ###################################### */}
-              <button type="submit">Back</button>
-            </form>
+       
+        <h2>Esto es el boton para el modal de bienvenida/post</h2>
+        <form onSubmit={(e) => handleSubmit(e)}>
+              <button type="submit">aceptar</button>
+        </form>
        
     </div>
   )
