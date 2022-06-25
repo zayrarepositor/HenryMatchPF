@@ -9,7 +9,7 @@ import Header from "../../components/Header/Header";
 import ButtonSwipe from "../../components/ButtonSwipe/ButtonSwipe";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader";
-import Detail from '../../components/Detail/Detail';
+import Detail from "../../components/Detail/Detail";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 import { getUsers } from "../../redux/actions";
@@ -20,7 +20,7 @@ import HenryGirl from "../../assets/HenryGirl.jpg";
 import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import TemporaryDrawer from './../../components/SideBar/index';
+import TemporaryDrawer from "./../../components/SideBar/index";
 
 //PABLO CUANDO PUEDAS CONTAME DE ESTA FUNCION <`*.*´> (ZAYRA)
 function Copyright(props) {
@@ -66,7 +66,6 @@ const Home = () => {
           <Card usersSelected={usersSelected}></Card>
           <ButtonSwipe />
           <Detail />
-         
         </Box>
       ) : (
         <>
