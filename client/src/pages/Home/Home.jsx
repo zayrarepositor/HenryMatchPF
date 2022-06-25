@@ -9,6 +9,7 @@ import Header from "../../components/Header/Header";
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader";
 import Detail from "../../components/Detail/Detail";
+import UserPost from "../../components/UserCreate/UserPost";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 import { getUsers } from "../../redux/actions";
@@ -20,6 +21,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import TemporaryDrawer from "./../../components/SideBar/index";
+
 
 //PABLO CUANDO PUEDAS CONTAME DE ESTA FUNCION <`*.*´> (ZAYRA)
 function Copyright(props) {
@@ -43,6 +45,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
   const usersSelected = useSelector((state) => state.usersSelected);
+  const {users,usersNick} = useSelector(state => state)
 
   useEffect(() => {
     dispatch(getUsers());
@@ -60,15 +63,23 @@ const Home = () => {
     <>
       {isLoading && (
         <>
-          <Loader />
+          <Loader />  
         </>
       )}
+    {/* ##################### MARTINNN ########################## */}
+    {/* esto es el render del componente del post verificar la condicion del ternario*/}
+    {console.log(users.map( e => e.nickname))}
+      {isAuthenticated && users.map( e => e.nickname.includes(user?.sub))?
+         <UserPost/>
+        :null
+      }
+    {/* ####################################################### */}
       {isAuthenticated && usersSelected.length > 0 ? (
         <Grid>
           <CssBaseline />
           <Header />
           <TemporaryDrawer />
-
+        
           <Card usersSelected={usersSelected}></Card>
           <Detail />
         </Grid>
@@ -121,6 +132,8 @@ const Home = () => {
           </Grid>
         </>
       )}
+     
+
     </>
   );
 };

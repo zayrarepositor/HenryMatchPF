@@ -11,7 +11,7 @@ const initialState = {
   userDetail: [], //USADO TAMBIEN PARA CLEAR_USER_DETAIL
 
   // OPCIONALES?
-  message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
+  // message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
   gender: [],
 };
 
@@ -26,8 +26,15 @@ export default function rootReducer(state = initialState, action) {
     }
 
     case CREATE_USER: {
-      return { ...state, message: action.payload, userDetail: action.payload };
-    } //MESSAGE PODRIA TRAER INFO PARA UN COMPONENTE MODAL DE NOTIFICACION
+
+      return { ...state,
+        userDetail:action.payload
+      };
+    }
+
+    //   return { ...state, message: action.payload, userDetail: action.payload };
+    // } //MESSAGE PODRIA TRAER INFO PARA UN COMPONENTE MODAL DE NOTIFICACION
+
 
     case UPDATE_USER: {
       return { ...state, message: action.payload };

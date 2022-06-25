@@ -53,9 +53,10 @@ export function createUser(data) {
   return async function (dispatch) {
     try {
       const user = await axios.post(url, data);
+      console.log(user.data)
       return dispatch({
         type: CREATE_USER,
-        payload: user.data,
+        payload: user.data
       });
     } catch (error) {
       return error;
