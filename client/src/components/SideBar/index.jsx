@@ -1,19 +1,19 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 
-import Matches from './Drawer';
-import SettingsIcon from '@mui/icons-material/Settings';
-import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
-import MenuIcon from '@mui/icons-material/Menu';
-import { IconButton } from '@mui/material';
+import Matches from "./Drawer";
+import SettingsIcon from "@mui/icons-material/Settings";
+import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Chip, IconButton } from "@mui/material";
 
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
@@ -21,7 +21,10 @@ export default function TemporaryDrawer() {
   });
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
 
@@ -30,17 +33,21 @@ export default function TemporaryDrawer() {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {['Settings', 'Danger!'].map((text, index) => (
+        {["Editar", "Peligro!"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <SettingsIcon /> : <WorkHistoryIcon />}
+                {index % 2 === 0 ? (
+                  <SettingsIcon color="primary" />
+                ) : (
+                  <WorkHistoryIcon color="primary" />
+                )}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -48,7 +55,13 @@ export default function TemporaryDrawer() {
         ))}
       </List>
 
-      <Divider />
+      <Divider>
+        {" "}
+        <Chip
+          label="MATCHES"
+          sx={{ color: "secondary.main", fontWeight: 700 }}
+        />
+      </Divider>
 
       <Matches />
     </Box>
@@ -56,9 +69,11 @@ export default function TemporaryDrawer() {
 
   return (
     <div>
-      {['left'].map((anchor) => (
+      {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <IconButton onClick={toggleDrawer(anchor, true)} color="secondary"><MenuIcon/></IconButton>
+          <IconButton onClick={toggleDrawer(anchor, true)} color="primary">
+            <MenuIcon />
+          </IconButton>
           <Drawer
             anchor={anchor}
             open={state[anchor]}

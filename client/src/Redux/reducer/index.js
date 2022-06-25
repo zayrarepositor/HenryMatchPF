@@ -6,7 +6,7 @@ import {
 } from "../actions/types.js";
 
 const initialState = {
-  users: [],
+  users: [], //NO MODIFICAR
   usersSelected: [], //USADO PARA FILTERS & SORTERS
   userDetail: [], //USADO TAMBIEN PARA CLEAR_USER_DETAIL
 
@@ -26,10 +26,15 @@ export default function rootReducer(state = initialState, action) {
     }
 
     case CREATE_USER: {
+
       return { ...state,
         userDetail:action.payload
       };
     }
+
+    //   return { ...state, message: action.payload, userDetail: action.payload };
+    // } //MESSAGE PODRIA TRAER INFO PARA UN COMPONENTE MODAL DE NOTIFICACION
+
 
     case UPDATE_USER: {
       return { ...state, message: action.payload };

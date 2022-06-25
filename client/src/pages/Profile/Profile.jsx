@@ -1,11 +1,18 @@
+//======PAQUETES Y LIBRERIAS
 import * as React from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+
+//======IMPORTACIONES DE COMPONENTES
+import LogoutButton from "../../components/LogoutButton/LogoutButton";
+import LoginButton from "../../components/LoginButton/LoginButton";
+import Loader from "../../components/Loader/Loader";
+import Form from "../../components/Form/Form";
+
+//======IMPORTACIONES DE FUNCIONES NUESTRAS
+
+//======ESTILO E IMAGENES
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import UserPost from "../../components/UserCreate/UserPost";
-
-import { useAuth0 } from "@auth0/auth0-react";
-import LogoutButton from "../../components/LogoutButton/LogoutButton";
-import Loader from "../../components/Loader/Loader";
 import { Avatar, IconButton, Typography } from "@mui/material";
 
 const Profile = () => {
@@ -73,8 +80,7 @@ const Profile = () => {
               alt={user.name}
               
               sx={{ width: 56, height: 56 }}
-              align="center"
-            ></Avatar>
+              align="center"></Avatar>
 
             <Typography variant="h2" color="text.secondary">
               {user.name}
@@ -100,6 +106,7 @@ const Profile = () => {
             VIDA: signo zodiacal/mascotas/tabaco/cargo/empresa/formacion/vivo
             en/genero/mostrar mi edad/mostrar mi distancia
           </p>
+          <Form></Form>
           <LogoutButton />
           <div>
           {isAuthenticated&&(
