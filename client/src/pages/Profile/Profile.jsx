@@ -1,6 +1,7 @@
 import * as React from "react";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import UserPost from "../../components/UserCreate/UserPost";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "../../components/LogoutButton/LogoutButton";
@@ -9,7 +10,7 @@ import { Avatar, IconButton, Typography } from "@mui/material";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-
+  // console.log(user)
   const itemData = [
     {
       img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
@@ -60,7 +61,7 @@ const Profile = () => {
       title: "Bike",
     },
   ];
-
+ 
   return (
     <>
       {isLoading && <Loader />}
@@ -70,6 +71,7 @@ const Profile = () => {
             <Avatar
               src={user.picture}
               alt={user.name}
+              
               sx={{ width: 56, height: 56 }}
               align="center"
             ></Avatar>
@@ -99,6 +101,13 @@ const Profile = () => {
             en/genero/mostrar mi edad/mostrar mi distancia
           </p>
           <LogoutButton />
+          <div>
+          {isAuthenticated&&(
+        
+            <UserPost/>
+          )
+          }
+          </div>
         </>
       ) : (
         <h1>es el profile pero no estas loggeado</h1>

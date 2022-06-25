@@ -11,7 +11,7 @@ const initialState = {
   userDetail: [], //USADO TAMBIEN PARA CLEAR_USER_DETAIL
 
   // OPCIONALES?
-  message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
+  // message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
   gender: [],
 };
 
@@ -26,7 +26,9 @@ export default function rootReducer(state = initialState, action) {
     }
 
     case CREATE_USER: {
-      return { ...state, message: action.payload };
+      return { ...state,
+        userDetail:action.payload
+      };
     }
 
     case UPDATE_USER: {

@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { UIProvider } from "../src/components/Context/ContextUI";
+import UserPost from "./components/UserCreate/UserPost";
 import ChatRoom from "./pages/ChatRoom/ChatRoom";
 import Desktop from "./pages/Desktop/Desktop";
 import Home from "./pages/Home/Home";

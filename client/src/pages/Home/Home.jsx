@@ -22,6 +22,7 @@ import Paper from "@mui/material/Paper";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import TemporaryDrawer from './../../components/SideBar/index';
 
+
 //PABLO CUANDO PUEDAS CONTAME DE ESTA FUNCION <`*.*´> (ZAYRA)
 function Copyright(props) {
   return (
@@ -56,9 +57,10 @@ const Home = () => {
     <>
       {isLoading && (
         <>
-          <Loader />
+          <Loader />  
         </>
       )}
+      
       {isAuthenticated && usersSelected.length > 0 ? (
         <Box>
           <Header />
