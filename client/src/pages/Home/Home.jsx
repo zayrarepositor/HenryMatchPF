@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
 import LoginButton from "../../components/LoginButton/LoginButton";
 import Header from "../../components/Header/Header";
-import ButtonSwipe from "../../components/ButtonSwipe/ButtonSwipe";
+
 import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader";
 import Detail from '../../components/Detail/Detail';
@@ -64,7 +64,7 @@ const Home = () => {
           <Header />
           <TemporaryDrawer />
           <Card usersSelected={usersSelected}></Card>
-          <ButtonSwipe />
+          
           <Detail />
          
         </Box>
