@@ -94,3 +94,6 @@ export function clearUserDetail(payload) {
 }
 
 //FUNCION PARA CLEAR_MESSAGE
+
+
+/* cuando le das a la imagen a laderecha se actuialice un PUT en el usuario el id de quien le dio like */

@@ -1,27 +1,78 @@
-.tarjeta {
-    position: relative;
-    width: 600px;
-    padding: 20px;
-    max-width: 85vw;
-    height: 50vh;
-    border-radius: 2px;
-    background-size: cover;
-    background-position: center;
-    box-shadow: 0 5px 6px 0 rgba(96, 96, 96, 0.25);
+.boxCard {
+  height: 78vh;
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
+}
+.card {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carddd {
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid rgb(198, 198, 198);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  padding-bottom: 110px;
 }
 
-.tarjeta h2 {
-    position: absolute;
-    bottom: 10px;
-    color: white;
+.inter {
+  width: 36vw;
+  height: 50vh;
+  background-size: cover;
 }
-
-.tarjetasTinder__contenedor{
-    display: flex;
-    justify-content: center;
-    margin-top: 5vh;
-}
-
 .swipe {
-    position: absolute;
+  position: absolute;
+}
+
+.infoText {
+  width: 100%;
+  height: 28px;
+  justify-content: center;
+  display: flex;
+  color: #fff;
+  animation-name: popup;
+  animation-duration: 800ms;
+}
+
+.buttons {
+  z-index: 10;
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.buttons button:hover {
+  transform: scale(1.05);
+}
+
+@keyframes popup {
+  0% {
+    transform: scale(1, 1);
+  }
+  10% {
+    transform: scale(1.1, 1.1);
+  }
+  30% {
+    transform: scale(0.9, 0.9);
+  }
+  50% {
+    transform: scale(1, 1);
+  }
+  57% {
+    transform: scale(1, 1);
+  }
+  64% {
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
 }
