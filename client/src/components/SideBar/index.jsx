@@ -13,7 +13,7 @@ import Matches from "./Drawer";
 import SettingsIcon from "@mui/icons-material/Settings";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import MenuIcon from "@mui/icons-material/Menu";
-import { IconButton } from "@mui/material";
+import { Chip, IconButton } from "@mui/material";
 
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
@@ -39,11 +39,15 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Settings", "Danger!"].map((text, index) => (
+        {["Editar", "Peligro!"].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                {index % 2 === 0 ? <SettingsIcon /> : <WorkHistoryIcon />}
+                {index % 2 === 0 ? (
+                  <SettingsIcon color="primary" />
+                ) : (
+                  <WorkHistoryIcon color="primary" />
+                )}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -51,7 +55,13 @@ export default function TemporaryDrawer() {
         ))}
       </List>
 
-      <Divider />
+      <Divider>
+        {" "}
+        <Chip
+          label="MATCHES"
+          sx={{ color: "secondary.main", fontWeight: 700 }}
+        />
+      </Divider>
 
       <Matches />
     </Box>
@@ -61,7 +71,7 @@ export default function TemporaryDrawer() {
     <div>
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <IconButton onClick={toggleDrawer(anchor, true)} color="dark">
+          <IconButton onClick={toggleDrawer(anchor, true)} color="primary">
             <MenuIcon />
           </IconButton>
           <Drawer

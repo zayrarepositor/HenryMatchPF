@@ -19,13 +19,14 @@ export default function Matches() {
         <ListItemText
           primary="Rodrigo"
           secondary={"Broo, hacemos PP? Estuve viendo la clase de Mart…"}
+          sx={{ color: "primary.contrastText" }}
         />
-        <IconButton color="secondary" size="large">
+        <IconButton color="primary" size="large">
           <SendIcon />
         </IconButton>
       </ListItem>
 
-      <Divider variant="inset" component="li" />
+      <Divider variant="inset" component="li" color="primary" />
 
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
@@ -34,8 +35,9 @@ export default function Matches() {
         <ListItemText
           primary="Trinidad"
           secondary={"...Que buscas en la app? :)"}
+          sx={{ color: "primary.contrastText" }}
         />
-        <IconButton color="secondary" size="large">
+        <IconButton color="primary" size="large">
           <SendIcon />
         </IconButton>
       </ListItem>
@@ -50,7 +52,7 @@ export default function Matches() {
           primary="Camilo"
           secondary={"Buenos dias! Soy estudiante del M1, quisiera consu..."}
         />
-        <IconButton color="secondary" size="large">
+        <IconButton color="primary" size="large">
           <SendIcon />
         </IconButton>
       </ListItem>

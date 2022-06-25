@@ -64,14 +64,14 @@ const Home = () => {
         </>
       )}
       {isAuthenticated && usersSelected.length > 0 ? (
-        <Box>
+        <Grid>
+          <CssBaseline />
           <Header />
           <TemporaryDrawer />
 
           <Card usersSelected={usersSelected}></Card>
-          
           <Detail />
-        </Box>
+        </Grid>
       ) : (
         <>
           <Grid container component="main" sx={{ height: "100vh" }}>
