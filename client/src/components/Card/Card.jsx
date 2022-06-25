@@ -4,11 +4,18 @@ import { useSelector } from "react-redux";
 import TinderCard from "react-tinder-card";
 import "./Card.css";
 
-import CloseIcon from "@mui/icons-material/Close";
-import StarPurple500Icon from "@mui/icons-material/StarPurple500";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { IconButton } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+
+
+import CloseIcon from '@mui/icons-material/Close';
+import StarPurple500Icon from '@mui/icons-material/StarPurple500';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { IconButton } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import InfoIcon from "@mui/icons-material/Info";
+import { DetailContainer, Box, Info} from './DetailStyle'
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import CakeIcon from '@mui/icons-material/Cake';
+
 
 function Card() {
   const db = useSelector((state) => state.users);
@@ -75,11 +82,28 @@ function Card() {
                     <div>
                     <h3>{character.name} {character.age}</h3>
                     </div>
-                    <div
-                    style={{ backgroundImage: "url(" + character.image + ")" }}
-                    className="inter"
-                    >
-                    </div>
+                    <DetailContainer
+                        style={{ backgroundImage: "url(" + character.image + ")" }}
+                        className="inter"
+                        >
+                        <Info>
+                        <IconButton>
+                        <InfoIcon />
+                        </IconButton>
+                        <Box>
+                            <hr/>
+                            {character.description}
+                            <hr></hr>
+                            <PersonOutlineIcon/> {character.gender}
+                            <hr/>
+                            <CakeIcon/> {character.birthday}
+                            <hr/>
+                            Etapa del Bootcamp: {character.henryLevel}
+                        </Box>
+                        </Info>
+                    </DetailContainer>
+                    
+                    
                 </div>
 
           </TinderCard>
