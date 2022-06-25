@@ -4,13 +4,11 @@ import { useSelector } from "react-redux";
 import TinderCard from "react-tinder-card";
 import "./Card.css";
 
-
-import CloseIcon from '@mui/icons-material/Close';
-import StarPurple500Icon from '@mui/icons-material/StarPurple500';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { IconButton } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+import CloseIcon from "@mui/icons-material/Close";
+import StarPurple500Icon from "@mui/icons-material/StarPurple500";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { IconButton } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function Card() {
   const db = useSelector((state) => state.users);
@@ -37,25 +35,22 @@ function Card() {
   const canSwipe = currentIndex >= 0;
 
 
-  const swiped = (direction, nameToDelete, index, id) => {
+    const swiped = (direction, nameToDelete, index, id) => {
     console.log('a', nameToDelete, 'lo enviaste a la', direction, 'y tiene el id', id);
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
   };
 
   const outOfFrame = (name, idx) => {
-   
 
     currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
- 
   };
 
   const swipe = async (dir) => {
     if (canSwipe && currentIndex < db.length) {
-      await childRefs[currentIndex].current.swipe(dir); 
+      await childRefs[currentIndex].current.swipe(dir);
     }
   };
-
 
   const goBack = async () => {
     if (!canGoBack) return;
@@ -69,27 +64,24 @@ function Card() {
       <div className="card">
         {db.map((character, index) => (
           <TinderCard
-          ref={childRefs[index]}
-          className="swipe"
-          key={character.name}
-          onSwipe={(dir) => swiped(dir, character.name, index, character._id)}
-          onCardLeftScreen={() => outOfFrame(character.name, index)}
-          >
-            <div className="carddd">
-              <div>
-              <h3>{character.name} {character.age}</h3>
-           
+                ref={childRefs[index]}
+                className="swipe"
+                preventSwipe={['up','down']}
+                key={character.id}
+                onSwipe={(dir) => swiped(dir, character.name, index, character._id)}
+                onCardLeftScreen={() => outOfFrame(character.name, index)}
+                >
+                <div className="carddd">
+                    <div>
+                    <h3>{character.name} {character.age}</h3>
+                    </div>
+                    <div
+                    style={{ backgroundImage: "url(" + character.image + ")" }}
+                    className="inter"
+                    >
+                    </div>
+                </div>
 
-              </div>
-            <div
-              style={{ backgroundImage: "url(" + character.image + ")" }}
-              
-              className="inter"
-              >
-
-            </div>
-
-            </div>
           </TinderCard>
         ))}
       </div>
@@ -97,23 +89,23 @@ function Card() {
         <IconButton
           style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
           onClick={() => swipe("left")}
-          color='secondary' size="large"
-        >
-          <CloseIcon font='large'/> 
+          color="secondary"
+          size="large">
+          <CloseIcon font="large" />
         </IconButton>
         <IconButton
           style={{ backgroundColor: !canGoBack && "#c3c4d3" }}
           onClick={() => goBack()}
-          color='secondary' size="large"
-        >
-          <ArrowBackIcon font='large'/>
+          color="secondary"
+          size="large">
+          <ArrowBackIcon font="large" />
         </IconButton>
         <IconButton
           style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
           onClick={() => swipe("right")}
-          color='primary' size="large"
-        >
-         <FavoriteIcon font='large'/>  
+          color="primary"
+          size="large">
+          <FavoriteIcon font="large" />
         </IconButton>
       </div>
       {lastDirection ? (
