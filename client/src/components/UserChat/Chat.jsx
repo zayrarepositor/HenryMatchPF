@@ -52,12 +52,9 @@ const InboxComponent = () => {
 
     const talkjsContainer = React.createRef();
     
-        
-        // return(
-        //     <div ref={talkjsContainer}></div>
-        // )
+      return(
+          <div ref={talkjsContainer}></div>
+      )
     
-    
-   
-
+ 
 export default InboxComponent;
