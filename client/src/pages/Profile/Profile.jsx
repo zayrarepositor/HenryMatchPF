@@ -8,6 +8,7 @@ import LoginButton from "../../components/LoginButton/LoginButton";
 import Loader from "../../components/Loader/Loader";
 import Form from "../../components/Form/Form";
 
+
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
 //======ESTILO E IMAGENES
@@ -17,7 +18,7 @@ import { Avatar, IconButton, Typography } from "@mui/material";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-
+  // console.log(user)
   const itemData = [
     {
       img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
@@ -68,7 +69,7 @@ const Profile = () => {
       title: "Bike",
     },
   ];
-
+ 
   return (
     <>
       {isLoading && <Loader />}
@@ -78,6 +79,7 @@ const Profile = () => {
             <Avatar
               src={user.picture}
               alt={user.name}
+              
               sx={{ width: 56, height: 56 }}
               align="center"></Avatar>
 
@@ -98,15 +100,16 @@ const Profile = () => {
               </ImageListItem>
             ))}
           </ImageList>
-          <p>
+          {/* <p>
             FOTOS: añadir archivos,SOBRE(user.name): 500 caracteres,INTERESES:
             musica, cine, dibujo, videojuegos, juegos de mesa, juegos de
             estrategia, netflix, baile,manualidades, pintura, lectura, ESTILO DE
             VIDA: signo zodiacal/mascotas/tabaco/cargo/empresa/formacion/vivo
             en/genero/mostrar mi edad/mostrar mi distancia
           </p>
-          <Form></Form>
+          <Form></Form> */}
           <LogoutButton />
+          
         </>
       ) : (
         <h1>es el profile pero no estas loggeado</h1>
