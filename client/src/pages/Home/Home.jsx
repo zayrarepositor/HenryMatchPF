@@ -20,6 +20,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import TemporaryDrawer from "./../../components/SideBar/index";
+import BottomBar from "../../components/BottomBar";
 
 //PABLO CUANDO PUEDAS CONTAME DE ESTA FUNCION <`*.*´> (ZAYRA)
 function Copyright(props) {
@@ -28,7 +29,8 @@ function Copyright(props) {
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}>
+      {...props}
+    >
       <Link color="inherit" href="#">
         Henry Match
       </Link>{" "}
@@ -67,10 +69,9 @@ const Home = () => {
         <Grid>
           <CssBaseline />
           <Header />
-          <TemporaryDrawer />
-
           <Card usersSelected={usersSelected}></Card>
           <Detail />
+          <BottomBar />
         </Grid>
       ) : (
         <>
@@ -99,7 +100,8 @@ const Home = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square>
+              square
+            >
               <Box
                 sx={{
                   my: 8,
@@ -107,7 +109,8 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}>
+                }}
+              >
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     ! Encuentra el Amor en Henry ! Matchea y chateá con Alumnos
