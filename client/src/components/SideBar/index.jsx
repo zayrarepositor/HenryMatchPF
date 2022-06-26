@@ -10,12 +10,14 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
 import Matches from "./Drawer";
-import SettingsIcon from "@mui/icons-material/Settings";
+import EditIcon from "@mui/icons-material/Edit";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Chip, IconButton } from "@mui/material";
+import { Avatar, Chip, IconButton } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
-export default function TemporaryDrawer() {
+export default function SideBar() {
   const [state, setState] = React.useState({
     left: false,
   });
@@ -31,6 +33,8 @@ export default function TemporaryDrawer() {
     setState({ ...state, [anchor]: open });
   };
 
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
   const list = (anchor) => (
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
@@ -39,28 +43,48 @@ export default function TemporaryDrawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Editar", "Peligro!"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? (
-                  <SettingsIcon color="primary" />
-                ) : (
-                  <WorkHistoryIcon color="primary" />
-                )}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <NavLink to="/profile">
+          {[""].map((text, index) => (
+            <ListItem key={text}>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? (
+                    <Box>
+                      <IconButton>
+                        <Avatar
+                          src={user.picture}
+                          alt={user.name}
+                          sx={{ width: 56, height: 56 }}
+                        ></Avatar>
+                      </IconButton>
+                      <IconButton>
+                        <EditIcon color="light" />
+                      </IconButton>
+                    </Box>
+                  ) : (
+                    <NavLink to="/desktop"></NavLink>
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </NavLink>
       </List>
 
       <Divider>
         {" "}
-        <Chip
-          label="MATCHES"
-          sx={{ color: "secondary.main", fontWeight: 700 }}
-        />
+        <NavLink to="/matches">
+          <Chip
+            label="MATCHES"
+            sx={{
+              color: "secondary.main",
+              fontWeight: 700,
+              cursor: "pointer",
+              textDecoration: "none",
+            }}
+          />
+        </NavLink>
       </Divider>
 
       <Matches />
@@ -71,7 +95,7 @@ export default function TemporaryDrawer() {
     <div>
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
-          <IconButton onClick={toggleDrawer(anchor, true)} color="primary">
+          <IconButton onClick={toggleDrawer(anchor, true)}>
             <MenuIcon />
           </IconButton>
           <Drawer

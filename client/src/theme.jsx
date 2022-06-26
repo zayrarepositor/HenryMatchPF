@@ -23,8 +23,14 @@ export const theme = createTheme({
       contrastText: "#000",
     },
     dark: {
-      light: "#fff",
+      light: "#000",
       main: "#000",
+      dark: "#000",
+      contrastText: "#000",
+    },
+    light: {
+      light: "#fff",
+      main: "#fff",
       dark: "#000",
       contrastText: "#000",
     },
