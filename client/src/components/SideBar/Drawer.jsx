@@ -56,6 +56,66 @@ export default function Matches() {
           <SendIcon />
         </IconButton>
       </ListItem>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Camilo"
+          secondary={"Buenos dias! Soy estudiante del M1, quisiera consu..."}
+        />
+        <IconButton color="primary" size="large">
+          <SendIcon />
+        </IconButton>
+      </ListItem>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Camilo"
+          secondary={"Buenos dias! Soy estudiante del M1, quisiera consu..."}
+        />
+        <IconButton color="primary" size="large">
+          <SendIcon />
+        </IconButton>
+      </ListItem>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Camilo"
+          secondary={"Buenos dias! Soy estudiante del M1, quisiera consu..."}
+        />
+        <IconButton color="primary" size="large">
+          <SendIcon />
+        </IconButton>
+      </ListItem>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Camilo"
+          secondary={"Buenos dias! Soy estudiante del M1, quisiera consu..."}
+        />
+        <IconButton color="primary" size="large">
+          <SendIcon />
+        </IconButton>
+      </ListItem>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+        </ListItemAvatar>
+        <ListItemText
+          primary="Camilo"
+          secondary={"Buenos dias! Soy estudiante del M1, quisiera consu..."}
+        />
+        <IconButton color="primary" size="large">
+          <SendIcon />
+        </IconButton>
+      </ListItem>
     </List>
   );
 }
