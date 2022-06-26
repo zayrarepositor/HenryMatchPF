@@ -76,4 +76,3 @@ padding: 0.1rem;
 
 `;
 
-//coment
