@@ -56,8 +56,13 @@ const userSchema = new mongoose.Schema({
   city: {
     type: String,
   },
+
   job: {
     type: String,
+  },
+  career: {
+    type: String,
+    enum: ["fullstack", "datascience"],
   },
   createdAt: {
     type: Date,
