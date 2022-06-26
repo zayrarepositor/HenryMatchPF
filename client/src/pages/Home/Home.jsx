@@ -10,6 +10,7 @@ import Card from "../../components/Card/Card";
 import Loader from "../../components/Loader/Loader";
 import Detail from "../../components/Detail/Detail";
 import UserPost from "../../components/UserCreate/UserPost";
+import Chat from "../../components/Chat/Chat/"
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 import { getUsers } from "../../redux/actions";
@@ -74,6 +75,10 @@ const Home = () => {
         :null
       }
     {/* ####################################################### */}
+
+    {
+      <Chat/>
+    }
       {isAuthenticated && usersSelected.length > 0 ? (
         <Grid>
           <CssBaseline />
