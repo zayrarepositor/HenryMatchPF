@@ -6,11 +6,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
 import LoginButton from "../../components/LoginButton/LoginButton";
 import Header from "../../components/Header/Header";
-import Card from "../../components/Card/Card";
+import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 import Detail from "../../components/Detail/Detail";
 import UserPost from "../../components/UserCreate/UserPost";
-
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 import { getUsers, getUsersByGender } from "../../redux/actions";
@@ -48,10 +47,10 @@ const Home = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const usersSelected = useSelector((state) => state.usersSelected);
   const { users, usersNick } = useSelector((state) => state);
-  const [gender, setGender] = useState("both")
+  const [gender, setGender] = useState("both");
 
   useEffect(() => {
-    dispatch(getUsers()) 
+    dispatch(getUsers());
   }, []);
 
   useEffect(() => {
@@ -75,24 +74,20 @@ const Home = () => {
           <Loader />
         </>
       )}
-    {/* ##################### MARTINNN ########################## */}
-    {/* esto es el render del componente del post verificar la condicion del ternario*/}
-    {/* {console.log(users.map( e => e.nickname))} */}
-      {isAuthenticated && users.map( e => e.nickname.includes(user?.sub))?
-         <UserPost
-         setGender={setGender}
-         gender={gender}
-         />
-        :null
-      }
-    {/* ####################################################### */}
+      {/* ##################### MARTINNN ########################## */}
+      {/* esto es el render del componente del post verificar la condicion del ternario*/}
+      {/* {console.log(users.map( e => e.nickname))} */}
+      {isAuthenticated && users.map((e) => e.nickname.includes(user?.sub)) ? (
+        <UserPost setGender={setGender} gender={gender} />
+      ) : null}
+      {/* ####################################################### */}
 
-    {/* usersSelected.length > 0  */}
-      {isAuthenticated? (
+      {/* usersSelected.length > 0  */}
+      {isAuthenticated ? (
         <Grid>
           <CssBaseline />
           <Header />
-          <Card usersSelected={usersSelected}></Card>
+          <Cards usersSelected={usersSelected}></Cards>
           <Detail />
           <BottomBar />
         </Grid>
@@ -136,8 +131,7 @@ const Home = () => {
               >
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
-                    ! Encuentra el Amor en Henry ! Matchea y chateá con Alumnos
-                    de Henry
+                    Matchea y chateá con Alumnos de Henry!
                   </Typography>
                   <LoginButton />
                   <Copyright sx={{ mt: 30 }} />

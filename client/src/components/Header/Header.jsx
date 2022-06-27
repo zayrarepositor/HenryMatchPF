@@ -57,10 +57,11 @@ const Header = () => {
         horizontal: "right",
       }}
       open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}>
+      onClose={handleMobileMenuClose}
+    >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={40} color="error">
+          <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
@@ -70,7 +71,8 @@ const Header = () => {
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
-          color="inherit">
+          color="inherit"
+        >
           <Badge badgeContent={17} color="error">
             <NotificationsIcon />
           </Badge>
@@ -85,14 +87,14 @@ const Header = () => {
       {isLoading && <Loader></Loader>}
       {isAuthenticated && (
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
+          <AppBar position="fixed" color="inherit">
             <Toolbar>
               <SideBar />
               {/* DESKTOP */}
               <Tooltip title="Solo estoy trabajando!">
                 <NavLink to="/desktop">
                   <IconButton>
-                    <WorkHistoryIcon />
+                    <WorkHistoryIcon sx={{ color: "primary.light" }} />
                   </IconButton>
                 </NavLink>
               </Tooltip>
@@ -104,7 +106,7 @@ const Header = () => {
                   <NavLink to={"/chatroom"}>
                     <IconButton size="large" aria-label="show 4 new mails">
                       <Badge badgeContent={5} color="error">
-                        <MailIcon />
+                        <MailIcon sx={{ color: "primary.light" }} />
                       </Badge>
                     </IconButton>
                   </NavLink>
@@ -113,9 +115,10 @@ const Header = () => {
                 <Tooltip title="Nuevos matches">
                   <IconButton
                     size="large"
-                    aria-label="show 17 new notifications">
+                    aria-label="show 17 new notifications"
+                  >
                     <Badge badgeContent={17} color="error">
-                      <NotificationsIcon />
+                      <NotificationsIcon sx={{ color: "primary.light" }} />
                     </Badge>
                   </IconButton>
                 </Tooltip>
@@ -141,7 +144,8 @@ const Header = () => {
                     horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}>
+                  onClose={handleCloseUserMenu}
+                >
                   {/* MENU: MY PROFILE  */}
                   <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                     <NavLink to={"/profile"}>
@@ -151,9 +155,8 @@ const Header = () => {
                   </MenuItem>
                   <MenuItem
                     key={"logout"}
-                    onClick={() =>
-                      logout({ returnTo: window.location.origin })
-                    }>
+                    onClick={() => logout({ returnTo: window.location.origin })}
+                  >
                     <Typography textAlign="center">Cerrar Sesión</Typography>
                   </MenuItem>
                 </Menu>
