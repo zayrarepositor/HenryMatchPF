@@ -47,7 +47,7 @@ export default function Cards() {
 
   //*******/
 
-  const db = useSelector((state) => state.users);
+  const db = useSelector((state) => state.usersSelected);
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
 
@@ -114,23 +114,20 @@ export default function Cards() {
             left: 0,
             boxShadow: 3,
             border: 0,
-          }}
-        >
+          }}>
           <TinderCard
             ref={childRefs[index]}
             className="swipe"
             preventSwipe={["up", "down"]}
             key={character.id}
             onSwipe={(dir) => swiped(dir, character.name, index, character._id)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}
-          >
+            onCardLeftScreen={() => outOfFrame(character.name, index)}>
             <Card
               sx={{
                 width: 375,
                 marginBottom: 14,
                 borderColor: "none",
-              }}
-            >
+              }}>
               <CardMedia
                 component="img"
                 height="566"
@@ -145,8 +142,7 @@ export default function Cards() {
                     fontWeight: 900,
                     // letterSpacing: 1,
                     fontFamily: "Proxima Nova",
-                  }}
-                >
+                  }}>
                   {character.name}{" "}
                   <Typography
                     sx={{
@@ -155,8 +151,7 @@ export default function Cards() {
                       fontSize: 20,
                       letterSpacing: 2,
                       fontFamily: "Proxima Nova",
-                    }}
-                  >
+                    }}>
                     {character.age}
                   </Typography>
                 </Typography>
@@ -164,8 +159,7 @@ export default function Cards() {
                   expand={expanded}
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
-                  aria-label="show more"
-                >
+                  aria-label="show more">
                   <ExpandMoreIcon color="light" />
                 </ExpandMore>
               </CardActions>
@@ -176,8 +170,7 @@ export default function Cards() {
                 unmountOnExit
                 sx={{
                   marginTop: -3,
-                }}
-              >
+                }}>
                 <CardContent>
                   <Box
                     display="flex"
@@ -187,8 +180,7 @@ export default function Cards() {
                       right: 0,
                       left: 0,
                       marginTop: 1,
-                    }}
-                  >
+                    }}>
                     <Typography>
                       <LocationOnIcon /> {character.city}
                     </Typography>
@@ -212,16 +204,14 @@ export default function Cards() {
                       right: 0,
                       left: 0,
                       marginTop: 1,
-                    }}
-                  >
+                    }}>
                     <Typography
                       textTransform="uppercase"
                       sx={{
                         display: "inline",
                         letterSpacing: 2,
                         fontFamily: "Proxima Nova",
-                      }}
-                    >
+                      }}>
                       <WorkIcon /> {character.job}
                     </Typography>
                     <Typography
@@ -230,8 +220,7 @@ export default function Cards() {
                         display: "inline",
                         letterSpacing: 2,
                         fontFamily: "Proxima Nova",
-                      }}
-                    >
+                      }}>
                       <AttachFileIcon /> {character.henryLevel}
                     </Typography>
                   </Box>
@@ -251,30 +240,26 @@ export default function Cards() {
           top: 70,
           right: 0,
           left: 0,
-        }}
-      >
+        }}>
         <IconButton
           style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
           onClick={() => swipe("left")}
           color="light"
-          size="large"
-        >
+          size="large">
           <CloseIcon font="large" />
         </IconButton>
         <IconButton
           style={{ backgroundColor: !canGoBack }}
           onClick={() => goBack()}
           color="light"
-          size="large"
-        >
+          size="large">
           <ArrowBackIcon font="large" />
         </IconButton>
         <IconButton
           style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
           onClick={() => swipe("right")}
           color="light"
-          size="large"
-        >
+          size="large">
           <FavoriteIcon font="large" />
         </IconButton>
       </Box>

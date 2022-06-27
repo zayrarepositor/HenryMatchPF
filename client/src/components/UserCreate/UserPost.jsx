@@ -2,17 +2,16 @@ import * as React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { createUser, filterUserByGenderInt, getUsersByGender } from "../../Redux/actions/index"
+import { createUser } from "../../Redux/actions/index";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const UserPost = ({ gender, setGender }) => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const userNick = useSelector(state => state.state);
+  const userNick = useSelector((state) => state.state);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const [input, setInput] = useState({
-
+  const [userForm, setUserForm] = useState({
     name: user?.name || "ExampleName",
     age: "",
     birthday: "",
@@ -25,59 +24,62 @@ const UserPost = ({ gender, setGender }) => {
     password: "null",
     likeGiven: [],
     likeRecieved: [],
+  });
 
-
-  })
-
-
-  function handleChange(e) {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
+  //OBTENGO EL GENERO DE INTERES DEL USUARIO
+  function handleGenderIntChange(e) {
+    const { name, value } = e.target;
+    setUserForm({
+      ...userForm,
+      [name]: value,
     });
 
+    setGender(value);
   }
 
-  function handleFilterByGenderInt(e) {
-    dispatch(filterUserByGenderInt(e.target.value))
+  //FILTRAMOS POR GENERO DE INTERES EN EL COMPONENTE HOME. AQUI ACTUALIZO EL ESTADO LOCAL DEL HOME LLAMADO gender
+  /*   function handleFilterByGender(e) {
+    e.preventDefault();
+    console.log(e.target.value);
+    setGender(e.target.value);
+  } */
+
+  //OBTENGO EL GENERO DEL USUARIO
+  function handleGenderChange(e) {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setUserForm({
+      ...userForm,
+      [name]: value,
+    });
   }
 
-  function handleFilterByGender(e) {// revisar el estado en el inspector sale uno que no existe ??
-    // dispatch(getUsersByGender(e.target.value))
-    setGender(e.target.value)
-  }
-
+  //CREO UN USUARIO NUEVO
   function handleSubmit(e) {
-    e.preventDefault()
-    dispatch(createUser(input))
-    // navigate("/");
-    alert("post", user.sub)
+    e.preventDefault();
+    dispatch(createUser(userForm));
+    alert("post", user.sub);
   }
 
   return (
     <div>
+      <form onSubmit={handleSubmit}>
+        <h3>te interesa encontrar:</h3>
 
+        <select name="genderInt" onChange={handleGenderIntChange}>
+          <option value="both">both</option>
+          <option value="male">male</option>
+          <option value="female">female</option>
+        </select>
+        {/*   <button onClick={handleFilterByGender}>FILTRAR</button> */}
+        <h3>y vos eres (genero):</h3>
 
-
-
-      <h3>genre of Interes</h3>
-      <select onChange={e => handleFilterByGender(e)}>
-        <option value="both">both</option>
-        <option value="male">male</option>
-        <option value="female">female</option>
-      </select>
-
-      <h2>Esto es el boton para el modal de bienvenida/post</h2>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <h3>genre</h3>
-        <select onChange={e => handleChange(e)}>
-          <option value="both">Both</option>
+        <select name="gender" onChange={handleGenderChange} required>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
-        <button type="submit">aceptar</button>
+        <button type="submit">POSTEAR</button>
       </form>
-
     </div>
   );
 };
