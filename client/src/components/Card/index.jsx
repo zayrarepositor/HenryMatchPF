@@ -24,6 +24,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+import InterestsIcon from '@mui/icons-material/Interests';
 
 import { Box, Divider } from "@mui/material";
 
@@ -223,6 +224,11 @@ export default function Cards() {
                       }}>
                       <AttachFileIcon /> {character.henryLevel}
                     </Typography>
+
+                      <InterestsIcon/> {character.interests?.map((i)=>{
+                      return <div key={i}>{i}</div>
+                       })}
+                    
                   </Box>
                 </CardContent>
               </Collapse>
