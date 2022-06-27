@@ -57,7 +57,7 @@ const Header = () => {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={40} color="error">
+          <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
@@ -83,25 +83,27 @@ const Header = () => {
       {isLoading && <Loader></Loader>}
       {isAuthenticated && (
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
+          <AppBar position="fixed" color="inherit">
             <Toolbar>
               <SideBar />
               {/* DESKTOP */}
               <Tooltip title="Solo estoy trabajando!">
                 <NavLink to="/desktop">
                   <IconButton>
-                    <WorkHistoryIcon />
+                    <WorkHistoryIcon sx={{ color: "primary.light" }} />
                   </IconButton>
                 </NavLink>
               </Tooltip>
               {/* PROFILE */}
 
               <Box sx={{ flexGrow: 1 }} />
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Box
+                sx={{ display: { xs: "none", md: "flex" }, paddingRight: 1 }}
+              >
                 <Tooltip title="Nuevos mensajes">
                   <IconButton size="large" aria-label="show 4 new mails">
-                    <Badge badgeContent={5} color="error">
-                      <MailIcon />
+                    <Badge badgeContent={4} color="error">
+                      <MailIcon sx={{ color: "primary.light" }} />
                     </Badge>
                   </IconButton>
                 </Tooltip>
@@ -111,7 +113,7 @@ const Header = () => {
                     aria-label="show 17 new notifications"
                   >
                     <Badge badgeContent={17} color="error">
-                      <NotificationsIcon />
+                      <NotificationsIcon sx={{ color: "primary.light" }} />
                     </Badge>
                   </IconButton>
                 </Tooltip>

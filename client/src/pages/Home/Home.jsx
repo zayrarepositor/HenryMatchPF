@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
 import LoginButton from "../../components/LoginButton/LoginButton";
 import Header from "../../components/Header/Header";
-import Card from "../../components/Card/Card";
+import RecipeReviewCard from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 import Detail from "../../components/Detail/Detail";
 import UserPost from "../../components/UserCreate/UserPost";
@@ -71,14 +71,14 @@ const Home = () => {
       {/* esto es el render del componente del post verificar la condicion del ternario*/}
       {console.log(users.map((e) => e.nickname))}
       {isAuthenticated && users.map((e) => e.nickname.includes(user?.sub)) ? (
-        <UserPost />
+        <div />
       ) : null}
       {/* ####################################################### */}
       {isAuthenticated && usersSelected.length > 0 ? (
         <Grid>
           <CssBaseline />
           <Header />
-          <Card usersSelected={usersSelected}></Card>
+          <RecipeReviewCard usersSelected={usersSelected}></RecipeReviewCard>
           <Detail />
           <BottomBar />
         </Grid>
@@ -122,8 +122,7 @@ const Home = () => {
               >
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
-                    ! Encuentra el Amor en Henry ! Matchea y chateá con Alumnos
-                    de Henry
+                    Matchea y chateá con Alumnos de Henry!
                   </Typography>
                   <LoginButton />
                   <Copyright sx={{ mt: 30 }} />
