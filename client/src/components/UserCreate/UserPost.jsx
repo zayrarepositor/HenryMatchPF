@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {createUser, filterUserByGenderInt, getUsersByGender} from "../../Redux/actions/index"
 import { useAuth0 } from "@auth0/auth0-react";
@@ -11,6 +11,20 @@ const userNick = useSelector(state => state.state);
 const navigate = useNavigate();
 const dispatch = useDispatch()
 
+  const [input, setInput] = useState({
+    name: user?.name ? user?.name : "ExampleName",
+    age: "",
+    birthday: "",
+    nickname: user?.sub,
+    email: user?.email ? user?.email : "EmailExample@gmail.com",
+    image: user?.picture,
+    gender: "",
+    genderInt: "",
+    description: "",
+    password: "null",
+    likeGiven: [],
+    likeRecieved: [],
+  });
 
 const [input, setInput] = useState({
       
@@ -84,7 +98,7 @@ function handleSubmit(e){
         </form>
        
     </div>
-  )
-}
+  );
+};
 
-export default UserPost
+export default UserPost;

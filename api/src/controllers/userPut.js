@@ -12,5 +12,5 @@ const userPut = (req, res) =>{
 }
 
 module.exports = {
-    userPut
+  userPut,
 };
