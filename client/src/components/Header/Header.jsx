@@ -1,6 +1,11 @@
+//======PAQUETES Y LIBRERIAS
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+//======IMPORTACIONES DE COMPONENTES
+//======IMPORTACIONES DE FUNCIONES NUESTRAS
+
+//======ESTILO E IMAGENES
 import {
   IconButton,
   AppBar,
@@ -19,8 +24,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const Header = () => {
-  const settings = ["Mi perfil", "Cerrar sesión"];
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading, logout } = useAuth0();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -53,8 +57,7 @@ const Header = () => {
         horizontal: "right",
       }}
       open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
+      onClose={handleMobileMenuClose}>
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={40} color="error">
@@ -67,8 +70,7 @@ const Header = () => {
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
-          color="inherit"
-        >
+          color="inherit">
           <Badge badgeContent={17} color="error">
             <NotificationsIcon />
           </Badge>
@@ -94,29 +96,31 @@ const Header = () => {
                   </IconButton>
                 </NavLink>
               </Tooltip>
-              {/* PROFILE */}
 
               <Box sx={{ flexGrow: 1 }} />
               <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                {/* MESSAGES */}
                 <Tooltip title="Nuevos mensajes">
-                  <IconButton size="large" aria-label="show 4 new mails">
-                    <Badge badgeContent={5} color="error">
-                      <MailIcon />
-                    </Badge>
-                  </IconButton>
+                  <NavLink to={"/chatroom"}>
+                    <IconButton size="large" aria-label="show 4 new mails">
+                      <Badge badgeContent={5} color="error">
+                        <MailIcon />
+                      </Badge>
+                    </IconButton>
+                  </NavLink>
+                  {/* MATCHS */}
                 </Tooltip>
                 <Tooltip title="Nuevos matches">
                   <IconButton
                     size="large"
-                    aria-label="show 17 new notifications"
-                  >
+                    aria-label="show 17 new notifications">
                     <Badge badgeContent={17} color="error">
                       <NotificationsIcon />
                     </Badge>
                   </IconButton>
                 </Tooltip>
               </Box>
-
+              {/* PROFILE */}
               <Box sx={{ display: { xs: "flex", md: 900 } }}>
                 <Tooltip title={user.name}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -137,13 +141,21 @@ const Header = () => {
                     horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
-                  ))}
+                  onClose={handleCloseUserMenu}>
+                  {/* MENU: MY PROFILE  */}
+                  <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
+                    <NavLink to={"/profile"}>
+                      <Typography textAlign="center">Mi Perfil</Typography>
+                    </NavLink>
+                    {/* MENU: LOGOUT  */}
+                  </MenuItem>
+                  <MenuItem
+                    key={"logout"}
+                    onClick={() =>
+                      logout({ returnTo: window.location.origin })
+                    }>
+                    <Typography textAlign="center">Cerrar Sesión</Typography>
+                  </MenuItem>
                 </Menu>
               </Box>
             </Toolbar>

@@ -64,7 +64,7 @@ export function createUser(data) {
   };
 }
 
-/* export function upPPdateUser(id, data) {
+/* export function updateUser(id, data) {
   return async function (dispatch) {
     try {
       const user = await axios.put(`https://henry-pg.herokuapp.com/users/${id}`, data);
@@ -83,7 +83,7 @@ export function updateUser(id, data) {
 
   return async(dispatch) => {
     try {
-      const put = await axios.put(`/users/${id}`, data)
+      const put = await axios.put(`http://localhost:9000/users/${id}`, data)
       return put;
     } catch (error) {
       console.log(error)
