@@ -6,13 +6,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
 import LoginButton from "../../components/LoginButton/LoginButton";
 import Header from "../../components/Header/Header";
-import RecipeReviewCard from "../../components/Card";
+import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 import Detail from "../../components/Detail/Detail";
 import UserPost from "../../components/UserCreate/UserPost";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-import { getUsers } from "../../redux/actions";
+import { getUsers, getUsersByGender } from "../../redux/actions";
 
 //======ESTILO E IMAGENES
 import { Typography, Link, Box, Grid, Avatar, CardMedia } from "@mui/material";
@@ -47,13 +47,20 @@ const Home = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const usersSelected = useSelector((state) => state.usersSelected);
   const { users, usersNick } = useSelector((state) => state);
+  const [gender, setGender] = useState("both");
 
   useEffect(() => {
     dispatch(getUsers());
-  }, [isAuthenticated]);
+  }, []);
+
+  useEffect(() => {
+    dispatch(getUsersByGender(gender));
+  }, [gender]);
 
   //RENDERIZADO CONDICIONAL DEL COMPONENTE MODAL CON LO MINIMO PARA CREAR UN USUARIO
-
+  // function handleFilterByGenre(e){// revisar el estado en el inspector sale uno que no existe ??
+  //   dispatch(getUsersByGender(gender))
+  // }
   //ANTES DE CREAR EL USUARIO VERIFICO QUE NO LO TENGA YA EN LA BASE DE DATOS (EL UNICO ATRIBUTO QUE SE ME OCURRE ES nickname)
 
   // FUNCIONALIDAD PARA FILTRAR Y MANDAR AL COMPONENTE CARD LOS USUARIOS QUE COINCIDAN CON EL genderInt DEL USUARIO('hombres mujeres ambos')
@@ -69,16 +76,18 @@ const Home = () => {
       )}
       {/* ##################### MARTINNN ########################## */}
       {/* esto es el render del componente del post verificar la condicion del ternario*/}
-      {console.log(users.map((e) => e.nickname))}
+      {/* {console.log(users.map( e => e.nickname))} */}
       {isAuthenticated && users.map((e) => e.nickname.includes(user?.sub)) ? (
-        <div />
+        <UserPost setGender={setGender} gender={gender} />
       ) : null}
       {/* ####################################################### */}
-      {isAuthenticated && usersSelected.length > 0 ? (
+
+      {/* usersSelected.length > 0  */}
+      {isAuthenticated ? (
         <Grid>
           <CssBaseline />
           <Header />
-          <RecipeReviewCard usersSelected={usersSelected}></RecipeReviewCard>
+          <Cards usersSelected={usersSelected}></Cards>
           <Detail />
           <BottomBar />
         </Grid>

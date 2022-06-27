@@ -21,7 +21,8 @@
     "react-router-dom": "^6.3.0",
     "react-tinder-card": "^1.4.5",
     "redux-thunk": "^2.4.1",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "talkjs": "^0.15.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",

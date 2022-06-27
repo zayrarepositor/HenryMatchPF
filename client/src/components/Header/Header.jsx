@@ -1,6 +1,11 @@
+//======PAQUETES Y LIBRERIAS
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+//======IMPORTACIONES DE COMPONENTES
+//======IMPORTACIONES DE FUNCIONES NUESTRAS
+
+//======ESTILO E IMAGENES
 import {
   IconButton,
   AppBar,
@@ -19,8 +24,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
 const Header = () => {
-  const settings = ["Mi perfil", "Cerrar sesión"];
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading, logout } = useAuth0();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -94,18 +98,19 @@ const Header = () => {
                   </IconButton>
                 </NavLink>
               </Tooltip>
-              {/* PROFILE */}
 
               <Box sx={{ flexGrow: 1 }} />
-              <Box
-                sx={{ display: { xs: "none", md: "flex" }, paddingRight: 1 }}
-              >
+              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+                {/* MESSAGES */}
                 <Tooltip title="Nuevos mensajes">
-                  <IconButton size="large" aria-label="show 4 new mails">
-                    <Badge badgeContent={4} color="error">
-                      <MailIcon sx={{ color: "primary.light" }} />
-                    </Badge>
-                  </IconButton>
+                  <NavLink to={"/chatroom"}>
+                    <IconButton size="large" aria-label="show 4 new mails">
+                      <Badge badgeContent={5} color="error">
+                        <MailIcon sx={{ color: "primary.light" }} />
+                      </Badge>
+                    </IconButton>
+                  </NavLink>
+                  {/* MATCHS */}
                 </Tooltip>
                 <Tooltip title="Nuevos matches">
                   <IconButton
@@ -118,7 +123,7 @@ const Header = () => {
                   </IconButton>
                 </Tooltip>
               </Box>
-
+              {/* PROFILE */}
               <Box sx={{ display: { xs: "flex", md: 900 } }}>
                 <Tooltip title={user.name}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -141,11 +146,19 @@ const Header = () => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
-                  ))}
+                  {/* MENU: MY PROFILE  */}
+                  <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
+                    <NavLink to={"/profile"}>
+                      <Typography textAlign="center">Mi Perfil</Typography>
+                    </NavLink>
+                    {/* MENU: LOGOUT  */}
+                  </MenuItem>
+                  <MenuItem
+                    key={"logout"}
+                    onClick={() => logout({ returnTo: window.location.origin })}
+                  >
+                    <Typography textAlign="center">Cerrar Sesión</Typography>
+                  </MenuItem>
                 </Menu>
               </Box>
             </Toolbar>
