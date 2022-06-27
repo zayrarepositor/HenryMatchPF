@@ -64,16 +64,29 @@ export function createUser(data) {
   };
 }
 
-export function updateUser(id, data) {
+/* export function upPPdateUser(id, data) {
   return async function (dispatch) {
     try {
-      const user = await axios.put(url + `/${id}`, data);
+      const user = await axios.put(`https://henry-pg.herokuapp.com/users/${id}`, data);
+      console.log(data, 'DATA')
       return dispatch({
         type: UPDATE_USER,
         payload: user.data,
       });
     } catch (error) {
       return error;
+    }
+  };
+} */
+
+export function updateUser(id, data) {
+
+  return async(dispatch) => {
+    try {
+      const put = await axios.put(`/users/${id}`, data)
+      return put;
+    } catch (error) {
+      console.log(error)
     }
   };
 }
