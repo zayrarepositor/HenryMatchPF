@@ -22,23 +22,36 @@ import Paper from "@mui/material/Paper";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import TemporaryDrawer from "./../../components/SideBar/index";
 import BottomBar from "../../components/BottomBar";
+import Favorite from "@mui/icons-material/Favorite";
 
 //PABLO CUANDO PUEDAS CONTAME DE ESTA FUNCION <`*.*´> (ZAYRA)
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      sx={{
+        right: 0,
+        left: 0,
+        boxShadow: 3,
+        border: 0,
+        marginTop: 60,
+      }}
     >
-      <Link color="inherit" href="#">
-        Henry Match
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {". "}
-      Hecho con <FavoriteIcon fontSize="small" /> por alumnos de Henry
-    </Typography>
+      <Typography variant="body2" color="text.secondary">
+        <Link color="inherit" href="#">
+          Henry Match
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {". "}
+        Hecho con <Favorite fontSize="small" color="primary" /> por{" "}
+        <Link color="inherit" href="#">
+          alumnos
+        </Link>{" "}
+        de Henry
+      </Typography>
+    </Box>
   );
 }
 
@@ -78,7 +91,8 @@ const Home = () => {
       {/* esto es el render del componente del post verificar la condicion del ternario*/}
       {/* {console.log(users.map( e => e.nickname))} */}
       {isAuthenticated && users.map((e) => e.nickname.includes(user?.sub)) ? (
-        <UserPost setGender={setGender} gender={gender} />
+        // <UserPost setGender={setGender} gender={gender} />
+        <div />
       ) : null}
       {/* ####################################################### */}
 
@@ -133,7 +147,19 @@ const Home = () => {
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!
                   </Typography>
-                  <LoginButton />
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                      right: 0,
+                      left: 0,
+                      border: 0,
+                      marginTop: 20,
+                    }}
+                  >
+                    <LoginButton />
+                  </Box>
                   <Copyright sx={{ mt: 30 }} />
                 </Box>
               </Box>
