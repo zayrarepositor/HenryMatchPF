@@ -9,7 +9,6 @@ import { useEffect } from "react";
 //======ESTILO E IMAGENES
 
 const user = {
-  
   name: "",
   age: 0,
   birthday: "",
@@ -30,12 +29,12 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUser(userForm));
-    console.log(updateUser(userForm),"VER ACTION")
+    console.log(updateUser(userForm), "VER ACTION");
     alert("usuario modificado!");
     //message (STORE) PODRIA TRAER INFO PARA UN COMPONENTE MODAL DE NOTIFICACION PERO ESTA LLEGANDO VACIO =( PODRIAMOS CHEQUEAR LA "res.send" DE MONGO ===> PRIORIDAD BAJA
   };
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     setUserForm(user)
     console.log(user, 'USERFORM')
   }, [handleSubmit]) */
@@ -45,8 +44,8 @@ const Form = () => {
     /* const { name, value } = e.target; */
     setUserForm({
       ...userForm,
-      [e.target.name] : e.target.value
-     /*  [name]: value, */
+      [e.target.name]: e.target.value,
+      /*  [name]: value, */
     });
   };
 
@@ -58,7 +57,11 @@ const Form = () => {
           name="name"
           placeholder="name..."
           onChange={handleChange}></input>
-        <input type="number" name="age" placeholder="age.." onChange={handleChange}></input>
+        <input
+          type="number"
+          name="age"
+          placeholder="age.."
+          onChange={handleChange}></input>
         <input type="date" name="birthday" onChange={handleChange}></input>
         <input
           type="text"
@@ -91,9 +94,8 @@ const Form = () => {
         <label>"prefiero encontrarme con..."</label>
         <select
           name="genderInt"
-          placeholder="me interesa..."
           onChange={handleChange}
-          value={user.gender}
+          value={user.genderInt}
           required>
           <option value={"male"}>hombres</option>
           <option value={"female"}>mujers</option>
