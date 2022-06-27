@@ -17,16 +17,16 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import CakeIcon from '@mui/icons-material/Cake';
 
 
-function Card() {
-  const db = useSelector((state) => state.users);
-  const [currentIndex, setCurrentIndex] = useState(db.length - 1);
+function Card({usersSelected}) {
+  // const usersSelected = useSelector((state) => state.usersSelected);
+  const [currentIndex, setCurrentIndex] = useState(usersSelected.length - 1);
   const [lastDirection, setLastDirection] = useState();
 
   const currentIndexRef = useRef(currentIndex);
 
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(usersSelected.length)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -37,7 +37,7 @@ function Card() {
     currentIndexRef.current = val;
   };
 
-  const canGoBack = currentIndex < db.length - 1;
+  const canGoBack = currentIndex < usersSelected.length - 1;
 
   const canSwipe = currentIndex >= 0;
 
@@ -54,7 +54,7 @@ function Card() {
   };
 
   const swipe = async (dir) => {
-    if (canSwipe && currentIndex < db.length) {
+    if (canSwipe && currentIndex < usersSelected.length) {
       await childRefs[currentIndex].current.swipe(dir);
     }
   };
@@ -67,9 +67,9 @@ function Card() {
   };
 
   return (
-    <div className="boxCard">
+    <div  className="boxCard">
       <div className="card">
-        {db.map((character, index) => (
+        {usersSelected.map((character, index) => (
           <TinderCard
                 ref={childRefs[index]}
                 className="swipe"
@@ -78,7 +78,7 @@ function Card() {
                 onSwipe={(dir) => swiped(dir, character.name, index, character._id)}
                 onCardLeftScreen={() => outOfFrame(character.name, index)}
                 >
-                <div className="carddd">
+                <div  className="carddd">
                     <div>
                     <h3>{character.name} {character.age}</h3>
                     </div>
@@ -137,7 +137,7 @@ function Card() {
           You swiped {lastDirection}
         </h2>
       ) : (
-        <h2 className="infoText">
+        <h2  className="infoText">
           Swipe a card or press a button to get Restore Card button visible!
         </h2>
       )}

@@ -1,12 +1,13 @@
 import {
   GET_USERS,
   GET_USER_BY_GENDER,
+  GET_USER_BY_GENDERINT,
   GET_USER_BY_ID,
-  GET_USER_LIKES,
-  GET_USER_MATCHES,
-  FILTER_BY_PREFERENCE,
-  FILTER_BY_INTEREST,
-  SORT_BY_AGE,
+  // GET_USER_LIKES,
+  // GET_USER_MATCHES,
+  // FILTER_BY_PREFERENCE,
+  // FILTER_BY_INTEREST,
+  // SORT_BY_AGE,
   CREATE_USER,
   UPDATE_USER,
   CLEAR_USER_DETAIL,
@@ -81,18 +82,27 @@ export function updateUser(id, data) {
 //----ACTION CREATORS---//EL RESTO DE LAS FUNCIONES VAN AQUI:
 
 export function getUsersByGender(gender) {
-  return dispatch({
-    type: GET_USER_BY_GENDER,
-    payload: users.data,
-  });
-}
-
-export function clearUserDetail(payload) {
   return {
-    type: CLEAR_USER_DETAIL,
-    payload,
+    type: GET_USER_BY_GENDER,
+    payload: gender,
   };
 }
+
+export function filterUserByGenderInt(genderInt){
+  return {
+    type: GET_USER_BY_GENDERINT,
+    payload: genderInt,
+  }
+}
+
+// export function filterUserByHenryLvl(henry)
+
+// export function clearUserDetail(payload) {
+//   return {
+//     type: CLEAR_USER_DETAIL,
+//     payload,
+//   };
+// }
 
 //FUNCION PARA CLEAR_MESSAGE
 
