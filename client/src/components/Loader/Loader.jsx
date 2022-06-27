@@ -1,4 +1,6 @@
+//======ESTILO E IMAGENES
 import { Stack, CircularProgress } from "@mui/material";
+import Backdrop from "@mui/material/Backdrop";
 
 //ELEGIR COLOR DEL LOADER
 {
@@ -7,9 +9,11 @@ import { Stack, CircularProgress } from "@mui/material";
 
 const Loader = () => {
   return (
-    <Stack spacing={2}>
-      <CircularProgress color="success"></CircularProgress>
-    </Stack>
+    <Backdrop
+      sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={open}>
+      <CircularProgress color="primary"></CircularProgress>
+    </Backdrop>
   );
 };
 
