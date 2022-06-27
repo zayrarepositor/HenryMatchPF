@@ -1,7 +1,9 @@
 //======PAQUETES Y LIBRERIAS
+
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { createUser } from "../../redux/actions";
+import { updateUser } from "../../redux/actions";
+import { useEffect } from "react";
 //======IMPORTACIONES DE COMPONENTES
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 //======ESTILO E IMAGENES
@@ -26,29 +28,40 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createUser(userForm));
-    alert("usuario created!");
+    dispatch(updateUser(userForm));
+    console.log(updateUser(userForm), "VER ACTION");
+    alert("usuario modificado!");
     //message (STORE) PODRIA TRAER INFO PARA UN COMPONENTE MODAL DE NOTIFICACION PERO ESTA LLEGANDO VACIO =( PODRIAMOS CHEQUEAR LA "res.send" DE MONGO ===> PRIORIDAD BAJA
   };
 
+  /*   useEffect(() => {
+    setUserForm(user)
+    console.log(user, 'USERFORM')
+  }, [handleSubmit]) */
+
   const handleChange = (e) => {
     e.preventDefault();
-    const { name, value } = e.target;
+    /* const { name, value } = e.target; */
     setUserForm({
       ...userForm,
-      [name]: value,
+      [e.target.name]: e.target.value,
+      /*  [name]: value, */
     });
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <input
           type="text"
           name="name"
           placeholder="name..."
           onChange={handleChange}></input>
-        <input type="number" name="age" onChange={handleChange}></input>
+        <input
+          type="number"
+          name="age"
+          placeholder="age.."
+          onChange={handleChange}></input>
         <input type="date" name="birthday" onChange={handleChange}></input>
         <input
           type="text"
@@ -66,7 +79,7 @@ const Form = () => {
           placeholder="password..."
           onChange={handleChange}></input>
         <input
-          type="url"
+          type="file"
           name="image"
           placeholder="image..."
           onChange={handleChange}
@@ -81,9 +94,8 @@ const Form = () => {
         <label>"prefiero encontrarme con..."</label>
         <select
           name="genderInt"
-          placeholder="me interesa..."
           onChange={handleChange}
-          value={user.gender}
+          value={user.genderInt}
           required>
           <option value={"male"}>hombres</option>
           <option value={"female"}>mujers</option>
@@ -104,7 +116,7 @@ const Form = () => {
           name="description"
           placeholder="sobre mi..."
           onChange={handleChange}></textarea>
-        <button type="submit">CREAR USUARIO</button>
+        <button type="submit">MODIFICAR USUARIO</button>
       </form>
     </div>
   );

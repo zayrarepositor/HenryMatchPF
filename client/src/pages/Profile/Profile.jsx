@@ -69,7 +69,7 @@ const Profile = () => {
       title: "Bike",
     },
   ];
- 
+
   return (
     <>
       {isLoading && <Loader />}
@@ -79,7 +79,7 @@ const Profile = () => {
             <Avatar
               src={user.picture}
               alt={user.name}
-              
+
               sx={{ width: 56, height: 56 }}
               align="center"></Avatar>
 
@@ -107,9 +107,11 @@ const Profile = () => {
             VIDA: signo zodiacal/mascotas/tabaco/cargo/empresa/formacion/vivo
             en/genero/mostrar mi edad/mostrar mi distancia
           </p>
-          <Form></Form> */}
+          */}
+
+          <Form />
           <LogoutButton />
-          
+
         </>
       ) : (
         <h1>es el profile pero no estas loggeado</h1>

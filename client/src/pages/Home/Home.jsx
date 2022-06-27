@@ -6,13 +6,17 @@ import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
 import LoginButton from "../../components/LoginButton/LoginButton";
 import Header from "../../components/Header/Header";
-import Card from "../../components/Card/Card";
+import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 import Detail from "../../components/Detail/Detail";
 import UserPost from "../../components/UserCreate/UserPost";
+import TemporaryDrawer from "./../../components/SideBar/index";
+import BottomBar from "../../components/BottomBar";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
+
 import { getUsers } from "../../redux/actions";
+import { filterByGender } from "../../redux/actions";
 
 //======ESTILO E IMAGENES
 import { Typography, Link, Box, Grid, Avatar, CardMedia } from "@mui/material";
@@ -20,8 +24,7 @@ import HenryGirl from "../../assets/HenryGirl.jpg";
 import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import TemporaryDrawer from "./../../components/SideBar/index";
-import BottomBar from "../../components/BottomBar";
+import Modal from "../../components/Modal/Modal";
 
 //PABLO CUANDO PUEDAS CONTAME DE ESTA FUNCION <`*.*´> (ZAYRA)
 function Copyright(props) {
@@ -30,8 +33,7 @@ function Copyright(props) {
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}
-    >
+      {...props}>
       <Link color="inherit" href="#">
         Henry Match
       </Link>{" "}
@@ -45,20 +47,33 @@ function Copyright(props) {
 const Home = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const usersSelected = useSelector((state) => state.usersSelected);
-  const { users, usersNick } = useSelector((state) => state);
 
+  const usersSelected = useSelector((state) => state.usersSelected);
+
+  /* const users = useSelector((state) => state.usersSelected); */
+  const [gender, setGender] = useState("both");
+  const [modal, setModal] = useState(false);
+
+  //PARA LLENAR EL STORE CON TODOS LOS USUARIOS
   useEffect(() => {
     dispatch(getUsers());
+  }, []);
+
+  //PARA ABRIR MODAL
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      let userSub = user.sub;
+      let isUserOnDb = usersSelected.map((u) => u.nickname.includes(userSub));
+      if (isUserOnDb === true) console.log(isUserOnDb);
+
+      setModal(true);
+    }
   }, [isAuthenticated]);
 
-  //RENDERIZADO CONDICIONAL DEL COMPONENTE MODAL CON LO MINIMO PARA CREAR UN USUARIO
-
-  //ANTES DE CREAR EL USUARIO VERIFICO QUE NO LO TENGA YA EN LA BASE DE DATOS (EL UNICO ATRIBUTO QUE SE ME OCURRE ES nickname)
-
-  // FUNCIONALIDAD PARA FILTRAR Y MANDAR AL COMPONENTE CARD LOS USUARIOS QUE COINCIDAN CON EL genderInt DEL USUARIO('hombres mujeres ambos')
-
-  //REVISAR EL RENDERIZADO CONDICIONAL DEL COMPONENTE LOADER
+  //PARA FILTRAR USUARIO POR GENERO
+  useEffect(() => {
+    dispatch(filterByGender(gender));
+  }, [gender]);
 
   return (
     <>
@@ -67,18 +82,19 @@ const Home = () => {
           <Loader />
         </>
       )}
-      {/* ##################### MARTINNN ########################## */}
-      {/* esto es el render del componente del post verificar la condicion del ternario*/}
-      {console.log(users.map((e) => e.nickname))}
-      {isAuthenticated && users.map((e) => e.nickname.includes(user?.sub)) ? (
-        <UserPost />
-      ) : null}
+      <Modal modal={modal} setModal={setModal} setGender={setGender}></Modal>
+      {/* {console.log(users.map( e => e.nickname))} */}
+      {/* {isAuthenticated && users.map((e) => e.nickname.includes(user?.sub)) ? (
+        <UserPost setGender={setGender} gender={gender} />
+      ) : null} */}
       {/* ####################################################### */}
-      {isAuthenticated && usersSelected.length > 0 ? (
+
+      {/* usersSelected.length > 0  */}
+      {isAuthenticated ? (
         <Grid>
           <CssBaseline />
           <Header />
-          <Card usersSelected={usersSelected}></Card>
+          <Cards></Cards>
           <Detail />
           <BottomBar />
         </Grid>
@@ -109,8 +125,7 @@ const Home = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square
-            >
+              square>
               <Box
                 sx={{
                   my: 8,
@@ -118,12 +133,10 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}
-              >
+                }}>
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
-                    ! Encuentra el Amor en Henry ! Matchea y chateá con Alumnos
-                    de Henry
+                    Matchea y chateá con Alumnos de Henry!
                   </Typography>
                   <LoginButton />
                   <Copyright sx={{ mt: 30 }} />
