@@ -2,10 +2,10 @@ import * as React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector} from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import {createUser} from "../../Redux/actions/index"
+import {createUser, filterUserByGenderInt, getUsersByGender} from "../../Redux/actions/index"
 import { useAuth0 } from "@auth0/auth0-react";
 
-const UserPost = () =>{
+const UserPost = ({gender,setGender}) =>{
 const { user, isAuthenticated, isLoading } = useAuth0();
 const userNick = useSelector(state => state.state);
 const navigate = useNavigate();
@@ -30,14 +30,24 @@ const [input, setInput] = useState({
      
 })
 
-console.log(user,"from post")
+
 function handleChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(input)
+    
 }
+
+function handleFilterByGenderInt(e){
+  dispatch(filterUserByGenderInt(e.target.value))
+}
+
+function handleFilterByGender(e){// revisar el estado en el inspector sale uno que no existe ??
+  // dispatch(getUsersByGender(e.target.value))
+  setGender(e.target.value)
+}
+
 function handleSubmit(e){
     e.preventDefault()
     dispatch(createUser(input))
@@ -48,9 +58,28 @@ function handleSubmit(e){
   return (
     <div>
       
+          
+         
+
+        <h3>genre of Interes</h3>
+        <select onChange={e => handleFilterByGender(e)}>
+          <option value="both">both</option>
+          <option value="male">male</option>
+          <option value="female">female</option>
+        </select>
+
+        <h3>filter_ID</h3>
+        <input type="text" />
        
+
         <h2>Esto es el boton para el modal de bienvenida/post</h2>
         <form onSubmit={(e) => handleSubmit(e)}>
+        <h3>genre</h3>
+        <select  onChange={e => handleChange(e)}>
+           <option value="both">Both</option>
+           <option value="male">Male</option>
+           <option value="female">Female</option>
+        </select>
               <button type="submit">aceptar</button>
         </form>
        
