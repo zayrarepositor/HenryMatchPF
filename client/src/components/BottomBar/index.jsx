@@ -46,7 +46,7 @@ export default function BottomBar() {
             </Link>{" "}
             {new Date().getFullYear()}
             {". "}
-            Hecho con <Favorite fontSize="small" /> por{" "}
+            Hecho con <Favorite fontSize="small" color="primary" /> por{" "}
             <Link color="inherit" href="#">
               alumnos
             </Link>{" "}

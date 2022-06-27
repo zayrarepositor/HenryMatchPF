@@ -11,7 +11,7 @@ export const theme = createTheme({
       default: "#000",
     },
     primary: {
-      light: "#757ce8",
+      light: "#fff",
       main: "#ffff00",
       dark: "#000",
       contrastText: "#fff",
@@ -23,7 +23,7 @@ export const theme = createTheme({
       contrastText: "#000",
     },
     dark: {
-      light: "#000",
+      light: "rgba(0, 0, 0, 0.7)",
       main: "#000",
       dark: "#000",
       contrastText: "#000",

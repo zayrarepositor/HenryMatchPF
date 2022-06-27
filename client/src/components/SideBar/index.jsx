@@ -96,7 +96,7 @@ export default function SideBar() {
       {["left"].map((anchor) => (
         <React.Fragment key={anchor}>
           <IconButton onClick={toggleDrawer(anchor, true)}>
-            <MenuIcon />
+            <MenuIcon color="primary" />
           </IconButton>
           <Drawer
             anchor={anchor}
