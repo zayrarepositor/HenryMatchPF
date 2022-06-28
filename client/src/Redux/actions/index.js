@@ -16,7 +16,7 @@ import {
 //YA SE SETEO EN EL PACKAGE.JSON ==> NO OLVIDES EL npm install
 import axios from "axios";
 
-const url = "https://henry-pg.herokuapp.com/users";
+const url = "https://henrymatch-pg.herokuapp.com/";
 
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
 
