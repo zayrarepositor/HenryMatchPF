@@ -51,7 +51,6 @@ const Home = () => {
 
   const usersSelected = useSelector((state) => state.usersSelected);
 
-  /* const users = useSelector((state) => state.usersSelected); */
   const [gender, setGender] = useState("both");
   const [modal, setModal] = useState(false);
 
@@ -60,18 +59,16 @@ const Home = () => {
     dispatch(getUsers());
   }, []);
 
-  //PARA ABRIR MODAL
+  //PARA ABRIR MODAL SOLO CUANDO EL USUARIO NO ESTA EN LA DB
   useEffect(() => {
     if (isAuthenticated === true) {
       let userSub = user.sub;
-      let isUserOnDb = usersSelected.map((u) => u.nickname.includes(userSub));
-      if (isUserOnDb === true) console.log(isUserOnDb);
-
-      setModal(true);
+      let isUserOnDb = usersSelected.find((u) => u.nickname === userSub);
+      if (!isUserOnDb) setModal(true);
     }
   }, [isAuthenticated]);
 
-  //PARA FILTRAR USUARIO POR GENERO
+  //PARA FILTRAR USUARIO POR GENERO EN LA HOME
   useEffect(() => {
     dispatch(filterByGender(gender));
   }, [gender]);
@@ -84,13 +81,6 @@ const Home = () => {
         </>
       )}
       <Modal modal={modal} setModal={setModal} setGender={setGender}></Modal>
-      {/* {console.log(users.map( e => e.nickname))} */}
-      {/* {isAuthenticated && users.map((e) => e.nickname.includes(user?.sub)) ? (
-        <UserPost setGender={setGender} gender={gender} />
-      ) : null} */}
-      {/* ####################################################### */}
-
-      {/* usersSelected.length > 0  */}
       {isAuthenticated ? (
         <Grid>
           <CssBaseline />
