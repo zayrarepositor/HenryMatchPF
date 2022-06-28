@@ -6,11 +6,13 @@ const LoginButton = () => {
 
   return (
     <Button
+      color="info"
       type="button"
-      size="medium"
+      size="large"
       variant="contained"
       sx={{ mt: 3, mb: 2 }}
-      onClick={() => loginWithRedirect()}>
+      onClick={() => loginWithRedirect()}
+    >
       INGRESAR
     </Button>
   );
