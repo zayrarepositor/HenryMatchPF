@@ -8,7 +8,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 const UserPost = ({ gender, setGender }) => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const userNick = useSelector((state) => state.state);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [userForm, setUserForm] = useState({
@@ -26,7 +25,7 @@ const UserPost = ({ gender, setGender }) => {
     likeRecieved: [],
   });
 
-  //OBTENGO EL GENERO DE INTERES DEL USUARIO
+  //OBTENGO EL GENERO DE INTERES DEL USUARIO Y SETEO EL ESTADO (gender) DEL HOME QUE SE USARA PARA FILTRAR EL GENERO QUE RENDERIZO
   function handleGenderIntChange(e) {
     const { name, value } = e.target;
     setUserForm({
@@ -36,13 +35,6 @@ const UserPost = ({ gender, setGender }) => {
 
     setGender(value);
   }
-
-  //FILTRAMOS POR GENERO DE INTERES EN EL COMPONENTE HOME. AQUI ACTUALIZO EL ESTADO LOCAL DEL HOME LLAMADO gender
-  /*   function handleFilterByGender(e) {
-    e.preventDefault();
-    console.log(e.target.value);
-    setGender(e.target.value);
-  } */
 
   //OBTENGO EL GENERO DEL USUARIO
   function handleGenderChange(e) {
@@ -71,7 +63,7 @@ const UserPost = ({ gender, setGender }) => {
           <option value="male">male</option>
           <option value="female">female</option>
         </select>
-        {/*   <button onClick={handleFilterByGender}>FILTRAR</button> */}
+
         <h3>y vos eres (genero):</h3>
 
         <select name="gender" onChange={handleGenderChange} required>
