@@ -15,7 +15,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CakeIcon from "@mui/icons-material/Cake";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -27,6 +27,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InterestsIcon from '@mui/icons-material/Interests';
 
 import { Box, Divider } from "@mui/material";
+import { updateUser } from "../../Redux/actions";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -49,9 +50,13 @@ export default function Cards() {
   //*******/
 
   const db = useSelector((state) => state.usersSelected);
+  const currentUser = useSelector((state)=> state.userDetail)
+  const [likeGiven, setLikeGiven] = useState([])
+  const [dislikeGiven, setDislikeGiven] = useState([])
+const dispatch = useDispatch();
+
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
-
   const currentIndexRef = useRef(currentIndex);
 
   const childRefs = useMemo(
@@ -71,15 +76,37 @@ export default function Cards() {
 
   const canSwipe = currentIndex >= 0;
 
-  const swiped = (direction, nameToDelete, index, id) => {
-    console.log(
-      "a",
-      nameToDelete,
-      "lo enviaste a la",
-      direction,
-      "y tiene el id",
-      id
-    );
+  const swiped = (direction, name, index, id) => {
+
+    const currentCard = db.find((ss)=> ss._id === id)
+    
+    const miID = currentUser[0]._id;
+    const misLikesGiven = currentUser[0].likeGiven;
+    const misLikesReceived = currentUser[0].likeReceived;
+    const foundMatch = currentCard.likeGiven.includes(miID)
+    
+    if(direction === 'right'){
+      //aca voy juntando los likes dados para despachar a mi user y al received de la card
+      setLikeGiven( prevState => [...prevState, id ] )
+      dispatch(updateUser(miID, misLikesGiven.concat(likeGiven)))
+      //aca compruebo que la card que estoy viendo me alla dado like para el match
+      if(foundMatch){
+        //aca se confirma el match, despachar  los matches a mi user y al de la card
+        console.log('se hizo match');
+      }
+      
+    }
+    //aca voy juntando los dislikes dados para despachar a mi user
+    if(direction === 'left'){
+      //aca voy juntando los dislikes dados
+      setDislikeGiven(prevState => [...prevState, id ])
+    }
+
+    //enviar el like a mi usuario y al que le di like
+    //capturo los likes que ya envie y sumo este
+   
+
+  
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
   };
