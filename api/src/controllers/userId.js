@@ -11,10 +11,6 @@ const userId = (req, res) => {
 }
 
 
-
-
-
-
 module.exports = {
     userId
 };
