@@ -16,9 +16,11 @@ import {
 //YA SE SETEO EN EL PACKAGE.JSON ==> NO OLVIDES EL npm install
 import axios from "axios";
 
+
+
+//URL PARA LOS USUARIOS
 const url = "https://henrymatch-pg.herokuapp.com/users";
-// ruta anterior https://henry-pg.herokuapp.com/users
-//verdaderia ruta https://henrymatch-pg.herokuapp.com/users/
+
 
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
 
@@ -102,21 +104,13 @@ export function filterByGender(gender) {
   };
 }
 
-/* export function filterUserByGenderInt(genderInt){
-  return {
-    type: GET_USER_BY_GENDERINT,
-    payload: genderInt,
-  }
-}
- */
-// export function filterUserByHenryLvl(henry)
 
-// export function clearUserDetail(payload) {
-//   return {
-//     type: CLEAR_USER_DETAIL,
-//     payload,
-//   };
-// }
+export function clearUserDetail(payload) {
+  return {
+    type: CLEAR_USER_DETAIL,
+    payload:payload
+  };
+}
 
 //FUNCION PARA CLEAR_MESSAGE
 
