@@ -18,7 +18,8 @@ import axios from "axios";
 
 //URL PARA RUTAS DE LOS USUARIOS
 const url = "https://henrymatch-pg.herokuapp.com/users";
-/* https://henrymatch-pg.herokuapp.com/usersoauth2|discord|940606852918558721 */
+/* https://henrymatch-pg.herokuapp.com/users/oauth2|discord|940606852918558721 */
+
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
 export function getUsers() {
   return async function (dispatch) {
@@ -82,7 +83,10 @@ export function createUser(data) {
 export function updateUser(id, data) {
   return async (dispatch) => {
     try {
-      const put = await axios.put(`http://localhost:9000/users/${id}`, data);
+      const put = await axios.put(
+        `https://henrymatch-pg.herokuapp.com/users/${id}`,
+        data
+      );
       return put;
     } catch (error) {
       console.log(error);

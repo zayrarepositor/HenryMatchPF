@@ -12,7 +12,42 @@ import {
 const initialState = {
   users: [], //NO MODIFICAR
   usersSelected: [], //USADO PARA FILTERS & SORTERS
-  userDetail: [], //USADO TAMBIEN PARA CLEAR_USER_DETAIL
+  userDetail: [
+
+//Usuario Puesto a la Fuerza
+{
+  "_id": "62b92ff181a59e8d4bbea54d",
+  "name": "YoMismooo",
+  "age": 24,
+  "birthday": "03/12/1993",
+  "nickname": "111222333",
+  "email": "pedritoelmas@gmail.com",
+  "premium": false,
+  "active": false,
+  "image": "https://image.shutterstock.com/image-photo/young-handsome-chinese-call-center-600w-1925534732.jpg",
+  "gender": "male",
+  "genderInt": "male",
+  "description": "Me gusta jugar al futbol",
+  "henryLevel": "m2",
+  "likeReceived": ["62ba3a30fdd8f0d98bfb314a"],
+  "likeGiven": ["62ba3a30fdd8f0d98bfb314a"],
+  "dislikeGiven": ["62ba3a30fdd8f0d98bfb314a"],
+
+  "matches": [],
+  "city": "Guatire",
+  "job": "Call center",
+  "career": "fullstack",
+  "interests": [
+      "cine"
+  ],
+  "createdAt": "2022-06-27T04:20:01.368Z",
+  "updatedAt": "2022-06-27T04:20:01.368Z",
+  "__v": 0
+}
+
+
+
+  ], //USADO TAMBIEN PARA CLEAR_USER_DETAIL
   usersBackup: [],
   // OPCIONALES?
   // message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
