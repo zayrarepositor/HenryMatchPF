@@ -9,11 +9,13 @@ const { userId } = require('../controllers/userId');
 const { interestsPut } = require('../controllers/interestsPut');
 const { interestsId } = require('../controllers/interestsId');
 const { interestsDelete } = require('../controllers/interestsDelete');
+const { userNickname } = require('../controllers/userNickname');
 
 
 
 const router = express.Router();
 
+router.get('/users/:nickname', userNickname);
 router.get('/users', userGet);
 router.post('/users', userPost);
 router.put('/users/:id', userPut)
