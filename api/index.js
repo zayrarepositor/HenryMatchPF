@@ -28,11 +28,9 @@ const {MONGODB_URI, PORT} = process.env;
 const server = require('./src/app.js');
 
 
-
 mongoose
-    .connect(MONGODB_URI,{
-        useNewUrlParser:true
-    })
+    .connect(MONGODB_URI, {
+    useNewUrlParser:true, autoIndex: true})
     .then(() => console.log("Connected to MongoDB Atlas"))
     .catch((error) => console.error(error))
 

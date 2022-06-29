@@ -18,9 +18,9 @@ const router = express.Router();
 router.get('/users/:nickname', userNickname);
 router.get('/users', userGet);
 router.post('/users', userPost);
-router.put('/users/:id', userPut)
-router.get('/users/:id', userId)
-router.delete('/users/:id', userDelete);
+router.put('/usersId/:id', userPut)
+router.get('/usersId/:id', userId)
+router.delete('/usersId/:id', userDelete);
 router.post('/interests', interestsPost);
 router.get('/interests', interestsGet);
 router.put('/interests/:id', interestsPut);
