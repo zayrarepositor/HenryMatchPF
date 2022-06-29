@@ -16,7 +16,9 @@ import {
 //YA SE SETEO EN EL PACKAGE.JSON ==> NO OLVIDES EL npm install
 import axios from "axios";
 
-const url = "https://henry-pg.herokuapp.com/users";
+const url = "https://henrymatch-pg.herokuapp.com/users";
+// ruta anterior https://henry-pg.herokuapp.com/users
+//verdaderia ruta https://henrymatch-pg.herokuapp.com/users/
 
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
 
@@ -83,7 +85,7 @@ export function createUser(data) {
 export function updateUser(id, data) {
   return async (dispatch) => {
     try {
-      const put = await axios.put(`http://localhost:9000/users/${id}`, data);
+      const put = await axios.put(`https://henrymatch-pg.herokuapp.com/users/${id}`, data);
       return put;
     } catch (error) {
       console.log(error);
