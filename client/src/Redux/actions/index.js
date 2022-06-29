@@ -4,7 +4,7 @@ import {
   UPDATE_USER,
   CLEAR_USER_DETAIL,
   FILTER_USERS_BY_GENDER,
-  GET_USER_BY_ID,
+  GET_USER_BY_NICKNAME,
   /*  GET_USER_BY_GENDERINT, */
   // GET_USER_LIKES,
   // GET_USER_MATCHES,
@@ -23,7 +23,6 @@ const url = "https://henrymatch-pg.herokuapp.com/users";
 
 
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
-
 export function getUsers() {
   return async function (dispatch) {
     try {
@@ -38,14 +37,14 @@ export function getUsers() {
   };
 }
 
-//FUNCTION SIN REVISAR!!! URL A REVISAR!! CUANDO LO HAGAS BORRA EL COMENTARIO
-export function getUsersById(id) {
+//RUTA QUE ESTAS USANDO "https://henrymatch-pg.herokuapp.com/users/nickname";
+export function getUserByNick(nickname) {
   return async function (dispatch) {
     try {
-      const users = await axios.get(url + `/${id}`); //A REVISAR
+      const user = await axios.get(url + `/${nickname}`);
       return dispatch({
-        type: GET_USER_BY_ID,
-        payload: users.data,
+        type: GET_USER_BY_NICKNAME,
+        payload: user.data,
       });
     } catch (error) {
       console.log(error);
@@ -53,12 +52,11 @@ export function getUsersById(id) {
   };
 }
 
-//FUNCION A REVISAR!!! CUANDO LO HAGAS BORRA ESTE COMENTARIO
+//RUTA QUE ESTAS USANDO "https://henrymatch-pg.herokuapp.com/users";
 export function createUser(data) {
   return async function (dispatch) {
     try {
       const user = await axios.post(url, data);
-      console.log(user.data);
       return dispatch({
         type: CREATE_USER,
         payload: user.data,
@@ -87,7 +85,10 @@ export function createUser(data) {
 export function updateUser(id, data) {
   return async (dispatch) => {
     try {
-      const put = await axios.put(`https://henrymatch-pg.herokuapp.com/users/${id}`, data);
+      const put = await axios.put(
+        `https://henrymatch-pg.herokuapp.com/users/${id}`,
+        data
+      );
       return put;
     } catch (error) {
       console.log(error);
@@ -104,11 +105,10 @@ export function filterByGender(gender) {
   };
 }
 
-
 export function clearUserDetail(payload) {
   return {
     type: CLEAR_USER_DETAIL,
-    payload:payload
+    payload: payload,
   };
 }
 

@@ -51,8 +51,13 @@ export default function Cards() {
 
   const db = useSelector((state) => state.usersSelected);
   const currentUser = useSelector((state)=> state.userDetail)
-  const [likeGiven, setLikeGiven] = useState([])
-  const [dislikeGiven, setDislikeGiven] = useState([])
+  const [UpdateCurrentUser, setUpdateCurrentUser] = useState({
+
+  })
+  const [UpdateCardUser, setUpdateCardUser] = useState({
+
+  })
+ 
 const dispatch = useDispatch();
 
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
@@ -79,22 +84,26 @@ const dispatch = useDispatch();
   const swiped = (direction, name, index, id) => {
 
     const currentCard = db.find((ss)=> ss._id === id)
+    setUpdateCardUser(currentCard)
     
-    const miID = currentUser[0]._id;
-    const misLikesGiven = currentUser[0].likeGiven;
-    const misLikesReceived = currentUser[0].likeReceived;
+    const miID = currentUser._id;
+    
     const foundMatch = currentCard.likeGiven.includes(miID)
     
     if(direction === 'right'){
       //aca voy juntando los likes dados para despachar a mi user y al received de la card
-      setLikeGiven( prevState => [...prevState, id ] )
-      dispatch(updateUser(miID, misLikesGiven.concat(likeGiven)))
+    setUpdateCardUser((prevState) => ({
+      ...prevState,
+      likeGiven: [...likeGiven, id]
+    }))
+
+    console.log('aca esta updateado', UpdateCardUser);
       //aca compruebo que la card que estoy viendo me alla dado like para el match
       if(foundMatch){
         //aca se confirma el match, despachar  los matches a mi user y al de la card
         console.log('se hizo match');
       }
-      
+      console.log(db);
     }
     //aca voy juntando los dislikes dados para despachar a mi user
     if(direction === 'left'){
