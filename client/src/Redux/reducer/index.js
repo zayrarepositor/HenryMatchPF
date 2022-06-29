@@ -4,7 +4,7 @@ import {
   UPDATE_USER,
   CLEAR_USER_DETAIL,
   FILTER_USERS_BY_GENDER,
-  GET_USER_BY_ID,
+  GET_USER_BY_NICKNAME,
   /*  GET_USER_BY_GENDER,
   GET_USER_BY_GENDERINT, */
 } from "../actions/types.js";
@@ -81,14 +81,6 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, userDetail: [] };
     }
 
-    //NO SERIA NECESARIA
-    /*     case GET_USER_BY_GENDERINT: {
-      const allusers = state.usersBackup;
-      const usersFilterByGenreInt = action.payload === "both" ? allusers : action.payload === "male" ? allusers.filter(e => e.genderInt === "male") : allusers.filter(e => e.genderInt === "female")
-      console.log(action.payload)
-      return{...state, usersSelected: usersFilterByGenreInt }
-    } */
-
     case FILTER_USERS_BY_GENDER: {
       const allusersGender = state.usersBackup;
       const usersFilterByGender =
@@ -100,11 +92,14 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, usersSelected: usersFilterByGender };
     }
 
-    case GET_USER_BY_ID: {
-      const allusersID = state.usersBackup;
-      const usersFilterId = allusersID.find((e) => e.id === action.payload);
-      return { ...state, usersSelected: usersFilterId };
+    case GET_USER_BY_NICKNAME: {
+      const allusersNick = state.usersBackup;
+      const usersFilterNick = allusersNick.find(
+        (user) => user.nickname === action.payload
+      );
+      return { ...state, userDetail: usersFilterNick };
     }
+
     default:
       return state;
   }
