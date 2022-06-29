@@ -16,8 +16,10 @@ import {
 //YA SE SETEO EN EL PACKAGE.JSON ==> NO OLVIDES EL npm install
 import axios from "axios";
 
+
 //URL PARA LOS USUARIOS
 const url = "https://henrymatch-pg.herokuapp.com/users";
+
 
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
 
@@ -84,7 +86,7 @@ export function createUser(data) {
 export function updateUser(id, data) {
   return async (dispatch) => {
     try {
-      const put = await axios.put(`http://localhost:9000/users/${id}`, data);
+      const put = await axios.put(`https://henrymatch-pg.herokuapp.com/users/${id}`, data);
       return put;
     } catch (error) {
       console.log(error);
@@ -101,21 +103,13 @@ export function filterByGender(gender) {
   };
 }
 
-/* export function filterUserByGenderInt(genderInt){
-  return {
-    type: GET_USER_BY_GENDERINT,
-    payload: genderInt,
-  }
-}
- */
-// export function filterUserByHenryLvl(henry)
 
-// export function clearUserDetail(payload) {
-//   return {
-//     type: CLEAR_USER_DETAIL,
-//     payload,
-//   };
-// }
+export function clearUserDetail(payload) {
+  return {
+    type: CLEAR_USER_DETAIL,
+    payload:payload
+  };
+}
 
 //FUNCION PARA CLEAR_MESSAGE
 

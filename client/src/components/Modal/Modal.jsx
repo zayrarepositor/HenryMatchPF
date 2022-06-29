@@ -24,6 +24,23 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
+import Swal from 'sweetalert2'
+
+/* const primaryForm = {
+  name: "",//*
+  age: "",
+  birthday: "",
+  nickname: "",//*
+  email: "", //REQUERIDO EN DB//*
+  image: "", //REQUERIDO EN DB//*
+  description: "",
+  gender: "",
+  genderInt: "",
+  password: null,
+  likeGiven: [],
+  likeRecieved: [],
+};
+ */
 
 const Modal = ({ modal, setModal, setGender }) => {
   //ESTOS ESTADOS VIENEN DE MUI Y SE PASAN COMO PROPS A Dialog
@@ -33,22 +50,8 @@ const Modal = ({ modal, setModal, setGender }) => {
   const [closeModal, setCloseModal] = useState(false);
   const { user } = useAuth0();
   const dispatch = useDispatch();
-  const [userForm, setUserForm] = useState({
-    name: user?.name || "Visitante desconocido",
-    age: "",
-    birthday: "",
-    nickname: user?.sub,
-    email: user?.email || "ingresatumail@mail.com",
-    image:
-      user?.picture ||
-      "https://images.unsplash.com/photo-1610805796066-66f6052e1db2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-    gender: "",
-    genderInt: "",
-    description: "",
-    password: "null",
-    likeGiven: [],
-    likeRecieved: [],
-  });
+  //FORMULARIO INICIAL
+  const [userForm, setUserForm] = useState({});
 
   const handleClose = () => {
     setModal(false);
@@ -71,6 +74,19 @@ const Modal = ({ modal, setModal, setGender }) => {
     setUserForm({
       ...userForm,
       [name]: value,
+      name: user?.name,
+      nickname: user?.sub,
+      email: user?.email || "ingresatumail@mail.com", //REQUERIDO EN DB
+      image:
+        user?.picture ||
+        "https://images.unsplash.com/photo-1610805796066-66f6052e1db2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80", //REQUERIDO EN DB
+      age: 18, //LA DB NOS DEVUELVE NULL
+      birthday: "",
+      description: "",
+      password: null,
+      likeGiven: [],
+      likeRecieved: [],
+      //LA DB NOS DEVOLVIO matches[], interests[], _id, createdAt""", updatedAt"""
     });
   }
 
@@ -78,7 +94,15 @@ const Modal = ({ modal, setModal, setGender }) => {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(createUser(userForm));
-    alert("post", user.sub);
+    // alert("post", user.sub);
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Happy Matchin!!',
+      showConfirmButton: false,
+      timer: 2000
+    })
+    setUserForm({});
     handleClose();
   }
 
@@ -100,9 +124,15 @@ const Modal = ({ modal, setModal, setGender }) => {
           </DialogContentText>
         </DialogContent>
         <DialogContent>
+          {/* ========MARTIN========> CUANDO TRATE DE PASAR EL FORM A MATERIAL UAI NO FUNCIONABA ASI QUE MEJOOOOOOR NO TOQUES LAS ETIQUETAS FORM, SELECT Y EL BOTON*/}
           <form onSubmit={handleSubmit}>
             {/* EL GENERO DEL USUARIO */}
             <InputLabel htmlFor="gender">eres (género):</InputLabel>
+            <select name="gender" onChange={handleGenderChange} required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            {/*
             <Select
               autoFocus
               required
@@ -115,30 +145,21 @@ const Modal = ({ modal, setModal, setGender }) => {
               }}>
               <MenuItem value="male">hombre</MenuItem>
               <MenuItem value="female">mujer</MenuItem>
-            </Select>
+            </Select> */}
             {/* EL GENERO QUE LE INTERESA VER AL USUARIO */}
             <InputLabel htmlFor="genderInt">
               y te interesa encontrar:
             </InputLabel>
-            <Select
-              autoFocus
-              required
-              value={userForm.genderInt}
-              onChange={handleGenderIntChange}
-              label="genderInt"
-              inputProps={{
-                name: "genderInt",
-                id: "genderInt",
-              }}>
-              <MenuItem value="both">ambos</MenuItem>
-              <MenuItem value="male">hombres</MenuItem>
-              <MenuItem value="female">mujeres</MenuItem>
-            </Select>
-
+            <select name="genderInt" onChange={handleGenderIntChange} required>
+              <option value="both">both</option>
+              <option value="male">male</option>
+              <option value="female">female</option>
+            </select>
             <DialogActions>
-              <Button variant="contained" type="submit">
+              {/*  <Button variant="contained" type="submit">
                 LISTO, QUE TE DIVIERTAS!
-              </Button>
+              </Button> */}{" "}
+              <button type="submit">POSTEAR</button>
             </DialogActions>
           </form>
         </DialogContent>
