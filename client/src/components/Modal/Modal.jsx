@@ -24,6 +24,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
+import Swal from 'sweetalert2'
 
 /* const primaryForm = {
   name: "",//*
@@ -93,7 +94,14 @@ const Modal = ({ modal, setModal, setGender }) => {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(createUser(userForm));
-    alert("post", user.sub);
+    // alert("post", user.sub);
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Happy Matchin!!',
+      showConfirmButton: false,
+      timer: 2000
+    })
     setUserForm({});
     handleClose();
   }
