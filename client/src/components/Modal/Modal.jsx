@@ -8,7 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import UserPost from "../UserCreate/UserPost";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-import { createUser } from "../../Redux/actions/index";
+import { createUser, getUserByNick } from "../../Redux/actions/index";
 
 //======ESTILO E IMAGENES
 import Box from "@mui/material/Box";
@@ -24,56 +24,58 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
-/* const primaryForm = {
-  name: "",//*
+const initialForm = {
+  name: "", //*
   age: "",
   birthday: "",
-  nickname: "",//*
+  nickname: "", //*
   email: "", //REQUERIDO EN DB//*
   image: "", //REQUERIDO EN DB//*
   description: "",
-  gender: "",
-  genderInt: "",
+  gender: "male",
+  genderInt: "both",
   password: null,
   likeGiven: [],
   likeRecieved: [],
 };
- */
 
 const Modal = ({ modal, setModal, setGender }) => {
-  //ESTOS ESTADOS VIENEN DE MUI Y SE PASAN COMO PROPS A Dialog
+  //ESTOS ESTADOS VIENEN DE MUI Y SE PASAN COMO PROPS A Dialog.
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("sm");
+
   //ESTO ES NUESTRO
-  const [closeModal, setCloseModal] = useState(false);
   const { user } = useAuth0();
   const dispatch = useDispatch();
+
   //FORMULARIO INICIAL
-  const [userForm, setUserForm] = useState({});
+  const [userForm, setUserForm] = useState(initialForm);
 
   const handleClose = () => {
     setModal(false);
   };
 
-  //OBTENGO EL GENERO DE INTERES DEL USUARIO Y SETEO EL ESTADO (gender) DEL HOME QUE SE USARA PARA FILTRAR EL GENERO QUE RENDERIZO
+  //OBTENGO EL GENERO DE INTERES DEL USUARIO PARA CREAR EL USUARIO
   function handleGenderIntChange(e) {
     const { name, value } = e.target;
     setUserForm({
       ...userForm,
       [name]: value,
     });
+    //SETEO EL ESTADO (gender) DEL HOME QUE SE USARA PARA FILTRAR LAS CARDS QUE RENDERIZARE
     setGender(value);
   }
 
-  //OBTENGO EL GENERO DEL USUARIO
+  //OBTENGO EL GENERO PARA CREAR DEL USUARIO
   function handleGenderChange(e) {
     e.preventDefault();
     const { name, value } = e.target;
     setUserForm({
       ...userForm,
       [name]: value,
+      //LE AGREGO LA DEMAS INFO QUE OBTENGO DE AUTH0
       name: user?.name,
       nickname: user?.sub,
       email: user?.email || "ingresatumail@mail.com", //REQUERIDO EN DB
@@ -93,16 +95,30 @@ const Modal = ({ modal, setModal, setGender }) => {
   //CREO UN USUARIO NUEVO
   function handleSubmit(e) {
     e.preventDefault();
+    const { gender, genderInt } = userForm;
+    //SI gender O genderInt ESTAN VACÍOS. POR AHORA NUNCA ENTRARA AQUI PUES EL initialForm YA TIENE ESOS CAMPOS LLENOS, PERO DEJO ESTAS LINEAS POR SI EL initialForm SE CAMBIA
+    if ([gender, genderInt].includes("")) {
+      setTimeout(() => {
+        alert("todos los campos son requeridos");
+      }, 3000);
+      return;
+    }
+    //AHORA SI CREO UN USUARIO NUEVO
     dispatch(createUser(userForm));
-    // alert("post", user.sub);
+
     Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Happy Matchin!!',
+      position: "center",
+      icon: "success",
+      title: "Happy Matching!!",
       showConfirmButton: false,
-      timer: 2000
-    })
-    setUserForm({});
+      timer: 2500,
+    });
+    //SETEO EL FORMULARIO AL ESTADO ORIGINAL
+    setUserForm(initialForm);
+    //ME GUARDO EL SUB (NUESTRO NICKNAME) DEL USUARIO DE AUTH0 EN ESTA VARIABLE
+    const localUserNickname = user.sub;
+    //GUARDO EL USUARIO LOCAL EN EL USERDETAIL DEL STORE
+    getUserByNick(localUserNickname);
     handleClose();
   }
 
@@ -151,9 +167,9 @@ const Modal = ({ modal, setModal, setGender }) => {
               y te interesa encontrar:
             </InputLabel>
             <select name="genderInt" onChange={handleGenderIntChange} required>
-              <option value="both">both</option>
-              <option value="male">male</option>
-              <option value="female">female</option>
+              <option value="both">Both</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
             </select>
             <DialogActions>
               {/*  <Button variant="contained" type="submit">

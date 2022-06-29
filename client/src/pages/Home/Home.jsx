@@ -9,14 +9,13 @@ import Header from "../../components/Header/Header";
 import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 import Detail from "../../components/Detail/Detail";
-import UserPost from "../../components/UserCreate/UserPost";
-import TemporaryDrawer from "./../../components/SideBar/index";
 import BottomBar from "../../components/BottomBar";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
 import { getUsers } from "../../redux/actions";
 import { filterByGender } from "../../redux/actions";
+import { getUserByNick } from "../../redux/actions/index";
 
 //======ESTILO E IMAGENES
 import { Typography, Link, Box, Grid, Avatar, CardMedia } from "@mui/material";
@@ -61,10 +60,22 @@ const Home = () => {
   //PARA ABRIR MODAL SOLO CUANDO EL USUARIO NO ESTA EN LA DB
   useEffect(() => {
     if (isAuthenticated === true) {
-      let userSub = user.sub;
-      let isUserOnDb = usersSelected.find((u) => u.nickname === userSub);
-      console.log(isUserOnDb);
-      if (!isUserOnDb) setModal(true);
+      //ME GUARDO EL SUB (NUESTRO NICKNAME) DEL USUARIO DE AUTH0 EN ESTA VARIABLE
+      const localUserNickname = user.sub;
+      //EN ESTA VARIABLE SER GUARDA EL LOCAL USER SI ESTA EN LA DB
+      const isUserOnDb = usersSelected.find(
+        (u) => u.nickname === localUserNickname
+      );
+      /*VERIFICACIONES
+      console.log(localUserNickname);
+      console.log(isUserOnDb); */
+      //SI NO HAY NADA EN isUserOnDb SE ABRE EL MODAL
+      if (!isUserOnDb) {
+        setModal(true);
+      } else {
+        //SI EL USUARIO SI ESTABA EN NUESTRA DB SE LLENA EL userDetail DEL STORE
+        dispatch(getUserByNick(localUserNickname));
+      }
     }
   }, [isAuthenticated]);
 
