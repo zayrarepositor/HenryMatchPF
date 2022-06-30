@@ -42,7 +42,8 @@ export default function rootReducer(state = initialState, action) {
     // } //MESSAGE PODRIA TRAER INFO PARA UN COMPONENTE MODAL DE NOTIFICACION
 
     case UPDATE_USER: {
-      return { ...state, message: action.payload };
+      return { 
+        ...state, message: action.payload };
     }
 
     case CLEAR_USER_DETAIL: {

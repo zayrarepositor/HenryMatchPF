@@ -8,7 +8,7 @@ import LoginButton from "../../components/LoginButton/LoginButton";
 import Header from "../../components/Header/Header";
 import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
-import Detail from "../../components/Detail/Detail";
+//import Detail from "../../components/Detail/Detail";
 import BottomBar from "../../components/BottomBar";
 import MyNetwork from "../../components/Chat/MyNetwork";
  
@@ -107,7 +107,7 @@ const Home = () => {
           <CssBaseline />
           <Header />
           <Cards></Cards>
-          <Detail />
+          
           <BottomBar />
         </Grid>
       ) : (
