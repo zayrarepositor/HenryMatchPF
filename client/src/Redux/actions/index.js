@@ -86,7 +86,7 @@ export function updateUser(id, data) {
   return async (dispatch) => {
     try {
       const put = await axios.put(
-        `https://henrymatch-pg.herokuapp.com/users/${id}`,
+        `https://henrymatch-pg.herokuapp.com/usersId/${id}`,
         data
       );
       return put;
