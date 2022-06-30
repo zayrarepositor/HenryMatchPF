@@ -6,7 +6,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButton from "../../components/LogoutButton/LogoutButton";
 import LoginButton from "../../components/LoginButton/LoginButton";
 import Loader from "../../components/Loader/Loader";
-import Form from "../../components/Form/Form";
+import Formu from "../../components/Form/Form";
 
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
@@ -109,7 +109,7 @@ const Profile = () => {
           </p>
           */}
 
-          <Form />
+          <Formu />
           <LogoutButton />
 
         </>
