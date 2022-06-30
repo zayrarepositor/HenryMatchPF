@@ -53,18 +53,17 @@ export default function Cards() {
 
   const db = useSelector((state) => state.usersSelected);
   const currentUser = useSelector((state)=> state.userDetail)
+  //console.log('currentUser',currentUser)
   const [UpdateCurrentUser, setUpdateCurrentUser] = useState({
-
   })
   const [UpdateCardUser, setUpdateCardUser] = useState({
-
   })
  
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-useEffect(()=>{
- dispatch(getUsers())
-},[UpdateCardUser, UpdateCurrentUser])
+  useEffect(()=>{
+  dispatch(getUsers())
+  },[currentUser/* , UpdateCardUser, UpdateCurrentUser, */ ])
 
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
@@ -95,11 +94,12 @@ useEffect(()=>{
     setUpdateCurrentUser(currentUser)
     
     const miID = currentUser._id;
-    
+    console.log('miID',miID)
+    const cardID = currentCard._id;
+    console.log('cardID',cardID)
     const foundMatch = currentCard.likeGiven.includes(miID)
     
     if(foundMatch){
-     
       setUpdateCardUser(prevState => {
         return {
           ...prevState,
@@ -114,31 +114,30 @@ useEffect(()=>{
         }
       })
       dispatch(updateUser(miID, UpdateCurrentUser))
-
     }
 
     if(direction === 'right'){
-      
    
     setUpdateCardUser(prevState => {
       return {
         ...prevState,
-        likeReceived: [...prevState.likeReceived, miID]
+        likeReceived: [...new Set([...prevState.likeReceived, miID])]
       }
     })
     dispatch(updateUser(id, UpdateCardUser))
-   setUpdateCurrentUser(prevState => {
+
+    setUpdateCurrentUser(prevState => {
     return {
-      ...prevState.likeGiven, id
-     
+      /* ...prevState.likeGiven, id */
+      ...prevState,
+      likeGiven: [...new Set([...prevState.likeGiven, cardID])]
     }
-   })
-   console.log(UpdateCurrentUser)
- 
-   dispatch(updateUser(miID, UpdateCurrentUser))
+    })
    
-      console.log(UpdateCardUser);
-      console.log(UpdateCurrentUser);
+   dispatch(updateUser(miID, UpdateCurrentUser))
+   console.log('UpdateCurrentUser',UpdateCurrentUser)
+   console.log('UpdateCardUser',UpdateCardUser);
+  
      
     }
   
@@ -147,7 +146,7 @@ useEffect(()=>{
       setUpdateCurrentUser(prevState => {
         return {
           ...prevState,
-          dislike: [...prevState.dislike, id]
+          dislike: [...prevState.dislike, cardID]
         }
       })
       dispatch(updateUser(miID, UpdateCurrentUser))

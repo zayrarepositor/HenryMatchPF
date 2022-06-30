@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 import { useUIContext } from '../Context/ContextUI';
 import { IconButton, Slide } from'@mui/material';
 import '../Detail/Detail.css';
@@ -30,4 +30,4 @@ function Detail() {
   )
 }
 
-export default Detail
+export default Detail */
