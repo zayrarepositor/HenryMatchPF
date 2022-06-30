@@ -10,6 +10,8 @@ import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 //import Detail from "../../components/Detail/Detail";
 import BottomBar from "../../components/BottomBar";
+import MyNetwork from "../../components/Chat/MyNetwork";
+ 
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
@@ -86,14 +88,22 @@ const Home = () => {
 
   return (
     <>
+    {
+      <div>
+        <MyNetwork/>
+      </div>
+    }
+    
       {isLoading && (
         <>
           <Loader />
         </>
       )}
+      
       <Modal modal={modal} setModal={setModal} setGender={setGender}></Modal>
       {isAuthenticated ? (
         <Grid>
+          
           <CssBaseline />
           <Header />
           <Cards></Cards>
@@ -120,6 +130,7 @@ const Home = () => {
                 backgroundPosition: "start",
               }}
             />
+            
             <Grid
               item
               xs={12}
@@ -153,10 +164,12 @@ const Home = () => {
                     <LoginButton />
                   </Box>
                   <Copyright sx={{ mt: 30 }} />
+            
                 </Box>
               </Box>
             </Grid>
           </Grid>
+
         </>
       )}
     </>
