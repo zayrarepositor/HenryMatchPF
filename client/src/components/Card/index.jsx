@@ -28,6 +28,8 @@ import InterestsIcon from '@mui/icons-material/Interests';
 
 import { Box, Divider } from "@mui/material";
 import { updateUser } from "../../Redux/actions";
+import { useEffect } from "react";
+import { getUsers } from './../../Redux/actions/index';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -51,9 +53,17 @@ export default function Cards() {
 
   const db = useSelector((state) => state.usersSelected);
   const currentUser = useSelector((state)=> state.userDetail)
-  const [likeGiven, setLikeGiven] = useState([])
-  const [dislikeGiven, setDislikeGiven] = useState([])
-const dispatch = useDispatch();
+  //console.log('currentUser',currentUser)
+  const [UpdateCurrentUser, setUpdateCurrentUser] = useState({
+  })
+  const [UpdateCardUser, setUpdateCardUser] = useState({
+  })
+ 
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+  dispatch(getUsers())
+  },[currentUser/* , UpdateCardUser, UpdateCurrentUser, */ ])
 
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
@@ -79,32 +89,68 @@ const dispatch = useDispatch();
   const swiped = (direction, name, index, id) => {
 
     const currentCard = db.find((ss)=> ss._id === id)
+
+    setUpdateCardUser(currentCard)
+    setUpdateCurrentUser(currentUser)
     
-    const miID = currentUser[0]._id;
-    const misLikesGiven = currentUser[0].likeGiven;
-    const misLikesReceived = currentUser[0].likeReceived;
+    const miID = currentUser._id;
+    console.log('miID',miID)
+    const cardID = currentCard._id;
+    console.log('cardID',cardID)
     const foundMatch = currentCard.likeGiven.includes(miID)
     
-    if(direction === 'right'){
-      //aca voy juntando los likes dados para despachar a mi user y al received de la card
-      setLikeGiven( prevState => [...prevState, id ] )
-      dispatch(updateUser(miID, misLikesGiven.concat(likeGiven)))
-      //aca compruebo que la card que estoy viendo me alla dado like para el match
-      if(foundMatch){
-        //aca se confirma el match, despachar  los matches a mi user y al de la card
-        console.log('se hizo match');
-      }
-      
-    }
-    //aca voy juntando los dislikes dados para despachar a mi user
-    if(direction === 'left'){
-      //aca voy juntando los dislikes dados
-      setDislikeGiven(prevState => [...prevState, id ])
+    if(foundMatch){
+      setUpdateCardUser(prevState => {
+        return {
+          ...prevState,
+          matches: [...prevState.matches, miID]
+        }
+      })
+      dispatch(updateUser(id, UpdateCardUser))
+      setUpdateCurrentUser(prevState => {
+        return {
+          ...prevState,
+          matches: [...prevState.matches, id]
+        }
+      })
+      dispatch(updateUser(miID, UpdateCurrentUser))
     }
 
-    //enviar el like a mi usuario y al que le di like
-    //capturo los likes que ya envie y sumo este
+    if(direction === 'right'){
    
+    setUpdateCardUser(prevState => {
+      return {
+        ...prevState,
+        likeReceived: [...new Set([...prevState.likeReceived, miID])]
+      }
+    })
+    dispatch(updateUser(id, UpdateCardUser))
+
+    setUpdateCurrentUser(prevState => {
+    return {
+      /* ...prevState.likeGiven, id */
+      ...prevState,
+      likeGiven: [...new Set([...prevState.likeGiven, cardID])]
+    }
+    })
+   
+   dispatch(updateUser(miID, UpdateCurrentUser))
+   console.log('UpdateCurrentUser',UpdateCurrentUser)
+   console.log('UpdateCardUser',UpdateCardUser);
+  
+     
+    }
+  
+    if(direction === 'left'){
+      //aca voy juntando los dislikes dados
+      setUpdateCurrentUser(prevState => {
+        return {
+          ...prevState,
+          dislike: [...prevState.dislike, cardID]
+        }
+      })
+      dispatch(updateUser(miID, UpdateCurrentUser))
+    }
 
   
     setLastDirection(direction);

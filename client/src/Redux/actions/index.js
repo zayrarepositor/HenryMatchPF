@@ -16,9 +16,11 @@ import {
 //YA SE SETEO EN EL PACKAGE.JSON ==> NO OLVIDES EL npm install
 import axios from "axios";
 
-//URL PARA RUTAS DE LOS USUARIOS
+
+
+//URL PARA LOS USUARIOS
 const url = "https://henrymatch-pg.herokuapp.com/users";
-/* https://henrymatch-pg.herokuapp.com/users/oauth2|discord|940606852918558721 */
+
 
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
 export function getUsers() {
@@ -65,11 +67,11 @@ export function createUser(data) {
   };
 }
 
-/* export function updateUser(id, data) {
+export function updateUser(id, data) {
   return async function (dispatch) {
     try {
-      const user = await axios.put(`https://henry-pg.herokuapp.com/users/${id}`, data);
-      console.log(data, 'DATA')
+      const user = await axios.put(`https://henrymatch-pg.herokuapp.com/usersId/${id}`, data);
+      
       return dispatch({
         type: UPDATE_USER,
         payload: user.data,
@@ -77,10 +79,10 @@ export function createUser(data) {
     } catch (error) {
       return error;
     }
-  };
-} */
+  }; 
+} 
 
-export function updateUser(id, data) {
+/* export function updateUser(id, data) {
   return async (dispatch) => {
     try {
       const put = await axios.put(
@@ -92,7 +94,7 @@ export function updateUser(id, data) {
       console.log(error);
     }
   };
-}
+} */
 
 //----ACTION CREATORS---//EL RESTO DE LAS FUNCIONES VAN AQUI:
 
