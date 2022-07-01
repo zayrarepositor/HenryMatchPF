@@ -27,7 +27,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InterestsIcon from '@mui/icons-material/Interests';
 
 import { Box, Divider } from "@mui/material";
-import { updateUser } from "../../Redux/actions";
+import { updateMatches, updateUser } from "../../Redux/actions";
 import { useEffect } from "react";
 import { getUsers } from './../../Redux/actions/index';
 
@@ -109,8 +109,8 @@ export default function Cards() {
       const newArrMatchesCard = currentCard.matches
       newArrMatchesCard.push(id)
 
-
-     dispatch(updateUser(miID, {
+      
+     dispatch(updateMatches(miID, {
         matches: newArrMatchesCard
       }))
        alert(`hiciste match con ${name}`)
@@ -118,7 +118,7 @@ export default function Cards() {
 
        const newArrMatchesUser = currentCard.matches
        newArrMatchesUser.push(miID)
-       dispatch(updateUser(id, {
+       dispatch(updateMatches(id, {
         matches: newArrMatchesUser
       }))
        
@@ -129,16 +129,16 @@ export default function Cards() {
       
       const newArrLikeRec = currentCard.likeReceived
       newArrLikeRec.push(id)
-    console.log(newArrLikeRec);
-      dispatch(updateUser(id, {
+    
+      dispatch(updateMatches(id, {
         likeReceived: newArrLikeRec 
       }))
       dispatch(getUsers())
-     
+     console.log(miID);
       const newArrLikeGiv = currentCard.likeGiven
       newArrLikeGiv.push(id)
-      
-      dispatch(updateUser(miID, {
+      console.log(newArrLikeGiv);
+      dispatch(updateMatches(miID, {
         likeGiven: newArrLikeGiv
       }))
       dispatch(getUsers())
@@ -149,7 +149,7 @@ export default function Cards() {
       
       const newArrDislike = currentCard.dislike
       newArrDislike.push(id)
-      dispatch(updateUser(miID, {
+      dispatch(updateMatches(miID, {
         dislike: newArrDislike
       }))
      

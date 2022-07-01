@@ -5,6 +5,7 @@ import {
   CLEAR_USER_DETAIL,
   FILTER_USERS_BY_GENDER,
   GET_USER_BY_NICKNAME,
+  UPDATE_MATCH,
   /*  GET_USER_BY_GENDER,
   GET_USER_BY_GENDERINT, */
 } from "../actions/types.js";
@@ -42,6 +43,10 @@ export default function rootReducer(state = initialState, action) {
     // } //MESSAGE PODRIA TRAER INFO PARA UN COMPONENTE MODAL DE NOTIFICACION
 
     case UPDATE_USER: {
+      return { 
+        ...state, message: action.payload };
+    }
+    case UPDATE_MATCH: {
       return { 
         ...state, message: action.payload };
     }
