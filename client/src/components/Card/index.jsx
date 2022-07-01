@@ -27,7 +27,7 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InterestsIcon from '@mui/icons-material/Interests';
 
 import { Box, Divider } from "@mui/material";
-import { updateMatches, updateUser } from "../../Redux/actions";
+import { updateMatches } from "../../Redux/actions";
 import { useEffect } from "react";
 import { getUsers } from './../../Redux/actions/index';
 
@@ -53,21 +53,18 @@ export default function Cards() {
 
   const db = useSelector((state) => state.usersSelected);
   const currentUser = useSelector((state)=> state.userDetail)
-  //console.log('currentUser',currentUser)
+  console.log('currentUser',currentUser)
   const [UpdateCurrentUser, setUpdateCurrentUser] = useState({
   })
   const [UpdateCardUser, setUpdateCardUser] = useState({
   })
  
-  const [reload, setReload] = useState(false)
   const dispatch = useDispatch();
 
-   useEffect(()=>{
-
+  useEffect(()=>{
   dispatch(getUsers())
+  },[/* currentUser, db  *//* UpdateCardUser,  *//* UpdateCurrentUser, */ ])
 
-  },[])
- 
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
   const currentIndexRef = useRef(currentIndex);
@@ -92,71 +89,84 @@ export default function Cards() {
   const swiped = (direction, name, index, id) => {
 
     const currentCard = db.find((ss)=> ss._id === id)
-
+    console.log("currentCard",currentCard)
+    //setUpdateCardUser(currentCard)
+    //setUpdateCurrentUser(currentUser)
     
     const miID = currentUser._id;
-  
     const cardID = currentCard._id;
-  
-    const foundMatch = currentCard.likeGiven.includes(miID)
-    
-    if(foundMatch){
-
-    /*   dispatch(updateUser(id, {
-        matches:"dasdasdsad", "sadasdasd"
-      }))
- */
-      const newArrMatchesCard = currentCard.matches
-      newArrMatchesCard.push(id)
-
       
-     dispatch(updateMatches(miID, {
-        matches: newArrMatchesCard
-      }))
-       alert(`hiciste match con ${name}`)
-
-
-       const newArrMatchesUser = currentCard.matches
-       newArrMatchesUser.push(miID)
-       dispatch(updateMatches(id, {
-        matches: newArrMatchesUser
-      }))
-       
-    }
-
     if(direction === 'right'){
-   
-      
-      const newArrLikeRec = currentCard.likeReceived
-      newArrLikeRec.push(id)
-    
+
       dispatch(updateMatches(id, {
-        likeReceived: newArrLikeRec 
+        likeReceived: [...new Set([...currentCard.likeReceived, miID])]  
       }))
-      dispatch(getUsers())
-     console.log(miID);
-      const newArrLikeGiv = currentCard.likeGiven
-      newArrLikeGiv.push(id)
-      console.log(newArrLikeGiv);
-      dispatch(updateMatches(miID, {
-        likeGiven: newArrLikeGiv
+
+     dispatch(updateMatches(miID, {
+        likeGiven: [...new Set([...currentUser.likeGiven, cardID])]  
       }))
-      dispatch(getUsers())
+   
+    /* setUpdateCardUser(prevState => {
+      return {
+        ...prevState,
+        likeReceived: [...new Set([...prevState.likeReceived, miID])]
+      }
+    })
+    dispatch(updateUser(id, UpdateCardUser)) */
+
+ /*    setUpdateCurrentUser(prevState => {
+    return {
+      ...prevState,
+      likeGiven: [...new Set([...prevState.likeGiven, cardID])]
+    }
+    })
+      dispatch(updateUser(miID, UpdateCurrentUser)) */
+      
+   console.log('UpdateCurrentUser',UpdateCurrentUser)
+   console.log('UpdateCardUser',UpdateCardUser);
   
+     
     }
   
     if(direction === 'left'){
-      
-      const newArrDislike = currentCard.dislike
-      newArrDislike.push(id)
       dispatch(updateMatches(miID, {
-        dislike: newArrDislike
+        dislike: [...new Set([...currentUser.dislike, id])]  
       }))
-     
+      /* setUpdateCurrentUser(prevState => {
+        return {
+          ...prevState,
+          dislike: [...prevState.dislike, cardID]
+        }
+      })
+      dispatch(updateUser(miID, UpdateCurrentUser)) */
     }
 
-
-
+    const foundMatch = currentCard.likeGiven.includes(miID)
+    
+    if(foundMatch){
+      /* setUpdateCardUser(prevState => {
+        return {
+          ...prevState,
+          matches: [...prevState.matches, miID]
+        }
+      })
+      dispatch(updateUser(id, UpdateCardUser))
+      setUpdateCurrentUser(prevState => {
+        return {
+          ...prevState,
+          matches: [...prevState.matches, id]
+        }
+      })
+      dispatch(updateUser(miID, UpdateCurrentUser)) */
+      dispatch(updateMatches(id, {
+        matches: [...new Set([...currentUser.matches, miID])] 
+      }))
+       alert(`hiciste match con ${name}`)
+      dispatch(updateMatches(miID, {
+        matches: [...new Set([...currentUser.matches, id])]  
+      }))
+       alert(`hiciste match con ${name}`)
+    }
   
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
