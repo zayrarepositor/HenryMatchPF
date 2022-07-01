@@ -14,6 +14,8 @@ export const GET_USER_MATCHES = "GET_USER_MATCHES";
 export const UPDATE_MATCH = "UPDATE_MATCH";
 //-----FILTERS & SORTERS------//
 
+export const FILTERS_BY_ME = "FILTERS_BY_ME"; 
+
 export const FILTER_USERS_BY_GENDER = "FILTER_USERS_BY_GENDER";
 //DONE!""
 

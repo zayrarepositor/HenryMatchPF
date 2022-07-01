@@ -6,6 +6,7 @@ import {
   FILTER_USERS_BY_GENDER,
   GET_USER_BY_NICKNAME,
   UPDATE_MATCH,
+  FILTERS_BY_ME,
   /*  GET_USER_BY_GENDER,
   GET_USER_BY_GENDERINT, */
 } from "../actions/types.js";
@@ -50,6 +51,29 @@ export default function rootReducer(state = initialState, action) {
       return { 
         ...state, message: action.payload };
     }
+
+    case FILTERS_BY_ME: {
+      
+      //allusers
+      let usersSelecteds = state.usersSelected;
+      
+      //likes dados
+      let LikesGiven = state.userDetail.LikesGiven;
+
+      //dislikes dados
+      let LikesReceived = state.userDetail.LikesReceived;
+
+      let FilterByMe = usersSelecteds.map((user)=>{
+          user.id
+      })
+      console.log(FilterByMe)
+
+      return { 
+        ...state, message: action.payload };
+    }
+
+
+    
 
     case CLEAR_USER_DETAIL: {
       return { ...state, userDetail: [] };
