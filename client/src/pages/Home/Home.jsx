@@ -10,8 +10,7 @@ import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 //import Detail from "../../components/Detail/Detail";
 import BottomBar from "../../components/BottomBar";
-import MyNetwork from "../../components/Chat/MyNetwork";
- 
+import ChatContainer from "../../components/Chat/ChatContainer";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
@@ -34,7 +33,8 @@ function Copyright(props) {
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}>
+      {...props}
+    >
       <Link color="inherit" href="#">
         Henry Match
       </Link>{" "}
@@ -50,6 +50,7 @@ const Home = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const usersSelected = useSelector((state) => state.usersSelected);
+  const userDetail = useSelector((state) => state.userDetail);
 
   const [gender, setGender] = useState("both");
   const [modal, setModal] = useState(false);
@@ -88,26 +89,19 @@ const Home = () => {
 
   return (
     <>
-    {
-      <div>
-        <MyNetwork/>
-      </div>
-    }
-    
       {isLoading && (
         <>
           <Loader />
         </>
       )}
-      
+
       <Modal modal={modal} setModal={setModal} setGender={setGender}></Modal>
       {isAuthenticated ? (
         <Grid>
-          
           <CssBaseline />
           <Header />
           <Cards></Cards>
-          
+          <ChatContainer user={user} />
           <BottomBar />
         </Grid>
       ) : (
@@ -130,7 +124,7 @@ const Home = () => {
                 backgroundPosition: "start",
               }}
             />
-            
+
             <Grid
               item
               xs={12}
@@ -138,7 +132,8 @@ const Home = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square>
+              square
+            >
               <Box
                 sx={{
                   my: 8,
@@ -146,7 +141,8 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}>
+                }}
+              >
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!
@@ -160,16 +156,15 @@ const Home = () => {
                       left: 0,
                       border: 0,
                       marginTop: 20,
-                    }}>
+                    }}
+                  >
                     <LoginButton />
                   </Box>
                   <Copyright sx={{ mt: 30 }} />
-            
                 </Box>
               </Box>
             </Grid>
           </Grid>
-
         </>
       )}
     </>

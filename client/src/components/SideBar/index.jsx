@@ -9,11 +9,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
-import Matches from "./Drawer";
+import Chat from "./Chat";
 import EditIcon from "@mui/icons-material/Edit";
 import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Avatar, Chip, IconButton } from "@mui/material";
+import { Avatar, Chip, IconButton, Tooltip } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -21,6 +21,13 @@ export default function SideBar() {
   const [state, setState] = React.useState({
     left: false,
   });
+  const [nav, setNav] = React.useState({
+    left: true,
+  });
+
+  const handleNav = () => {
+    setNav(nav);
+  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -43,36 +50,50 @@ export default function SideBar() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <NavLink to="/profile">
-          {[""].map((text, index) => (
-            <ListItem key={text}>
-              <ListItemButton>
+        {[""].map((text, index) => (
+          <ListItem key={text}>
+            <ListItemButton>
+              <NavLink to="/profile">
                 <ListItemIcon>
                   {index % 2 === 0 ? (
-                    <Box>
-                      <IconButton>
-                        <Avatar
-                          src={user.picture}
-                          alt={user.name}
-                          sx={{ width: 56, height: 56 }}
-                        ></Avatar>
-                      </IconButton>
-                      <IconButton>
-                        <EditIcon color="light" />
-                      </IconButton>
+                    <Box
+                      sx={{
+                        transform: "translate(30%)",
+                      }}
+                    >
+                      <Tooltip title="Mi Perfil">
+                        <IconButton>
+                          <Avatar
+                            src={user.picture}
+                            alt={user.name}
+                            sx={{ width: 56, height: 56 }}
+                          ></Avatar>
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Editar Perfil">
+                        <IconButton>
+                          <EditIcon color="light" />
+                        </IconButton>
+                      </Tooltip>
                     </Box>
                   ) : (
                     <NavLink to="/desktop"></NavLink>
                   )}
                 </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </NavLink>
+              </NavLink>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
       </List>
 
-      <Divider>
+      <Divider
+        sx={{
+          "&::before, &::after": {
+            borderColor: "light.main",
+          },
+        }}
+      >
         {" "}
         <NavLink to="/matches">
           <Chip
@@ -85,9 +106,20 @@ export default function SideBar() {
             }}
           />
         </NavLink>
+        <NavLink to="/chatroom">
+          <Chip
+            label="CHAT"
+            sx={{
+              color: "light.main",
+              fontWeight: 700,
+              cursor: "pointer",
+              textDecoration: "none",
+            }}
+          />
+        </NavLink>
       </Divider>
-
-      <Matches />
+      <Chat />
+      {/* {nav === true ? <Chat /> : <h1>HOLA</h1>} */}
     </Box>
   );
 
