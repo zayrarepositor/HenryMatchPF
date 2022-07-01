@@ -11,6 +11,7 @@ import Loader from "../../components/Loader/Loader";
 //import Detail from "../../components/Detail/Detail";
 import BottomBar from "../../components/BottomBar";
 import MyNetwork from "../../components/Chat/MyNetwork";
+// import Startchat from "../../components/Chat/NewChat"
  
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
@@ -50,6 +51,7 @@ const Home = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   const usersSelected = useSelector((state) => state.usersSelected);
+  const usersDetail = useSelector((state) => state.usersDetail);
 
   const [gender, setGender] = useState("both");
   const [modal, setModal] = useState(false);
@@ -90,7 +92,10 @@ const Home = () => {
     <>
     {
       <div>
-        <MyNetwork/>
+        <MyNetwork
+        usersDetail={usersDetail}
+        />
+        {/* <Startchat/> */}
       </div>
     }
     

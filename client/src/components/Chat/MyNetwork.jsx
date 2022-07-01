@@ -5,16 +5,19 @@ import Talk from "talkjs";
 
 class MyNetwork extends Component {
 
-    constructor(props) {
-        super(props); 
+    constructor({usersDetail}) {
+        super(usersDetail); 
         let currentUser;
-        const currentTalkjsUser = localStorage.getItem('currentTalkjsUser');
+        const currentTalkjsUser = usersDetail//localStorage.getItem('currentTalkjsUser');
+        console.log(currentTalkjsUser)
         if (currentTalkjsUser) {
             currentUser = JSON.parse(currentTalkjsUser)
         }
         this.state = {
             currentUser
         }
+        console.log(currentUser,"cUser")
+        
     }
 
     handleClick(userId) {
