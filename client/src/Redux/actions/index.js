@@ -5,6 +5,7 @@ import {
   CLEAR_USER_DETAIL,
   FILTER_USERS_BY_GENDER,
   GET_USER_BY_NICKNAME,
+  UPDATE_MATCH,
   /*  GET_USER_BY_GENDERINT, */
   // GET_USER_LIKES,
   // GET_USER_MATCHES,
@@ -74,6 +75,21 @@ export function updateUser(id, data) {
       
       return dispatch({
         type: UPDATE_USER,
+        payload: user.data,
+      });
+    } catch (error) {
+      return error;
+    }
+  }; 
+} 
+
+export function updateMatches(id, data) {
+  return async function (dispatch) {
+    try {
+      const user = await axios.put(`https://henrymatch-pg.herokuapp.com/usersMatches/${id}`, data);
+      
+      return dispatch({
+        type: UPDATE_MATCH,
         payload: user.data,
       });
     } catch (error) {

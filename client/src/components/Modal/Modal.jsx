@@ -7,7 +7,11 @@ import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-import { createUser, getUserByNick } from "../../Redux/actions/index";
+import {
+  createUser,
+  getUserByNick,
+  filterByGender,
+} from "../../Redux/actions/index";
 
 //======ESTILO E IMAGENES
 import Dialog from "@mui/material/Dialog";
@@ -34,7 +38,7 @@ const initialForm = {
   likeRecieved: [],
 };
 
-const Modal = ({ modal, setModal, setGender }) => {
+const Modal = ({ modal, setModal }) => {
   //ESTOS ESTADOS VIENEN DE MUI Y SE PASAN COMO PROPS A Dialog.
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("sm");
@@ -43,10 +47,6 @@ const Modal = ({ modal, setModal, setGender }) => {
   const { user } = useAuth0();
   const dispatch = useDispatch();
   const [userForm, setUserForm] = useState(initialForm);
-
-  const handleClose = () => {
-    setModal(false);
-  };
 
   useEffect(() => {
     setUserForm({
@@ -60,6 +60,11 @@ const Modal = ({ modal, setModal, setGender }) => {
     });
   }, [user]);
 
+  //PARA CERRAR MODAL
+  const handleClose = () => {
+    setModal(false);
+  };
+
   //OBTENGO EL GENERO DE INTERES DEL USUARIO PARA CREAR EL USUARIO
   function handleGenderIntChange(e) {
     const { name, value } = e.target;
@@ -67,8 +72,6 @@ const Modal = ({ modal, setModal, setGender }) => {
       ...userForm,
       [name]: value,
     });
-    //SETEO EL ESTADO (gender) DEL HOME QUE SE USARA PARA FILTRAR LAS CARDS QUE RENDERIZARE
-    setGender(value);
   }
 
   //OBTENGO EL GENERO PARA CREAR DEL USUARIO
@@ -93,6 +96,10 @@ const Modal = ({ modal, setModal, setGender }) => {
       }, 3000);
       return;
     } */
+    //PARA LLENAR userDetail
+    dispatch(getUserByNick(userForm.nickname));
+    //PARA FILTRAR SEGUN genderInt
+    dispatch(filterByGender(userForm.genderInt));
     //AHORA SI CREO UN USUARIO NUEVO
     dispatch(createUser(userForm));
 
@@ -105,10 +112,7 @@ const Modal = ({ modal, setModal, setGender }) => {
     });
     //SETEO EL FORMULARIO AL ESTADO ORIGINAL
     setUserForm(initialForm);
-    //ME GUARDO EL SUB (NUESTRO NICKNAME) DEL USUARIO DE AUTH0 EN ESTA VARIABLE
-    const localUserNickname = user.sub;
-    //GUARDO EL USUARIO LOCAL EN EL USERDETAIL DEL STORE
-    getUserByNick(localUserNickname);
+    //CIERRO MODAL
     handleClose();
   }
 
