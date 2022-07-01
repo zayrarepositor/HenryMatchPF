@@ -12,9 +12,10 @@ import {
 
 const initialState = {
   users: [], //NO MODIFICAR
-  usersSelected: [], //USADO PARA FILTERS & SORTERS
+  usersBackup: [], //ESTE LO USO PARA EMPEZAR FILTERS & SORTERS
+  usersSelected: [], //ESTE LO USO PARA ALMACENAR EL RESULTADO DE FILTERS & SORTERS
   userDetail: [], //USADO TAMBIEN PARA CLEAR_USER_DETAIL
-  usersBackup: [],
+
   // OPCIONALES?
   // message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
   gender: [],
@@ -27,7 +28,6 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload,
-        usersSelected: action.payload,
         usersBackup: action.payload,
       };
     }
@@ -58,11 +58,11 @@ export default function rootReducer(state = initialState, action) {
     case FILTER_USERS_BY_GENDER: {
       const allusersGender = state.usersBackup;
       const usersFilterByGender =
-        action.payload === "both"
-          ? allusersGender
-          : action.payload === "male"
+        action.payload === "male"
           ? allusersGender.filter((e) => e.gender === "male")
-          : allusersGender.filter((e) => e.gender === "female");
+          : action.payload === "female"
+          ? allusersGender.filter((e) => e.gender === "female")
+          : allusersGender;
       return { ...state, usersSelected: usersFilterByGender };
     }
 
