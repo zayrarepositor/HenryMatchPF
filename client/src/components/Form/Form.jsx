@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Formik, Form, ErrorMessage, Field } from 'formik'// es un componente con el que encerramos el formulario
 import axios from 'axios'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from '../../Redux/actions';
 import { useRef } from 'react';
+
+
 
 
 //Formik identifica todos los inputs con ese NAME
@@ -14,25 +16,36 @@ import { useRef } from 'react';
 
 const Formu = () => {
 	const dispatch = useDispatch();
+	const userDetail = useSelector((state) => state.userDetail)
 	const [image, setImage] = useState('')
+
 
 	const fileInput = useRef()
 
-	const uploadImage = () => {
+	const uploadImage = async () => {
 		const formData = new FormData()
 		formData.append('file', image)
 		formData.append('upload_preset', 'yqu5aezb')
-		console.log(formData)
-		axios.post('https://api.cloudinary.com/v1_1/henrymatch/image/upload', formData)
+		  await axios.post('https://api.cloudinary.com/v1_1/henrymatch/image/upload', formData)
 			.then(res => {
-				console.log(res.data.url, "URL DE LA IMAGEN")
+				const urlImage = res.data.url;
+        dispatch(updateUser(userDetail._id, {image: urlImage }))
+				console.log(urlImage, "URL DE LA IMAGEN")
 			}
 			)
-		fileInput.current.value = null;
-	}
-
+      fileInput.current.value = null
+    }
+    
 	return (
 		<>
+    <div>
+
+      <div >
+						<input type="file" ref={fileInput} onChange={(event) => { setImage(event.target.files[0]) }}/>
+			</div>
+
+						<button  onClick={uploadImage}>Cargar Imagen</button>
+    </div>
 			<Formik
 
 				initialValues={{
@@ -45,12 +58,11 @@ const Formu = () => {
 					gender: "",
 					genderInt: "",
 					henryLevel: "",
-					description: ""
+					description: "",
 				}}
 
 				validate={(valores) => {
-					console.log(valores)
-
+				
 					let errores = {};
 
 					if (!valores.name) {
@@ -58,11 +70,7 @@ const Formu = () => {
 					} else if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(valores.name)) {
 						errores.name = 'El nombre solo puede contene letras y espacios'
 					}
-					if (!valores.email) {
-						errores.email = 'Por favor ingresa un correo electronico'
-					} else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(valores.email)) {
-						errores.email = 'El correo solo puede contene letras, numeros, puntos, guiones y guion bajo.'
-					}
+
 					if (!valores.age) {
 						errores.age = 'Por favor ingrese la edad'
 					} else if (!/[0-9]+/.test(valores.age)) {
@@ -73,11 +81,7 @@ const Formu = () => {
 					} else if (!/^(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$/.test(valores.birthday)) {
 						errores.birthday = 'Ingrese correctamente la fecha de nacimiento'
 					}
-					if (!valores.password) {
-						errores.password = 'Por favor escribe una contraseña'
-					} else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(valores.password)) {
-						errores.password = 'La contraseña debe contener al menos: 8 caracteres, mayusculas, minusculas y numeros'
-					}
+
 					if (!valores.gender) {
 						errores.gender = 'Por favor selecciona un genero'
 					}
@@ -96,8 +100,10 @@ const Formu = () => {
 					return errores;
 				}}
 
+		
+
 				onSubmit={(valores, { resetForm }) => {
-					dispatch(updateUser(valores))
+					dispatch(updateUser(userDetail._id, valores))
 					resetForm();
 					alert('Solicitud de actualizacion enviada')
 				}}
@@ -112,15 +118,7 @@ const Formu = () => {
 								placeholder='Escribe un nombre..' />
 							<ErrorMessage name='name' component={() => (<div className='error'>{errors.name}</div>)} />
 						</div>
-						<div>
-							<label>Correo electronico</label>
-							<Field
-								type="email"
-								name="email"
-								placeholder="correo@correo.com"
-							/>
-							<ErrorMessage name='email' component={() => (<div className='error'>{errors.email}</div>)} />
-						</div>
+
 						<div>
 							<label htmlFor='age'>Edad</label>
 							<Field
@@ -139,24 +137,6 @@ const Formu = () => {
 								placeholder='dd/mm/aaaa'
 							/>
 							<ErrorMessage name='birthday' component={() => (<div className='error'>{errors.birthday}</div>)} />
-						</div>
-						<div>
-							<label>Nombre de Usuario</label>
-							<Field
-								type="text"
-								name="nickname"
-								placeholder="Escribe un nombre de usurario"
-							/>
-						</div>
-
-						<div>
-							<label>Contraseña</label>
-							<Field
-								type="password"
-								name="password"
-								placeholder="............"
-							/>
-							<ErrorMessage name='password' component={() => (<div className='error'>{errors.password}</div>)} />
 						</div>
 
 						<div>
@@ -207,12 +187,9 @@ const Formu = () => {
 								placeholder="Mensaje" />
 							<ErrorMessage name='description' component={() => (<div className='error'>{errors.description}</div>)} />
 						</div>
+            <button type='submit' >Actualizar Datos</button>
 
-						<div >
-							<input type="file" ref={fileInput} onChange={(event) => { setImage(event.target.files[0]) }} />
-						</div>
-
-						<button type='submit' onClick={uploadImage}>Actualizar Datos</button>
+						
 
 					</Form>)}
 			</Formik>
