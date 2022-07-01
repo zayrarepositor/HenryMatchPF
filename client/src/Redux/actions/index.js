@@ -98,6 +98,8 @@ export function updateMatches(id, data) {
   }; 
 } 
 
+
+
 /* export function updateUser(id, data) {
   return async (dispatch) => {
     try {
@@ -118,6 +120,13 @@ export function filterByGender(gender) {
   return {
     type: FILTER_USERS_BY_GENDER,
     payload: gender,
+  };
+}
+
+export function filterByMe(payload) {
+  return {
+    type: FILTERS_BY_ME,
+    payload,
   };
 }
 
