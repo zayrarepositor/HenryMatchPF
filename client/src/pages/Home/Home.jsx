@@ -96,7 +96,7 @@ const Home = () => {
         </>
       )}
       
-      <Modal modal={modal} setModal={setModal} setGender={setGender}></Modal>
+      <Modal modal={modal} setModal={setModal}></Modal>
       {isAuthenticated ? (
         <Grid>
           

@@ -38,7 +38,7 @@ const initialForm = {
   likeRecieved: [],
 };
 
-const Modal = ({ modal, setModal, setGender }) => {
+const Modal = ({ modal, setModal }) => {
   //ESTOS ESTADOS VIENEN DE MUI Y SE PASAN COMO PROPS A Dialog.
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("sm");
