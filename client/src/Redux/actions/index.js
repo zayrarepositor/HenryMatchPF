@@ -17,11 +17,8 @@ import {
 //YA SE SETEO EN EL PACKAGE.JSON ==> NO OLVIDES EL npm install
 import axios from "axios";
 
-
-
 //URL PARA LOS USUARIOS
 const url = "https://henrymatch-pg.herokuapp.com/users";
-
 
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
 export function getUsers() {
@@ -71,8 +68,11 @@ export function createUser(data) {
 export function updateUser(id, data) {
   return async function (dispatch) {
     try {
-      const user = await axios.put(`https://henrymatch-pg.herokuapp.com/usersId/${id}`, data);
-      
+      const user = await axios.put(
+        `https://henrymatch-pg.herokuapp.com/usersId/${id}`,
+        data
+      );
+
       return dispatch({
         type: UPDATE_USER,
         payload: user.data,
@@ -80,14 +80,17 @@ export function updateUser(id, data) {
     } catch (error) {
       return error;
     }
-  }; 
-} 
+  };
+}
 
 export function updateMatches(id, data) {
   return async function (dispatch) {
     try {
-      const user = await axios.put(`https://henrymatch-pg.herokuapp.com/usersMatches/${id}`, data);
-      
+      const user = await axios.put(
+        `https://henrymatch-pg.herokuapp.com/usersMatches/${id}`,
+        data
+      );
+
       return dispatch({
         type: UPDATE_MATCH,
         payload: user.data,
@@ -95,8 +98,8 @@ export function updateMatches(id, data) {
     } catch (error) {
       return error;
     }
-  }; 
-} 
+  };
+}
 
 /* export function updateUser(id, data) {
   return async (dispatch) => {

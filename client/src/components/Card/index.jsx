@@ -24,12 +24,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import InterestsIcon from '@mui/icons-material/Interests';
+import InterestsIcon from "@mui/icons-material/Interests";
 
 import { Box, Divider } from "@mui/material";
 import { updateMatches, updateUser } from "../../Redux/actions";
 import { useEffect } from "react";
-import { getUsers } from './../../Redux/actions/index';
+import { getUsers } from "./../../Redux/actions/index";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -52,22 +52,30 @@ export default function Cards() {
   //*******/
 
   const db = useSelector((state) => state.usersSelected);
-  const currentUser = useSelector((state)=> state.userDetail)
+  const currentUser = useSelector((state) => state.userDetail);
   //console.log('currentUser',currentUser)
-  const [UpdateCurrentUser, setUpdateCurrentUser] = useState({
-  })
-  const [UpdateCardUser, setUpdateCardUser] = useState({
-  })
- 
-  const [reload, setReload] = useState(false)
+  const [UpdateCurrentUser, setUpdateCurrentUser] = useState({});
+  const [UpdateCardUser, setUpdateCardUser] = useState({});
+  const [userLikesGiven, setuserLikesGiven] = useState([]);
+
+  let xD = [];
+
+  let likeGiven = [];
+  likeGiven.push(currentUser?.likeGiven);
+
+  let likeReceived = [];
+  likeReceived.push(currentUser?.likeReceived);
+
+  let matches = [];
+  matches.push(currentUser?.matches);
+
+  const [reload, setReload] = useState(false);
   const dispatch = useDispatch();
 
-   useEffect(()=>{
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [xD]);
 
-  dispatch(getUsers())
-
-  },[])
- 
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
   const currentIndexRef = useRef(currentIndex);
@@ -90,74 +98,70 @@ export default function Cards() {
   const canSwipe = currentIndex >= 0;
 
   const swiped = (direction, name, index, id) => {
+    const currentCard = db.find((ss) => ss._id === id);
 
-    const currentCard = db.find((ss)=> ss._id === id)
-
-    
     const miID = currentUser._id;
-  
-    const cardID = currentCard._id;
-  
-    const foundMatch = currentCard.likeGiven.includes(miID)
-    
-    if(foundMatch){
 
-    /*   dispatch(updateUser(id, {
+    const cardID = currentCard._id;
+
+    const foundMatch = currentCard.likeGiven.includes(miID);
+
+    if (foundMatch) {
+      /*   dispatch(updateUser(id, {
         matches:"dasdasdsad", "sadasdasd"
       }))
  */
-      const newArrMatchesCard = currentCard.matches
-      newArrMatchesCard.push(id)
+      const newArrMatchesCard = currentCard.matches;
+      newArrMatchesCard.push(id);
 
-      
-     dispatch(updateMatches(miID, {
-        matches: newArrMatchesCard
-      }))
-       alert(`hiciste match con ${name}`)
+      dispatch(
+        updateMatches(miID, {
+          matches: newArrMatchesCard,
+        })
+      );
+      alert(`hiciste match con ${name}`);
 
-
-       const newArrMatchesUser = currentCard.matches
-       newArrMatchesUser.push(miID)
-       dispatch(updateMatches(id, {
-        matches: newArrMatchesUser
-      }))
-       
+      const newArrMatchesUser = currentCard.matches;
+      newArrMatchesUser.push(miID);
+      dispatch(
+        updateMatches(id, {
+          matches: [...matches, newArrMatchesUser],
+        })
+      );
     }
 
-    if(direction === 'right'){
-   
-      
-      const newArrLikeRec = currentCard.likeReceived
-      newArrLikeRec.push(id)
-    
-      dispatch(updateMatches(id, {
-        likeReceived: newArrLikeRec 
-      }))
-      dispatch(getUsers())
-     console.log(miID);
-      const newArrLikeGiv = currentCard.likeGiven
-      newArrLikeGiv.push(id)
+    if (direction === "right") {
+      const newArrLikeRec = currentCard.likeReceived;
+      newArrLikeRec.push(id);
+
+      dispatch(
+        updateMatches(id, {
+          likeReceived: [...likeReceived, newArrLikeRec],
+        })
+      );
+      dispatch(getUsers());
+      console.log(miID);
+      const newArrLikeGiv = currentCard.likeGiven;
+      newArrLikeGiv.push(id);
+      dispatch(
+        updateMatches(miID, {
+          likeGive: [...likeGiven, newArrLikeGiv],
+        })
+      );
+      dispatch(getUsers());
       console.log(newArrLikeGiv);
-      dispatch(updateMatches(miID, {
-        likeGiven: newArrLikeGiv
-      }))
-      dispatch(getUsers())
-  
-    }
-  
-    if(direction === 'left'){
-      
-      const newArrDislike = currentCard.dislike
-      newArrDislike.push(id)
-      dispatch(updateMatches(miID, {
-        dislike: newArrDislike
-      }))
-     
     }
 
+    if (direction === "left") {
+      const newArrDislike = currentCard.dislike;
+      newArrDislike.push(id);
+      dispatch(
+        updateMatches(miID, {
+          dislike: newArrDislike,
+        })
+      );
+    }
 
-
-  
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
   };
@@ -193,20 +197,23 @@ export default function Cards() {
             left: 0,
             boxShadow: 3,
             border: 0,
-          }}>
+          }}
+        >
           <TinderCard
             ref={childRefs[index]}
             className="swipe"
             preventSwipe={["up", "down"]}
             key={character.id}
             onSwipe={(dir) => swiped(dir, character.name, index, character._id)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}>
+            onCardLeftScreen={() => outOfFrame(character.name, index)}
+          >
             <Card
               sx={{
                 width: 375,
                 marginBottom: 14,
                 borderColor: "none",
-              }}>
+              }}
+            >
               <CardMedia
                 component="img"
                 height="566"
@@ -221,7 +228,8 @@ export default function Cards() {
                     fontWeight: 900,
                     // letterSpacing: 1,
                     fontFamily: "Proxima Nova",
-                  }}>
+                  }}
+                >
                   {character.name}{" "}
                   <Typography
                     sx={{
@@ -230,7 +238,8 @@ export default function Cards() {
                       fontSize: 20,
                       letterSpacing: 2,
                       fontFamily: "Proxima Nova",
-                    }}>
+                    }}
+                  >
                     {character.age}
                   </Typography>
                 </Typography>
@@ -238,7 +247,8 @@ export default function Cards() {
                   expand={expanded}
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
-                  aria-label="show more">
+                  aria-label="show more"
+                >
                   <ExpandMoreIcon color="light" />
                 </ExpandMore>
               </CardActions>
@@ -249,7 +259,8 @@ export default function Cards() {
                 unmountOnExit
                 sx={{
                   marginTop: -3,
-                }}>
+                }}
+              >
                 <CardContent>
                   <Box
                     display="flex"
@@ -259,7 +270,8 @@ export default function Cards() {
                       right: 0,
                       left: 0,
                       marginTop: 1,
-                    }}>
+                    }}
+                  >
                     <Typography>
                       <LocationOnIcon /> {character.city}
                     </Typography>
@@ -283,14 +295,16 @@ export default function Cards() {
                       right: 0,
                       left: 0,
                       marginTop: 1,
-                    }}>
+                    }}
+                  >
                     <Typography
                       textTransform="uppercase"
                       sx={{
                         display: "inline",
                         letterSpacing: 2,
                         fontFamily: "Proxima Nova",
-                      }}>
+                      }}
+                    >
                       <WorkIcon /> {character.job}
                     </Typography>
                     <Typography
@@ -299,14 +313,14 @@ export default function Cards() {
                         display: "inline",
                         letterSpacing: 2,
                         fontFamily: "Proxima Nova",
-                      }}>
+                      }}
+                    >
                       <AttachFileIcon /> {character.henryLevel}
                     </Typography>
-
-                      <InterestsIcon/> {character.interests?.map((i)=>{
-                      return <div key={i}>{i}</div>
-                       })}
-                    
+                    <InterestsIcon />{" "}
+                    {character.interests?.map((i) => {
+                      return <div key={i}>{i}</div>;
+                    })}
                   </Box>
                 </CardContent>
               </Collapse>
@@ -324,26 +338,30 @@ export default function Cards() {
           top: 70,
           right: 0,
           left: 0,
-        }}>
+        }}
+      >
         <IconButton
           style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
           onClick={() => swipe("left")}
           color="light"
-          size="large">
+          size="large"
+        >
           <CloseIcon font="large" />
         </IconButton>
         <IconButton
           style={{ backgroundColor: !canGoBack }}
           onClick={() => goBack()}
           color="light"
-          size="large">
+          size="large"
+        >
           <ArrowBackIcon font="large" />
         </IconButton>
         <IconButton
           style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
           onClick={() => swipe("right")}
           color="light"
-          size="large">
+          size="large"
+        >
           <FavoriteIcon font="large" />
         </IconButton>
       </Box>

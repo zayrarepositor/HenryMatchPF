@@ -101,7 +101,7 @@ const Home = () => {
           <CssBaseline />
           <Header />
           <Cards></Cards>
-          <ChatContainer user={user} />
+          {/* <ChatContainer user={user} /> */}
           <BottomBar />
         </Grid>
       ) : (
