@@ -1,7 +1,9 @@
 //======PAQUETES Y LIBRERIAS
 import * as React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 //======IMPORTACIONES DE COMPONENTES
 import LogoutButton from "../../components/LogoutButton/LogoutButton";
@@ -11,6 +13,7 @@ import Formu from "../../components/Form/Form";
 
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
+import { getUsers, getUserByNick} from "../../Redux/actions";
 
 //======ESTILO E IMAGENES
 import ImageList from "@mui/material/ImageList";
@@ -20,6 +23,13 @@ import { Avatar, IconButton, Typography } from "@mui/material";
 const Profile = () => {
   const userProfile = useSelector((state) => state.userDetail);
   const { user, isAuthenticated, isLoading } = useAuth0();
+  const [update, setUpdate] = useState(false)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserByNick(userProfile.nickname));
+    setUpdate(false)
+    }, [update]);
   // console.log(user)
   // const itemData = [
   //   {
@@ -92,6 +102,8 @@ const Profile = () => {
               {user.name}
             </Typography>
               <h1>INFORMACION DEL USUARIO</h1>
+                <div>{userProfile.name}</div> 
+
                 <img src={userProfile.image} alt={userProfile.name} />
                 <div>{userProfile.age}</div>
                 <div>{userProfile.email}</div>
@@ -115,7 +127,7 @@ const Profile = () => {
            </ImageList> */}
           <div>
             <h1> DATOS A COMPLETAR</h1>
-            <Formu />
+            <Formu setUpdate={setUpdate}/>
             <LogoutButton />
           </div>
         </>

@@ -15,7 +15,7 @@ import './Form.css';
 
 
 
-const Formu = () => {
+const Formu = ({setUpdate}) => {
 	const dispatch = useDispatch();
 	const userDetail = useSelector((state) => state.userDetail)
 	const [image, setImage] = useState('')
@@ -31,6 +31,7 @@ const Formu = () => {
 			.then(res => {
 				const urlImage = res.data.url;
         dispatch(updateUser(userDetail._id, {image: urlImage }))
+		setUpdate(true)
 				console.log(urlImage, "URL DE LA IMAGEN")
 			}
 			)
@@ -54,7 +55,7 @@ const Formu = () => {
 					// email: "",
 					// age: "",
 					// birthday: "",
-					nickname: "",
+					// nickname: "",
 					// password: "",
 					gender: "",
 					genderInt: "",
@@ -106,6 +107,7 @@ const Formu = () => {
 				onSubmit={(valores, { resetForm }) => {
 					dispatch(updateUser(userDetail._id, valores))
 					resetForm();
+					setUpdate(true)
 					alert('Solicitud de actualizacion enviada')
 				}}
 			>
@@ -139,14 +141,14 @@ const Formu = () => {
 							/>
 							<ErrorMessage name='birthday' component={() => (<div className='error'>{errors.birthday}</div>)} />
 						</div> */}
-						<div>
+						{/* <div>
 							<label>Nombre de Usuario</label>
 							<Field
 								type="text"
 								name="nickname"
 								placeholder="Escribe un nombre de usurario"
 							/>
-						</div>
+						</div> */}
 
 						<div>
 							<label>Me identifico como...</label>
