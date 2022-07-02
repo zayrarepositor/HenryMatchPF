@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from '../../Redux/actions';
 import { useRef } from 'react';
+import './Form.css';
 
 
 
@@ -39,22 +40,22 @@ const Formu = () => {
 	return (
 		<>
     <div>
+		<div>
 
-      <div >
-						<input type="file" ref={fileInput} onChange={(event) => { setImage(event.target.files[0]) }}/>
-			</div>
+			<input className='selectAr' type="file" ref={fileInput} onChange={(event) => { setImage(event.target.files[0]) }} />
+			<button className='cargar' onClick={uploadImage}>Cargar Imagen</button>
+		</div>
 
-						<button  onClick={uploadImage}>Cargar Imagen</button>
     </div>
 			<Formik
 
 				initialValues={{
 					name: "",
-					email: "",
-					age: "",
-					birthday: "",
+					// email: "",
+					// age: "",
+					// birthday: "",
 					nickname: "",
-					password: "",
+					// password: "",
 					gender: "",
 					genderInt: "",
 					henryLevel: "",
@@ -71,16 +72,16 @@ const Formu = () => {
 						errores.name = 'El nombre solo puede contene letras y espacios'
 					}
 
-					if (!valores.age) {
-						errores.age = 'Por favor ingrese la edad'
-					} else if (!/[0-9]+/.test(valores.age)) {
-						errores.age = 'El campo solo admite numeros'
-					}
-					if (!valores.birthday) {
-						errores.birthday = 'Por favor ingresa una fecha de nacimiento'
-					} else if (!/^(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$/.test(valores.birthday)) {
-						errores.birthday = 'Ingrese correctamente la fecha de nacimiento'
-					}
+					// if (!valores.age) {
+					// 	errores.age = 'Por favor ingrese la edad'
+					// } else if (!/[0-9]+/.test(valores.age)) {
+					// 	errores.age = 'El campo solo admite numeros'
+					// }
+					// if (!valores.birthday) {
+					// 	errores.birthday = 'Por favor ingresa una fecha de nacimiento'
+					// } else if (!/^(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$/.test(valores.birthday)) {
+					// 	errores.birthday = 'Ingrese correctamente la fecha de nacimiento'
+					// }
 
 					if (!valores.gender) {
 						errores.gender = 'Por favor selecciona un genero'
@@ -119,7 +120,7 @@ const Formu = () => {
 							<ErrorMessage name='name' component={() => (<div className='error'>{errors.name}</div>)} />
 						</div>
 
-						<div>
+						{/* <div>
 							<label htmlFor='age'>Edad</label>
 							<Field
 								input='number'
@@ -137,6 +138,14 @@ const Formu = () => {
 								placeholder='dd/mm/aaaa'
 							/>
 							<ErrorMessage name='birthday' component={() => (<div className='error'>{errors.birthday}</div>)} />
+						</div> */}
+						<div>
+							<label>Nombre de Usuario</label>
+							<Field
+								type="text"
+								name="nickname"
+								placeholder="Escribe un nombre de usurario"
+							/>
 						</div>
 
 						<div>
