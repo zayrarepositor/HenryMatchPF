@@ -54,22 +54,19 @@ export default function rootReducer(state = initialState, action) {
 
     case FILTERS_BY_ME: {
       
-      //allusers
-      let usersSelecteds = state.usersSelected;
-      
-      //likes dados
-      let LikesGiven = state.userDetail.LikesGiven;
+      const allusersMe = state.usersBackup;
+      const miID = state.userDetail?._id;
 
-      //dislikes dados
-      let LikesReceived = state.userDetail.LikesReceived;
+      const usersFilterByLikeReceived = allusersMe.filter(e => !e.likeReceived.includes(miID) )
+      const usersFilterByDisLikeReceived = allusersMe.filter(e => !e.dislikeReceived.includes(miID) )
+    
+      const FinalFiltered = [].concat( usersFilterByDisLikeReceived, usersFilterByLikeReceived)
+    
 
-      let FilterByMe = usersSelecteds.map((user)=>{
-          user.id
-      })
-      console.log(FilterByMe)
 
-      return { 
-        ...state, message: action.payload };
+      return { ...state, usersSelected: 
+        FinalFiltered
+      };
     }
 
 

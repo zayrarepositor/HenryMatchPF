@@ -15,7 +15,7 @@ import MyNetwork from "../../components/Chat/MyNetwork";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
-import { getUsers } from "../../redux/actions";
+import { filterByMe, getUsers } from "../../redux/actions";
 import { filterByGender } from "../../redux/actions";
 import { getUserByNick } from "../../redux/actions/index";
 
@@ -64,7 +64,7 @@ const Home = () => {
     if (isAuthenticated === true) {
       //ME GUARDO EL SUB (NUESTRO NICKNAME) DEL USUARIO DE AUTH0 EN ESTA VARIABLE
       const localUserNickname = user.sub;
-      console.log(localUserNickname);
+     
       //EN ESTA VARIABLE SER GUARDA EL LOCAL USER SI ESTA EN LA DB
       const userInDb = users.find((u) => u.nickname === localUserNickname);
 
@@ -77,10 +77,11 @@ const Home = () => {
       }
     }
   }, [isAuthenticated]);
-
+  
   //PARA FILTRAR USUARIO POR GENERO
   useEffect(() => {
-    dispatch(filterByGender(userDetail.genderInt));
+    dispatch(filterByGender(userDetail?.genderInt));
+    dispatch(filterByMe())
   }, [userDetail]);
 
   return (
