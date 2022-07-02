@@ -10,13 +10,9 @@ import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 //import Detail from "../../components/Detail/Detail";
 import BottomBar from "../../components/BottomBar";
-<<<<<<< HEAD
-import ChatContainer from "../../components/Chat/ChatContainer";
-=======
 
 // import MyNetwork from "../../components/Chat/MyNetwork";
 // import ChatRoom from "../ChatRoom/ChatRoom";
->>>>>>> 0c2f591f2a66faf63b1b46e2ac675c7f0ca050cb
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
@@ -55,11 +51,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
 
-<<<<<<< HEAD
-  const usersSelected = useSelector((state) => state.usersSelected);
-=======
   const users = useSelector((state) => state.users);
->>>>>>> 0c2f591f2a66faf63b1b46e2ac675c7f0ca050cb
   const userDetail = useSelector((state) => state.userDetail);
 
   const [modal, setModal] = useState(false);
@@ -111,35 +103,23 @@ const Home = () => {
 
   return (
     <>
-<<<<<<< HEAD
-=======
       {/* <ChatRoom
         usersDetail={userDetail}
         users={users}
         /> */}
 
->>>>>>> 0c2f591f2a66faf63b1b46e2ac675c7f0ca050cb
       {isLoading && (
         <>
           <Loader />
         </>
       )}
 
-<<<<<<< HEAD
-      <Modal modal={modal} setModal={setModal} setGender={setGender}></Modal>
-=======
       <Modal modal={modal} setModal={setModal}></Modal>
->>>>>>> 0c2f591f2a66faf63b1b46e2ac675c7f0ca050cb
       {isAuthenticated ? (
         <Grid>
           <CssBaseline />
           <Header />
           <Cards></Cards>
-<<<<<<< HEAD
-          {/* <ChatContainer user={user} /> */}
-=======
-
->>>>>>> 0c2f591f2a66faf63b1b46e2ac675c7f0ca050cb
           <BottomBar />
         </Grid>
       ) : (

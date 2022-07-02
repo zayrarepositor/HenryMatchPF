@@ -69,16 +69,11 @@ export function createUser(data) {
 export function updateUser(id, data) {
   return async function (dispatch) {
     try {
-<<<<<<< HEAD
       const user = await axios.put(
-        `https://henrymatch-pg.herokuapp.com/usersId/${id}`,
+        `https://henrymatch-pg.herokuapp.com/usersID/${id}`,
         data
       );
 
-=======
-      const user = await axios.put(`https://henrymatch-pg.herokuapp.com/usersID/${id}`, data);
-      
->>>>>>> 0c2f591f2a66faf63b1b46e2ac675c7f0ca050cb
       return dispatch({
         type: UPDATE_USER,
         payload: user.data,
@@ -106,8 +101,6 @@ export function updateMatches(id, data) {
     }
   };
 }
-
-
 
 /* export function updateUser(id, data) {
   return async (dispatch) => {
