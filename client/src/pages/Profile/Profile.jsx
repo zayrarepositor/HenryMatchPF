@@ -2,6 +2,7 @@
 import * as React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 
 //======IMPORTACIONES DE COMPONENTES
 import LogoutButton from "../../components/LogoutButton/LogoutButton";
@@ -92,6 +93,8 @@ const Profile = () => {
               {user.name}
             </Typography>
               <h1>INFORMACION DEL USUARIO</h1>
+                <div>{userProfile.name}</div> 
+                
                 <img src={userProfile.image} alt={userProfile.name} />
                 <div>{userProfile.age}</div>
                 <div>{userProfile.email}</div>
