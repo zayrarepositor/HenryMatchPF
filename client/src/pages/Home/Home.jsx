@@ -11,7 +11,6 @@ import Loader from "../../components/Loader/Loader";
 //import Detail from "../../components/Detail/Detail";
 import BottomBar from "../../components/BottomBar";
 import MyNetwork from "../../components/Chat/MyNetwork";
- 
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
@@ -64,7 +63,6 @@ const Home = () => {
     if (isAuthenticated === true) {
       //ME GUARDO EL SUB (NUESTRO NICKNAME) DEL USUARIO DE AUTH0 EN ESTA VARIABLE
       const localUserNickname = user.sub;
-      console.log(localUserNickname);
       //EN ESTA VARIABLE SER GUARDA EL LOCAL USER SI ESTA EN LA DB
       const userInDb = users.find((u) => u.nickname === localUserNickname);
 
@@ -72,6 +70,7 @@ const Home = () => {
       if (!userInDb) {
         setModal(true);
       } else {
+        setModal(false);
         //SI EL USUARIO SI ESTABA EN NUESTRA DB SE LLENA EL userDetail DEL STORE
         dispatch(getUserByNick(localUserNickname));
       }
@@ -85,26 +84,25 @@ const Home = () => {
 
   return (
     <>
-    {
-      <div>
-        <MyNetwork/>
-      </div>
-    }
-    
+      {
+        <div>
+          <MyNetwork />
+        </div>
+      }
+
       {isLoading && (
         <>
           <Loader />
         </>
       )}
-      
+
       <Modal modal={modal} setModal={setModal}></Modal>
       {isAuthenticated ? (
         <Grid>
-          
           <CssBaseline />
           <Header />
           <Cards></Cards>
-          
+
           <BottomBar />
         </Grid>
       ) : (
@@ -127,7 +125,7 @@ const Home = () => {
                 backgroundPosition: "start",
               }}
             />
-            
+
             <Grid
               item
               xs={12}
@@ -161,12 +159,10 @@ const Home = () => {
                     <LoginButton />
                   </Box>
                   <Copyright sx={{ mt: 30 }} />
-            
                 </Box>
               </Box>
             </Grid>
           </Grid>
-
         </>
       )}
     </>
