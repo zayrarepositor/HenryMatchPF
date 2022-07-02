@@ -28,7 +28,7 @@ import InterestsIcon from '@mui/icons-material/Interests';
 import Swal from "sweetalert2";
 
 import { Box, Divider } from "@mui/material";
-import { filterByMe, getUserByNick, updateMatches } from "../../Redux/actions";
+import { filterByGender, filterByMe, getUserByNick, updateMatches } from "../../Redux/actions";
 import { useEffect } from "react";
 import { getUsers } from './../../Redux/actions/index';
 
@@ -54,7 +54,7 @@ export default function Cards() {
 
   const db = useSelector((state) => state.usersSelected);
   const currentUser = useSelector((state)=> state.userDetail)
-  console.log('currentUser',currentUser)
+  
   const [UpdateCurrentUser, setUpdateCurrentUser] = useState({
   })
   const [UpdateCardUser, setUpdateCardUser] = useState({
@@ -72,7 +72,7 @@ export default function Cards() {
 
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(db?.length)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -89,15 +89,16 @@ export default function Cards() {
 
   const swiped = (direction, name, index, id) => {
 
-    const currentCard = db.find((ss)=> ss._id === id)
-    console.log("currentCard",currentCard)
+    const currentCard = db?.find((ss)=> ss._id === id)
    
+    dispatch(getUserByNick(currentUser?.nickname));
     
-    const miID = currentUser._id;
+    const miID = currentUser?._id;
     const cardID = currentCard._id;
       
     if(direction === 'right'){
 
+      
       dispatch(updateMatches(id, {
         likeReceived: miID  
       }))
@@ -106,9 +107,8 @@ export default function Cards() {
         likeGiven: cardID  
       }))
    
-      dispatch(getUserByNick(currentUser.nickname));
+      dispatch(getUserByNick(currentUser?.nickname));
       dispatch(filterByMe())
-  
      
     }
   
@@ -116,12 +116,17 @@ export default function Cards() {
       dispatch(updateMatches(miID, {
         dislike: id  
       }))
-      dispatch(getUserByNick(currentUser.nickname));
+
+      dispatch(updateMatches(id, {
+        dislikeReceived: miID  
+      }))
+
+      dispatch(getUserByNick(currentUser?.nickname));
       
     }
     
 
-    const foundMatch = currentCard.likeGiven.includes(miID)
+    const foundMatch = currentCard.likeGiven?.includes(miID)
     
     if(foundMatch){
       
@@ -148,7 +153,8 @@ export default function Cards() {
         matches: id 
       }))
        alert(`hiciste match con ${name}`)
-       dispatch(getUserByNick(currentUser.nickname));
+       dispatch(getUserByNick(currentUser?.nickname));
+       
     }
   
     setLastDirection(direction);
