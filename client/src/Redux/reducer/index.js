@@ -7,6 +7,7 @@ import {
   GET_USER_BY_NICKNAME,
   UPDATE_MATCH,
   FILTERS_BY_ME,
+  UPDATE_IMG,
   /*  GET_USER_BY_GENDER,
   GET_USER_BY_GENDERINT, */
 } from "../actions/types.js";
@@ -44,10 +45,19 @@ export default function rootReducer(state = initialState, action) {
     // } //MESSAGE PODRIA TRAER INFO PARA UN COMPONENTE MODAL DE NOTIFICACION
 
     case UPDATE_USER: {
-      return { 
-        ...state, message: action.payload };
+      return {
+        ...state,
+        message: action.payload,
+      };
+    }
+    case UPDATE_IMG: {
+      return {
+        ...state,
+        message: action.payload,
+      };
     }
     case UPDATE_MATCH: {
+<<<<<<< HEAD
       return { 
         ...state, message: action.payload };
     }
@@ -67,11 +77,35 @@ export default function rootReducer(state = initialState, action) {
 
       return { ...state, usersSelected: 
         FinalFiltered
+=======
+      return {
+        ...state,
+        message: action.payload,
+>>>>>>> a0bb51dc5eab9e3d5a61bf20cadf0df460269421
       };
     }
 
+    case FILTERS_BY_ME: {
+      const allusersMe = state.usersBackup;
+      const miID = state.userDetail?._id;
 
-    
+      const usersFilterByLikeReceived = allusersMe.filter(
+        (e) => !e.likeReceived.includes(miID)
+      );
+      const usersFilterByDisLikeReceived = allusersMe.filter(
+        (e) => !e.dislikeReceived.includes(miID)
+      );
+
+      const FinalFiltered = [].concat(
+        usersFilterByDisLikeReceived,
+        usersFilterByLikeReceived
+      );
+
+      console.log(usersFilterByLikeReceived);
+      console.log(usersFilterByDisLikeReceived);
+
+      return { ...state, usersSelected: FinalFiltered };
+    }
 
     case CLEAR_USER_DETAIL: {
       return { ...state, userDetail: [] };

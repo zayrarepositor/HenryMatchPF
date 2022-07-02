@@ -19,6 +19,7 @@ import { getUsers, getUserByNick} from "../../Redux/actions";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { Avatar, IconButton, Typography } from "@mui/material";
+import './Profile.css';
 
 const Profile = () => {
   const userProfile = useSelector((state) => state.userDetail);
@@ -81,13 +82,14 @@ const Profile = () => {
   //     title: "Bike",
   //   },
   // ];
-
+  
   return (
     <>
+
       {isLoading && <Loader />}
       {isAuthenticated ? (
-        <>
-          <div>
+        <div className="todojunto">
+          <div className="informaciondelusuario">
             <Link to='/'>
               <button >Return to Home</button>
             </Link>
@@ -111,26 +113,26 @@ const Profile = () => {
                 <div>{userProfile.gender}</div>
                 <div>{userProfile.description}</div>
 
-          </div>
-          {/* <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-            <img src={userProfile.image} alt={userProfile.name} />
-            {itemData.map((item) => (
-              <ImageListItem key={item.img}>
+          <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+            
+            {userProfile.image.map((item) => (
+              <ImageListItem key={userProfile.image}>
                 <img
-                  src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
+                  src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                  srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  alt={userProfile.name}
                   loading="lazy"
-                />
+                  />
               </ImageListItem>
             ))} 
-           </ImageList> */}
-          <div>
+           </ImageList>
+            </div>
+          <div className="datosacompletar">
             <h1> DATOS A COMPLETAR</h1>
             <Formu setUpdate={setUpdate}/>
             <LogoutButton />
           </div>
-        </>
+        </div>
       ) : (
         <h1>es el profile pero no estas loggeado</h1>
       )}
