@@ -27,7 +27,6 @@ import Swal from "sweetalert2";
 const initialForm = {
   name: "", //*
   age: "",
-  birthday: "",
   nickname: "", //*
   email: "", //REQUERIDO EN DB//*
   image: "", //REQUERIDO EN DB//*
@@ -83,7 +82,15 @@ const Modal = ({ modal, setModal }) => {
       delete errors.name;
     }
   }
-
+  //OBTENGO  LA EDAD DEL USUARIO
+  function handleChangeAge(e) {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setUserForm({
+      ...userForm,
+      [name]: Number(value),
+    });
+  }
   //OBTENGO LOS DEMAS DATOS DEL USUARIO PARA CREAR EL USUARIO
   function handleChange(e) {
     e.preventDefault();
@@ -162,11 +169,11 @@ const Modal = ({ modal, setModal }) => {
 
             {/* LA FECHA DE NACIMIENTO DEL USUARIO */}
             <div>
-              <InputLabel htmlFor="birthday">tu edad:</InputLabel>
+              <InputLabel htmlFor="age">tu edad:</InputLabel>
               <input
-                type="date"
-                name="birthday"
-                onChange={handleChange}></input>
+                type="number"
+                name="age"
+                onChange={handleChangeAge}></input>
             </div>
 
             {/* EL GENERO DEL USUARIO */}
