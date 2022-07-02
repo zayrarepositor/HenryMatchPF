@@ -1,37 +1,40 @@
 import React, { Component } from 'react';
 import { dummyUsers } from "./Users";
 import Talk from "talkjs";
+import {connect} from "react-redux";
+import "./index.css"
 
 
 class MyNetwork extends Component {
 
-    constructor({usersDetail}) {
-        super(usersDetail); 
+    constructor(props) {
+        super(props); 
         let currentUser;
-        const currentTalkjsUser = usersDetail//localStorage.getItem('currentTalkjsUser');
-        console.log(currentTalkjsUser)
+        const currentTalkjsUser = localStorage.getItem('currentTalkjsUser');
+       
         if (currentTalkjsUser) {
             currentUser = JSON.parse(currentTalkjsUser)
         }
         this.state = {
             currentUser
         }
-        console.log(currentUser,"cUser")
         
     }
+  
 
     handleClick(userId) {
-
+        const {users} = this.props
         /* Retrieve the two users that will participate in the conversation */
         const { currentUser } = this.state;
-        const user = dummyUsers.find(user => user.id === userId)
+        const user = users.find(user => user._id === userId)
+        const userFinal = {...user,id : user._id}
 
         /* Session initialization code */
         Talk.ready
         .then(() => {
             /* Create the two users that will participate in the conversation */
             const me = new Talk.User(currentUser);
-            const other = new Talk.User(user)
+            const other = new Talk.User(userFinal)
 
             /* Create a talk session if this does not exist. Remember to replace tthe APP ID with the one on your dashboard */
             if (!window.talkSession) {
@@ -55,8 +58,11 @@ class MyNetwork extends Component {
         })            
         .catch(e => console.error(e));
     }
+   
     render() {
+       
         const { currentUser } = this.state;
+        const {users} = this.props;
 
         return (
             <div className="users">
@@ -76,19 +82,19 @@ class MyNetwork extends Component {
 
                 <div className="users-container"> 
                     <ul>
-                        { dummyUsers.map(user => 
-                            <li key={user.id} className="user">
+                        { users.map(user => 
+                            <li key={user._id} className="user">
                                 <picture className="user-picture">
-                                    <img src={user.photoUrl} alt={`${user.name}`} />
+                                    <img src={user.image} alt={`${user.name}`} />
                                 </picture>
                                 <div className="user-info-container">
                                     <div className="user-info">
                                         <h4>{user.name}</h4>
-                                        <p>{user.info}</p>
+                                        {/* <p>{user.info}</p> */}
                                     </div>
                                     <div className="user-action">
 
-                                        <button onClick={(userId) => this.handleClick(user.id)}>Message</button>
+                                        <button onClick={() => this.handleClick(user._id)}>Message</button>
                                     </div>
                                 </div>
                             </li>
@@ -96,11 +102,12 @@ class MyNetwork extends Component {
                     </ul>
 
                     <div className="chatbox-container" ref={c => this.container = c}>
-                        <div id="talkjs-container" style={{height: "300px"}}><i></i></div>
+                        <div id="talkjs-container" style={{height: "600px"}}><i></i></div>
                     </div>
                 </div>
             </div>
         )
     }
 }
+
 export default MyNetwork;

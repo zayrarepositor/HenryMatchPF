@@ -10,8 +10,10 @@ import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 //import Detail from "../../components/Detail/Detail";
 import BottomBar from "../../components/BottomBar";
-import MyNetwork from "../../components/Chat/MyNetwork";
-// import Startchat from "../../components/Chat/NewChat"
+// import MyNetwork from "../../components/Chat/MyNetwork";
+// import ChatRoom from "../ChatRoom/ChatRoom";
+
+
  
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
@@ -54,12 +56,27 @@ const Home = () => {
   const userDetail = useSelector((state) => state.userDetail);
 
   const [modal, setModal] = useState(false);
-
+ 
   //PARA LLENAR EL STORE CON TODOS LOS USUARIOS
   useEffect(() => {
     dispatch(getUsers());
   }, []);
 
+  useEffect(() =>{
+    if(user){
+      const userid = {
+        name : user.name,
+        id : user.sub,
+        photoUrl : user.picture,
+        email : user.email || "exampleEmail@gmail.com",
+        description : "im Ready to get my first HenryMatch",
+        role: "user"
+      }
+     
+      window.localStorage.setItem("currentTalkjsUser", JSON.stringify(userid));
+    }
+  
+  },[user])
   //PARA ABRIR MODAL SOLO CUANDO EL USUARIO NO ESTA EN LA DB
   useEffect(() => {
     if (isAuthenticated === true) {
@@ -82,17 +99,16 @@ const Home = () => {
   useEffect(() => {
     dispatch(filterByGender(userDetail.genderInt));
   }, [userDetail]);
-
+ 
   return (
     <>
-    {
-      <div>
-        <MyNetwork
-        usersDetail={usersDetail}
-        />
-        {/* <Startchat/> */}
-      </div>
-    }
+    
+      
+    {/* <ChatRoom
+        usersDetail={userDetail}
+        users={users}
+        /> */}
+  
     
       {isLoading && (
         <>
