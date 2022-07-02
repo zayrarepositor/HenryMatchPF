@@ -62,8 +62,8 @@ export default function rootReducer(state = initialState, action) {
     
       const FinalFiltered = [].concat( usersFilterByDisLikeReceived, usersFilterByLikeReceived)
     
-console.log(usersFilterByLikeReceived)
-console.log(usersFilterByDisLikeReceived)
+      console.log(usersFilterByLikeReceived)
+      console.log(usersFilterByDisLikeReceived)
 
       return { ...state, usersSelected: 
         FinalFiltered
