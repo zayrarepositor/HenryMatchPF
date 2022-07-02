@@ -28,8 +28,9 @@ class MyNetwork extends Component {
         const {users} = this.props
         /* Retrieve the two users that will participate in the conversation */
         const { currentUser } = this.state;
+
         const user = users.find(user => user._id === userId)
-        const userFinal = {...user,id : user._id}
+        const userFinal = {...user,id : user.nickname}
 
         /* Session initialization code */
         Talk.ready
