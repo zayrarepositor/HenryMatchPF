@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Formik, Form, ErrorMessage, Field } from 'formik'// es un componente con el que encerramos el formulario
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from '../../Redux/actions';
+import { updateImg, updateUser } from '../../Redux/actions';
 import { useRef } from 'react';
 import './Form.css';
 
@@ -30,7 +30,7 @@ const Formu = ({setUpdate}) => {
 		  await axios.post('https://api.cloudinary.com/v1_1/henrymatch/image/upload', formData)
 			.then(res => {
 				const urlImage = res.data.url;
-        dispatch(updateUser(userDetail._id, {image: urlImage }))
+        dispatch(updateImg(userDetail._id, {image: urlImage }))
 		setUpdate(true)
 				console.log(urlImage, "URL DE LA IMAGEN")
 			}
