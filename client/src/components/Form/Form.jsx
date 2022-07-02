@@ -4,10 +4,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from '../../Redux/actions';
 import { useRef } from 'react';
-<<<<<<< HEAD
 import './Form.css';
-=======
->>>>>>> 1ad60dfae11c25ae8ac76a994bb0667f7f7be43c
 
 
 
