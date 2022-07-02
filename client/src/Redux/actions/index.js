@@ -7,6 +7,7 @@ import {
   GET_USER_BY_NICKNAME,
   UPDATE_MATCH,
   FILTERS_BY_ME,
+  UPDATE_IMG,
   /*  GET_USER_BY_GENDERINT, */
   // GET_USER_LIKES,
   // GET_USER_MATCHES,
@@ -76,6 +77,23 @@ export function updateUser(id, data) {
 
       return dispatch({
         type: UPDATE_USER,
+        payload: user.data,
+      });
+    } catch (error) {
+      return error;
+    }
+  };
+}
+export function updateImg(id, data) {
+  return async function (dispatch) {
+    try {
+      const user = await axios.put(
+        `https://henrymatch-pg.herokuapp.com/usersImg/${id}`,
+        data
+      );
+
+      return dispatch({
+        type: UPDATE_IMG,
         payload: user.data,
       });
     } catch (error) {

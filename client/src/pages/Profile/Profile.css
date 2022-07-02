@@ -1,0 +1,9 @@
+.todojunto {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.informaciondelusuario {
+    padding-left: 20px;
+}
