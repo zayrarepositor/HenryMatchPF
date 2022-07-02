@@ -10,11 +10,13 @@ import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 //import Detail from "../../components/Detail/Detail";
 import BottomBar from "../../components/BottomBar";
-import MyNetwork from "../../components/Chat/MyNetwork";
+
+// import MyNetwork from "../../components/Chat/MyNetwork";
+// import ChatRoom from "../ChatRoom/ChatRoom";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
-import { getUsers } from "../../redux/actions";
+import { filterByMe, getUsers } from "../../redux/actions";
 import { filterByGender } from "../../redux/actions";
 import { getUserByNick } from "../../redux/actions/index";
 
@@ -58,11 +60,26 @@ const Home = () => {
     dispatch(getUsers());
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      const userid = {
+        name: user.name,
+        id: user.sub,
+        photoUrl: user.picture,
+        email: user.email || "exampleEmail@gmail.com",
+        description: "im Ready to get my first HenryMatch",
+        role: "user",
+      };
+
+      window.localStorage.setItem("currentTalkjsUser", JSON.stringify(userid));
+    }
+  }, [user]);
   //PARA ABRIR MODAL SOLO CUANDO EL USUARIO NO ESTA EN LA DB
   useEffect(() => {
     if (isAuthenticated === true) {
       //ME GUARDO EL SUB (NUESTRO NICKNAME) DEL USUARIO DE AUTH0 EN ESTA VARIABLE
       const localUserNickname = user.sub;
+
       //EN ESTA VARIABLE SER GUARDA EL LOCAL USER SI ESTA EN LA DB
       const userInDb = users.find((u) => u.nickname === localUserNickname);
 
@@ -79,16 +96,16 @@ const Home = () => {
 
   //PARA FILTRAR USUARIO POR GENERO
   useEffect(() => {
-    dispatch(filterByGender(userDetail.genderInt));
+    dispatch(filterByGender(userDetail?.genderInt));
+    dispatch(filterByMe());
   }, [userDetail]);
 
   return (
     <>
-      {
-        <div>
-          <MyNetwork />
-        </div>
-      }
+      {/* <ChatRoom
+        usersDetail={userDetail}
+        users={users}
+        /> */}
 
       {isLoading && (
         <>
