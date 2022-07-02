@@ -6,15 +6,17 @@ import {
   FILTER_USERS_BY_GENDER,
   GET_USER_BY_NICKNAME,
   UPDATE_MATCH,
+  FILTERS_BY_ME,
   /*  GET_USER_BY_GENDER,
   GET_USER_BY_GENDERINT, */
 } from "../actions/types.js";
 
 const initialState = {
   users: [], //NO MODIFICAR
-  usersSelected: [], //USADO PARA FILTERS & SORTERS
+  usersBackup: [], //ESTE LO USO PARA EMPEZAR FILTERS & SORTERS
+  usersSelected: [], //ESTE LO USO PARA ALMACENAR EL RESULTADO DE FILTERS & SORTERS
   userDetail: [], //USADO TAMBIEN PARA CLEAR_USER_DETAIL
-  usersBackup: [],
+
   // OPCIONALES?
   // message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
   gender: [],
@@ -27,7 +29,6 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload,
-        usersSelected: action.payload,
         usersBackup: action.payload,
       };
     }
@@ -51,6 +52,27 @@ export default function rootReducer(state = initialState, action) {
         ...state, message: action.payload };
     }
 
+    case FILTERS_BY_ME: {
+      
+      const allusersMe = state.usersBackup;
+      const miID = state.userDetail?._id;
+
+      const usersFilterByLikeReceived = allusersMe.filter(e => !e.likeReceived.includes(miID) )
+      const usersFilterByDisLikeReceived = allusersMe.filter(e => !e.dislikeReceived.includes(miID) )
+    
+      const FinalFiltered = [].concat( usersFilterByDisLikeReceived, usersFilterByLikeReceived)
+    
+console.log(usersFilterByLikeReceived)
+console.log(usersFilterByDisLikeReceived)
+
+      return { ...state, usersSelected: 
+        FinalFiltered
+      };
+    }
+
+
+    
+
     case CLEAR_USER_DETAIL: {
       return { ...state, userDetail: [] };
     }
@@ -58,11 +80,11 @@ export default function rootReducer(state = initialState, action) {
     case FILTER_USERS_BY_GENDER: {
       const allusersGender = state.usersBackup;
       const usersFilterByGender =
-        action.payload === "both"
-          ? allusersGender
-          : action.payload === "male"
+        action.payload === "male"
           ? allusersGender.filter((e) => e.gender === "male")
-          : allusersGender.filter((e) => e.gender === "female");
+          : action.payload === "female"
+          ? allusersGender.filter((e) => e.gender === "female")
+          : allusersGender;
       return { ...state, usersSelected: usersFilterByGender };
     }
 

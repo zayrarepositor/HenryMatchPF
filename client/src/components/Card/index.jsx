@@ -24,10 +24,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
+<<<<<<< HEAD
 import InterestsIcon from "@mui/icons-material/Interests";
+=======
+import InterestsIcon from '@mui/icons-material/Interests';
+import Swal from "sweetalert2";
+>>>>>>> 0c2f591f2a66faf63b1b46e2ac675c7f0ca050cb
 
 import { Box, Divider } from "@mui/material";
-import { updateMatches, updateUser } from "../../Redux/actions";
+import { filterByGender, filterByMe, getUserByNick, updateMatches } from "../../Redux/actions";
 import { useEffect } from "react";
 import { getUsers } from "./../../Redux/actions/index";
 
@@ -52,6 +57,7 @@ export default function Cards() {
   //*******/
 
   const db = useSelector((state) => state.usersSelected);
+<<<<<<< HEAD
   const currentUser = useSelector((state) => state.userDetail);
   //console.log('currentUser',currentUser)
   const [UpdateCurrentUser, setUpdateCurrentUser] = useState({});
@@ -75,6 +81,20 @@ export default function Cards() {
   useEffect(() => {
     dispatch(getUsers());
   }, [xD]);
+=======
+  const currentUser = useSelector((state)=> state.userDetail)
+  
+  const [UpdateCurrentUser, setUpdateCurrentUser] = useState({
+  })
+  const [UpdateCardUser, setUpdateCardUser] = useState({
+  })
+ 
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+  dispatch(getUsers())
+  },[/* currentUser, db  *//* UpdateCardUser,  *//* UpdateCurrentUser, */ ])
+>>>>>>> 0c2f591f2a66faf63b1b46e2ac675c7f0ca050cb
 
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
@@ -82,7 +102,7 @@ export default function Cards() {
 
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(db?.length)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -100,6 +120,7 @@ export default function Cards() {
   const swiped = (direction, name, index, id) => {
     const currentCard = db.find((ss) => ss._id === id);
 
+<<<<<<< HEAD
     const miID = currentUser._id;
 
     const cardID = currentCard._id;
@@ -150,8 +171,46 @@ export default function Cards() {
       );
       dispatch(getUsers());
       console.log(newArrLikeGiv);
-    }
+=======
+    const currentCard = db?.find((ss)=> ss._id === id)
+   
+    dispatch(getUserByNick(currentUser?.nickname));
+    
+    const miID = currentUser?._id;
+    const cardID = currentCard._id;
+      
+    if(direction === 'right'){
 
+      
+      dispatch(updateMatches(id, {
+        likeReceived: miID  
+      }))
+
+     dispatch(updateMatches(miID, {
+        likeGiven: cardID  
+      }))
+   
+      dispatch(getUserByNick(currentUser?.nickname));
+      dispatch(filterByMe())
+     
+    }
+  
+    if(direction === 'left'){
+      dispatch(updateMatches(miID, {
+        dislike: id  
+      }))
+
+      dispatch(updateMatches(id, {
+        dislikeReceived: miID  
+      }))
+
+      dispatch(getUserByNick(currentUser?.nickname));
+      
+>>>>>>> 0c2f591f2a66faf63b1b46e2ac675c7f0ca050cb
+    }
+    
+
+<<<<<<< HEAD
     if (direction === "left") {
       const newArrDislike = currentCard.dislike;
       newArrDislike.push(id);
@@ -162,6 +221,39 @@ export default function Cards() {
       );
     }
 
+=======
+    const foundMatch = currentCard.likeGiven?.includes(miID)
+    
+    if(foundMatch){
+      
+      dispatch(updateMatches(id, {
+        matches: miID
+      }))
+      //  alert(`hiciste match con ${name}`)
+      // Swal.fire({
+      //   position: "center",
+      //   icon: "success",
+      //   title: `hiciste match con ${name}`,
+      //   showConfirmButton: false,
+      //   timer: 2500,
+      // });
+      Swal.fire({
+        title: `hiciste match con ${name}`,
+        text: 'Felicidades!!',
+        imageUrl: `${currentCard.image}`,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+      })
+      dispatch(updateMatches(miID, {
+        matches: id 
+      }))
+       alert(`hiciste match con ${name}`)
+       dispatch(getUserByNick(currentUser?.nickname));
+       
+    }
+  
+>>>>>>> 0c2f591f2a66faf63b1b46e2ac675c7f0ca050cb
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
   };
