@@ -14,10 +14,6 @@ import BottomBar from "../../components/BottomBar";
 // import MyNetwork from "../../components/Chat/MyNetwork";
 // import ChatRoom from "../ChatRoom/ChatRoom";
 
-
-
- 
-
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
 import { filterByMe, getUsers } from "../../redux/actions";
@@ -58,33 +54,32 @@ const Home = () => {
   const userDetail = useSelector((state) => state.userDetail);
 
   const [modal, setModal] = useState(false);
- 
+
   //PARA LLENAR EL STORE CON TODOS LOS USUARIOS
   useEffect(() => {
     dispatch(getUsers());
   }, []);
 
-  useEffect(() =>{
-    if(user){
+  useEffect(() => {
+    if (user) {
       const userid = {
-        name : user.name,
-        id : user.sub,
-        photoUrl : user.picture,
-        email : user.email || "exampleEmail@gmail.com",
-        description : "im Ready to get my first HenryMatch",
-        role: "user"
-      }
-     
+        name: user.name,
+        id: user.sub,
+        photoUrl: user.picture,
+        email: user.email || "exampleEmail@gmail.com",
+        description: "im Ready to get my first HenryMatch",
+        role: "user",
+      };
+
       window.localStorage.setItem("currentTalkjsUser", JSON.stringify(userid));
     }
-  
-  },[user])
+  }, [user]);
   //PARA ABRIR MODAL SOLO CUANDO EL USUARIO NO ESTA EN LA DB
   useEffect(() => {
     if (isAuthenticated === true) {
       //ME GUARDO EL SUB (NUESTRO NICKNAME) DEL USUARIO DE AUTH0 EN ESTA VARIABLE
       const localUserNickname = user.sub;
-     
+
       //EN ESTA VARIABLE SER GUARDA EL LOCAL USER SI ESTA EN LA DB
       const userInDb = users.find((u) => u.nickname === localUserNickname);
 
@@ -92,43 +87,39 @@ const Home = () => {
       if (!userInDb) {
         setModal(true);
       } else {
+        setModal(false);
         //SI EL USUARIO SI ESTABA EN NUESTRA DB SE LLENA EL userDetail DEL STORE
         dispatch(getUserByNick(localUserNickname));
       }
     }
   }, [isAuthenticated]);
-  
+
   //PARA FILTRAR USUARIO POR GENERO
   useEffect(() => {
     dispatch(filterByGender(userDetail?.genderInt));
-    dispatch(filterByMe())
+    dispatch(filterByMe());
   }, [userDetail]);
- 
+
   return (
     <>
-
-    
-      
-    {/* <ChatRoom
+      {/* <ChatRoom
         usersDetail={userDetail}
         users={users}
         /> */}
-  
-    
+
       {isLoading && (
         <>
           <Loader />
         </>
       )}
-      
+
       <Modal modal={modal} setModal={setModal}></Modal>
       {isAuthenticated ? (
         <Grid>
-          
           <CssBaseline />
           <Header />
           <Cards></Cards>
-          
+
           <BottomBar />
         </Grid>
       ) : (
@@ -151,7 +142,7 @@ const Home = () => {
                 backgroundPosition: "start",
               }}
             />
-            
+
             <Grid
               item
               xs={12}
@@ -185,12 +176,10 @@ const Home = () => {
                     <LoginButton />
                   </Box>
                   <Copyright sx={{ mt: 30 }} />
-            
                 </Box>
               </Box>
             </Grid>
           </Grid>
-
         </>
       )}
     </>
