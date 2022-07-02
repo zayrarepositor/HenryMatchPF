@@ -57,11 +57,10 @@ export default function rootReducer(state = initialState, action) {
       };
     }
     case UPDATE_MATCH: {
-<<<<<<< HEAD
       return { 
         ...state, message: action.payload };
     }
-
+/* 
     case FILTERS_BY_ME: {
       
       const allusersMe = state.usersBackup;
@@ -77,13 +76,11 @@ export default function rootReducer(state = initialState, action) {
 
       return { ...state, usersSelected: 
         FinalFiltered
-=======
       return {
         ...state,
         message: action.payload,
->>>>>>> a0bb51dc5eab9e3d5a61bf20cadf0df460269421
       };
-    }
+    } */
 
     case FILTERS_BY_ME: {
       const allusersMe = state.usersBackup;
