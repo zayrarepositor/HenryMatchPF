@@ -1,7 +1,8 @@
 //======PAQUETES Y LIBRERIAS
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 //======IMPORTACIONES DE COMPONENTES
@@ -47,6 +48,9 @@ const Modal = ({ modal, setModal }) => {
   const { user } = useAuth0();
   const dispatch = useDispatch();
   const [userForm, setUserForm] = useState(initialForm);
+  const users = useSelector((state) => state.users);
+
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     setUserForm({
@@ -54,9 +58,7 @@ const Modal = ({ modal, setModal }) => {
       name: user?.name,
       nickname: user?.sub,
       email: user?.email, //REQUERIDO EN DB
-      image:
-        user?.picture ||
-        "https://images.unsplash.com/photo-1610805796066-66f6052e1db2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+      image: user?.picture,
     });
   }, [user]);
 
@@ -65,17 +67,25 @@ const Modal = ({ modal, setModal }) => {
     setModal(false);
   };
 
-  //OBTENGO EL GENERO DE INTERES DEL USUARIO PARA CREAR EL USUARIO
-  function handleGenderIntChange(e) {
+  //OBTENGO NOMBRE USUARIO PARA CREAR EL USUARIO
+  function handleChangeName(e) {
+    e.preventDefault();
     const { name, value } = e.target;
-    setUserForm({
-      ...userForm,
-      [name]: value,
-    });
+    const nameInDb = users.find((u) => u.name === value);
+    if (nameInDb) {
+      setErrors({ ...errors, name: "tu nombre debe ser único, como vos" });
+    } else {
+      setUserForm({
+        ...userForm,
+        [name]: value,
+      });
+
+      delete errors.name;
+    }
   }
 
-  //OBTENGO EL GENERO PARA CREAR DEL USUARIO
-  function handleGenderChange(e) {
+  //OBTENGO LOS DEMAS DATOS DEL USUARIO PARA CREAR EL USUARIO
+  function handleChange(e) {
     e.preventDefault();
     const { name, value } = e.target;
     setUserForm({
@@ -87,33 +97,37 @@ const Modal = ({ modal, setModal }) => {
   //CREO UN USUARIO NUEVO
   function handleSubmit(e) {
     e.preventDefault();
-    /*    
-    //SI gender O genderInt ESTAN VACÍOS. POR AHORA NUNCA ENTRARA AQUI PUES EL initialForm YA TIENE ESOS CAMPOS LLENOS, PERO DEJO ESTAS LINEAS POR SI EL initialForm SE CAMBIA
-    const { gender, genderInt } = userForm;
-    if ([gender, genderInt].includes("")) {
-      setTimeout(() => {
-        alert("todos los campos son requeridos");
-      }, 3000);
-      return;
-    } */
-    //PARA LLENAR userDetail
-    dispatch(getUserByNick(userForm.nickname));
-    //PARA FILTRAR SEGUN genderInt
-    dispatch(filterByGender(userForm.genderInt));
-    //AHORA SI CREO UN USUARIO NUEVO
-    dispatch(createUser(userForm));
 
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Happy Matching!!",
-      showConfirmButton: false,
-      timer: 2500,
-    });
-    //SETEO EL FORMULARIO AL ESTADO ORIGINAL
-    setUserForm(initialForm);
-    //CIERRO MODAL
-    handleClose();
+    const { gender, genderInt, name, birthday } = userForm;
+    if ([gender, genderInt, name, birthday].includes("")) {
+      setErrors({ ...errors, msg: "todos los campos son requeridos" });
+      setTimeout(() => {
+        setErrors(
+          errors.name ? { name: "tu nombre debe ser único, como vos" } : {}
+        );
+      }, 2000);
+      return;
+    }
+    if (Object.keys(errors).length === 0) {
+      //PARA LLENAR userDetail
+      dispatch(getUserByNick(userForm.nickname));
+      //PARA FILTRAR SEGUN genderInt
+      dispatch(filterByGender(userForm.genderInt));
+      //AHORA SI CREO UN USUARIO NUEVO
+      dispatch(createUser(userForm));
+
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Happy Matching!!",
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      //SETEO EL FORMULARIO AL ESTADO ORIGINAL
+      setUserForm(initialForm);
+      //CIERRO MODAL
+      handleClose();
+    }
   }
 
   return (
@@ -127,51 +141,62 @@ const Modal = ({ modal, setModal }) => {
             handleClose();
           }
         }}>
-        <DialogTitle>HENRY MATCH</DialogTitle>
+        <DialogTitle>HENRY MATCH - CREAR USUARIO</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Sólo un par de preguntas antes de mostrarte justo lo que buscas
+            Contá más sobre vos a la comunidad Henry
           </DialogContentText>
         </DialogContent>
         <DialogContent>
-          {/* ========MARTIN========> CUANDO TRATE DE PASAR EL FORM A MATERIAL UAI NO FUNCIONABA ASI QUE MEJOOOOOOR NO TOQUES LAS ETIQUETAS FORM, SELECT Y EL BOTON, TE DEJO ABAJO COMENTADO ALGO DE LO QUE TRATE DE HACER PARA QUE LO VEAS PERO YO DIRIA QUE ARREGLES LO ESTETICO SIN MODIFICAR LAS ETIQUETAS *U.U* */}
           <form onSubmit={handleSubmit}>
+            {/* EL NOMBRE DEL USUARIO */}
+            <div>
+              <InputLabel htmlFor="name">tu nombre:</InputLabel>
+              <input
+                type="text"
+                name="name"
+                placeholder="nombre..."
+                onChange={handleChangeName}></input>
+              {errors.name && <p>{errors.name}</p>}
+            </div>
+
+            {/* LA FECHA DE NACIMIENTO DEL USUARIO */}
+            <div>
+              <InputLabel htmlFor="birthday">tu edad:</InputLabel>
+              <input
+                type="date"
+                name="birthday"
+                onChange={handleChange}></input>
+            </div>
+
             {/* EL GENERO DEL USUARIO */}
-            <InputLabel htmlFor="gender">eres (género):</InputLabel>
-            <select name="gender" onChange={handleGenderChange} required>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-            {/*
-            <Select
-              autoFocus
-              required
-              value={userForm.gender}
-              onChange={handleGenderChange}
-              label="gender"
-              inputProps={{
-                name: "gender",
-                id: "gender",
-              }}>
-              <MenuItem value="male">hombre</MenuItem>
-              <MenuItem value="female">mujer</MenuItem>
-            </Select> */}
+            <div>
+              <InputLabel htmlFor="gender">eres (género):</InputLabel>
+              <select name="gender" onChange={handleChange} required>
+                <option value="male">hombre</option>
+                <option value="female">mujer</option>
+              </select>
+            </div>
             {/* EL GENERO QUE LE INTERESA VER AL USUARIO */}
-            <InputLabel htmlFor="genderInt">
-              y te interesa encontrar:
-            </InputLabel>
-            <select name="genderInt" onChange={handleGenderIntChange} required>
-              <option value="both">Both</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
+            <div>
+              <InputLabel htmlFor="genderInt">
+                y te interesa encontrar:
+              </InputLabel>
+              <select name="genderInt" onChange={handleChange} required>
+                <option value="both">ambos</option>
+                <option value="male">hombres</option>
+                <option value="female">mujeres</option>
+              </select>
+            </div>
+
+            {errors.msg && <p>{errors.msg}</p>}
+
             <DialogActions>
-              {/*  <Button variant="contained" type="submit">
-                LISTO, QUE TE DIVIERTAS!
-              </Button> */}
               <button type="submit">LISTO, QUE TE DIVIERTAS!</button>
             </DialogActions>
           </form>
+
+          <p>En tu perfil podras agregar fotos y más información sobre vos</p>
         </DialogContent>
       </Dialog>
     </React.Fragment>
