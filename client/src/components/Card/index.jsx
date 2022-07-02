@@ -25,6 +25,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InterestsIcon from '@mui/icons-material/Interests';
+import Swal from "sweetalert2";
 
 import { Box, Divider } from "@mui/material";
 import { filterByMe, getUserByNick, updateMatches } from "../../Redux/actions";
@@ -127,7 +128,22 @@ export default function Cards() {
       dispatch(updateMatches(id, {
         matches: miID
       }))
-       alert(`hiciste match con ${name}`)
+      //  alert(`hiciste match con ${name}`)
+      // Swal.fire({
+      //   position: "center",
+      //   icon: "success",
+      //   title: `hiciste match con ${name}`,
+      //   showConfirmButton: false,
+      //   timer: 2500,
+      // });
+      Swal.fire({
+        title: `hiciste match con ${name}`,
+        text: 'Felicidades!!',
+        imageUrl: `${currentCard.image}`,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+      })
       dispatch(updateMatches(miID, {
         matches: id 
       }))
