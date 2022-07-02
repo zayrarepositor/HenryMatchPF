@@ -25,9 +25,10 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InterestsIcon from '@mui/icons-material/Interests';
+import Swal from "sweetalert2";
 
 import { Box, Divider } from "@mui/material";
-import { updateUser } from "../../Redux/actions";
+import { filterByGender, filterByMe, getUserByNick, updateMatches } from "../../Redux/actions";
 import { useEffect } from "react";
 import { getUsers } from './../../Redux/actions/index';
 
@@ -53,7 +54,7 @@ export default function Cards() {
 
   const db = useSelector((state) => state.usersSelected);
   const currentUser = useSelector((state)=> state.userDetail)
-  //console.log('currentUser',currentUser)
+  
   const [UpdateCurrentUser, setUpdateCurrentUser] = useState({
   })
   const [UpdateCardUser, setUpdateCardUser] = useState({
@@ -63,7 +64,7 @@ export default function Cards() {
 
   useEffect(()=>{
   dispatch(getUsers())
-  },[currentUser/* , UpdateCardUser, UpdateCurrentUser, */ ])
+  },[/* currentUser, db  *//* UpdateCardUser,  *//* UpdateCurrentUser, */ ])
 
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
@@ -71,7 +72,7 @@ export default function Cards() {
 
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(db?.length)
         .fill(0)
         .map((i) => React.createRef()),
     []
@@ -88,70 +89,73 @@ export default function Cards() {
 
   const swiped = (direction, name, index, id) => {
 
-    const currentCard = db.find((ss)=> ss._id === id)
-
-    setUpdateCardUser(currentCard)
-    setUpdateCurrentUser(currentUser)
+    const currentCard = db?.find((ss)=> ss._id === id)
+   
+    dispatch(getUserByNick(currentUser?.nickname));
     
-    const miID = currentUser._id;
-    console.log('miID',miID)
+    const miID = currentUser?._id;
     const cardID = currentCard._id;
-    console.log('cardID',cardID)
-    const foundMatch = currentCard.likeGiven.includes(miID)
-    
-    if(foundMatch){
-      setUpdateCardUser(prevState => {
-        return {
-          ...prevState,
-          matches: [...prevState.matches, miID]
-        }
-      })
-      dispatch(updateUser(id, UpdateCardUser))
-      setUpdateCurrentUser(prevState => {
-        return {
-          ...prevState,
-          matches: [...prevState.matches, id]
-        }
-      })
-      dispatch(updateUser(miID, UpdateCurrentUser))
-    }
-
+      
     if(direction === 'right'){
-   
-    setUpdateCardUser(prevState => {
-      return {
-        ...prevState,
-        likeReceived: [...new Set([...prevState.likeReceived, miID])]
-      }
-    })
-    dispatch(updateUser(id, UpdateCardUser))
 
-    setUpdateCurrentUser(prevState => {
-    return {
-      /* ...prevState.likeGiven, id */
-      ...prevState,
-      likeGiven: [...new Set([...prevState.likeGiven, cardID])]
-    }
-    })
+      
+      dispatch(updateMatches(id, {
+        likeReceived: miID  
+      }))
+
+     dispatch(updateMatches(miID, {
+        likeGiven: cardID  
+      }))
    
-   dispatch(updateUser(miID, UpdateCurrentUser))
-   console.log('UpdateCurrentUser',UpdateCurrentUser)
-   console.log('UpdateCardUser',UpdateCardUser);
-  
+      dispatch(getUserByNick(currentUser?.nickname));
+      dispatch(filterByMe())
      
     }
   
     if(direction === 'left'){
-      //aca voy juntando los dislikes dados
-      setUpdateCurrentUser(prevState => {
-        return {
-          ...prevState,
-          dislike: [...prevState.dislike, cardID]
-        }
-      })
-      dispatch(updateUser(miID, UpdateCurrentUser))
-    }
+      dispatch(updateMatches(miID, {
+        dislike: id  
+      }))
 
+      dispatch(updateMatches(id, {
+        dislikeReceived: miID  
+      }))
+
+      dispatch(getUserByNick(currentUser?.nickname));
+      
+    }
+    
+
+    const foundMatch = currentCard.likeGiven?.includes(miID)
+    
+    if(foundMatch){
+      
+      dispatch(updateMatches(id, {
+        matches: miID
+      }))
+      //  alert(`hiciste match con ${name}`)
+      // Swal.fire({
+      //   position: "center",
+      //   icon: "success",
+      //   title: `hiciste match con ${name}`,
+      //   showConfirmButton: false,
+      //   timer: 2500,
+      // });
+      Swal.fire({
+        title: `hiciste match con ${name}`,
+        text: 'Felicidades!!',
+        imageUrl: `${currentCard.image}`,
+        imageWidth: 400,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+      })
+      dispatch(updateMatches(miID, {
+        matches: id 
+      }))
+       alert(`hiciste match con ${name}`)
+       dispatch(getUserByNick(currentUser?.nickname));
+       
+    }
   
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
