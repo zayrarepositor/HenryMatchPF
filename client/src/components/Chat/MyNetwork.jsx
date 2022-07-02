@@ -7,11 +7,13 @@ import "./index.css"
 
 class MyNetwork extends Component {
 
-    constructor(props) {
-        super(props); 
+    constructor({usersDetail}) {
+        super(usersDetail); 
         let currentUser;
+
         const currentTalkjsUser = localStorage.getItem('currentTalkjsUser');
        
+
         if (currentTalkjsUser) {
             currentUser = JSON.parse(currentTalkjsUser)
         }
