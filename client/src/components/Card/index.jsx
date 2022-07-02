@@ -28,7 +28,7 @@ import InterestsIcon from '@mui/icons-material/Interests';
 import Swal from "sweetalert2";
 
 import { Box, Divider } from "@mui/material";
-import { updateMatches } from "../../Redux/actions";
+import { filterByMe, getUserByNick, updateMatches } from "../../Redux/actions";
 import { useEffect } from "react";
 import { getUsers } from './../../Redux/actions/index';
 
@@ -91,8 +91,7 @@ export default function Cards() {
 
     const currentCard = db.find((ss)=> ss._id === id)
     console.log("currentCard",currentCard)
-    //setUpdateCardUser(currentCard)
-    //setUpdateCurrentUser(currentUser)
+   
     
     const miID = currentUser._id;
     const cardID = currentCard._id;
@@ -100,67 +99,34 @@ export default function Cards() {
     if(direction === 'right'){
 
       dispatch(updateMatches(id, {
-        likeReceived: [...new Set([...currentCard.likeReceived, miID])]  
+        likeReceived: miID  
       }))
 
      dispatch(updateMatches(miID, {
-        likeGiven: [...new Set([...currentUser.likeGiven, cardID])]  
+        likeGiven: cardID  
       }))
    
-    /* setUpdateCardUser(prevState => {
-      return {
-        ...prevState,
-        likeReceived: [...new Set([...prevState.likeReceived, miID])]
-      }
-    })
-    dispatch(updateUser(id, UpdateCardUser)) */
-
- /*    setUpdateCurrentUser(prevState => {
-    return {
-      ...prevState,
-      likeGiven: [...new Set([...prevState.likeGiven, cardID])]
-    }
-    })
-      dispatch(updateUser(miID, UpdateCurrentUser)) */
-      
-   console.log('UpdateCurrentUser',UpdateCurrentUser)
-   console.log('UpdateCardUser',UpdateCardUser);
+      dispatch(getUserByNick(currentUser.nickname));
+      dispatch(filterByMe())
   
      
     }
   
     if(direction === 'left'){
       dispatch(updateMatches(miID, {
-        dislike: [...new Set([...currentUser.dislike, id])]  
+        dislike: id  
       }))
-      /* setUpdateCurrentUser(prevState => {
-        return {
-          ...prevState,
-          dislike: [...prevState.dislike, cardID]
-        }
-      })
-      dispatch(updateUser(miID, UpdateCurrentUser)) */
+      dispatch(getUserByNick(currentUser.nickname));
+      
     }
+    
 
     const foundMatch = currentCard.likeGiven.includes(miID)
     
     if(foundMatch){
-      /* setUpdateCardUser(prevState => {
-        return {
-          ...prevState,
-          matches: [...prevState.matches, miID]
-        }
-      })
-      dispatch(updateUser(id, UpdateCardUser))
-      setUpdateCurrentUser(prevState => {
-        return {
-          ...prevState,
-          matches: [...prevState.matches, id]
-        }
-      })
-      dispatch(updateUser(miID, UpdateCurrentUser)) */
+      
       dispatch(updateMatches(id, {
-        matches: [...new Set([...currentUser.matches, miID])] 
+        matches: miID
       }))
       //  alert(`hiciste match con ${name}`)
       // Swal.fire({
@@ -179,9 +145,10 @@ export default function Cards() {
         imageAlt: 'Custom image',
       })
       dispatch(updateMatches(miID, {
-        matches: [...new Set([...currentUser.matches, id])]  
+        matches: id 
       }))
-      //  alert(`hiciste match con ${name}`)
+       alert(`hiciste match con ${name}`)
+       dispatch(getUserByNick(currentUser.nickname));
     }
   
     setLastDirection(direction);
