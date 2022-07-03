@@ -30,9 +30,9 @@ const Formu = ({setUpdate}) => {
 		  await axios.post('https://api.cloudinary.com/v1_1/henrymatch/image/upload', formData)
 			.then(res => {
 				const urlImage = res.data.url;
-        dispatch(updateImg(userDetail._id, {image: urlImage }))
-		setUpdate(true)
-				console.log(urlImage, "URL DE LA IMAGEN")
+				dispatch(updateImg(userDetail._id, {image: urlImage }))
+				setUpdate(true)
+				alert('Imagen cargada con exito')
 			}
 			)
       fileInput.current.value = null
@@ -114,7 +114,7 @@ const Formu = ({setUpdate}) => {
 				{({ errors }) => (
 					<Form className='formulario'>
 						<div>
-							<label htmlFor='name'>Nombre</label>
+							<label htmlFor='name'>El Nombre que quieres mostrar</label>
 							<Field
 								input='text'
 								name='name'
