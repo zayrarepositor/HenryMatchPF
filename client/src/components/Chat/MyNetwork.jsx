@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Talk from "talkjs";
-import { connect } from "react-redux";
 import "./index.css";
 
 class MyNetwork extends Component {

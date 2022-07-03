@@ -16,6 +16,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Avatar, Chip, IconButton, Tooltip } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import MyNetwork from "../Chat/MyNetwork";
+import { useSelector } from "react-redux";
 
 export default function SideBar() {
   const [state, setState] = React.useState({
@@ -24,6 +26,9 @@ export default function SideBar() {
   const [nav, setNav] = React.useState({
     left: true,
   });
+
+  const userDetail = useSelector((state) => state.userDetail);
+  const users = useSelector((state) => state.users);
 
   const handleNav = () => {
     setNav(nav);
@@ -46,7 +51,7 @@ export default function SideBar() {
     <Box
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
+      // onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
@@ -118,8 +123,7 @@ export default function SideBar() {
           />
         </NavLink>
       </Divider>
-      <Chat />
-      {/* {nav === true ? <Chat /> : <h1>HOLA</h1>} */}
+      <MyNetwork usersDetail={userDetail} users={users} />
     </Box>
   );
 
