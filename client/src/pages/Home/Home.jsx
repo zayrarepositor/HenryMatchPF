@@ -97,7 +97,11 @@ const Home = () => {
   //PARA FILTRAR USUARIO POR GENERO
   useEffect(() => {
     dispatch(filterByGender(userDetail?.genderInt));
-    dispatch(filterByMe());
+     }, [modal]);
+
+  //
+  useEffect(() => {
+     dispatch(filterByMe());  
   }, [userDetail]);
 
   return (

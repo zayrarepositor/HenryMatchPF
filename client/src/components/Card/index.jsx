@@ -55,16 +55,13 @@ export default function Cards() {
   const db = useSelector((state) => state.usersSelected);
   const currentUser = useSelector((state)=> state.userDetail)
   
-  const [UpdateCurrentUser, setUpdateCurrentUser] = useState({
-  })
-  const [UpdateCardUser, setUpdateCardUser] = useState({
-  })
- 
+   
   const dispatch = useDispatch();
 
   useEffect(()=>{
-  dispatch(getUsers())
-  },[/* currentUser, db  *//* UpdateCardUser,  *//* UpdateCurrentUser, */ ])
+  //dispatch(getUsers())
+  dispatch(filterByMe())
+  },[])
 
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
@@ -91,14 +88,12 @@ export default function Cards() {
 
     const currentCard = db?.find((ss)=> ss._id === id)
    
-    dispatch(getUserByNick(currentUser?.nickname));
+    //dispatch(getUserByNick(currentUser?.nickname));
     
     const miID = currentUser?._id;
     const cardID = currentCard._id;
       
     if(direction === 'right'){
-
-      
       dispatch(updateMatches(id, {
         likeReceived: miID  
       }))
@@ -106,21 +101,19 @@ export default function Cards() {
      dispatch(updateMatches(miID, {
         likeGiven: cardID  
       }))
-   
       dispatch(getUserByNick(currentUser?.nickname));
+      //actualizo todos los usuarios
+      dispatch(getUsers())
       dispatch(filterByMe())
-     
-    }
+     }
   
     if(direction === 'left'){
       dispatch(updateMatches(miID, {
         dislike: id  
       }))
-
       dispatch(updateMatches(id, {
         dislikeReceived: miID  
       }))
-
       dispatch(getUserByNick(currentUser?.nickname));
       
     }

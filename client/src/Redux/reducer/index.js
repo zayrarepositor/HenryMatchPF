@@ -22,6 +22,7 @@ const initialState = {
   // message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
   gender: [],
   genderInt: [],
+  //userFilt:[],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -60,48 +61,46 @@ export default function rootReducer(state = initialState, action) {
       return { 
         ...state, message: action.payload };
     }
-/* 
+
     case FILTERS_BY_ME: {
+      //todos mis usuarios
+      const allusersMe = state.usersBackup;
+      //mi id
+      const miID = state.userDetail?._id;
+      console.log(miID)
+      const myGenderInt = state.userDetail?.genderInt
+      const filterByGender = allusersMe.filter(u => u.gender === myGenderInt)
       
-      const allusersMe = state.usersBackup;
-      const miID = state.userDetail?._id;
-
-      const usersFilterByLikeReceived = allusersMe.filter(e => !e.likeReceived.includes(miID) )
-      const usersFilterByDisLikeReceived = allusersMe.filter(e => !e.dislikeReceived.includes(miID) )
-    
-      const FinalFiltered = [].concat( usersFilterByDisLikeReceived, usersFilterByLikeReceived)
-    
-      console.log(usersFilterByLikeReceived)
-      console.log(usersFilterByDisLikeReceived)
-
-      return { ...state, usersSelected: 
-        FinalFiltered
-      return {
-        ...state,
-        message: action.payload,
-      };
-    } */
-
-    case FILTERS_BY_ME: {
-      const allusersMe = state.usersBackup;
-      const miID = state.userDetail?._id;
-
-      const usersFilterByLikeReceived = allusersMe.filter(
+      const usersFilterByLikeReceived = filterByGender.filter(
         (e) => !e.likeReceived.includes(miID)
-      );
-      const usersFilterByDisLikeReceived = allusersMe.filter(
+      )
+      const usersFilterByDisLikeReceived = usersFilterByLikeReceived.filter(
         (e) => !e.dislikeReceived.includes(miID)
-      );
+      )
+      //mis usuarios excepto los que recibieron mis likes
+     /*  const usersFilterByLikeReceived = filterByGender.filter(
+        (e) => !e.likeReceived.includes(miID)
+      ); */
 
-      const FinalFiltered = [].concat(
-        usersFilterByDisLikeReceived,
-        usersFilterByLikeReceived
-      );
+       //mis usuarios excepto los que recibieron mis dislikes
+      /* const usersFilterByDisLikeReceived = filterByGender.filter(
+        (e) => !e.dislikeReceived.includes(miID)
+      ); */
+      //const totalArray = usersFilterByDisLikeReceived.concat(usersFilterByLikeReceived)
+      const FinalFiltered = new Set(usersFilterByDisLikeReceived)
+      /* FinalFiltered.add(
+        usersFilterByDisLikeReceived *//* , */
+       /*  usersFilterByLikeReceived */
+      /* ) */
+      const finalArray = [...FinalFiltered]
 
-      console.log(usersFilterByLikeReceived);
-      console.log(usersFilterByDisLikeReceived);
+      console.log("usersFilterByLikeReceived",usersFilterByLikeReceived);
+      console.log("usersFilterByDisLikeReceived",usersFilterByDisLikeReceived);
+      console.log("finalArray ",finalArray );
 
-      return { ...state, usersSelected: FinalFiltered };
+      return { 
+        ...state, 
+        usersSelected: finalArray};
     }
 
     case CLEAR_USER_DETAIL: {
