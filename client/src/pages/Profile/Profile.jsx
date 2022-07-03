@@ -104,17 +104,18 @@ const Profile = () => {
               {user.name}
             </Typography>
               <h1>INFORMACION DEL USUARIO</h1>
-                <div>{userProfile.name}</div> 
+                <div>{userProfile.name? <p> El nombre que elegiste para mostrar: {userProfile.name} </p> : <p> Todavia no ingresaste un nombre para mostrar</p>}</div> 
 
-                <img src={userProfile.image} alt={userProfile.name} />
-                <div>{userProfile.age}</div>
-                <div>{userProfile.email}</div>
-                <div>{userProfile.genderInt}</div>
-                <div>{userProfile.gender}</div>
-                <div>{userProfile.description}</div>
+                <div>{userProfile.image.length >= 0 ? <img src={userProfile.image[0]} alt={userProfile.name} className="imagenperfil"/> : <p className="alert"> Debes cargar una imagen </p> }</div>
+                <div>{userProfile.age? <p> La edad que declaraste es: {userProfile.age} </p> : <p className="alert"> Todavia no ingresaste tu edad</p>}</div>
+                <div>{userProfile.email ? <p> Tu email: {userProfile.email} </p> : <p className="alert"> Todavia no ingresaste tu email</p>}</div>
+                <div>{userProfile.gender ? <p> Te definiste como {userProfile.gender} </p> : <p className="alert"> Todavia no definiste tu género</p>}</div>
+                <div>{userProfile.genderInt ? <p> Te interesa conectar con {userProfile.genderInt} </p>  : <p className="alert"> Todavia no definiste tu interes </p>} </div>
+                <div>{userProfile.description ? <p> Tu Descripcion: {userProfile.description} </p> : <p className="alert"> Ingresa una breve descripcion tuya</p> }</div>
 
+            <h3> Tus Imagenes cargadas </h3>
+            <br />
           <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-            
             {userProfile.image.map((item) => (
               <ImageListItem key={userProfile.image}>
                 <img
@@ -122,6 +123,7 @@ const Profile = () => {
                   srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                   alt={userProfile.name}
                   loading="lazy"
+                  className="imagenescargadas"
                   />
               </ImageListItem>
             ))} 
