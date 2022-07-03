@@ -9,8 +9,6 @@ import {
   FILTERS_BY_ME,
   UPDATE_IMG,
   /*  GET_USER_BY_GENDERINT, */
-  // GET_USER_LIKES,
-  // GET_USER_MATCHES,
   // FILTER_BY_PREFERENCE,
   // FILTER_BY_INTEREST,
   // SORT_BY_AGE,
@@ -84,6 +82,7 @@ export function updateUser(id, data) {
     }
   };
 }
+
 export function updateImg(id, data) {
   return async function (dispatch) {
     try {
@@ -109,7 +108,6 @@ export function updateMatches(id, data) {
         `https://henrymatch-pg.herokuapp.com/usersMatches/${id}`,
         data
       );
-
       return dispatch({
         type: UPDATE_MATCH,
         payload: user.data,
@@ -120,28 +118,14 @@ export function updateMatches(id, data) {
   };
 }
 
-/* export function updateUser(id, data) {
-  return async (dispatch) => {
-    try {
-      const put = await axios.put(
-        `https://henrymatch-pg.herokuapp.com/usersId/${id}`,
-        data
-      );
-      return put;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-} */
-
 //----ACTION CREATORS---//EL RESTO DE LAS FUNCIONES VAN AQUI:
 
-export function filterByGender(gender) {
+/* export function filterByGender(gender) {
   return {
     type: FILTER_USERS_BY_GENDER,
     payload: gender,
   };
-}
+} */
 
 export function filterByMe(payload) {
   return {

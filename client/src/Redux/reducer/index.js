@@ -22,7 +22,7 @@ const initialState = {
   // message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
   gender: [],
   genderInt: [],
-  //userFilt:[],
+  
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -63,51 +63,46 @@ export default function rootReducer(state = initialState, action) {
     }
 
     case FILTERS_BY_ME: {
-      //todos mis usuarios
-      const allusersMe = state.usersBackup;
-      //mi id
-      const miID = state.userDetail?._id;
-      console.log(miID)
-      const myGenderInt = state.userDetail?.genderInt
-      const filterByGender = allusersMe.filter(u => u.gender === myGenderInt)
       
-      const usersFilterByLikeReceived = filterByGender.filter(
-        (e) => !e.likeReceived.includes(miID)
-      )
-      const usersFilterByDisLikeReceived = usersFilterByLikeReceived.filter(
-        (e) => !e.dislikeReceived.includes(miID)
-      )
-      //mis usuarios excepto los que recibieron mis likes
-     /*  const usersFilterByLikeReceived = filterByGender.filter(
-        (e) => !e.likeReceived.includes(miID)
-      ); */
+      const allMyUsers = state.usersBackup;
+      const myID = state.userDetail?._id;
+      const myGenderInt = state.userDetail?.genderInt
 
-       //mis usuarios excepto los que recibieron mis dislikes
-      /* const usersFilterByDisLikeReceived = filterByGender.filter(
-        (e) => !e.dislikeReceived.includes(miID)
-      ); */
-      //const totalArray = usersFilterByDisLikeReceived.concat(usersFilterByLikeReceived)
-      const FinalFiltered = new Set(usersFilterByDisLikeReceived)
-      /* FinalFiltered.add(
-        usersFilterByDisLikeReceived *//* , */
-       /*  usersFilterByLikeReceived */
-      /* ) */
-      const finalArray = [...FinalFiltered]
+      //FILTROS ANIDADOS
+      
+      const filterByGender =
+       myGenderInt === "male"
+          ? allMyUsers.filter((e) => e.gender === "male")
+          : myGenderInt === "female"
+          ? allMyUsers.filter((e) => e.gender === "female")
+          : allMyUsers;
 
-      console.log("usersFilterByLikeReceived",usersFilterByLikeReceived);
-      console.log("usersFilterByDisLikeReceived",usersFilterByDisLikeReceived);
-      console.log("finalArray ",finalArray );
+      const filterAddLikeReceived = filterByGender.filter(
+        (e) => !e.likeReceived.includes(myID)
+      )
+      const filterAddDisLikeReceived = filterAddLikeReceived.filter(
+        (e) => !e.dislikeReceived.includes(myID)
+      )
+      
+      const FinalFiltered = new Set(filterAddDisLikeReceived)
+      
+      const finalArrayFiltered = [...FinalFiltered]
+   
+      console.log("finalArrayFilt ",finalArrayFiltered);
 
       return { 
         ...state, 
-        usersSelected: finalArray};
+        usersSelected: finalArrayFiltered };
     }
 
     case CLEAR_USER_DETAIL: {
-      return { ...state, userDetail: [] };
+      return { 
+        ...state, 
+        userDetail: []
+       };
     }
 
-    case FILTER_USERS_BY_GENDER: {
+   /*  case FILTER_USERS_BY_GENDER: {
       const allusersGender = state.usersBackup;
       const usersFilterByGender =
         action.payload === "male"
@@ -116,42 +111,10 @@ export default function rootReducer(state = initialState, action) {
           ? allusersGender.filter((e) => e.gender === "female")
           : allusersGender;
       return { ...state, usersSelected: usersFilterByGender };
-    }
+    } */
 
     default:
       return state;
   }
 }
 
-/* 
-//Usuario Puesto a la Fuerza
-{
-  "_id": "62b92ff181a59e8d4bbea54d",
-  "name": "YoMismooo",
-  "age": 24,
-  "birthday": "03/12/1993",
-  "nickname": "111222333",
-  "email": "pedritoelmas@gmail.com",
-  "premium": false,
-  "active": false,
-  "image": "https://image.shutterstock.com/image-photo/young-handsome-chinese-call-center-600w-1925534732.jpg",
-  "gender": "male",
-  "genderInt": "male",
-  "description": "Me gusta jugar al futbol",
-  "henryLevel": "m2",
-  "likeReceived": ["62ba3a30fdd8f0d98bfb314a"],
-  "likeGiven": ["62ba3a30fdd8f0d98bfb314a"],
-  "dislikeGiven": ["62ba3a30fdd8f0d98bfb314a"],
-
-  "matches": [],
-  "city": "Guatire",
-  "job": "Call center",
-  "career": "fullstack",
-  "interests": [
-      "cine"
-  ],
-  "createdAt": "2022-06-27T04:20:01.368Z",
-  "updatedAt": "2022-06-27T04:20:01.368Z",
-  "__v": 0
-}
- */
