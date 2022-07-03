@@ -8,6 +8,7 @@ import {
   UPDATE_MATCH,
   FILTERS_BY_ME,
   UPDATE_IMG,
+  FILTER_USERS_BY_MATCHES,
   /*  GET_USER_BY_GENDER,
   GET_USER_BY_GENDERINT, */
 } from "../actions/types.js";
@@ -17,7 +18,7 @@ const initialState = {
   usersBackup: [], //ESTE LO USO PARA EMPEZAR FILTERS & SORTERS
   usersSelected: [], //ESTE LO USO PARA ALMACENAR EL RESULTADO DE FILTERS & SORTERS
   userDetail: [], //USADO TAMBIEN PARA CLEAR_USER_DETAIL
-
+  userMatches:[],
   // OPCIONALES?
   // message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
   gender: [],
@@ -98,6 +99,16 @@ export default function rootReducer(state = initialState, action) {
           ? allusersGender.filter((e) => e.gender === "female")
           : allusersGender;
       return { ...state, usersSelected: usersFilterByGender };
+    }
+
+    case FILTER_USERS_BY_MATCHES:{
+      const allUsersMatches = state.usersBackup;
+      const allMatches = allUsersMatches.filter(e => e.matches.includes(action.payload))
+      console.log(allMatches,"reducerMatch")
+      return{
+        ...state,
+        userMatches: allMatches
+      }
     }
 
     default:
