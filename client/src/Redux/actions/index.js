@@ -120,12 +120,12 @@ export function updateMatches(id, data) {
 
 //----ACTION CREATORS---//EL RESTO DE LAS FUNCIONES VAN AQUI:
 
-/* export function filterByGender(gender) {
+export function filterByGender(gender) {
   return {
     type: FILTER_USERS_BY_GENDER,
     payload: gender,
   };
-} */
+}
 
 export function filterByMe(payload) {
   return {

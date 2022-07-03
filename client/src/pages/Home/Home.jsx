@@ -103,8 +103,7 @@ const Home = () => {
   //PARA MONTAR CON LOS FILTROS GENERO,LIKES, DISLIKES APLICADOS
   useEffect(() => {
      dispatch(filterByMe()); 
-    // return () => dispatch(clearUserDetail()) 
-  }, [userDetail]);
+   }, [userDetail]);
 
   return (
     <>

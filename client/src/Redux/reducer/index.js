@@ -83,8 +83,8 @@ export default function rootReducer(state = initialState, action) {
       const filterAddDisLikeReceived = filterAddLikeReceived.filter(
         (e) => !e.dislikeReceived.includes(myID)
       )
-      
-      const FinalFiltered = new Set(filterAddDisLikeReceived)
+      const hiddenUser = filterAddDisLikeReceived.filter((e) => e._id !== myID)
+      const FinalFiltered = new Set(hiddenUser)
       
       const finalArrayFiltered = [...FinalFiltered]
    
