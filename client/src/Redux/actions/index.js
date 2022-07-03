@@ -8,6 +8,7 @@ import {
   UPDATE_MATCH,
   FILTERS_BY_ME,
   UPDATE_IMG,
+  FILTER_USERS_BY_MATCHES,
   /*  GET_USER_BY_GENDERINT, */
   // GET_USER_LIKES,
   // GET_USER_MATCHES,
@@ -120,6 +121,13 @@ export function updateMatches(id, data) {
   };
 }
 
+export function filterUserByMatches(matches) {
+  return {
+    type: FILTER_USERS_BY_MATCHES,
+    payload: matches,
+  };
+}
+
 /* export function updateUser(id, data) {
   return async (dispatch) => {
     try {
@@ -142,6 +150,7 @@ export function filterByGender(gender) {
     payload: gender,
   };
 }
+
 
 export function filterByMe(payload) {
   return {
