@@ -16,7 +16,7 @@ import BottomBar from "../../components/BottomBar";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
-import { filterByMe, getUsers } from "../../redux/actions";
+import { filterByMe, filterUserByMatches, getUsers } from "../../redux/actions";
 import { filterByGender } from "../../redux/actions";
 import { getUserByNick } from "../../redux/actions/index";
 
@@ -53,6 +53,7 @@ const Home = () => {
 
   const users = useSelector((state) => state.users);
   const userDetail = useSelector((state) => state.userDetail);
+ 
 
   const [modal, setModal] = useState(false);
 
@@ -101,8 +102,14 @@ const Home = () => {
     dispatch(filterByMe());
   }, [userDetail]);
 
+  useEffect(() => {
+    dispatch(filterUserByMatches(userDetail?._id));
+  }, [userDetail]);
+  
+
   return (
     <>
+      
       {/* <ChatRoom
         usersDetail={userDetail}
         users={users}
@@ -120,6 +127,10 @@ const Home = () => {
           <CssBaseline />
           <Header />
           <Cards></Cards>
+<<<<<<< HEAD
+=======
+       
+>>>>>>> 1ca24f076c75bf469939f39accf53a10ebf57b49
           <BottomBar />
         </Grid>
       ) : (
@@ -159,8 +170,13 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
+<<<<<<< HEAD
                 }}
               >
+=======
+                }}>
+                  
+>>>>>>> 1ca24f076c75bf469939f39accf53a10ebf57b49
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!
