@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useLayoutEffect} from "react";
 import TinderCard from "react-tinder-card";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
@@ -28,6 +28,7 @@ import InterestsIcon from "@mui/icons-material/Interests";
 import Swal from "sweetalert2";
 
 import { Box, Divider } from "@mui/material";
+
 import {
   filterByGender,
   filterByMe,
@@ -36,6 +37,7 @@ import {
 } from "../../Redux/actions";
 import { useEffect } from "react";
 import { getUsers } from "./../../Redux/actions/index";
+
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -55,9 +57,10 @@ export default function Cards() {
     setExpanded(!expanded);
   };
 
-  //*******/
+  //*******//
 
   const db = useSelector((state) => state.usersSelected);
+
   const currentUser = useSelector((state) => state.userDetail);
 
   const [UpdateCurrentUser, setUpdateCurrentUser] = useState({});
@@ -79,6 +82,58 @@ export default function Cards() {
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
   const currentIndexRef = useRef(currentIndex);
+
+    //infinito
+    /*  useEffect(()=>{
+    dispatch(filterByMe())
+    console.log('ahora me estoy montando')
+    }) */
+  
+    //convierte al userDetail en null
+    /* useEffect(()=>{
+      dispatch(filterByMe())
+      console.log('ahora me estoy montando')
+      },[currentUser]) */
+
+    //FILTERBYME EN EL EFFECT TE DEVUELVE  USERDETAIL NULL!!!!!!!!
+
+     /*  useEffect(()=>{
+        dispatch(filterByMe())
+        console.log('ahora me estoy montando')
+        },[]) */
+
+   /*  useLayoutEffect(()=>{
+      dispatch(filterByMe())
+      dispatch(getUsers())
+      },[]) */
+
+      //userDetail en NULL 
+     /*  useEffect(()=>{
+      dispatch(getUserByNick(currentUser.nickname));
+      dispatch(getUsers())
+      dispatch(filterByMe())
+        console.log('ahora me estoy montando')
+      },[updateMatches]) 
+ */
+      //userDetail en NULL 
+      /* useEffect(()=>{
+        dispatch(getUsers())
+        dispatch(getUserByNick(currentUser.nickname));
+           console.log('ahora me estoy montando')
+        },[updateMatches]) 
+ */
+       /*  useEffect(()=>{
+          dispatch(getUsers())
+                      console.log('ahora me estoy montando')
+          },[updateMatches])  */
+          //atrasado 2 pasos
+       /*    useEffect(()=>{
+            dispatch(getUsers())
+            },[])  */
+
+         /*    useEffect(()=>{
+              return () => dispatch(clearUserDetail())
+              },[dispatch])   */
 
   const childRefs = useMemo(
     () =>
