@@ -10,8 +10,6 @@ import {
   UPDATE_IMG,
   FILTER_USERS_BY_MATCHES,
   /*  GET_USER_BY_GENDERINT, */
-  // GET_USER_LIKES,
-  // GET_USER_MATCHES,
   // FILTER_BY_PREFERENCE,
   // FILTER_BY_INTEREST,
   // SORT_BY_AGE,
@@ -85,6 +83,7 @@ export function updateUser(id, data) {
     }
   };
 }
+
 export function updateImg(id, data) {
   return async function (dispatch) {
     try {
@@ -110,7 +109,6 @@ export function updateMatches(id, data) {
         `https://henrymatch-pg.herokuapp.com/usersMatches/${id}`,
         data
       );
-
       return dispatch({
         type: UPDATE_MATCH,
         payload: user.data,
@@ -120,6 +118,7 @@ export function updateMatches(id, data) {
     }
   };
 }
+
 
 export function filterUserByMatches(matches) {
   return {
@@ -141,6 +140,7 @@ export function filterUserByMatches(matches) {
     }
   };
 } */
+
 
 //----ACTION CREATORS---//EL RESTO DE LAS FUNCIONES VAN AQUI:
 

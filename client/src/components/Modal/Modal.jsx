@@ -12,6 +12,7 @@ import {
   createUser,
   getUserByNick,
   filterByGender,
+  filterByMe,
 } from "../../Redux/actions/index";
 
 //======ESTILO E IMAGENES
@@ -86,10 +87,15 @@ const Modal = ({ modal, setModal }) => {
   function handleChangeAge(e) {
     e.preventDefault();
     const { name, value } = e.target;
+    if (value<18) {
+      setErrors({ ...errors, age: "Tenes que ser mayor de edad" });
+    } else {
     setUserForm({
       ...userForm,
       [name]: Number(value),
-    });
+    })
+    delete errors.age;
+  };
   }
   //OBTENGO LOS DEMAS DATOS DEL USUARIO PARA CREAR EL USUARIO
   function handleChange(e) {
@@ -105,24 +111,24 @@ const Modal = ({ modal, setModal }) => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const { gender, genderInt, name, birthday } = userForm;
-    if ([gender, genderInt, name, birthday].includes("")) {
+    const { gender, genderInt, name, age } = userForm;
+    if ([gender, genderInt, name, age].includes("")) {
       setErrors({ ...errors, msg: "todos los campos son requeridos" });
       setTimeout(() => {
         setErrors(
-          errors.name ? { name: "tu nombre debe ser único, como vos" } : {}
-        );
+          errors.name ?  {name: "tu nombre debe ser único, como vos"} :  errors.age ? { age: "Tenes que ser mayor de edad" }  : {}
+        )
       }, 2000);
       return;
     }
     if (Object.keys(errors).length === 0) {
       //PARA LLENAR userDetail
-      dispatch(getUserByNick(userForm.nickname));
+     // dispatch(getUserByNick(userForm.nickname));
       //PARA FILTRAR SEGUN genderInt
-      dispatch(filterByGender(userForm.genderInt));
+      // dispatch(filterByGender(userForm.genderInt));
       //AHORA SI CREO UN USUARIO NUEVO
       dispatch(createUser(userForm));
-
+      dispatch(filterByMe())
       Swal.fire({
         position: "center",
         icon: "success",
@@ -174,6 +180,7 @@ const Modal = ({ modal, setModal }) => {
                 type="number"
                 name="age"
                 onChange={handleChangeAge}></input>
+                {errors.age && <p>{errors.age}</p>}
             </div>
 
             {/* EL GENERO DEL USUARIO */}

@@ -149,7 +149,12 @@ const Header = () => {
                   {/* MENU: MY PROFILE  */}
                   <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                     <NavLink to={"/profile"}>
-                      <Typography textAlign="center">Mi Perfil</Typography>
+                      <Typography
+                        textAlign="center"
+                        sx={{ textDecoration: "none", color: "light.main" }}
+                      >
+                        Mi Perfil
+                      </Typography>
                     </NavLink>
                     {/* MENU: LOGOUT  */}
                   </MenuItem>

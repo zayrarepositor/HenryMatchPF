@@ -23,6 +23,7 @@ const initialState = {
   // message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
   gender: [],
   genderInt: [],
+  
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -58,39 +59,51 @@ export default function rootReducer(state = initialState, action) {
       };
     }
     case UPDATE_MATCH: {
-      return {
-        ...state,
-        message: action.payload,
-      };
+      return { 
+        ...state, message: action.payload };
     }
 
     case FILTERS_BY_ME: {
-      const allusersMe = state.usersBackup;
-      const miID = state.userDetail?._id;
+      
+      const allMyUsers = state.usersBackup;
+      const myID = state.userDetail?._id;
+      const myGenderInt = state.userDetail?.genderInt
 
-      const usersFilterByLikeReceived = allusersMe.filter(
-        (e) => !e.likeReceived.includes(miID)
-      );
-      const usersFilterByDisLikeReceived = allusersMe.filter(
-        (e) => !e.dislikeReceived.includes(miID)
-      );
+      //FILTROS ANIDADOS
+      
+      const filterByGender =
+       myGenderInt === "male"
+          ? allMyUsers.filter((e) => e.gender === "male")
+          : myGenderInt === "female"
+          ? allMyUsers.filter((e) => e.gender === "female")
+          : allMyUsers;
 
-      const FinalFiltered = [].concat(
-        usersFilterByDisLikeReceived,
-        usersFilterByLikeReceived
-      );
+      const filterAddLikeReceived = filterByGender.filter(
+        (e) => !e.likeReceived.includes(myID)
+      )
+      const filterAddDisLikeReceived = filterAddLikeReceived.filter(
+        (e) => !e.dislikeReceived.includes(myID)
+      )
+      const hiddenUser = filterAddDisLikeReceived.filter((e) => e._id !== myID)
+      const FinalFiltered = new Set(hiddenUser)
+      
+      const finalArrayFiltered = [...FinalFiltered]
+   
+      console.log("finalArrayFilt ",finalArrayFiltered);
 
-      console.log(usersFilterByLikeReceived);
-      console.log(usersFilterByDisLikeReceived);
-
-      return { ...state, usersSelected: FinalFiltered };
+      return { 
+        ...state, 
+        usersSelected: finalArrayFiltered };
     }
 
     case CLEAR_USER_DETAIL: {
-      return { ...state, userDetail: [] };
+      return { 
+        ...state, 
+        userDetail: []
+       };
     }
 
-    case FILTER_USERS_BY_GENDER: {
+   /*  case FILTER_USERS_BY_GENDER: {
       const allusersGender = state.usersBackup;
       const usersFilterByGender =
         action.payload === "male"
@@ -99,7 +112,7 @@ export default function rootReducer(state = initialState, action) {
           ? allusersGender.filter((e) => e.gender === "female")
           : allusersGender;
       return { ...state, usersSelected: usersFilterByGender };
-    }
+    } */
 
     case FILTER_USERS_BY_MATCHES:{
       const allUsersMatches = state.usersBackup;
@@ -116,35 +129,3 @@ export default function rootReducer(state = initialState, action) {
   }
 }
 
-/* 
-//Usuario Puesto a la Fuerza
-{
-  "_id": "62b92ff181a59e8d4bbea54d",
-  "name": "YoMismooo",
-  "age": 24,
-  "birthday": "03/12/1993",
-  "nickname": "111222333",
-  "email": "pedritoelmas@gmail.com",
-  "premium": false,
-  "active": false,
-  "image": "https://image.shutterstock.com/image-photo/young-handsome-chinese-call-center-600w-1925534732.jpg",
-  "gender": "male",
-  "genderInt": "male",
-  "description": "Me gusta jugar al futbol",
-  "henryLevel": "m2",
-  "likeReceived": ["62ba3a30fdd8f0d98bfb314a"],
-  "likeGiven": ["62ba3a30fdd8f0d98bfb314a"],
-  "dislikeGiven": ["62ba3a30fdd8f0d98bfb314a"],
-
-  "matches": [],
-  "city": "Guatire",
-  "job": "Call center",
-  "career": "fullstack",
-  "interests": [
-      "cine"
-  ],
-  "createdAt": "2022-06-27T04:20:01.368Z",
-  "updatedAt": "2022-06-27T04:20:01.368Z",
-  "__v": 0
-}
- */

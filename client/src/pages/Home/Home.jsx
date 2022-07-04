@@ -18,7 +18,7 @@ import BottomBar from "../../components/BottomBar";
 
 import { filterByMe, filterUserByMatches, getUsers } from "../../redux/actions";
 import { filterByGender } from "../../redux/actions";
-import { getUserByNick } from "../../redux/actions/index";
+import { getUserByNick, clearUserDetail } from "../../redux/actions/index";
 
 //======ESTILO E IMAGENES
 import { Typography, Link, Box, Grid, Avatar, CardMedia } from "@mui/material";
@@ -35,7 +35,8 @@ function Copyright(props) {
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}>
+      {...props}
+    >
       <Link color="inherit" href="#">
         Henry Match
       </Link>{" "}
@@ -52,13 +53,13 @@ const Home = () => {
 
   const users = useSelector((state) => state.users);
   const userDetail = useSelector((state) => state.userDetail);
- 
 
   const [modal, setModal] = useState(false);
 
   //PARA LLENAR EL STORE CON TODOS LOS USUARIOS
   useEffect(() => {
     dispatch(getUsers());
+    
   }, []);
 
   useEffect(() => {
@@ -96,19 +97,21 @@ const Home = () => {
   }, [isAuthenticated]);
 
   //PARA FILTRAR USUARIO POR GENERO
-  useEffect(() => {
+/*   useEffect(() => {
     dispatch(filterByGender(userDetail?.genderInt));
-    dispatch(filterByMe());
-  }, [userDetail]);
+     }, [modal]); */
+
+  //PARA MONTAR CON LOS FILTROS GENERO,LIKES, DISLIKES APLICADOS
+  useEffect(() => {
+     dispatch(filterByMe()); 
+   }, [userDetail]);
 
   useEffect(() => {
     dispatch(filterUserByMatches(userDetail?._id));
   }, [userDetail]);
-  
 
   return (
     <>
-      
       {/* <ChatRoom
         usersDetail={userDetail}
         users={users}
@@ -126,7 +129,7 @@ const Home = () => {
           <CssBaseline />
           <Header />
           <Cards></Cards>
-       
+
           <BottomBar />
         </Grid>
       ) : (
@@ -157,7 +160,8 @@ const Home = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square>
+              square
+            >
               <Box
                 sx={{
                   my: 8,
@@ -165,8 +169,8 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}>
-                  
+                }}
+              >
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!
@@ -180,7 +184,8 @@ const Home = () => {
                       left: 0,
                       border: 0,
                       marginTop: 20,
-                    }}>
+                    }}
+                  >
                     <LoginButton />
                   </Box>
                   <Copyright sx={{ mt: 30 }} />
