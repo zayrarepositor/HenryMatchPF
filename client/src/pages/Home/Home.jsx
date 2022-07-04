@@ -49,7 +49,7 @@ function Copyright(props) {
 const Home = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
-
+  const userMatch = useSelector(state => state.userMatch)
   const users = useSelector((state) => state.users);
   const userDetail = useSelector((state) => state.userDetail);
 
@@ -108,7 +108,7 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(filterUserByMatches(userDetail?._id));
-  }, [userDetail]);
+  }, [userDetail, userMatch]);
 
   return (
     <>

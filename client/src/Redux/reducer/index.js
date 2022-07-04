@@ -117,7 +117,6 @@ export default function rootReducer(state = initialState, action) {
     case FILTER_USERS_BY_MATCHES:{
       const allUsersMatches = state.usersBackup;
       const allMatches = allUsersMatches.filter(e => e.matches.includes(action.payload))
-      console.log(allMatches,"reducerMatch")
       return{
         ...state,
         userMatches: allMatches

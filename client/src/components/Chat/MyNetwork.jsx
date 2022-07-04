@@ -11,7 +11,7 @@ class MyNetwork extends Component {
     let currentUser;
 
     const currentTalkjsUser = localStorage.getItem("currentTalkjsUser");
-    console.log("aaaaaaaaa", currentTalkjsUser);
+    
 
     if (currentTalkjsUser) {
       currentUser = JSON.parse(currentTalkjsUser);
