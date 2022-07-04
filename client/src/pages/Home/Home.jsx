@@ -18,7 +18,7 @@ import BottomBar from "../../components/BottomBar";
 
 import { filterByMe, filterUserByMatches, getUsers } from "../../redux/actions";
 import { filterByGender } from "../../redux/actions";
-import { getUserByNick } from "../../redux/actions/index";
+import { getUserByNick, clearUserDetail } from "../../redux/actions/index";
 
 //======ESTILO E IMAGENES
 import { Typography, Link, Box, Grid, Avatar, CardMedia } from "@mui/material";
@@ -59,6 +59,7 @@ const Home = () => {
   //PARA LLENAR EL STORE CON TODOS LOS USUARIOS
   useEffect(() => {
     dispatch(getUsers());
+    
   }, []);
 
   useEffect(() => {
@@ -96,10 +97,14 @@ const Home = () => {
   }, [isAuthenticated]);
 
   //PARA FILTRAR USUARIO POR GENERO
-  useEffect(() => {
+/*   useEffect(() => {
     dispatch(filterByGender(userDetail?.genderInt));
-    dispatch(filterByMe());
-  }, [userDetail]);
+     }, [modal]); */
+
+  //PARA MONTAR CON LOS FILTROS GENERO,LIKES, DISLIKES APLICADOS
+  useEffect(() => {
+     dispatch(filterByMe()); 
+   }, [userDetail]);
 
   useEffect(() => {
     dispatch(filterUserByMatches(userDetail?._id));
