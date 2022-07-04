@@ -53,7 +53,6 @@ const Home = () => {
 
   const users = useSelector((state) => state.users);
   const userDetail = useSelector((state) => state.userDetail);
- 
 
   const [modal, setModal] = useState(false);
 
@@ -105,11 +104,9 @@ const Home = () => {
   useEffect(() => {
     dispatch(filterUserByMatches(userDetail?._id));
   }, [userDetail]);
-  
 
   return (
     <>
-      
       {/* <ChatRoom
         usersDetail={userDetail}
         users={users}
@@ -127,10 +124,7 @@ const Home = () => {
           <CssBaseline />
           <Header />
           <Cards></Cards>
-<<<<<<< HEAD
-=======
-       
->>>>>>> 1ca24f076c75bf469939f39accf53a10ebf57b49
+
           <BottomBar />
         </Grid>
       ) : (
@@ -170,13 +164,8 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-<<<<<<< HEAD
                 }}
               >
-=======
-                }}>
-                  
->>>>>>> 1ca24f076c75bf469939f39accf53a10ebf57b49
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!

@@ -1,16 +1,16 @@
 import React, { Component } from "react";
+import { dummyUsers } from "./Users";
 import Talk from "talkjs";
+import { connect } from "react-redux";
 import "./index.css";
 
 class MyNetwork extends Component {
-  constructor({ usersDetail }) {
-    super(usersDetail);
+  constructor(props) {
+    super(props);
+
     let currentUser;
 
-    constructor(props) {
-        super(props); 
-        
-        let currentUser;
+    const currentTalkjsUser = localStorage.getItem("currentTalkjsUser");
 
     if (currentTalkjsUser) {
       currentUser = JSON.parse(currentTalkjsUser);
@@ -20,16 +20,16 @@ class MyNetwork extends Component {
     };
   }
 
-    handleClick(userId) {
-        const {users} = this.props
-        const {userMatches} = this.props
-        /* Retrieve the two users that will participate in the conversation */
-        const { currentUser } = this.state;
+  handleClick(userId) {
+    const { users } = this.props;
+    const { userMatches } = this.props;
+    /* Retrieve the two users that will participate in the conversation */
+    const { currentUser } = this.state;
 
-        const user = userMatches.find(user => user._id === userId)
-        console.log(user,"user")
-        const userFinal = {...user, id : user.nickname}
-        console.log(userFinal,"userFinal")
+    const user = userMatches.find((user) => user._id === userId);
+    console.log(user, "user");
+    const userFinal = { ...user, id: user.nickname };
+    console.log(userFinal, "userFinal");
 
     /* Session initialization code */
     Talk.ready
@@ -46,52 +46,26 @@ class MyNetwork extends Component {
           });
         }
 
-            /* Create and mount chatbox in container */
-            this.chatbox = window.talkSession.createChatbox(conversation);
-            this.chatbox.mount(this.container);
-        })            
-        .catch(e => console.error(e));
-    }
-   
-    render() {
-       
-        const { currentUser } = this.state;
-        const {users} = this.props;
-        const {userMatches} = this.props;
+        /* Get a conversation ID or create one */
+        const conversationId = Talk.oneOnOneId(me, other);
+        const conversation =
+          window.talkSession.getOrCreateConversation(conversationId);
 
-        return (
-             <div className="users">
-                <div className="current-user-container">
-                    {currentUser &&
-                         <div>
-                            <picture className="current-user-picture">
-                             <img alt={currentUser.name} src={currentUser.photoUrl} />
-                         </picture>
-                         <div className="current-user-info">
-                                 <h3>{currentUser.name}</h3>
-                                 <p>{currentUser.description}</p>
-                             </div>
-                         </div>
-                     }
-                </div>
+        /* Set participants of the conversations */
+        conversation.setParticipant(me);
+        conversation.setParticipant(other);
 
-                 <div className="users-container"> 
-                     <ul>
-                        { userMatches.map(user => 
-                             <li key={user._id} className="user">
-                                 <picture className="user-picture">
-                                     <img src={user.image} alt={`${user.name}`} />
-                                 </picture>
-                                 <div className="user-info-container">
-                                     <div className="user-info">
-                                         <h4>{user.name}</h4>
-                                         {/* <p>{user.info}</p> */}
-                                     </div>
-                                     <div className="user-action">
+        /* Create and mount chatbox in container */
+        this.chatbox = window.talkSession.createChatbox(conversation);
+        this.chatbox.mount(this.container);
+      })
+      .catch((e) => console.error(e));
+  }
 
   render() {
     const { currentUser } = this.state;
     const { users } = this.props;
+    const { userMatches } = this.props;
 
     return (
       <div className="users">
@@ -111,7 +85,7 @@ class MyNetwork extends Component {
 
         <div className="users-container">
           <ul>
-            {users.map((user) => (
+            {userMatches.map((user) => (
               <li key={user._id} className="user">
                 <picture className="user-picture">
                   <img src={user.image} alt={`${user.name}`} />
