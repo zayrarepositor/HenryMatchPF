@@ -13,7 +13,7 @@ import Formu from "../../components/Form/Form";
 
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-import { getUsers, getUserByNick} from "../../Redux/actions";
+import { getUsers, getUserByNick } from "../../Redux/actions";
 
 //======ESTILO E IMAGENES
 import ImageList from "@mui/material/ImageList";
@@ -30,8 +30,8 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getUserByNick(userProfile.nickname));
     setUpdate(false)
-    }, [update]);
-  
+  }, [update]);
+
   return (
     <>
 
@@ -40,7 +40,7 @@ const Profile = () => {
         <div className="todojunto">
           <div className="informaciondelusuario">
             <Link to='/'>
-              <button >Return to Home</button>
+              <button className="returnHomeButton" >Return to Home</button>
             </Link>
             <Avatar
               src={user.picture}
@@ -52,36 +52,36 @@ const Profile = () => {
             <Typography variant="h2" color="text.secondary">
               {user.name}
             </Typography>
-              <h1>INFORMACION DEL USUARIO</h1>
-                <div>{userProfile.name? <p> El nombre que elegiste para mostrar: {userProfile.name} </p> : <p> Todavia no ingresaste un nombre para mostrar</p>}</div> 
+           {/*  <h1 className="perfil">Perfil del Usuario</h1> */}
+            <div className="label">{userProfile.name ? <p> El nombre que elegiste para mostrar: {userProfile.name} </p> : <p> Todavia no ingresaste un nombre para mostrar</p>}</div>
 
-                <div>{userProfile.image.length >= 0 ? <img src={userProfile.image[0]} alt={userProfile.name} className="imagenperfil"/> : <p className="alert"> Debes cargar una imagen </p> }</div>
-                <div>{userProfile.age? <p> La edad que declaraste es: {userProfile.age} </p> : <p className="alert"> Todavia no ingresaste tu edad</p>}</div>
-                <div>{userProfile.email ? <p> Tu email: {userProfile.email} </p> : <p className="alert"> Todavia no ingresaste tu email</p>}</div>
-                <div>{userProfile.gender ? <p> Te definiste como {userProfile.gender} </p> : <p className="alert"> Todavia no definiste tu género</p>}</div>
-                <div>{userProfile.genderInt ? <p> Te interesa conectar con {userProfile.genderInt} </p>  : <p className="alert"> Todavia no definiste tu interes </p>} </div>
-                <div>{userProfile.description ? <p> Tu Descripcion: {userProfile.description} </p> : <p className="alert"> Ingresa una breve descripcion tuya</p> }</div>
+            <div className="label">{userProfile.image.length >= 0 ? <img src={userProfile.image[0]} alt={userProfile.name} className="imagenperfil" /> : <p className="alert"> Debes cargar una imagen </p>}</div>
+            <div className="label">{userProfile.age ? <p> La edad que declaraste es: {userProfile.age} </p> : <p className="alert"> Todavia no ingresaste tu edad</p>}</div>
+            <div className="label">{userProfile.email ? <p> Tu email: {userProfile.email} </p> : <p className="alert"> Todavia no ingresaste tu email</p>}</div>
+            <div className="label">{userProfile.gender ? <p> Te definiste como {userProfile.gender} </p> : <p className="alert"> Todavia no definiste tu género</p>}</div>
+            <div className="label">{userProfile.genderInt ? <p> Te interesa conectar con {userProfile.genderInt} </p> : <p className="alert"> Todavia no definiste tu interes </p>} </div>
+            <div className="label">{userProfile.description ? <p> Tu Descripcion: {userProfile.description} </p> : <p className="alert"> Ingresa una breve descripcion tuya</p>}</div>
 
             <h3> Tus Imagenes cargadas </h3>
             <br />
-          <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-            {userProfile.image.map((item) => (
-              <ImageListItem key={userProfile.image}>
-                <img
-                  src={`${item}?w=164&h=164&fit=crop&auto=format`}
-                  srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                  alt={userProfile.name}
-                  loading="lazy"
-                  className="imagenescargadas"
+            <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+              {userProfile.image.map((item) => (
+                <ImageListItem key={userProfile.image}>
+                  <img
+                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
+                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                    alt={userProfile.name}
+                    loading="lazy"
+                    className="imagenescargadas"
                   />
-              </ImageListItem>
-            ))} 
-           </ImageList>
-            </div>
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </div>
           <div className="datosacompletar">
-            <h1> DATOS A COMPLETAR</h1>
-            <Formu setUpdate={setUpdate}/>
-            <LogoutButton />
+            <h1 className="actualizar"> Actualiza tus Datos</h1>
+            <Formu setUpdate={setUpdate} />
+            {/*  <LogoutButton /> */}
           </div>
         </div>
       ) : (
