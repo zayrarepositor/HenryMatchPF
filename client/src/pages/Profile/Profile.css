@@ -5,5 +5,24 @@
 }
 
 .informaciondelusuario {
+    padding-left: 5px;
+    padding-right: 20px;
+}
+.datosacompletar {
     padding-left: 20px;
+}
+
+.imagenperfil {
+    width: 250px;
+    
+}
+.imagenescargadas {
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+}
+
+.alert {
+    color: red;
+    font-weight: bold;
 }

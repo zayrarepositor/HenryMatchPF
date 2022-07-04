@@ -7,8 +7,9 @@ import "./index.css"
 
 class MyNetwork extends Component {
 
-    constructor({usersDetail}) {
-        super(usersDetail); 
+    constructor(props) {
+        super(props); 
+        
         let currentUser;
 
         const currentTalkjsUser = localStorage.getItem('currentTalkjsUser');
@@ -26,11 +27,14 @@ class MyNetwork extends Component {
 
     handleClick(userId) {
         const {users} = this.props
+        const {userMatches} = this.props
         /* Retrieve the two users that will participate in the conversation */
         const { currentUser } = this.state;
 
-        const user = users.find(user => user._id === userId)
-        const userFinal = {...user,id : user.nickname}
+        const user = userMatches.find(user => user._id === userId)
+        console.log(user,"user")
+        const userFinal = {...user, id : user.nickname}
+        console.log(userFinal,"userFinal")
 
         /* Session initialization code */
         Talk.ready
@@ -66,36 +70,37 @@ class MyNetwork extends Component {
        
         const { currentUser } = this.state;
         const {users} = this.props;
+        const {userMatches} = this.props;
 
         return (
-            <div className="users">
+             <div className="users">
                 <div className="current-user-container">
                     {currentUser &&
-                        <div>
+                         <div>
                             <picture className="current-user-picture">
-                                <img alt={currentUser.name} src={currentUser.photoUrl} />
-                            </picture>
-                            <div className="current-user-info">
-                                <h3>{currentUser.name}</h3>
-                                <p>{currentUser.description}</p>
-                            </div>
-                        </div>
-                    }
+                             <img alt={currentUser.name} src={currentUser.photoUrl} />
+                         </picture>
+                         <div className="current-user-info">
+                                 <h3>{currentUser.name}</h3>
+                                 <p>{currentUser.description}</p>
+                             </div>
+                         </div>
+                     }
                 </div>
 
-                <div className="users-container"> 
-                    <ul>
-                        { users.map(user => 
-                            <li key={user._id} className="user">
-                                <picture className="user-picture">
-                                    <img src={user.image} alt={`${user.name}`} />
-                                </picture>
-                                <div className="user-info-container">
-                                    <div className="user-info">
-                                        <h4>{user.name}</h4>
-                                        {/* <p>{user.info}</p> */}
-                                    </div>
-                                    <div className="user-action">
+                 <div className="users-container"> 
+                     <ul>
+                        { userMatches.map(user => 
+                             <li key={user._id} className="user">
+                                 <picture className="user-picture">
+                                     <img src={user.image} alt={`${user.name}`} />
+                                 </picture>
+                                 <div className="user-info-container">
+                                     <div className="user-info">
+                                         <h4>{user.name}</h4>
+                                         {/* <p>{user.info}</p> */}
+                                     </div>
+                                     <div className="user-action">
 
                                         <button onClick={() => this.handleClick(user._id)}>Message</button>
                                     </div>

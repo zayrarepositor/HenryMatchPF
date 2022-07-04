@@ -16,7 +16,7 @@ import BottomBar from "../../components/BottomBar";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
-import { filterByMe, getUsers } from "../../redux/actions";
+import { filterByMe, filterUserByMatches, getUsers } from "../../redux/actions";
 import { filterByGender } from "../../redux/actions";
 import { getUserByNick, clearUserDetail } from "../../redux/actions/index";
 
@@ -52,6 +52,7 @@ const Home = () => {
 
   const users = useSelector((state) => state.users);
   const userDetail = useSelector((state) => state.userDetail);
+ 
 
   const [modal, setModal] = useState(false);
 
@@ -105,8 +106,14 @@ const Home = () => {
      dispatch(filterByMe()); 
    }, [userDetail]);
 
+  useEffect(() => {
+    dispatch(filterUserByMatches(userDetail?._id));
+  }, [userDetail]);
+  
+
   return (
     <>
+      
       {/* <ChatRoom
         usersDetail={userDetail}
         users={users}
@@ -124,7 +131,7 @@ const Home = () => {
           <CssBaseline />
           <Header />
           <Cards></Cards>
-
+       
           <BottomBar />
         </Grid>
       ) : (
@@ -164,6 +171,7 @@ const Home = () => {
                   flexDirection: "column",
                   alignItems: "center",
                 }}>
+                  
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!

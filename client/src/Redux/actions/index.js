@@ -8,6 +8,7 @@ import {
   UPDATE_MATCH,
   FILTERS_BY_ME,
   UPDATE_IMG,
+  FILTER_USERS_BY_MATCHES,
   /*  GET_USER_BY_GENDERINT, */
   // FILTER_BY_PREFERENCE,
   // FILTER_BY_INTEREST,
@@ -118,6 +119,29 @@ export function updateMatches(id, data) {
   };
 }
 
+
+export function filterUserByMatches(matches) {
+  return {
+    type: FILTER_USERS_BY_MATCHES,
+    payload: matches,
+  };
+}
+
+/* export function updateUser(id, data) {
+  return async (dispatch) => {
+    try {
+      const put = await axios.put(
+        `https://henrymatch-pg.herokuapp.com/usersId/${id}`,
+        data
+      );
+      return put;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+} */
+
+
 //----ACTION CREATORS---//EL RESTO DE LAS FUNCIONES VAN AQUI:
 
 export function filterByGender(gender) {
@@ -126,6 +150,7 @@ export function filterByGender(gender) {
     payload: gender,
   };
 }
+
 
 export function filterByMe(payload) {
   return {
