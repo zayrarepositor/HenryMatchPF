@@ -28,59 +28,8 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(getUserByNick(userProfile.nickname));
-    setUpdate(false);
+    setUpdate(false)
   }, [update]);
-  // console.log(user)
-  // const itemData = [
-  //   {
-  //     img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-  //     title: "Breakfast",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-  //     title: "Burger",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-  //     title: "Camera",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c",
-  //     title: "Coffee",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8",
-  //     title: "Hats",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-  //     title: "Honey",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-  //     title: "Basketball",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-  //     title: "Fern",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-  //     title: "Mushrooms",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-  //     title: "Tomato basil",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-  //     title: "Sea star",
-  //   },
-  //   {
-  //     img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-  //     title: "Bike",
-  //   },
-  // ];
 
   return (
     <>
@@ -88,8 +37,8 @@ const Profile = () => {
       {isAuthenticated ? (
         <div className="todojunto">
           <div className="informaciondelusuario">
-            <Link to="/">
-              <button>Return to Home</button>
+            <Link to='/'>
+              <button className="returnHomeButton" >Return to Home</button>
             </Link>
             <Avatar
               src={user.picture}
@@ -100,68 +49,19 @@ const Profile = () => {
             <Typography variant="h2" color="text.secondary">
               {user.name}
             </Typography>
-            <h1>INFORMACION DEL USUARIO</h1>
-            <div>
-              {userProfile.name ? (
-                <p> El nombre que elegiste para mostrar: {userProfile.name} </p>
-              ) : (
-                <p> Todavia no ingresaste un nombre para mostrar</p>
-              )}
-            </div>
+           {/*  <h1 className="perfil">Perfil del Usuario</h1> */}
+            <div className="label">{userProfile.name ? <p> El nombre que elegiste para mostrar: {userProfile.name} </p> : <p> Todavia no ingresaste un nombre para mostrar</p>}</div>
 
-            <div>
-              {userProfile.image.length >= 0 ? (
-                <img
-                  src={userProfile.image[0]}
-                  alt={userProfile.name}
-                  className="imagenperfil"
-                />
-              ) : (
-                <p className="alert"> Debes cargar una imagen </p>
-              )}
-            </div>
-            <div>
-              {userProfile.age ? (
-                <p> La edad que declaraste es: {userProfile.age} </p>
-              ) : (
-                <p className="alert"> Todavia no ingresaste tu edad</p>
-              )}
-            </div>
-            <div>
-              {userProfile.email ? (
-                <p> Tu email: {userProfile.email} </p>
-              ) : (
-                <p className="alert"> Todavia no ingresaste tu email</p>
-              )}
-            </div>
-            <div>
-              {userProfile.gender ? (
-                <p> Te definiste como {userProfile.gender} </p>
-              ) : (
-                <p className="alert"> Todavia no definiste tu género</p>
-              )}
-            </div>
-            <div>
-              {userProfile.genderInt ? (
-                <p> Te interesa conectar con {userProfile.genderInt} </p>
-              ) : (
-                <p className="alert"> Todavia no definiste tu interes </p>
-              )}{" "}
-            </div>
-            <div>
-              {userProfile.description ? (
-                <p> Tu Descripcion: {userProfile.description} </p>
-              ) : (
-                <p className="alert"> Ingresa una breve descripcion tuya</p>
-              )}
-            </div>
+            <div className="label">{userProfile.image.length >= 0 ? <img src={userProfile.image[0]} alt={userProfile.name} className="imagenperfil" /> : <p className="alert"> Debes cargar una imagen </p>}</div>
+            <div className="label">{userProfile.age ? <p> La edad que declaraste es: {userProfile.age} </p> : <p className="alert"> Todavia no ingresaste tu edad</p>}</div>
+            <div className="label">{userProfile.email ? <p> Tu email: {userProfile.email} </p> : <p className="alert"> Todavia no ingresaste tu email</p>}</div>
+            <div className="label">{userProfile.gender ? <p> Te definiste como {userProfile.gender} </p> : <p className="alert"> Todavia no definiste tu género</p>}</div>
+            <div className="label">{userProfile.genderInt ? <p> Te interesa conectar con {userProfile.genderInt} </p> : <p className="alert"> Todavia no definiste tu interes </p>} </div>
+            <div className="label">{userProfile.description ? <p> Tu Descripcion: {userProfile.description} </p> : <p className="alert"> Ingresa una breve descripcion tuya</p>}</div>
 
             <h3> Tus Imagenes cargadas </h3>
             <br />
-            <ImageList
-              sx={{ width: 500, height: 450 }}
-              cols={3}
-              rowHeight={164}>
+            <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
               {userProfile.image.map((item) => (
                 <ImageListItem key={userProfile.image}>
                   <img
@@ -176,9 +76,9 @@ const Profile = () => {
             </ImageList>
           </div>
           <div className="datosacompletar">
-            <h1> DATOS A COMPLETAR</h1>
+            <h1 className="actualizar"> Actualiza tus Datos</h1>
             <Formu setUpdate={setUpdate} />
-            <LogoutButton />
+            {/*  <LogoutButton /> */}
           </div>
         </div>
       ) : (
