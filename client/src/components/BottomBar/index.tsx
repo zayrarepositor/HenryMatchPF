@@ -73,7 +73,7 @@ export default function BottomBar() {
           <ButtonBases />
           <Carousel
             index={index}
-            onChange={handleChange}
+         /*    onChange={handleChange} */
             interval={4500}
             animation="slide"
             indicators={false}
@@ -89,7 +89,7 @@ export default function BottomBar() {
               letterSpacing: 2,
               wordSpacing: 2,
               color: "#fff",
-              fontWeight: "normal",
+            /*   fontWeight: "normal", */
               textDecoration: "none",
               fontStyle: "normal",
               fontVariant: "normal",
