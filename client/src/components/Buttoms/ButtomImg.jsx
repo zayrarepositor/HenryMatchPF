@@ -1,4 +1,5 @@
 import * as React from "react";
+import { NavLink } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
@@ -79,46 +80,50 @@ const ImageMarked = styled("span")(({ theme }) => ({
 
 export default function ButtonBases() {
   return (
-    <Box
-      sx={{ display: "flex", flexWrap: "wrap", minWidth: 300, width: "100%" }}
-    >
-      {images.map((image) => (
-        <ImageButton
-          focusRipple
-          key={image.title}
-          style={{
-            width: image.width,
-          }}
-        >
-          <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
-          <ImageBackdrop className="MuiImageBackdrop-root" />
-          <Image>
-            <Fade in={true} timeout={2200}>
-              <Typography
-                component="span"
-                variant="h4"
-                color="inherit"
-                sx={{
-                  position: "relative",
-                  top: 40,
-                  p: 4,
-                  pt: 2,
-                  pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
-                  letterSpacing: 2,
-                  textShadow: "#474747 3px 5px 2px",
-                  "&:hover": {
-                    textShadow:
-                      "#FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #ffff00 0px 0px 20px, #ffff00 0px 0px 30px, #ffff00 0px 0px 40px, #ffff00 0px 0px 50px, #ffff00 0px 0px 75px",
-                  },
-                }}
-              >
-                {image.title}
-                <ImageMarked className="MuiImageMarked-root" />
-              </Typography>
-            </Fade>
-          </Image>
-        </ImageButton>
-      ))}
-    </Box>
+    <NavLink to="/stripe">
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          minWidth: 300,
+          width: "100%",
+        }}>
+        {images.map((image) => (
+          <ImageButton
+            focusRipple
+            key={image.title}
+            style={{
+              width: image.width,
+            }}>
+            <ImageSrc style={{ backgroundImage: `url(${image.url})` }} />
+            <ImageBackdrop className="MuiImageBackdrop-root" />
+            <Image>
+              <Fade in={true} timeout={2200}>
+                <Typography
+                  component="span"
+                  variant="h4"
+                  color="inherit"
+                  sx={{
+                    position: "relative",
+                    top: 40,
+                    p: 4,
+                    pt: 2,
+                    pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                    letterSpacing: 2,
+                    textShadow: "#474747 3px 5px 2px",
+                    "&:hover": {
+                      textShadow:
+                        "#FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #ffff00 0px 0px 20px, #ffff00 0px 0px 30px, #ffff00 0px 0px 40px, #ffff00 0px 0px 50px, #ffff00 0px 0px 75px",
+                    },
+                  }}>
+                  {image.title}
+                  <ImageMarked className="MuiImageMarked-root" />
+                </Typography>
+              </Fade>
+            </Image>
+          </ImageButton>
+        ))}
+      </Box>
+    </NavLink>
   );
 }
