@@ -123,7 +123,8 @@ export default function SideBar() {
           />
         </NavLink>
       </Divider>
-      <MyNetwork usersDetail={userDetail} users={users} />
+      <Chat />
+      {/* <MyNetwork usersDetail={userDetail} users={users} /> */}
     </Box>
   );
 
