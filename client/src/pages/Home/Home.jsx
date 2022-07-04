@@ -35,8 +35,7 @@ function Copyright(props) {
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}
-    >
+      {...props}>
       <Link color="inherit" href="#">
         Henry Match
       </Link>{" "}
@@ -59,7 +58,6 @@ const Home = () => {
   //PARA LLENAR EL STORE CON TODOS LOS USUARIOS
   useEffect(() => {
     dispatch(getUsers());
-    
   }, []);
 
   useEffect(() => {
@@ -76,6 +74,7 @@ const Home = () => {
       window.localStorage.setItem("currentTalkjsUser", JSON.stringify(userid));
     }
   }, [user]);
+
   //PARA ABRIR MODAL SOLO CUANDO EL USUARIO NO ESTA EN LA DB
   useEffect(() => {
     if (isAuthenticated === true) {
@@ -85,8 +84,9 @@ const Home = () => {
       //EN ESTA VARIABLE SER GUARDA EL LOCAL USER SI ESTA EN LA DB
       const userInDb = users.find((u) => u.nickname === localUserNickname);
 
+      //======> SI ESTAS EN LA DB =======> console.log(userInDb);
       //SI NO HAY NADA EN userInDb SE ABRE EL MODAL
-      if (!userInDb) {
+      if (!userInDb || userInDb === undefined) {
         setModal(true);
       } else {
         setModal(false);
@@ -97,14 +97,14 @@ const Home = () => {
   }, [isAuthenticated]);
 
   //PARA FILTRAR USUARIO POR GENERO
-/*   useEffect(() => {
+  /*   useEffect(() => {
     dispatch(filterByGender(userDetail?.genderInt));
      }, [modal]); */
 
   //PARA MONTAR CON LOS FILTROS GENERO,LIKES, DISLIKES APLICADOS
   useEffect(() => {
-     dispatch(filterByMe()); 
-   }, [userDetail]);
+    dispatch(filterByMe());
+  }, [userDetail]);
 
   useEffect(() => {
     dispatch(filterUserByMatches(userDetail?._id));
@@ -128,8 +128,7 @@ const Home = () => {
         <Grid>
           <CssBaseline />
           <Header />
-          <Cards></Cards>
-
+          <Cards />
           <BottomBar />
         </Grid>
       ) : (
@@ -160,8 +159,7 @@ const Home = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square
-            >
+              square>
               <Box
                 sx={{
                   my: 8,
@@ -169,8 +167,7 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}
-              >
+                }}>
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!
@@ -184,8 +181,7 @@ const Home = () => {
                       left: 0,
                       border: 0,
                       marginTop: 20,
-                    }}
-                  >
+                    }}>
                     <LoginButton />
                   </Box>
                   <Copyright sx={{ mt: 30 }} />

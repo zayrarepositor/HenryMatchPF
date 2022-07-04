@@ -1,4 +1,7 @@
 import * as React from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
 import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -55,6 +58,11 @@ var items = [
   },
 ];
 
+//STRIPE
+const stripePromise = loadStripe(
+  "pk_test_51LHnyuJ7NqOhO9cbrpQWMKYKfkW09dgZGHXXmjGudts20yyqA4vyDxHz3bufSWmUkTHvtGeIfII2LfR1DJpuumId00oxxCoyhE"
+);
+
 export default function BottomBar() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -94,8 +102,7 @@ export default function BottomBar() {
               fontStyle: "normal",
               fontVariant: "normal",
               textTransform: "none",
-            }}
-          >
+            }}>
             {items.map((item, i) => (
               <Item key={i} item={item} />
             ))}
@@ -111,8 +118,7 @@ export default function BottomBar() {
               color="info"
               aria-label="add"
               sx={{ width: 80, height: 80 }}
-              onClick={handleOpen}
-            >
+              onClick={handleOpen}>
               <DiamondIcon fontSize="large" />
             </StyledFab>
           </Tooltip>

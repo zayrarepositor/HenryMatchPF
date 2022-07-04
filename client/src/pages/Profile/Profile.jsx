@@ -2,15 +2,14 @@
 import * as React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 
 //======IMPORTACIONES DE COMPONENTES
 import LogoutButton from "../../components/LogoutButton/LogoutButton";
 import LoginButton from "../../components/LoginButton/LoginButton";
 import Loader from "../../components/Loader/Loader";
 import Formu from "../../components/Form/Form";
-
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 import { getUsers, getUserByNick } from "../../Redux/actions";
@@ -19,12 +18,12 @@ import { getUsers, getUserByNick } from "../../Redux/actions";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { Avatar, IconButton, Typography } from "@mui/material";
-import './Profile.css';
+import "./Profile.css";
 
 const Profile = () => {
   const userProfile = useSelector((state) => state.userDetail);
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const [update, setUpdate] = useState(false)
+  const [update, setUpdate] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,7 +33,6 @@ const Profile = () => {
 
   return (
     <>
-
       {isLoading && <Loader />}
       {isAuthenticated ? (
         <div className="todojunto">
@@ -45,7 +43,6 @@ const Profile = () => {
             <Avatar
               src={user.picture}
               alt={user.name}
-
               sx={{ width: 56, height: 56 }}
               align="center"></Avatar>
 
@@ -85,7 +82,12 @@ const Profile = () => {
           </div>
         </div>
       ) : (
-        <h1>es el profile pero no estas loggeado</h1>
+        <div>
+          <h1>Lo siento, pero no estas loggeado</h1>
+          <NavLink to="/">
+            <button>HOME</button>
+          </NavLink>
+        </div>
       )}
     </>
   );
