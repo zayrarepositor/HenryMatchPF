@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import { Button, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
-export default function Matches() {
+export default function Chat() {
   return (
     <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       <ListItem alignItems="flex-start">
