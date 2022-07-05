@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useLayoutEffect} from "react";
+import React, { useState, useMemo, useRef } from "react";
 import TinderCard from "react-tinder-card";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
@@ -27,10 +27,10 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InterestsIcon from "@mui/icons-material/Interests";
 import Swal from "sweetalert2";
 
-import { Box, Divider } from "@mui/material";
+import { Box, Divider, Slide } from "@mui/material";
+import { MsgContainer, MsgText } from "../Card/StyleMsg";
 
 import {
-  filterByGender,
   filterByMe,
   getUserByNick,
   updateMatches,
@@ -50,6 +50,12 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+const messages = [
+  "",
+  "Por el momento no hay más usuarios!",
+  "Por favor regresa más tarde.",
+];
+
 export default function Cards() {
   const [expanded, setExpanded] = React.useState(false);
 
@@ -57,14 +63,26 @@ export default function Cards() {
     setExpanded(!expanded);
   };
 
+  // MENSAJE CUANDO NO HAY MAS CARTAS
+  const containerRef = useRef();
+  const [show, setShow] = useState(true);
+    const [messageIndex, setMessageIndex] = useState(0);
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+          // get next message
+          setMessageIndex((i) => (i + 1) % messages.length);
+        }, 1500);
+
+        return () => {
+          clearInterval(intervalId);
+        };
+    }, []);
+
   //*******//
 
   const db = useSelector((state) => state.usersSelected);
 
   const currentUser = useSelector((state) => state.userDetail);
-
-  const [UpdateCurrentUser, setUpdateCurrentUser] = useState({});
-  const [UpdateCardUser, setUpdateCardUser] = useState({});
 
   const dispatch = useDispatch();
 
@@ -191,6 +209,7 @@ export default function Cards() {
       );
 
       dispatch(getUserByNick(currentUser?.nickname));
+      dispatch(filterByMe());
     }
 
     const foundMatch = currentCard.likeGiven?.includes(miID);
@@ -201,15 +220,7 @@ export default function Cards() {
           matches: miID,
         })
       );
-      //  alert(`hiciste match con ${name}`)
-      // Swal.fire({
-      //   position: "center",
-      //   icon: "success",
-      //   title: `hiciste match con ${name}`,
-      //   showConfirmButton: false,
-      //   timer: 2500,
-      // });
-      Swal.fire({
+        Swal.fire({
         title: `hiciste match con ${name}`,
         text: "Felicidades!!",
         imageUrl: `${currentCard.image}`,
@@ -249,7 +260,8 @@ export default function Cards() {
 
   return (
     <>
-      {db.map((character, index) => (
+    {db.length ? (
+      db.map((character, index) => (
         <Box
           display="flex"
           justifyContent="center"
@@ -391,7 +403,26 @@ export default function Cards() {
             </Card>
           </TinderCard>
         </Box>
-      ))}
+      ))
+    ) :(
+         <MsgContainer ref={containerRef} overflow="hidden">
+            <Slide
+              direction={"right"}
+              in={show}
+              container={containerRef.current}
+              timeout={{
+                enter: 600,
+                exit: 100,
+              }}
+            >
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <MsgText>
+                  {messages[messageIndex]}
+                </MsgText>
+              </Box>
+            </Slide>
+        </MsgContainer>
+    ) }
       <Box
         display="flex"
         justifyContent="center"
@@ -429,15 +460,7 @@ export default function Cards() {
           <FavoriteIcon font="large" />
         </IconButton>
       </Box>
-      {lastDirection ? (
-        <Typography variant="h5" key={lastDirection}>
-          You swiped {lastDirection}
-        </Typography>
-      ) : (
-        <Typography variant="h5">
-          Swipe a card or press a button to get Restore Card button visible!
-        </Typography>
-      )}
+   
     </>
   );
 }
