@@ -106,9 +106,6 @@ const Home = () => {
     dispatch(filterByMe());
   }, [userDetail]);
 
-  useEffect(() => {
-    dispatch(filterUserByMatches(userDetail?._id));
-  }, [userDetail, userMatch]);
 
   return (
     <>

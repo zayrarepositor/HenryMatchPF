@@ -122,6 +122,7 @@ export default function rootReducer(state = initialState, action) {
         userMatches: allMatches
       }
     }
+    
 
     default:
       return state;

@@ -61,7 +61,27 @@ class MyNetwork extends Component {
         this.chatbox.mount(this.container);
       })
       .catch((e) => console.error(e));
-  }
+    
+//############################ NOTIFICATION FUNCTION START ########################
+      window.talkSession.unreads.on("change", function (conversationIds) {
+        var amountOfUnreads = conversationIds.length;
+      
+        // update the text and hide the badge if there are
+        // no unreads.
+        $("#notifier-badge")
+          .text(amountOfUnreads)
+          .toggle(amountOfUnreads > 0);
+      
+        // update the tab title so users can easily see that they have
+        // messages waiting
+        if (amountOfUnreads > 0) {
+          document.title = "(" + amountOfUnreads + ") MySite";
+        } else {
+          document.title = "MySite";
+        }
+      });
+//#################################### END ######################################
+}
 
   render() {
     const { currentUser } = this.state;
