@@ -132,7 +132,7 @@ const Header = () => {
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
                       src={userDetail?.picture}
-                      alt={user.name?.substring(0, 1)}
+                      alt={user.name.substring(0, 1)}
                     />
                   </IconButton>
                 </Tooltip>
@@ -160,6 +160,17 @@ const Header = () => {
                         sx={{ textDecoration: "none", color: "light.main" }}
                       >
                         Mi Perfil
+                      </Typography>
+                    </NavLink>
+                    {/* MENU: LOGOUT  */}
+                  </MenuItem>
+                  <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
+                    <NavLink to={"/admin"}>
+                      <Typography
+                        textAlign="center"
+                        sx={{ textDecoration: "none", color: "light.main" }}
+                      >
+                        Administrador
                       </Typography>
                     </NavLink>
                     {/* MENU: LOGOUT  */}

@@ -1,7 +1,7 @@
 //-----GET------//
 
-export const GET_USERS = "GET_USERS";
 //DONE!
+export const GET_USERS = "GET_USERS";
 
 export const GET_USER_BY_NICKNAME = "GET_USER_BY_NICKNAME";
 //DONE
