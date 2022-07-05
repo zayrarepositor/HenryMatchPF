@@ -41,8 +41,8 @@ const Profile = () => {
               <button className="returnHomeButton">Return to Home</button>
             </Link>
             <Avatar
-              src={user.picture}
-              alt={user.name}
+              src={userProfile.image[1]}
+              alt={userProfile.name}
               sx={{ width: 56, height: 56 }}
               align="center"></Avatar>
 

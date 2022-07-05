@@ -106,7 +106,7 @@ const Header = () => {
                 <Tooltip title="Nuevos mensajes">
                   <NavLink to={"/chatroom"}>
                     <IconButton size="large" aria-label="show 4 new mails">
-                      <Badge badgeContent={5} color="error">
+                       <Badge badgeContent={5} color="error"> 
                         <MailIcon sx={{ color: "primary.light" }} />
                       </Badge>
                     </IconButton>
@@ -128,7 +128,7 @@ const Header = () => {
                 <Tooltip title={`${user.name.substring(0, 1)} perfil`}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
-                      src={userDetail.picture}
+                      src={userDetail?.picture}
                       alt={user.name.substring(0, 1)}
                     />
                   </IconButton>
