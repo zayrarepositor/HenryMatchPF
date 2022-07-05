@@ -61,7 +61,8 @@ const Header = () => {
         horizontal: "right",
       }}
       open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}>
+      onClose={handleMobileMenuClose}
+    >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
@@ -74,7 +75,8 @@ const Header = () => {
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
-          color="inherit">
+          color="inherit"
+        >
           <Badge badgeContent={17} color="error">
             <NotificationsIcon />
           </Badge>
@@ -116,7 +118,8 @@ const Header = () => {
                 <Tooltip title="Nuevos matches">
                   <IconButton
                     size="large"
-                    aria-label="show 17 new notifications">
+                    aria-label="show 17 new notifications"
+                  >
                     <Badge badgeContent={17} color="error">
                       <NotificationsIcon sx={{ color: "primary.light" }} />
                     </Badge>
@@ -128,8 +131,8 @@ const Header = () => {
                 <Tooltip title={`${user.name.substring(0, 1)} perfil`}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
-                      src={userDetail.picture}
-                      alt={user.name.substring(0, 1)}
+                      src={userDetail?.picture}
+                      alt={user.name?.substring(0, 1)}
                     />
                   </IconButton>
                 </Tooltip>
@@ -147,13 +150,15 @@ const Header = () => {
                     horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}>
+                  onClose={handleCloseUserMenu}
+                >
                   {/* MENU: MY PROFILE  */}
                   <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                     <NavLink to={"/profile"}>
                       <Typography
                         textAlign="center"
-                        sx={{ textDecoration: "none", color: "light.main" }}>
+                        sx={{ textDecoration: "none", color: "light.main" }}
+                      >
                         Mi Perfil
                       </Typography>
                     </NavLink>
@@ -161,9 +166,8 @@ const Header = () => {
                   </MenuItem>
                   <MenuItem
                     key={"logout"}
-                    onClick={() =>
-                      logout({ returnTo: window.location.origin })
-                    }>
+                    onClick={() => logout({ returnTo: window.location.origin })}
+                  >
                     <Typography textAlign="center">Cerrar Sesión</Typography>
                   </MenuItem>
                 </Menu>
