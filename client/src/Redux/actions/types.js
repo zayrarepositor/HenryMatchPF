@@ -60,3 +60,5 @@ const initialState = {
 export const CLEAR_USER_DETAIL = "CLEAR_USER_DETAIL";
 
 //CLEAR_MESSAGE
+
+export const RENDER_ADMIN = "RENDER_ADMIN";
