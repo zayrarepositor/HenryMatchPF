@@ -209,7 +209,7 @@ export default function Cards() {
       );
 
       dispatch(getUserByNick(currentUser?.nickname));
-      dispatch(filterByMe());
+      //dispatch(filterByMe());
     }
 
     const foundMatch = currentCard.likeGiven?.includes(miID);
