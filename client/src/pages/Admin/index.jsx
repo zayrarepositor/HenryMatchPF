@@ -16,6 +16,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import AdminNavBar from "../../components/Admin/AdminNavBar";
 import AdminBottomBar from "../../components/Admin/AdminBottomBar";
 import AdminUsers from "../../components/Admin/AdminUsers";
+import AdminUsers2 from "../../components/Admin/Users/Users";
 
 //PABLO CUANDO PUEDAS CONTAME DE ESTA FUNCION <`*.*´> (ZAYRA)
 
@@ -40,7 +41,7 @@ const Admin = () => {
         <CssBaseline />
         <AdminNavBar />
         {render === "users" ? (
-          <AdminUsers />
+          <AdminUsers2 />
         ) : (
           <Typography variant="h1" sx={{ top: 200 }}>
             Algo salio mal
