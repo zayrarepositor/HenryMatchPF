@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { updateImg, updateUser } from "../../Redux/actions";
+import { /* updateImg, */ updateUser } from "../../Redux/actions";
 import { useRef } from "react";
 import "./Form.css";
 
@@ -35,7 +35,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
       .post("https://api.cloudinary.com/v1_1/henrymatch/image/upload", formData)
       .then((res) => {
         const urlImage = res.data.url;
-        dispatch(updateImg(userDetail._id, { image: urlImage }));
+        dispatch(updateUser(userDetail._id, { image: urlImage }));
         setUpdate(true);
         /* setUpdateForm(false) */
         alert("Imagen cargada con exito");
@@ -121,7 +121,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
             }}
           />
           <button className="cargar" onClick={uploadImage}>
-            Cargar Imagen
+            Modificar Imagen
           </button>
         </div>
       </div>

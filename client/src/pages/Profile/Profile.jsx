@@ -59,7 +59,7 @@ const Profile = () => {
               <button className="returnHomeButton">Return to Home</button>
             </Link>
             <Avatar
-              src={userProfile.image[0]}
+              src={userProfile.image}
               alt={userProfile.name}
               sx={{ width: 56, height: 56 }}
               align="center"></Avatar>
@@ -77,9 +77,9 @@ const Profile = () => {
             </div>
 
             <div className="label">
-              {userProfile.image?.length >= 0 ? (
+              {userProfile.image?/* .length >= 0 ? */ (
                 <img
-                  src={userProfile.image[0]}
+                  src={userProfile.image}
                   alt={userProfile.name}
                   className="imagenperfil"
                 />
@@ -159,7 +159,7 @@ const Profile = () => {
               )}
             </div>
 
-            <h3> Tus Imagenes cargadas </h3>
+           {/*  <h3> Tu Imagenes cargadas </h3>
             <br />
             <ImageList
               sx={{ width: 500, height: 450 }}
@@ -176,7 +176,7 @@ const Profile = () => {
                   />
                 </ImageListItem>
               ))}
-            </ImageList>
+            </ImageList> */}
 
             <button className='eliminar' onClick={handleUserActive}>ELIMINAR CUENTA</button>
 
