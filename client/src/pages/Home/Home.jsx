@@ -6,13 +6,19 @@ import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
 import LoginButton from "../../components/LoginButton/LoginButton";
 import Header from "../../components/Header/Header";
-import ButtonSwipe from "../../components/ButtonSwipe/ButtonSwipe";
-import Card from "../../components/Card/Card";
+import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
-import Detail from '../../components/Detail/Detail';
+//import Detail from "../../components/Detail/Detail";
+import BottomBar from "../../components/BottomBar";
+
+// import MyNetwork from "../../components/Chat/MyNetwork";
+// import ChatRoom from "../ChatRoom/ChatRoom";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-import { getUsers } from "../../redux/actions";
+
+import { filterByMe, filterUserByMatches, getUsers } from "../../redux/actions";
+import { filterByGender } from "../../redux/actions";
+import { getUserByNick, clearUserDetail } from "../../redux/actions/index";
 
 //======ESTILO E IMAGENES
 import { Typography, Link, Box, Grid, Avatar, CardMedia } from "@mui/material";
@@ -20,7 +26,7 @@ import HenryGirl from "../../assets/HenryGirl.jpg";
 import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import TemporaryDrawer from './../../components/SideBar/index';
+import Modal from "../../components/Modal/Modal";
 
 //PABLO CUANDO PUEDAS CONTAME DE ESTA FUNCION <`*.*´> (ZAYRA)
 function Copyright(props) {
@@ -29,8 +35,7 @@ function Copyright(props) {
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}
-    >
+      {...props}>
       <Link color="inherit" href="#">
         Henry Match
       </Link>{" "}
@@ -44,30 +49,85 @@ function Copyright(props) {
 const Home = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const usersSelected = useSelector((state) => state.usersSelected);
+  const userMatch = useSelector(state => state.userMatch)
+  const users = useSelector((state) => state.users);
+  const userDetail = useSelector((state) => state.userDetail);
 
+  const [modal, setModal] = useState(false);
+
+  //PARA LLENAR EL STORE CON TODOS LOS USUARIOS
   useEffect(() => {
     dispatch(getUsers());
-    //AQUI VA UNA FUNCION PARA QUE, EN EL MOMENTO EN QUE ES AUTENTICADO EL USUARIO, BUSQUE EN USERSSELECTED (parte del store) A VER SI TENEMOS ALMACENADO A ALGUIEN CON ESE MAIL (FIND) => CON ESE USUARIO, SI LO TENEMOS EN USERSSELECTED, PUEDO SETEAR UN ESTADO LOCAL(localUser, setLocalUser) O EL USERDETAIL DEL STORE (A PENSAR CUAL NOS CONVIENE MAS).
-    //EN LOS DATOS DE ESE USUARIO ESTA EL GENERO QUE BUSCA(genderInt) ASI QUE EN ESTE COMPONENTE - en otro useEffect que dependa de si tenemos info del localUser - CREAMOS UNA FUNCION PARA FILTRAR Y MANDAR AL COMPONENTE CARD LOS USUARIOS QUE COINCIDAN CON EL genderInt DEL LOCALUSER('female' o 'male')
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      const userid = {
+        name: user.name,
+        id: user.sub,
+        photoUrl: user.picture,
+        email: user.email || "exampleEmail@gmail.com",
+        description: "im Ready to get my first HenryMatch",
+        role: "user",
+      };
+
+      window.localStorage.setItem("currentTalkjsUser", JSON.stringify(userid));
+    }
+  }, [user]);
+
+  //PARA ABRIR MODAL SOLO CUANDO EL USUARIO NO ESTA EN LA DB
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      //ME GUARDO EL SUB (NUESTRO NICKNAME) DEL USUARIO DE AUTH0 EN ESTA VARIABLE
+      const localUserNickname = user.sub;
+
+      //EN ESTA VARIABLE SER GUARDA EL LOCAL USER SI ESTA EN LA DB
+      const userInDb = users.find((u) => u.nickname === localUserNickname);
+
+      //======> SI ESTAS EN LA DB =======> console.log(userInDb);
+      //SI NO HAY NADA EN userInDb SE ABRE EL MODAL
+      if (!userInDb || userInDb === undefined) {
+        setModal(true);
+      } else {
+        setModal(false);
+        //SI EL USUARIO SI ESTABA EN NUESTRA DB SE LLENA EL userDetail DEL STORE
+        dispatch(getUserByNick(localUserNickname));
+      }
+    }
   }, [isAuthenticated]);
+
+  //PARA FILTRAR USUARIO POR GENERO
+  /*   useEffect(() => {
+    dispatch(filterByGender(userDetail?.genderInt));
+     }, [modal]); */
+
+  //PARA MONTAR CON LOS FILTROS GENERO,LIKES, DISLIKES APLICADOS
+  useEffect(() => {
+    dispatch(filterByMe());
+  }, [userDetail]);
+
 
   return (
     <>
+      {/* <ChatRoom
+        usersDetail={userDetail}
+        users={users}
+        /> */}
+
       {isLoading && (
         <>
           <Loader />
         </>
       )}
-      {isAuthenticated && usersSelected.length > 0 ? (
-        <Box>
+
+      <Modal modal={modal} setModal={setModal}></Modal>
+      {isAuthenticated ? (
+        <Grid>
+          <CssBaseline />
           <Header />
-          <TemporaryDrawer />
-          <Card usersSelected={usersSelected}></Card>
-          <ButtonSwipe />
-          <Detail />
-         
-        </Box>
+          <Cards />
+          <BottomBar />
+        </Grid>
       ) : (
         <>
           <Grid container component="main" sx={{ height: "100vh" }}>
@@ -88,6 +148,7 @@ const Home = () => {
                 backgroundPosition: "start",
               }}
             />
+
             <Grid
               item
               xs={12}
@@ -95,8 +156,7 @@ const Home = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square
-            >
+              square>
               <Box
                 sx={{
                   my: 8,
@@ -104,14 +164,23 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}
-              >
+                }}>
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
-                    ! Encuentra el Amor en Henry ! Matchea y chateá con Alumnos
-                    de Henry
+                    Matchea y chateá con Alumnos de Henry!
                   </Typography>
-                  <LoginButton />
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                      right: 0,
+                      left: 0,
+                      border: 0,
+                      marginTop: 20,
+                    }}>
+                    <LoginButton />
+                  </Box>
                   <Copyright sx={{ mt: 30 }} />
                 </Box>
               </Box>

@@ -3,9 +3,11 @@ const userSchema = require("../models/user");
 
 const userPut = (req, res) =>{
     const {id} = req.params;
-    const {name, age, birthday, nickname, email, password, genderInt, gender, image, description, henryLevel} = req.body
+    const {name, age, birthday, nickname,premium,active, email, image, genderInt, gender,dislike, description, henryLevel, likeReceived, likeGiven, matches,interests, city} = req.body
+
     userSchema
-        .updateOne({_id:id},{ $set: {name, age, birthday, nickname, email, password, image, genderInt, gender, description, henryLevel}})
+        .updateOne({_id:id},{ $set: {name, age, birthday, nickname,premium,active, email, image, genderInt, gender,dislike, description, henryLevel, likeReceived, likeGiven, matches,interests, city}})
+
         .then(data => res.json(data))
         .catch((error) => res.json({message:error}));
 }

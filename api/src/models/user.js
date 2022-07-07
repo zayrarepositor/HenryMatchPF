@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -12,46 +13,62 @@ const userSchema = new mongoose.Schema({
     },
     nickname: {
         type: String,
+        require: true,
+        index: true,
         unique: true
     },
     email: {
         type: String,
-        required: true
+
     },
+
     premium: {
         type: Boolean,
-        default: false        
+        default: false
     },
     active: {
         type: Boolean,
-        default: false,        
+        default: true,
     },
     image: {
         type: String,
-        required: true
     },
     gender: {
         type: String,
     },
     genderInt: {
         type: String,
-        enum: ['male','female','both']
+        enum: ['male', 'female', 'both']
     },
     description: {
         type: String,
     },
     henryLevel: {
         type: String,
-        enum: ['m1', 'm2', 'm3', 'm4',"pi","pf",'graduate']
+        enum: ['m1', 'm2', 'm3', 'm4', 'm5', 'm6', 'pi', 'pf', 'graduate']
     },
-    likeRecieved:{
+    likeReceived: {
         type: [String]
     },
-    likeGiven:{
+    likeGiven: {
+        type: [String]
+    },
+    dislike: {
         type: [String]
     },
     matches: {
         type: [String],
+    },
+    city: {
+        type: String,
+    },
+
+    job: {
+        type: String,
+    },
+    career: {
+        type: String,
+        enum: ["fullstack", "datascience"],
     },
     createdAt: {
         type: Date,
@@ -60,8 +77,13 @@ const userSchema = new mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    interests: {
+        type: [String],
+    },
 
-})
+});
 
-module.exports = mongoose.model('Users', userSchema)
+
+module.exports = mongoose.model("Users", userSchema);
+
