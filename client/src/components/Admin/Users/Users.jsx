@@ -21,6 +21,7 @@ import {
 import { styled } from "@mui/material/styles";
 // components
 import Page from "./Page";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import Scrollbar from "./Scrollbar";
 import Iconify from "./Iconify";
@@ -33,7 +34,8 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from "./dashboard";
 
 import axios from "axios";
 import { React, useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserByNick } from "../../../Redux/actions";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 115;
@@ -98,7 +100,6 @@ function applySortFilter(array, comparator, query) {
 
     return filter(
       array,
-
       (_user) => _user.name?.toLowerCase().indexOf(query?.toLowerCase()) !== -1
     );
     // }
@@ -109,6 +110,9 @@ function applySortFilter(array, comparator, query) {
 export default function AdminUsers2() {
   const dispatch = useDispatch();
   const [currentCustomers, setCurrentCustomers] = useState([]);
+  const [update, setUpdate] = useState(false);
+  // const localUserNickname = user.sub;
+
   let USERLIST = [];
 
   const getUsers = async () => {
@@ -123,10 +127,10 @@ export default function AdminUsers2() {
     setCurrentCustomers(customers);
   };
 
-  let X = "x";
   useEffect(() => {
     getUsers();
-  }, [X]);
+    setUpdate(false);
+  }, [update]);
 
   if (currentCustomers) {
     USERLIST = currentCustomers.data;
@@ -235,6 +239,8 @@ export default function AdminUsers2() {
           }
         );
       }
+      setUpdate(true);
+      setSelected([]);
     }
 
     function setAdmin() {
@@ -267,6 +273,8 @@ export default function AdminUsers2() {
           }
         );
       }
+      setUpdate(true);
+      setSelected([]);
     }
 
     return (
