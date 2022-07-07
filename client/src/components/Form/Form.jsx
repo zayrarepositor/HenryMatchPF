@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { /* updateImg, */ updateUser } from "../../Redux/actions";
 import { useRef } from "react";
 import "./Form.css";
+import Swal from "sweetalert2";
 
 //Formik identifica todos los inputs con ese NAME
 // renderer prop: renderizamos el formulario dentro de una funcion y por ahi le vamos a pasar props(valores) de Formik
@@ -11,10 +12,47 @@ import "./Form.css";
 
 const interests = ["moda", "artes marciales", "fiestas", "videojuegos", "deportes", "cine", "viajes", "lectura", "programar"]
 
+function validate1(input) {
+  let errors1 = {};
+
+  if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.name)) {
+    errors1.name = 'El nombre solo puede contene letras y espacios';
+  }
+  return errors1;
+}
+function validate2(input) {
+  let errors2 = {};
+  if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(input.email)) {
+    errors2.email = 'El correo solo puede contene letras, numeros, puntos, guiones y guion bajo.'
+  }
+  return errors2;
+}
+function validate3(input) {
+  let errors3 = {};
+  if (!/[0-9]+/.test(input.age)) {
+    errors3.age = 'El campo solo admite numeros'
+  }
+  return errors3;
+}
+function validate4(input) {
+  let errors4 = {};
+  if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.city)) {
+    errors4.city = 'La ciudad solo puede contener letras y espacios';
+  }
+  return errors4;
+}
+function validate5(input) {
+  let errors5 = {};
+  return errors5;
+}
+
+
+
 const Formu = ({ setUpdate, setUpdateForm }) => {
   const dispatch = useDispatch();
   const userDetail = useSelector((state) => state.userDetail);
   const [image, setImage] = useState("");
+  const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     name: "",
     age: "",
@@ -22,6 +60,8 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     genderInt: "",
     henryLevel: "",
     description: "",
+    city: "",
+    email: "",
     interests: []
   });
 
@@ -49,20 +89,27 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
 
   function handleOnChange(e) {
     setInput(e.target.value);
-    /*  setInput(
-       {
-         ...input,
-         [e.target.name]: e.target.value
-       }); */
+    setErrors(validate1({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
+    setErrors(validate2({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
+    setErrors(validate3({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
+    setErrors(validate4({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
+    setErrors(validate5({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
   }
-
-  /*   function handleOnChangeAge(e) {
-      setInput(
-        {
-          ...input,
-          [e.target.name]: Number(e.target.value)
-        });
-    } */
 
   function handleSelect(e) {
     e.preventDefault();
@@ -85,7 +132,13 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     e.preventDefault();
     dispatch(updateUser(userDetail._id, { [e.target.name]: input.interests }))
     setUpdate(true);
-    alert("Datos actualizados con exito");
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Datos actualizados con exito',
+      showConfirmButton: false,
+      timer: 1500
+    })
     setInput({
       interests: []
     })
@@ -97,14 +150,21 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     dispatch(updateUser(userDetail._id, { [e.target.name]: input }));
     /* dispatch(updateUser(userDetail._id,  [e.target.name]: input)); */
     setUpdate(true);
-    alert("Datos actualizados con exito");
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Datos actualizados con exito',
+      showConfirmButton: false,
+      timer: 1500
+    })
     setInput({
       name: "",
       age: "",
       description: "",
+      city: "",
+      email: "",
       interests: []
     })
-
   }
 
   return (
@@ -125,11 +185,17 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           </button>
         </div>
       </div>
+
       <form>
 
         <label  > Tu nombre: </label>
 
         <input onChange={handleOnChange} type="text" value={input.name} name="name" placeholder="Escribe tu nombre" />
+        {
+          errors.name && (
+            <p className='error'>{errors.name}</p>
+          )
+        }
         <button name="name" onClick={(e) => handleSend(e)}> Modificar </button>
       </form>
 
@@ -138,15 +204,28 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
         <label > Tu edad: </label>
 
         <input onChange={handleOnChange} value={input.age} type="text" name="age" placeholder="Escribe tu edad" />
+        {
+          errors.age && (
+            <p className='error'>{errors.age}</p>
+          )
+        }
         <button name="age" onClick={handleSend}> Modificar </button>
+
+
       </form>
 
       <form>
 
         <label > Tu email: </label>
 
-        <input onChange={handleOnChange} type="text" value={input.name} name="email" placeholder="Escribe tu email" />
+        <input onChange={handleOnChange} type="text" value={input.email} name="email" placeholder="Escribe tu email" />
+        {
+          errors.email && (
+            <p className='error'>{errors.email}</p>
+          )
+        }
         <button name="email" onClick={(e) => handleSend(e)}> Modificar </button>
+
       </form>
 
       <form>
@@ -160,6 +239,16 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
         <button name="gender" onClick={handleSend}> Modificar </button>
       </form>
 
+      <form>
+        <label  > Ciudad: </label>
+        <input onChange={handleOnChange} type="text" value={input.city} name="city" placeholder="Escribe tu ciudad" />
+        {
+          errors.city && (
+            <p className='error'>{errors.city}</p>
+          )
+        }
+        <button name="city" onClick={(e) => handleSend(e)}> Modificar </button>
+      </form>
 
       <div>
         <label> Busco encontrarme con: </label>
