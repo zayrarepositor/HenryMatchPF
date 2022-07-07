@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { /* updateImg, */ updateUser } from "../../Redux/actions";
 import { useRef } from "react";
 import "./Form.css";
+import Swal from "sweetalert2";
 
 //Formik identifica todos los inputs con ese NAME
 // renderer prop: renderizamos el formulario dentro de una funcion y por ahi le vamos a pasar props(valores) de Formik
@@ -11,23 +12,41 @@ import "./Form.css";
 
 const interests = ["moda", "artes marciales", "fiestas", "videojuegos", "deportes", "cine", "viajes", "lectura", "programar"]
 
-function validate(input) {
-  let errors = {};
+function validate1(input) {
+  let errors1 = {};
 
   if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.name)) {
-    errors.name = 'El nombre solo puede contene letras y espacios';
+    errors1.name = 'El nombre solo puede contene letras y espacios';
   }
-  if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(input.email)) {
-    errors.email = 'El correo solo puede contene letras, numeros, puntos, guiones y guion bajo.'
-  }
-  if (!/[0-9]+/.test(input.age)) {
-    errors.age = 'El campo solo admite numeros'
-  }
-  if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.city)) {
-    errors.city = 'El nombre solo puede contene letras y espacios';
-  }
-  return errors;
+  return errors1;
 }
+function validate2(input) {
+  let errors2 = {};
+  if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(input.email)) {
+    errors2.email = 'El correo solo puede contene letras, numeros, puntos, guiones y guion bajo.'
+  }
+  return errors2;
+}
+function validate3(input) {
+  let errors3 = {};
+  if (!/[0-9]+/.test(input.age)) {
+    errors3.age = 'El campo solo admite numeros'
+  }
+  return errors3;
+}
+function validate4(input) {
+  let errors4 = {};
+  if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.city)) {
+    errors4.city = 'La ciudad solo puede contener letras y espacios';
+  }
+  return errors4;
+}
+function validate5(input) {
+  let errors5 = {};
+  return errors5;
+}
+
+
 
 const Formu = ({ setUpdate, setUpdateForm }) => {
   const dispatch = useDispatch();
@@ -70,24 +89,27 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
 
   function handleOnChange(e) {
     setInput(e.target.value);
-    setErrors(validate({
+    setErrors(validate1({
       ...input,
       [e.target.name]: e.target.value
     }))
-    /*  setInput(
-       {
-         ...input,
-         [e.target.name]: e.target.value
-       }); */
+    setErrors(validate2({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
+    setErrors(validate3({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
+    setErrors(validate4({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
+    setErrors(validate5({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
   }
-
-  /*   function handleOnChangeAge(e) {
-      setInput(
-        {
-          ...input,
-          [e.target.name]: Number(e.target.value)
-        });
-    } */
 
   function handleSelect(e) {
     e.preventDefault();
@@ -110,7 +132,13 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     e.preventDefault();
     dispatch(updateUser(userDetail._id, { [e.target.name]: input.interests }))
     setUpdate(true);
-    alert("Datos actualizados con exito");
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Datos actualizados con exito',
+      showConfirmButton: false,
+      timer: 1500
+    })
     setInput({
       interests: []
     })
@@ -122,7 +150,13 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     dispatch(updateUser(userDetail._id, { [e.target.name]: input }));
     /* dispatch(updateUser(userDetail._id,  [e.target.name]: input)); */
     setUpdate(true);
-    alert("Datos actualizados con exito");
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Datos actualizados con exito',
+      showConfirmButton: false,
+      timer: 1500
+    })
     setInput({
       name: "",
       age: "",
@@ -131,9 +165,6 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
       email: "",
       interests: []
     })
-
-
-
   }
 
   return (
