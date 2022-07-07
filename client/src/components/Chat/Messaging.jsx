@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Talk from "talkjs";
+// import "./indexm.css"
 
 class Messaging extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Messaging extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     Talk.ready
       .then(() => {
         const me = new Talk.User(this.state.currentUser);
