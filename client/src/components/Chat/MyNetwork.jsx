@@ -14,10 +14,10 @@ class MyNetwork extends Component {
     // if (currentTalkjsUser) {
     //   currentUser = JSON.parse(currentTalkjsUser);
     // }
-    const {userDetail} = this.props;
-    if(userDetail){
-      currentUser = userDetail
-    }
+    // const {userDetail} = this.props;
+    // if(userDetail){
+    //   currentUser = userDetail
+    // }
   
     this.state = {
       currentUser,
@@ -27,14 +27,12 @@ class MyNetwork extends Component {
 
   handleClick(userId) {
     const { userDetail } = this.props;
-    const { users } = this.props;
     const { userMatches } = this.props;
     /* Retrieve the two users that will participate in the conversation */
     
     let currUser = {...userDetail, id: userDetail.nickname}
-    console.log(currUser,"currUser");
-    const user = userMatches.find((user) => user._id === userId);
 
+    const user = userMatches.find((user) => user._id === userId);
     const userFinal = { ...user, id: user.nickname };
 
     /* Session initialization code */
@@ -91,10 +89,8 @@ class MyNetwork extends Component {
   render() {
     const { userDetail } = this.props;
     let currUser = {...userDetail, id: userDetail.nickname}
-    const { currentUser } = this.state;
-    const { users } = this.props;
     const { userMatches } = this.props;
-    console.log(currentUser,"userRender");
+
     return (
       <div className="users">
         <div className="current-user-container">
