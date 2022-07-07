@@ -87,11 +87,20 @@ const Profile = () => {
                 <p className="alert"> Debes cargar una imagen </p>
               )}
             </div>
+
             <div className="label">
-              {userProfile.age ? (
+              {userProfile.age? (
                 <p> La edad que declaraste es: {userProfile.age} </p>
               ) : (
                 <p className="alert"> Todavia no ingresaste tu edad</p>
+              )}
+            </div>
+
+            <div className="label">
+              {userProfile.city? (
+                <p> Tu ciudad es: {userProfile.city} </p>
+              ) : (
+                <p className="alert"> Todavia no ingresaste tu ciudad</p>
               )}
             </div>
 
