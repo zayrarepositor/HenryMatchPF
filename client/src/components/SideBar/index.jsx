@@ -16,7 +16,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Avatar, Chip, IconButton, Tooltip } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-// import MyNetwork from "../Chat/MyNetwork";
 import { useSelector } from "react-redux";
 
 export default function SideBar() {
