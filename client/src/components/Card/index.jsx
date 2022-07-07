@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from "react-redux";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CakeIcon from "@mui/icons-material/Cake";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import InfoIcon from "@mui/icons-material/Info";
 import CloseIcon from "@mui/icons-material/Close";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
@@ -209,7 +208,7 @@ export default function Cards() {
       );
 
       dispatch(getUserByNick(currentUser?.nickname));
-      dispatch(filterByMe());
+      //dispatch(filterByMe());
     }
 
     const foundMatch = currentCard.likeGiven?.includes(miID);
@@ -260,14 +259,13 @@ export default function Cards() {
 
   return (
     <>
-    {db.length ? (
-      db.map((character, index) => (
+    {db.map((character, index) => (
         <Box
           display="flex"
           justifyContent="center"
           alignItems="center"
           sx={{
-            marginTop: 15,
+            marginTop: 18,
             position: "absolute",
             right: 0,
             left: 0,
@@ -403,26 +401,8 @@ export default function Cards() {
             </Card>
           </TinderCard>
         </Box>
-      ))
-    ) :(
-         <MsgContainer ref={containerRef} overflow="hidden">
-            <Slide
-              direction={"right"}
-              in={show}
-              container={containerRef.current}
-              timeout={{
-                enter: 600,
-                exit: 100,
-              }}
-            >
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <MsgText>
-                  {messages[messageIndex]}
-                </MsgText>
-              </Box>
-            </Slide>
-        </MsgContainer>
-    ) }
+      ))}
+    
       <Box
         display="flex"
         justifyContent="center"
@@ -430,7 +410,7 @@ export default function Cards() {
         sx={{
           position: "absolute",
           // display: "block",
-          top: 70,
+          top: 78,
           right: 0,
           left: 0,
         }}
@@ -460,7 +440,30 @@ export default function Cards() {
           <FavoriteIcon font="large" />
         </IconButton>
       </Box>
-   
+
+      {!canSwipe ? (
+        <MsgContainer ref={containerRef} overflow="hidden">
+            <Slide
+              in={show}
+              container={containerRef.current}
+              timeout={{
+                enter: 500,
+                exit: 100,
+              }}
+            >
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <MsgText>
+                  {messages[messageIndex]}
+                </MsgText>
+              </Box>
+            </Slide>
+        </MsgContainer>
+       ) : ( <MsgContainer ref={containerRef} overflow="hidden">
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <MsgText></MsgText>
+               </Box>
+            </MsgContainer>
+      )}
     </>
   );
 }
