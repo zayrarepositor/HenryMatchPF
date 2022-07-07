@@ -11,10 +11,29 @@ import "./Form.css";
 
 const interests = ["moda", "artes marciales", "fiestas", "videojuegos", "deportes", "cine", "viajes", "lectura", "programar"]
 
+function validate(input) {
+  let errors = {};
+
+  if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.name)) {
+    errors.name = 'El nombre solo puede contene letras y espacios';
+  }
+  if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(input.email)) {
+    errors.email = 'El correo solo puede contene letras, numeros, puntos, guiones y guion bajo.'
+  }
+  if (!/[0-9]+/.test(input.age)) {
+    errors.age = 'El campo solo admite numeros'
+  }
+  if (!/^[a-zA-ZÀ-ÿ\s]{1,40}$/.test(input.city)) {
+    errors.city = 'El nombre solo puede contene letras y espacios';
+  }
+  return errors;
+}
+
 const Formu = ({ setUpdate, setUpdateForm }) => {
   const dispatch = useDispatch();
   const userDetail = useSelector((state) => state.userDetail);
   const [image, setImage] = useState("");
+  const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
     name: "",
     age: "",
@@ -22,6 +41,8 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     genderInt: "",
     henryLevel: "",
     description: "",
+    city: "",
+    email: "",
     interests: []
   });
 
@@ -49,6 +70,10 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
 
   function handleOnChange(e) {
     setInput(e.target.value);
+    setErrors(validate({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
     /*  setInput(
        {
          ...input,
@@ -102,8 +127,12 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
       name: "",
       age: "",
       description: "",
+      city: "",
+      email: "",
       interests: []
     })
+
+
 
   }
 
@@ -125,11 +154,17 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           </button>
         </div>
       </div>
+
       <form>
 
         <label  > Tu nombre: </label>
 
         <input onChange={handleOnChange} type="text" value={input.name} name="name" placeholder="Escribe tu nombre" />
+        {
+          errors.name && (
+            <p className='error'>{errors.name}</p>
+          )
+        }
         <button name="name" onClick={(e) => handleSend(e)}> Modificar </button>
       </form>
 
@@ -138,15 +173,28 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
         <label > Tu edad: </label>
 
         <input onChange={handleOnChange} value={input.age} type="text" name="age" placeholder="Escribe tu edad" />
+        {
+          errors.age && (
+            <p className='error'>{errors.age}</p>
+          )
+        }
         <button name="age" onClick={handleSend}> Modificar </button>
+
+
       </form>
 
       <form>
 
         <label > Tu email: </label>
 
-        <input onChange={handleOnChange} type="text" value={input.name} name="email" placeholder="Escribe tu email" />
+        <input onChange={handleOnChange} type="text" value={input.email} name="email" placeholder="Escribe tu email" />
+        {
+          errors.email && (
+            <p className='error'>{errors.email}</p>
+          )
+        }
         <button name="email" onClick={(e) => handleSend(e)}> Modificar </button>
+
       </form>
 
       <form>
@@ -160,6 +208,16 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
         <button name="gender" onClick={handleSend}> Modificar </button>
       </form>
 
+      <form>
+        <label  > Ciudad: </label>
+        <input onChange={handleOnChange} type="text" value={input.city} name="city" placeholder="Escribe tu ciudad" />
+        {
+          errors.city && (
+            <p className='error'>{errors.city}</p>
+          )
+        }
+        <button name="city" onClick={(e) => handleSend(e)}> Modificar </button>
+      </form>
 
       <div>
         <label> Busco encontrarme con: </label>
