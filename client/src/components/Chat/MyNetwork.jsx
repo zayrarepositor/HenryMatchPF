@@ -8,35 +8,40 @@ class MyNetwork extends Component {
   constructor(props) {
     super(props);
 
-    let currentUser;
+     var currentUser;
+    // const currentTalkjsUser = localStorage.getItem("currentTalkjsUser");
 
-    const currentTalkjsUser = localStorage.getItem("currentTalkjsUser");
-    
-
-    if (currentTalkjsUser) {
-      currentUser = JSON.parse(currentTalkjsUser);
+    // if (currentTalkjsUser) {
+    //   currentUser = JSON.parse(currentTalkjsUser);
+    // }
+    const {userDetail} = this.props;
+    if(userDetail){
+      currentUser = userDetail
     }
+  
     this.state = {
       currentUser,
     };
+  
   }
 
   handleClick(userId) {
+    const { userDetail } = this.props;
     const { users } = this.props;
     const { userMatches } = this.props;
     /* Retrieve the two users that will participate in the conversation */
-    const { currentUser } = this.state;
-
+    
+    let currUser = {...userDetail, id: userDetail.nickname}
+    console.log(currUser,"currUser");
     const user = userMatches.find((user) => user._id === userId);
 
     const userFinal = { ...user, id: user.nickname };
-    // console.log(userFinal, "userFinal");
 
     /* Session initialization code */
     Talk.ready
       .then(() => {
         /* Create the two users that will participate in the conversation */
-        const me = new Talk.User(currentUser);
+        const me = new Talk.User(currUser);
         const other = new Talk.User(userFinal);
 
         /* Create a talk session if this does not exist. Remember to replace tthe APP ID with the one on your dashboard */
@@ -63,42 +68,44 @@ class MyNetwork extends Component {
       .catch((e) => console.error(e));
     
 //############################ NOTIFICATION FUNCTION START ########################
-      window.talkSession.unreads.on("change", function (conversationIds) {
-        var amountOfUnreads = conversationIds.length;
+      // window.talkSession.unreads.on("change", function (conversationIds) {
+      //   var amountOfUnreads = conversationIds.length;
       
-        // update the text and hide the badge if there are
-        // no unreads.
-        $("#notifier-badge")
-          .text(amountOfUnreads)
-          .toggle(amountOfUnreads > 0);
+      //   // update the text and hide the badge if there are
+      //   // no unreads.
+      //   $("#notifier-badge")
+      //     .text(amountOfUnreads)
+      //     .toggle(amountOfUnreads > 0);
       
-        // update the tab title so users can easily see that they have
-        // messages waiting
-        if (amountOfUnreads > 0) {
-          document.title = "(" + amountOfUnreads + ") MySite";
-        } else {
-          document.title = "MySite";
-        }
-      });
+      //   // update the tab title so users can easily see that they have
+      //   // messages waiting
+      //   if (amountOfUnreads > 0) {
+      //     document.title = "(" + amountOfUnreads + ") MySite";
+      //   } else {
+      //     document.title = "MySite";
+      //   }
+      // });
 //#################################### END ######################################
 }
 
   render() {
+    const { userDetail } = this.props;
+    let currUser = {...userDetail, id: userDetail.nickname}
     const { currentUser } = this.state;
     const { users } = this.props;
     const { userMatches } = this.props;
-
+    console.log(currentUser,"userRender");
     return (
       <div className="users">
         <div className="current-user-container">
-          {currentUser && (
+          {currUser && (
             <div>
               <picture className="current-user-picture">
-                <img alt={currentUser.name} src={currentUser.photoUrl} />
+                <img alt={currUser.name} src={currUser.image} />
               </picture>
               <div className="current-user-info">
-                <h3>{currentUser.name}</h3>
-                <p>{currentUser.description}</p>
+                <h3>{currUser.name}</h3>
+                <p>{currUser.description}</p>
               </div>
             </div>
           )}
