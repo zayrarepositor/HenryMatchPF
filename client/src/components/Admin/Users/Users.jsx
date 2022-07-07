@@ -33,6 +33,7 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from "./dashboard";
 
 import axios from "axios";
 import { React, useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 115;
@@ -63,7 +64,7 @@ const TABLE_HEAD = [
   { id: "age", label: "Edad", alignRight: false },
   { id: "email", label: "email", alignRight: false },
   { id: "isAdmin", label: "Es administrador?", alignRight: false },
-  { id: "isBanned", label: "Banneado?", alignRight: false },
+  { id: "active", label: "Activo?", alignRight: false },
   { id: "" },
 ];
 
@@ -89,7 +90,6 @@ function applySortFilter(array, comparator, query) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
     const order = comparator(a[0], b[0]);
-    console.log(order);
     if (order !== 0) return order;
     return a[1] - b[1];
   });
@@ -103,11 +103,11 @@ function applySortFilter(array, comparator, query) {
     );
     // }
   }
-  console.log(stabilizedThis.map((el) => el[0]));
   return stabilizedThis.map((el) => el[0]);
 }
 
 export default function AdminUsers2() {
+  const dispatch = useDispatch();
   const [currentCustomers, setCurrentCustomers] = useState([]);
   let USERLIST = [];
 
@@ -123,9 +123,10 @@ export default function AdminUsers2() {
     setCurrentCustomers(customers);
   };
 
+  let X = "x";
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [X]);
 
   if (currentCustomers) {
     USERLIST = currentCustomers.data;
@@ -159,11 +160,11 @@ export default function AdminUsers2() {
     //   setSelected([]);
     // };
 
-    const handleClick = (event, _id, isBanned, isAdmin) => {
+    const handleClick = (event, _id, active, isAdmin) => {
       const selectedIndex = selected.indexOf(_id);
       let newSelected = [];
       if (selectedIndex === -1) {
-        newSelected = newSelected.concat(selected, _id, isBanned, isAdmin);
+        newSelected = newSelected.concat(selected, _id, active, isAdmin);
       } else if (selectedIndex === 0) {
         newSelected = newSelected.concat(selected.slice(1));
       } else if (selectedIndex === selected.length - 1) {
@@ -208,27 +209,31 @@ export default function AdminUsers2() {
       // eslint-disable-next-line prefer-const
       let id = selected[0];
       // eslint-disable-next-line prefer-const
-      let isBanned = selected[1];
-      if (!isBanned) {
+      let active = selected[1];
+      if (!active) {
         const data = {
-          isBanned: true,
+          active: true,
         };
 
-        axios.put(`./customers/${id}`, data, {
+        axios.put(`https://henrymatch-pg.herokuapp.com/usersID/${id}`, data, {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
         });
       } else {
         const dataBanned = {
-          isBanned: false,
+          active: false,
         };
 
-        axios.put(`./customers/${id}`, dataBanned, {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        });
+        axios.put(
+          `https://henrymatch-pg.herokuapp.com/usersID/${id}`,
+          dataBanned,
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
       }
     }
 
@@ -242,7 +247,7 @@ export default function AdminUsers2() {
           isAdmin: true,
         };
 
-        axios.put(`./customers/${id}`, data, {
+        axios.put(`https://henrymatch-pg.herokuapp.com/usersID/${id}`, data, {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
@@ -252,11 +257,15 @@ export default function AdminUsers2() {
           isAdmin: false,
         };
 
-        axios.put(`./customers/${id}`, dataAdmin, {
-          headers: {
-            Authorization: localStorage.getItem("token"),
-          },
-        });
+        axios.put(
+          `https://henrymatch-pg.herokuapp.com/usersID/${id}`,
+          dataAdmin,
+          {
+            headers: {
+              Authorization: localStorage.getItem("token"),
+            },
+          }
+        );
       }
     }
 
@@ -287,10 +296,10 @@ export default function AdminUsers2() {
                     }
                     color="secondary"
                   >
-                    {selected[1] === true ? (
-                      "Quitar Ban"
+                    {selected[1] === false ? (
+                      <Typography color="white">Perdonar</Typography>
                     ) : (
-                      <Typography color="white">Bannear</Typography>
+                      <Typography color="white">Banear</Typography>
                     )}
                   </Button>
                   <Button
@@ -307,7 +316,7 @@ export default function AdminUsers2() {
 
                 <Card>
                   <UserListToolbar
-                    numSelected={selected.length}
+                    // numSelected={selected.length}
                     filterName={filterName}
                     onFilterName={handleFilterByName}
                   />
@@ -335,7 +344,7 @@ export default function AdminUsers2() {
                                 _id,
                                 name,
                                 email,
-                                isBanned,
+                                active,
                                 age,
                                 image,
                                 isAdmin,
@@ -356,12 +365,7 @@ export default function AdminUsers2() {
                                     <Checkbox
                                       checked={isItemSelected}
                                       onChange={(event) =>
-                                        handleClick(
-                                          event,
-                                          _id,
-                                          isBanned,
-                                          isAdmin
-                                        )
+                                        handleClick(event, _id, active, isAdmin)
                                       }
                                     />
                                   </TableCell>
@@ -388,7 +392,7 @@ export default function AdminUsers2() {
                                     {isAdmin ? "Si" : "No"}
                                   </TableCell>
                                   <TableCell align="left">
-                                    {isBanned ? "Si" : "No"}
+                                    {active ? "Si" : "No"}
                                   </TableCell>
 
                                   <TableCell align="right"></TableCell>
