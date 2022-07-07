@@ -26,7 +26,7 @@ const ChatRoom = () => {
   return (
     <div>
       <MyNetwork
-          usersDetail={userDetail}
+          userDetail={userDetail}
           users={users}
           userMatches={userMatches}
           />
