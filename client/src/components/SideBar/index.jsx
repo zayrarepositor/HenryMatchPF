@@ -18,6 +18,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import MyNetwork from "../Chat/MyNetwork";
 import { useSelector } from "react-redux";
+import DisplayLikeReceived from "./LikeReceived";
 
 export default function SideBar() {
   const [state, setState] = React.useState({
@@ -122,7 +123,19 @@ export default function SideBar() {
             }}
           />
         </NavLink>
+         {/* <NavLink > */}
+         <Chip
+            label="LIKES RECIBIDOS"
+            sx={{
+              color: "light.main",
+              fontWeight: 700,
+              cursor: "pointer",
+              textDecoration: "none",
+            }}
+          />
+        {/* </NavLink> */}
       </Divider>
+      <DisplayLikeReceived/>
       <Chat />
       {/* <MyNetwork usersDetail={userDetail} users={users} /> */}
     </Box>
