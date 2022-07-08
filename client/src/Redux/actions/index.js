@@ -74,7 +74,7 @@ export function updateUser(id, data) {
         `https://henrymatch-pg.herokuapp.com/usersID/${id}`,
         data
       );
-     
+
       return dispatch({
         type: UPDATE_USER,
         payload: user.data,

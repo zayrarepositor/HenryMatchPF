@@ -70,7 +70,7 @@ export default function rootReducer(state = initialState, action) {
       const allMyUsers = state.usersBackup;
       const myID = state.userDetail?._id;
       const myGenderInt = state.userDetail?.genderInt;
-
+      
       //FILTROS ANIDADOS
 
       const filterByGender =
@@ -80,18 +80,23 @@ export default function rootReducer(state = initialState, action) {
           ? allMyUsers.filter((e) => e.gender === "female")
           : allMyUsers;
 
-      const filterAddLikeReceived = filterByGender.filter(
+      const filterUserInac = filterByGender.filter(
+            (e) => e.active
+      );
+      //console.log("filterUserInac",filterUserInac)
+      const filterAddLikeReceived = filterUserInac.filter(
         (e) => !e.likeReceived.includes(myID)
       );
       const filterAddDisLikeReceived = filterAddLikeReceived.filter(
         (e) => !e.dislikeReceived.includes(myID)
       );
+      
       const hiddenUser = filterAddDisLikeReceived.filter((e) => e._id !== myID);
       const FinalFiltered = new Set(hiddenUser);
 
       const finalArrayFiltered = [...FinalFiltered];
 
-      console.log("finalArrayFilt ", finalArrayFiltered);
+      //console.log("finalArrayFilt ", finalArrayFiltered);
 
       return {
         ...state,

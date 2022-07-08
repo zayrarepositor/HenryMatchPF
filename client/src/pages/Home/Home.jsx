@@ -27,6 +27,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Modal from "../../components/Modal/Modal";
+import SwipeableEdgeDrawer from "../../components/ChatBox/ChatBox";
 
 //PABLO CUANDO PUEDAS CONTAME DE ESTA FUNCION <`*.*´> (ZAYRA)
 function Copyright(props) {
@@ -35,7 +36,8 @@ function Copyright(props) {
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}>
+      {...props}
+    >
       <Link color="inherit" href="#">
         Henry Match
       </Link>{" "}
@@ -49,7 +51,7 @@ function Copyright(props) {
 const Home = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const userMatch = useSelector(state => state.userMatch)
+  const userMatch = useSelector((state) => state.userMatch);
   const users = useSelector((state) => state.users);
   const userDetail = useSelector((state) => state.userDetail);
 
@@ -106,7 +108,6 @@ const Home = () => {
     dispatch(filterByMe());
   }, [userDetail]);
 
-
   return (
     <>
       {/* <ChatRoom
@@ -127,6 +128,17 @@ const Home = () => {
           <Header />
           <Cards />
           <BottomBar />
+          <Box
+            position={"absolute"}
+            width={300}
+            height={400}
+            bottom={66}
+            right={20}
+            sx={{ color: "dark.main" }}
+          >
+            <SwipeableEdgeDrawer />
+          </Box>
+          {/* <ChatBox /> */}
         </Grid>
       ) : (
         <>
@@ -156,7 +168,8 @@ const Home = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square>
+              square
+            >
               <Box
                 sx={{
                   my: 8,
@@ -164,7 +177,8 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}>
+                }}
+              >
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!
@@ -178,7 +192,8 @@ const Home = () => {
                       left: 0,
                       border: 0,
                       marginTop: 20,
-                    }}>
+                    }}
+                  >
                     <LoginButton />
                   </Box>
                   <Copyright sx={{ mt: 30 }} />

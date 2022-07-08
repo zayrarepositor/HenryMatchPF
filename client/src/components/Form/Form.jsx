@@ -78,7 +78,13 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
         dispatch(updateUser(userDetail._id, { image: urlImage }));
         setUpdate(true);
         /* setUpdateForm(false) */
-        alert("Imagen cargada con exito");
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Datos actualizados con exito',
+          showConfirmButton: false,
+          timer: 1500
+        });
       });
     fileInput.current.value = null;
   };
