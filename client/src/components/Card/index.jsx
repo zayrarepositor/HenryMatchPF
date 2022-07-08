@@ -89,11 +89,7 @@ export default function Cards() {
     () => {
       dispatch(getUsers());
     },
-    [
-      /* currentUser, db  */
-      /* UpdateCardUser,  */
-      /* UpdateCurrentUser, */
-    ]
+    [  ]
   );
 
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
