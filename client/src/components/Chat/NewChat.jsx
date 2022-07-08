@@ -31,7 +31,7 @@ class NewChat extends Component {
     const user = userMatches.find((user) => user._id);
     const userFinal = { ...user, id: user?.nickname };
       
-      console.log(currUser,"chatS");
+      console.log(currUser,"chatSgddsdf");
       Talk.ready
       .then(() => {
         const me = new Talk.User(currUser);
@@ -52,7 +52,7 @@ class NewChat extends Component {
 
           conversation.setParticipant(me);
         conversation.setParticipant(other);
-        this.inbox = window.talkSession.createInbox(conversation);
+        this.inbox = window.talkSession.createInbox();
         this.inbox.mount(this.container);
       })
       .catch((e) => console.error(e));
