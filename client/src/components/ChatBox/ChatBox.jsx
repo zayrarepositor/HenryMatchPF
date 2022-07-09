@@ -48,17 +48,20 @@ function SwipeableEdgeDrawer(props) {
 
   return (
     <Root>
-      <CssBaseline />
+      {/* <CssBaseline /> */}
 
-      <Global
+      {/* <Global
         styles={{
           ".MuiDrawer-root > .MuiPaper-root": {
             height: `calc(50% - ${drawerBleeding}px)`,
             width: "300px",
+
+            marginRight: 0,
             overflow: "visible",
+            marginLeft: "83.4%",
           },
         }}
-      />
+      /> */}
 
       <Box sx={{ textAlign: "center", pt: 1 }}>
         <Button onClick={toggleDrawer(true)} sx={{ color: "info.main" }}>

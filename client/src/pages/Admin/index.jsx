@@ -30,7 +30,6 @@ const Admin = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const render = useSelector((state) => state.admin);
   const userDetail = useSelector((state) => state.userDetail);
-  console.log("aaaaaaaaa", userDetail);
 
   const iAmAdmin = userDetail?.isAdmin;
   // const localUserNickname = user.sub;
@@ -39,7 +38,6 @@ const Admin = () => {
       ? JSON.parse(localStorage.getItem("localUser"))
       : []
   );
-  console.log(localUser);
 
   const userAuth = user;
   useEffect(() => {
@@ -47,10 +45,6 @@ const Admin = () => {
   }, [userAuth]);
 
   useEffect(() => {
-    getUsers();
-    // if (isAuthenticated) {
-    //   dispatch(getUserByNick(localUserNickname));
-    // }
     dispatch(getUserByNick(localUser.sub));
   }, []);
 
@@ -60,7 +54,6 @@ const Admin = () => {
     dispatch(renderAdmin("users"));
   }, []);
 
-  console.log(render);
   return (
     <>
       {iAmAdmin ? (
