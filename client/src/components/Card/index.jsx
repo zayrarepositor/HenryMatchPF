@@ -263,21 +263,23 @@ export default function Cards({ setPremium }) {
             left: 0,
             boxShadow: 3,
             border: 0,
-          }}>
+          }}
+        >
           <TinderCard
             ref={childRefs[index]}
             className="swipe"
             preventSwipe={["up", "down"]}
             onSwipe={(dir) => swiped(dir, character.name, index, character._id)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}>
+            onCardLeftScreen={() => outOfFrame(character.name, index)}
+          >
             <Card
               sx={{
-                width: 310,
-                height: 430,
+                width: 375,
                 marginBottom: 14,
                 borderColor: "none",
                 borderRadius: 3,
-              }}>
+              }}
+            >
               <CardMedia
                 component="img"
                 height="566"
@@ -292,7 +294,8 @@ export default function Cards({ setPremium }) {
                     fontWeight: 900,
                     // letterSpacing: 1,
                     fontFamily: "Proxima Nova",
-                  }}>
+                  }}
+                >
                   {character.name}{" "}
                   <Typography
                     sx={{
@@ -301,7 +304,8 @@ export default function Cards({ setPremium }) {
                       fontSize: 20,
                       letterSpacing: 2,
                       fontFamily: "Proxima Nova",
-                    }}>
+                    }}
+                  >
                     {character.age}
                   </Typography>
                 </Typography>
@@ -309,7 +313,8 @@ export default function Cards({ setPremium }) {
                   expand={expanded}
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
-                  aria-label="show more">
+                  aria-label="show more"
+                >
                   <ExpandMoreIcon color="light" />
                 </ExpandMore>
               </CardActions>
@@ -319,7 +324,8 @@ export default function Cards({ setPremium }) {
                 unmountOnExit
                 sx={{
                   marginTop: -3,
-                }}>
+                }}
+              >
                 <CardContent>
                   <Box
                     display="flex"
@@ -329,7 +335,8 @@ export default function Cards({ setPremium }) {
                       right: 0,
                       left: 0,
                       marginTop: 1,
-                    }}>
+                    }}
+                  >
                     <Typography>
                       <LocationOnIcon /> {character.city}
                     </Typography>
@@ -353,14 +360,16 @@ export default function Cards({ setPremium }) {
                       right: 0,
                       left: 0,
                       marginTop: 1,
-                    }}>
+                    }}
+                  >
                     <Typography
                       textTransform="uppercase"
                       sx={{
                         display: "inline",
                         letterSpacing: 2,
                         fontFamily: "Proxima Nova",
-                      }}>
+                      }}
+                    >
                       <WorkIcon /> {character.job}
                     </Typography>
                     <Typography
@@ -369,7 +378,8 @@ export default function Cards({ setPremium }) {
                         display: "inline",
                         letterSpacing: 2,
                         fontFamily: "Proxima Nova",
-                      }}>
+                      }}
+                    >
                       <AttachFileIcon /> {character.henryLevel}
                     </Typography>
                     <InterestsIcon />{" "}
@@ -392,7 +402,8 @@ export default function Cards({ setPremium }) {
           top: 10,
           right: 0,
           left: 0,
-        }}>
+        }}
+      >
         <Box
           display="flex"
           justifyContent="space-around"
@@ -402,19 +413,22 @@ export default function Cards({ setPremium }) {
             top: 80,
             mx: "auto",
             width: 300,
-          }}>
+          }}
+        >
           <IconButton
             style={{ backgroundColor: !canSwipe && "#83838077" }}
             onClick={() => swipe("left")}
             color="warning"
-            size="large">
+            size="large"
+          >
             <CloseIcon font="large" />
           </IconButton>
           <IconButton
             style={{ backgroundColor: !canGoBack }}
             onClick={() => goBack()}
             color="primary"
-            size="large">
+            size="large"
+          >
             <Tooltip title="go back">
               <ArrowBackIcon font="large" />
             </Tooltip>{" "}
@@ -423,7 +437,8 @@ export default function Cards({ setPremium }) {
             style={{ backgroundColor: !canSwipe && "#c838380773c4d3" }}
             onClick={() => swipe("right")}
             color="info"
-            size="large">
+            size="large"
+          >
             <FavoriteIcon font="large" />
           </IconButton>
         </Box>
@@ -436,7 +451,8 @@ export default function Cards({ setPremium }) {
             timeout={{
               enter: 500,
               exit: 100,
-            }}>
+            }}
+          >
             <Box display="flex" justifyContent="center" alignItems="center">
               <MsgText>{messages[messageIndex]}</MsgText>
             </Box>

@@ -72,12 +72,14 @@ const Form = () => {
 
   return (
     <Container
+      className="body"
       sx={{
         px: 2,
         py: 2,
         background: "linear-gradient(#060606f3, #060606a2 )",
       }}
-      maxWidth={"xl"}>
+      maxWidth={"xl"}
+    >
       <ImageList
         //1194
         //928
@@ -90,13 +92,15 @@ const Form = () => {
             "repeat(auto-fill, minmax(100px, 135px))!important",
         }}
         cols={6}
-        rowHeight={70}>
+        rowHeight={70}
+      >
         {imgs.map((item) => (
           <ImageListItem
             key={item.title}
             cols={item.cols || 1}
             rows={item.rows || 1}
-            sx={{ height: "100% !important" }}>
+            sx={{ height: "100% !important" }}
+          >
             <img
               className="checkout-img"
               src={item.img}
