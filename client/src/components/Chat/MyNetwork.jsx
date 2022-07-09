@@ -88,7 +88,7 @@ class MyNetwork extends Component {
 
   render() {
     const { userDetail } = this.props;
-    let currUser = {...userDetail, id: userDetail.nickname}
+    let currUser = {...userDetail, id: userDetail?.nickname}
     const { userMatches } = this.props;
 
     return (
