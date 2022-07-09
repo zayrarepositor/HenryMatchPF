@@ -93,14 +93,14 @@ const Home = () => {
   useEffect(() => {
     dispatch(filterByMe());
   }, [userDetail]);
-  
+
   useEffect(() => {
-    if(user){
-      dispatch(getUserByNick(user.sub)).then(()=> dispatch(filterUserByMatches(userDetail?._id))) 
+    if (user) {
+      dispatch(getUserByNick(user.sub)).then(() => dispatch(filterUserByMatches(userDetail?._id)))
     }
 
-     
-    }, [user, userDetail?._id]);
+
+  }, [user, userDetail?._id]);
 
   return (
     <>
@@ -134,7 +134,7 @@ const Home = () => {
           <MyNetwork
             userDetail={userDetail}
             userMatches={userMatches}
-        />
+          />
         </Grid>
       ) : (
         <>
@@ -176,6 +176,7 @@ const Home = () => {
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!
+                 {/*    {users[0]?.name} */}
                   </Typography>
                   <Box
                     display="flex"

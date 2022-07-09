@@ -31,7 +31,7 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserByNick(userProfile.nickname));
+    dispatch(getUserByNick(userProfile?.nickname));
     setUpdate(false);
   }, [update]);
 
@@ -59,28 +59,28 @@ const Profile = () => {
               <button className="returnHomeButton">Return to Home</button>
             </Link>
             <Avatar
-              src={userProfile.image}
-              alt={userProfile.name}
+              src={userProfile?.image}
+              alt={userProfile?.name}
               sx={{ width: 56, height: 56 }}
               align="center"></Avatar>
 
             <Typography variant="h2" color="text.secondary">
-              {userProfile.name}
+              {userProfile?.name}
             </Typography>
             {/*  <h1 className="perfil">Perfil del Usuario</h1> */}
             <div className="label">
-              {userProfile.name ? (
-                <p> El nombre que elegiste para mostrar: {userProfile.name} </p>
+              {userProfile?.name ? (
+                <p> El nombre que elegiste para mostrar: {userProfile?.name} </p>
               ) : (
                 <p> Todavia no ingresaste un nombre para mostrar</p>
               )}
             </div>
 
             <div className="label">
-              {userProfile.image?/* .length >= 0 ? */ (
+              {userProfile?.image ?/* .length >= 0 ? */ (
                 <img
-                  src={userProfile.image}
-                  alt={userProfile.name}
+                  src={userProfile?.image}
+                  alt={userProfile?.name}
                   className="imagenperfil"
                 />
               ) : (
@@ -89,34 +89,34 @@ const Profile = () => {
             </div>
 
             <div className="label">
-              {userProfile.age? (
-                <p> La edad que declaraste es: {userProfile.age} </p>
+              {userProfile?.age ? (
+                <p> La edad que declaraste es: {userProfile?.age} </p>
               ) : (
                 <p className="alert"> Todavia no ingresaste tu edad</p>
               )}
             </div>
 
             <div className="label">
-              {userProfile.city? (
-                <p> Tu ciudad es: {userProfile.city} </p>
+              {userProfile?.city ? (
+                <p> Tu ciudad es: {userProfile?.city} </p>
               ) : (
                 <p className="alert"> Todavia no ingresaste tu ciudad</p>
               )}
             </div>
 
             <div className="label">
-              {userProfile.email ? (
-                <p> Tu email: {userProfile.email} </p>
+              {userProfile?.email ? (
+                <p> Tu email: {userProfile?.email} </p>
               ) : (
                 <p className="alert"> Todavia no ingresaste tu email</p>
               )}
             </div>
 
             <div className="label">
-              {userProfile.gender ? (
+              {userProfile?.gender ? (
                 <p>
                   Te definiste como{" "}
-                  {userProfile.gender === "male" ? (
+                  {userProfile?.gender === "male" ? (
                     <p>"hombre"</p>
                   ) : (
                     <p>"mujer"</p>
@@ -128,12 +128,12 @@ const Profile = () => {
             </div>
 
             <div className="label">
-              {userProfile.genderInt ? (
+              {userProfile?.genderInt ? (
                 <p>
                   Te interesa conectar con
-                  {userProfile.genderInt === "male" ? (
+                  {userProfile?.genderInt === "male" ? (
                     <p>"hombres"</p>
-                  ) : userProfile.genderInt === "female" ? (
+                  ) : userProfile?.genderInt === "female" ? (
                     <p>"mujeres"</p>
                   ) : (
                     <p>"ambos"</p>
@@ -145,47 +145,36 @@ const Profile = () => {
             </div>
 
             <div className="label">
-              {userProfile.description ? (
-                <p> Tu Descripcion: {userProfile.description} </p>
+              {userProfile?.description ? (
+                <p> Tu Descripcion: {userProfile?.description} </p>
               ) : (
                 <p className="alert"> Ingresa una breve descripcion tuya</p>
               )}
             </div>
 
             <div className="label">
-              {userProfile.interests ? (
-                <p> Tus Intereses son: {userProfile.interests.map(i => <p>{i}</p>)} </p>
+              {userProfile?.interests ? (
+                <p> Tus Intereses son: {userProfile?.interests.map(i => <p>{i}</p>)} </p>
               ) : (
                 <p className="alert"> Ingresa tus intereses</p>
               )}
             </div>
 
             <div className="label">
-              {userProfile.henryLevel ? (
-                <p> Etapa del Bootcamp: {userProfile.henryLevel} </p>
+              {userProfile?.henryLevel ? (
+                <p> Etapa del Bootcamp: {userProfile?.henryLevel} </p>
               ) : (
                 <p className="alert"> Ingresa tu etapa de Bootcamp</p>
               )}
             </div>
 
-           {/*  <h3> Tu Imagenes cargadas </h3>
-            <br />
-            <ImageList
-              sx={{ width: 500, height: 450 }}
-              cols={3}
-              rowHeight={164}>
-              {userProfile.image.map((item) => (
-                <ImageListItem key={item}>
-                  <img
-                    src={`${item}?w=164&h=164&fit=crop&auto=format`}
-                    srcSet={`${item}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                    alt={userProfile.name}
-                    loading="lazy"
-                    className="imagenescargadas"
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList> */}
+            <div className="label">
+              {userProfile?.review ? (
+                <p> Dejanos tu comentario: {userProfile?.review} </p>
+              ) : (
+                <p className="alert"> Dejanos tu comentario</p>
+              )}
+            </div>
 
             <button className='eliminar' onClick={handleUserActive}>ELIMINAR CUENTA</button>
 
