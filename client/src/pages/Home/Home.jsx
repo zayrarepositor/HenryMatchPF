@@ -28,12 +28,14 @@ import Paper from "@mui/material/Paper";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Modal from "../../components/Modal/Modal";
 import SwipeableEdgeDrawer from "../../components/ChatBox/ChatBox";
+import MyNetwork from "../../components/Chat/MyNetwork";
 
 const Home = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
   const userMatch = useSelector((state) => state.userMatch);
   const users = useSelector((state) => state.users);
+  const userMatches = useSelector((state) => state.userMatches);
   const userDetail = useSelector((state) => state.userDetail);
   //MODAL PARA CREAR USUARIO
   const [modal, setModal] = useState(false);
@@ -91,6 +93,14 @@ const Home = () => {
   useEffect(() => {
     dispatch(filterByMe());
   }, [userDetail]);
+  
+  useEffect(() => {
+    if(user){
+      dispatch(getUserByNick(user.sub)).then(()=> dispatch(filterUserByMatches(userDetail?._id))) 
+    }
+
+     
+    }, [user, userDetail?._id]);
 
   return (
     <>
@@ -121,7 +131,10 @@ const Home = () => {
             sx={{ color: "dark.main" }}>
             <SwipeableEdgeDrawer />
           </Box>
-          {/* <ChatBox /> */}
+          <MyNetwork
+            userDetail={userDetail}
+            userMatches={userMatches}
+        />
         </Grid>
       ) : (
         <>

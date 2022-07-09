@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import MyNetwork from "../../components/Chat/MyNetwork";
 // import NewChat from "../../components/Chat/NewChat";
 // import Messaging from "../../components/Chat/Messaging";
-import PerfilChat from "../../components/Chat/PerfilChat";
+// import PerfilChat from "../../components/Chat/PerfilChat";
 
 const ChatRoom = () => {
   const userDetail = useSelector(state => state.userDetail)
@@ -27,23 +27,23 @@ const ChatRoom = () => {
     }, [user, userDetail?._id]);
   
   return (
-    <div>
-      <div>
+     <div>
+       <div>
         <MyNetwork
             userDetail={userDetail}
             users={users}
             userMatches={userMatches}
         />
       </div>
-      <div>
+      {/* <div>
         <PerfilChat
             userDetail={userDetail}
             users={users}
             userMatches={userMatches}
         />
-      </div>
+      </div> */}
       {/* <div>
-        <Messaging
+        <NewChat
             userDetail={userDetail}
             users={users}
             userMatches={userMatches}
