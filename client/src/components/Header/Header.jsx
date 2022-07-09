@@ -28,6 +28,9 @@ const Header = () => {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const iAmAdmin = userDetail?.isAdmin;
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -154,17 +157,21 @@ const Header = () => {
                     </NavLink>
                     {/* MENU: LOGOUT  */}
                   </MenuItem>
-                  <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
-                    <NavLink to={"/admin"}>
-                      <Typography
-                        textAlign="center"
-                        sx={{ textDecoration: "none", color: "light.main" }}
-                      >
-                        Administrador
-                      </Typography>
-                    </NavLink>
-                    {/* MENU: LOGOUT  */}
-                  </MenuItem>
+                  {iAmAdmin === true ? (
+                    <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
+                      <NavLink to={"/admin"}>
+                        <Typography
+                          textAlign="center"
+                          sx={{ textDecoration: "none", color: "light.main" }}
+                        >
+                          Administrador
+                        </Typography>
+                      </NavLink>
+                      {/* MENU: LOGOUT  */}
+                    </MenuItem>
+                  ) : (
+                    <div />
+                  )}
                   <MenuItem
                     key={"logout"}
                     onClick={() => logout({ returnTo: window.location.origin })}
