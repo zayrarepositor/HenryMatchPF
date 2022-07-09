@@ -93,7 +93,7 @@ class MyNetwork extends Component {
 
     return (
       <div className="users">
-        <div className="current-user-container">
+        {/* <div className="current-user-container">
           {currUser && (
             <div>
               <picture className="current-user-picture">
@@ -105,10 +105,10 @@ class MyNetwork extends Component {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
 
         <div className="users-container">
-          <ul>
+           <ul>
             {userMatches.map((user) => (
               <li key={user._id} className="user">
                 <picture className="user-picture">
@@ -117,7 +117,7 @@ class MyNetwork extends Component {
                 <div className="user-info-container">
                   <div className="user-info">
                     <h4>{user.name}</h4>
-                    {/* <p>{user.info}</p> */}
+                    
                   </div>
                   <div className="user-action">
                     <button onClick={() => this.handleClick(user._id)}>
@@ -127,7 +127,7 @@ class MyNetwork extends Component {
                 </div>
               </li>
             ))}
-          </ul>
+          </ul> 
 
           <div className="chatbox-container" ref={(c) => (this.container = c)}>
             <div id="talkjs-container" style={{ height: "600px" }}>

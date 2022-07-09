@@ -10,7 +10,7 @@ import { Button, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { filterUserByMatches, getUserByNick } from "../../Redux/actions";
+import { filterUserByMatches, getUserByNick, getUsers } from "../../Redux/actions";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Chat() {
@@ -19,9 +19,9 @@ export default function Chat() {
   const userDetail = useSelector((state) => state.userDetail);
   const { user, isAuthenticated, isLoading } = useAuth0();
 
-  useEffect(() => {
-    dispatch(getUserByNick());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getUserByNick());
+  // }, []);
 
   useEffect(() => {
     if (user) {
@@ -29,7 +29,10 @@ export default function Chat() {
         dispatch(filterUserByMatches(userDetail?._id))
       );
     }
-  }, [user, userDetail?._id]);
+  }, [ userDetail?._id]);
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
 
   return (
     <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
@@ -44,7 +47,7 @@ export default function Chat() {
               secondary={user.interests.join(", ")}
               sx={{ color: "primary.contrastText" }}
             />
-            <IconButton color="primary" size="large">
+            <IconButton color="primary" size="large" >
               <SendIcon />
             </IconButton>
           </ListItem>
