@@ -50,7 +50,7 @@ const messages = [
   "Por favor regresa más tarde.",
 ];
 
-export default function Cards({ setPremium }) {
+export default function Cards() {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -239,13 +239,15 @@ export default function Cards({ setPremium }) {
   };
 
   const goBack = async () => {
-    if (!canGoBack) {
-      setPremium(true);
-      return;
-    }
+  
     const newIndex = currentIndex + 1;
     updateCurrentIndex(newIndex);
     await childRefs[newIndex].current.restoreCard();
+  };
+
+  const goBackPremium = async () => {
+  
+   alert("martin pone el modal aca")
   };
 
   return (
@@ -423,16 +425,32 @@ export default function Cards({ setPremium }) {
           >
             <CloseIcon font="large" />
           </IconButton>
-          <IconButton
-            style={{ backgroundColor: !canGoBack }}
-            onClick={() => goBack()}
-            color="primary"
-            size="large"
-          >
-            <Tooltip title="go back">
-              <ArrowBackIcon font="large" />
-            </Tooltip>{" "}
-          </IconButton>
+          {
+            currentUser.premium ? (
+            <IconButton
+              style={{ backgroundColor: !canGoBack }}
+              onClick={() => goBack()}
+              color="primary"
+              size="large"
+            >
+              <Tooltip title="go back">
+                <ArrowBackIcon font="large" />
+              </Tooltip>{" "}
+            </IconButton>
+            ) : (
+              <IconButton
+              style={{ backgroundColor: !canGoBack }}
+              onClick={() => goBackPremium()}
+              color="primary"
+              size="large"
+            >
+              <Tooltip title="go back">
+                <ArrowBackIcon font="large" />
+              </Tooltip>{" "}
+            </IconButton>
+            )
+          }
+          
           <IconButton
             style={{ backgroundColor: !canSwipe && "#c838380773c4d3" }}
             onClick={() => swipe("right")}
