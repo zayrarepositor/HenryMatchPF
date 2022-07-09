@@ -139,7 +139,7 @@ export default function SideBar() {
         </Box>
       </List>
 
-      {render === "chat" ? (
+      {render === "matches" ? (
         <>
           <Divider
             sx={{
