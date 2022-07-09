@@ -25,9 +25,9 @@ export default function Chat() {
 
   useEffect(() => {
     if (user) {
-      dispatch(getUserByNick(user.sub)).then(() =>
-        dispatch(filterUserByMatches(userDetail?._id))
-      );
+      // dispatch(getUserByNick(user.sub)).then(() =>
+      dispatch(filterUserByMatches(userDetail?._id));
+      // );
     }
   }, [ userDetail?._id]);
   useEffect(() => {

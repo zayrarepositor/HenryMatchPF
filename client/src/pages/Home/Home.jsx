@@ -10,7 +10,7 @@ import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 //import Detail from "../../components/Detail/Detail";
 import BottomBar from "../../components/BottomBar";
-
+import Copyright from "../../components/Copyright/Copyright";
 // import MyNetwork from "../../components/Chat/MyNetwork";
 // import ChatRoom from "../ChatRoom/ChatRoom";
 
@@ -30,25 +30,6 @@ import Modal from "../../components/Modal/Modal";
 import SwipeableEdgeDrawer from "../../components/ChatBox/ChatBox";
 import MyNetwork from "../../components/Chat/MyNetwork";
 
-//PABLO CUANDO PUEDAS CONTAME DE ESTA FUNCION <`*.*´> (ZAYRA)
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      <Link color="inherit" href="#">
-        Henry Match
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {". "}
-      Hecho con <FavoriteIcon fontSize="small" /> por alumnos de Henry
-    </Typography>
-  );
-}
-
 const Home = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -56,8 +37,11 @@ const Home = () => {
   const users = useSelector((state) => state.users);
   const userMatches = useSelector((state) => state.userMatches);
   const userDetail = useSelector((state) => state.userDetail);
-
+  //MODAL PARA CREAR USUARIO
   const [modal, setModal] = useState(false);
+
+  //PARA ABRIR MODAL PREMIUM
+  const [premium, setPremium] = useState(false);
 
   //PARA LLENAR EL STORE CON TODOS LOS USUARIOS
   useEffect(() => {
@@ -136,16 +120,15 @@ const Home = () => {
         <Grid>
           <CssBaseline />
           <Header />
-          <Cards />
-          <BottomBar />
+          <Cards setPremium={setPremium} />
+          <BottomBar premium={premium} setPremium={setPremium} />
           <Box
             position={"absolute"}
             width={300}
             height={400}
             bottom={66}
             right={20}
-            sx={{ color: "dark.main" }}
-          >
+            sx={{ color: "dark.main" }}>
             <SwipeableEdgeDrawer />
           </Box>
           <MyNetwork
@@ -181,8 +164,7 @@ const Home = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square
-            >
+              square>
               <Box
                 sx={{
                   my: 8,
@@ -190,8 +172,7 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}
-              >
+                }}>
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!
@@ -205,11 +186,10 @@ const Home = () => {
                       left: 0,
                       border: 0,
                       marginTop: 20,
-                    }}
-                  >
+                    }}>
                     <LoginButton />
                   </Box>
-                  <Copyright sx={{ mt: 30 }} />
+                  <Copyright sx={{ mt: 25 }} />
                 </Box>
               </Box>
             </Grid>

@@ -10,6 +10,7 @@ import {
   UPDATE_IMG,
   FILTER_USERS_BY_MATCHES,
   RENDER_ADMIN,
+  RENDER_SIDE_BAR,
   /*  GET_USER_BY_GENDER,
   GET_USER_BY_GENDERINT, */
 } from "../actions/types.js";
@@ -24,7 +25,8 @@ const initialState = {
   // message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
   gender: [],
   genderInt: [],
-  admin: "users",
+  renderAdmin: "users",
+  renderSideBar: "matches",
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -70,7 +72,7 @@ export default function rootReducer(state = initialState, action) {
       const allMyUsers = state.usersBackup;
       const myID = state.userDetail?._id;
       const myGenderInt = state.userDetail?.genderInt;
-      
+
       //FILTROS ANIDADOS
 
       const filterByGender =
@@ -80,9 +82,7 @@ export default function rootReducer(state = initialState, action) {
           ? allMyUsers.filter((e) => e.gender === "female")
           : allMyUsers;
 
-      const filterUserInac = filterByGender.filter(
-            (e) => e.active
-      );
+      const filterUserInac = filterByGender.filter((e) => e.active);
       //console.log("filterUserInac",filterUserInac)
       const filterAddLikeReceived = filterUserInac.filter(
         (e) => !e.likeReceived.includes(myID)
@@ -90,7 +90,7 @@ export default function rootReducer(state = initialState, action) {
       const filterAddDisLikeReceived = filterAddLikeReceived.filter(
         (e) => !e.dislikeReceived.includes(myID)
       );
-      
+
       const hiddenUser = filterAddDisLikeReceived.filter((e) => e._id !== myID);
       const FinalFiltered = new Set(hiddenUser);
 
@@ -114,7 +114,13 @@ export default function rootReducer(state = initialState, action) {
     case RENDER_ADMIN: {
       return {
         ...state,
-        admin: action.payload,
+        renderAdmin: action.payload,
+      };
+    }
+    case RENDER_SIDE_BAR: {
+      return {
+        ...state,
+        renderSideBar: action.payload,
       };
     }
 

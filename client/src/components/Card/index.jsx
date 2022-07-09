@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
-import CardContent from "@mui/material/CardContent";
+import { CardContent, Tooltip } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
 import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
@@ -29,14 +29,9 @@ import Swal from "sweetalert2";
 import { Box, Divider, Slide } from "@mui/material";
 import { MsgContainer, MsgText } from "../Card/StyleMsg";
 
-import {
-  filterByMe,
-  getUserByNick,
-  updateMatches,
-} from "../../Redux/actions";
+import { filterByMe, getUserByNick, updateMatches } from "../../Redux/actions";
 import { useEffect } from "react";
 import { getUsers } from "./../../Redux/actions/index";
-
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -55,7 +50,7 @@ const messages = [
   "Por favor regresa más tarde.",
 ];
 
-export default function Cards() {
+export default function Cards({ setPremium }) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -65,17 +60,17 @@ export default function Cards() {
   // MENSAJE CUANDO NO HAY MAS CARTAS
   const containerRef = useRef();
   const [show, setShow] = useState(true);
-    const [messageIndex, setMessageIndex] = useState(0);
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-          // get next message
-          setMessageIndex((i) => (i + 1) % messages.length);
-        }, 1500);
+  const [messageIndex, setMessageIndex] = useState(0);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      // get next message
+      setMessageIndex((i) => (i + 1) % messages.length);
+    }, 1500);
 
-        return () => {
-          clearInterval(intervalId);
-        };
-    }, []);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
 
   //*******//
 
@@ -85,66 +80,63 @@ export default function Cards() {
 
   const dispatch = useDispatch();
 
-  useEffect(
-    () => {
-      dispatch(getUsers());
-    },
-    [  ]
-  );
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
 
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
   const currentIndexRef = useRef(currentIndex);
 
-    //infinito
-    /*  useEffect(()=>{
+  //infinito
+  /*  useEffect(()=>{
     dispatch(filterByMe())
     console.log('ahora me estoy montando')
     }) */
-  
-    //convierte al userDetail en null
-    /* useEffect(()=>{
+
+  //convierte al userDetail en null
+  /* useEffect(()=>{
       dispatch(filterByMe())
       console.log('ahora me estoy montando')
       },[currentUser]) */
 
-    //FILTERBYME EN EL EFFECT TE DEVUELVE  USERDETAIL NULL!!!!!!!!
+  //FILTERBYME EN EL EFFECT TE DEVUELVE  USERDETAIL NULL!!!!!!!!
 
-     /*  useEffect(()=>{
+  /*  useEffect(()=>{
         dispatch(filterByMe())
         console.log('ahora me estoy montando')
         },[]) */
 
-   /*  useLayoutEffect(()=>{
+  /*  useLayoutEffect(()=>{
       dispatch(filterByMe())
       dispatch(getUsers())
       },[]) */
 
-      //userDetail en NULL 
-     /*  useEffect(()=>{
+  //userDetail en NULL
+  /*  useEffect(()=>{
       dispatch(getUserByNick(currentUser.nickname));
       dispatch(getUsers())
       dispatch(filterByMe())
         console.log('ahora me estoy montando')
       },[updateMatches]) 
  */
-      //userDetail en NULL 
-      /* useEffect(()=>{
+  //userDetail en NULL
+  /* useEffect(()=>{
         dispatch(getUsers())
         dispatch(getUserByNick(currentUser.nickname));
            console.log('ahora me estoy montando')
         },[updateMatches]) 
  */
-       /*  useEffect(()=>{
+  /*  useEffect(()=>{
           dispatch(getUsers())
                       console.log('ahora me estoy montando')
           },[updateMatches])  */
-          //atrasado 2 pasos
-       /*    useEffect(()=>{
+  //atrasado 2 pasos
+  /*    useEffect(()=>{
             dispatch(getUsers())
             },[])  */
 
-         /*    useEffect(()=>{
+  /*    useEffect(()=>{
               return () => dispatch(clearUserDetail())
               },[dispatch])   */
 
@@ -215,7 +207,7 @@ export default function Cards() {
           matches: miID,
         })
       );
-        Swal.fire({
+      Swal.fire({
         title: `hiciste match con ${name}`,
         text: "Felicidades!!",
         imageUrl: `${currentCard.image}`,
@@ -247,7 +239,10 @@ export default function Cards() {
   };
 
   const goBack = async () => {
-    if (!canGoBack) return;
+    if (!canGoBack) {
+      setPremium(true);
+      return;
+    }
     const newIndex = currentIndex + 1;
     updateCurrentIndex(newIndex);
     await childRefs[newIndex].current.restoreCard();
@@ -255,8 +250,9 @@ export default function Cards() {
 
   return (
     <>
-    {db.map((character, index) => (
+      {db.map((character, index) => (
         <Box
+          key={character._id}
           display="flex"
           justifyContent="center"
           alignItems="center"
@@ -273,7 +269,6 @@ export default function Cards() {
             ref={childRefs[index]}
             className="swipe"
             preventSwipe={["up", "down"]}
-            key={character.id}
             onSwipe={(dir) => swiped(dir, character.name, index, character._id)}
             onCardLeftScreen={() => outOfFrame(character.name, index)}
           >
@@ -282,6 +277,7 @@ export default function Cards() {
                 width: 375,
                 marginBottom: 14,
                 borderColor: "none",
+                borderRadius: 3,
               }}
             >
               <CardMedia
@@ -322,7 +318,6 @@ export default function Cards() {
                   <ExpandMoreIcon color="light" />
                 </ExpandMore>
               </CardActions>
-
               <Collapse
                 in={expanded}
                 timeout="auto"
@@ -398,67 +393,77 @@ export default function Cards() {
           </TinderCard>
         </Box>
       ))}
-    
       <Box
         display="flex"
         justifyContent="center"
         alignItems="center"
         sx={{
           position: "absolute",
-          // display: "block",
-          top: 78,
+          top: 10,
           right: 0,
           left: 0,
         }}
       >
-        <IconButton
-          style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-          onClick={() => swipe("left")}
-          color="light"
-          size="large"
+        <Box
+          display="flex"
+          justifyContent="space-around"
+          alignItems="center"
+          sx={{
+            position: "absolute",
+            top: 80,
+            mx: "auto",
+            width: 300,
+          }}
         >
-          <CloseIcon font="large" />
-        </IconButton>
-        <IconButton
-          style={{ backgroundColor: !canGoBack }}
-          onClick={() => goBack()}
-          color="light"
-          size="large"
-        >
-          <ArrowBackIcon font="large" />
-        </IconButton>
-        <IconButton
-          style={{ backgroundColor: !canSwipe && "#c3c4d3" }}
-          onClick={() => swipe("right")}
-          color="light"
-          size="large"
-        >
-          <FavoriteIcon font="large" />
-        </IconButton>
+          <IconButton
+            style={{ backgroundColor: !canSwipe && "#83838077" }}
+            onClick={() => swipe("left")}
+            color="warning"
+            size="large"
+          >
+            <CloseIcon font="large" />
+          </IconButton>
+          <IconButton
+            style={{ backgroundColor: !canGoBack }}
+            onClick={() => goBack()}
+            color="primary"
+            size="large"
+          >
+            <Tooltip title="go back">
+              <ArrowBackIcon font="large" />
+            </Tooltip>{" "}
+          </IconButton>
+          <IconButton
+            style={{ backgroundColor: !canSwipe && "#c838380773c4d3" }}
+            onClick={() => swipe("right")}
+            color="info"
+            size="large"
+          >
+            <FavoriteIcon font="large" />
+          </IconButton>
+        </Box>
       </Box>
-
       {!canSwipe ? (
         <MsgContainer ref={containerRef} overflow="hidden">
-            <Slide
-              in={show}
-              container={containerRef.current}
-              timeout={{
-                enter: 500,
-                exit: 100,
-              }}
-            >
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <MsgText>
-                  {messages[messageIndex]}
-                </MsgText>
-              </Box>
-            </Slide>
+          <Slide
+            in={show}
+            container={containerRef.current}
+            timeout={{
+              enter: 500,
+              exit: 100,
+            }}
+          >
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <MsgText>{messages[messageIndex]}</MsgText>
+            </Box>
+          </Slide>
         </MsgContainer>
-       ) : ( <MsgContainer ref={containerRef} overflow="hidden">
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <MsgText></MsgText>
-               </Box>
-            </MsgContainer>
+      ) : (
+        <MsgContainer ref={containerRef} overflow="hidden">
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <MsgText></MsgText>
+          </Box>
+        </MsgContainer>
       )}
     </>
   );
