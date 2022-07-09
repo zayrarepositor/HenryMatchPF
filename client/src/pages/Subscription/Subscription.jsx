@@ -1,5 +1,5 @@
 //======PAQUETES Y LIBRERIAS
-import React from "react";
+import { React, useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {
@@ -11,17 +11,14 @@ import {
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
 //======IMPORTACIONES DE COMPONENTES
-/* id":1155403343,"nickname":"TETE8379563","password":"qatest3588","site_status":"active","site_id":"MLA","description":"a description","date_created":"2022-07-05T21:21:17-04:00","date_last_updated":"2022-07-05T21:21:17-04:00"} */
+import Loader from "../../components/Loader/Loader";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 //======ESTILO E IMAGENES
 import userImgs from "./userImgs";
 import "./Subscription.css";
-import { ImageList, ImageListItem, Container } from "@mui/material";
-
+import { ImageList, ImageListItem, Container, Box } from "@mui/material";
 import Swal from "sweetalert2";
-
-//NUMERO TARJETA DE PRUEBA 4000000760000002
 
 //STRIPE CLAVE PUBLICABLE pk_test_51LHnyuJ7NqOhO9cbrpQWMKYKfkW09dgZGHXXmjGudts20yyqA4vyDxHz3bufSWmUkTHvtGeIfII2LfR1DJpuumId00oxxCoyhE;
 const stripePromise = loadStripe(
@@ -32,75 +29,95 @@ const stripePromise = loadStripe(
 const Form = () => {
   const users = useSelector((state) => state.users);
   const userDetail = useSelector((state) => state.userDetail);
-  //DATOS QUE ENVIAREMOS EN EL POST
-  // const userEmail = userDetail.email;
-  //const userId = userDetail._id;
+  const [isLoading, setIsLoading] = useState(false);
+
   //IMAGENES DEL BACKGROUND
   const imgs = userImgs;
   //STRIPE
   const stripe = useStripe();
   const elements = useElements();
-  const customer = userDetail.name;
+
   //BOTON DE PAGO
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //LOADER
+    setIsLoading(true);
+
+    //CREO EL METODO DE PAGO
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
     });
-
-    /*PAYMENT     Object { 
-  id:"pm_1LJJZyJ7NqOhO9cbX9VPleXL",
-  created: 1657295934, 
-  type: "card" } */
-
     if (!paymentMethod) {
-      alert("los datos ingresados son incorrectos");
+      /*OBJETO PAYMENT => { id:"pm_1LJJZyJ7NqOhO9cbX9VPleXL",
+created: 1657295934, type: "card" } */
+      setIsLoading(false);
+      //ALERT
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Los datos ingresados NO son correctos",
+        showConfirmButton: false,
+        timer: 2800,
+      });
     }
+    //SI NO HAY ERROR, USO EL SERVIDOR PARA HACER LA SOLICITUD Y EN DATA ESTARA LA RESPUESTA DEL SERVIDOR
     if (!error) {
-      console.log(paymentMethod);
       const { id } = paymentMethod;
-      const { data } = await axios
-        // "http://localhost:9000/subscription"https://henrymatch-pg.herokuapp.com,
-        .post("/subscription", {
-          id,
-          amount: 20000,
+      try {
+        const { data } = await axios
+          //http://localhost:9000 ===> https://henrymatch-pg.herokuapp.com,
+          .post("https://henrymatch-pg.herokuapp.com/subscription", {
+            id,
+            amount: 20000,
+          });
+        //MENSAJE DEL SERVIDOR
+        const response = data?.message;
+        setIsLoading(false);
+        //ALERT
+        Swal.fire({
+          position: "center",
+          icon: response === "ok" ? "success" : "error",
+          title:
+            response === "ok" ? "Operación realizada con éxito!" : response,
+          showConfirmButton: false,
+          timer: 2800,
         });
-      console.log(data);
+        elements.getElement(CardElement).clear();
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
   return (
-    <Container
+    <Box
       className="body"
       sx={{
         px: 2,
         py: 2,
         background: "linear-gradient(#060606f3, #060606a2 )",
       }}
-      maxWidth={"xl"}
-    >
+      maxWidth={"xl"}>
+      {isLoading && (
+        <>
+          <Loader />
+        </>
+      )}
       <ImageList
-        //1194
-        //928
-        //635
-        //429
         gap={8}
         sx={{
-          /*  px: 7, */
           gridTemplateColumns:
             "repeat(auto-fill, minmax(100px, 135px))!important",
         }}
         cols={6}
-        rowHeight={70}
-      >
+        rowHeight={70}>
         {imgs.map((item) => (
           <ImageListItem
             key={item.title}
             cols={item.cols || 1}
             rows={item.rows || 1}
-            sx={{ height: "100% !important" }}
-          >
+            sx={{ height: "100% !important" }}>
             <img
               className="checkout-img"
               src={item.img}
@@ -110,6 +127,7 @@ const Form = () => {
           </ImageListItem>
         ))}
       </ImageList>
+      {/*CARD AMARILLA*/}
       <div className="checkoutform-div">
         <h4>
           Ya somos {Object.keys(users).length} integrantes de esta linda
@@ -119,6 +137,7 @@ const Form = () => {
         <p>US$ 200</p>
         <form className="checkoutform" onSubmit={(e) => handleSubmit(e)}>
           <p>Ingresá tus credenciales {userDetail.name}</p>
+          {/*INPUT DE STRIPE */}
           <CardElement className="checkoutform-input" />
           <p>
             Te enviaremos un correo a {userDetail.email} cuando el pago se
@@ -128,17 +147,18 @@ const Form = () => {
             <small>Quiero modificar mi correo</small>
           </NavLink>
           <div>
-            <button>SUSCRIBIRME</button>
+            <button className="button" disabled={!stripe}>
+              SUSCRIBIRME
+            </button>
           </div>
         </form>
-        <h3>
-          volver a{" "}
-          <NavLink className="link" to="/">
-            <span>HOME</span>
-          </NavLink>
-        </h3>
+        <NavLink className="link" to="/">
+          <h3>
+            volver a <span>HOME</span>
+          </h3>
+        </NavLink>
       </div>
-    </Container>
+    </Box>
   );
 };
 
