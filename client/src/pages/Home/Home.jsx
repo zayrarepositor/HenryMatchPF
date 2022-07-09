@@ -15,7 +15,6 @@ import Copyright from "../../components/Copyright/Copyright";
 // import ChatRoom from "../ChatRoom/ChatRoom";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-
 import { filterByMe, filterUserByMatches, getUsers } from "../../redux/actions";
 import { filterByGender } from "../../redux/actions";
 import { getUserByNick, clearUserDetail } from "../../redux/actions/index";
@@ -40,6 +39,9 @@ const Home = () => {
 
   //PARA ABRIR MODAL PREMIUM
   const [premium, setPremium] = useState(false);
+
+  //IDENTIFICO CUANDO SE CREO UN USUARIO NUEVO
+  const [newUser, setNewUser] = useState(false);
 
   //PARA LLENAR EL STORE CON TODOS LOS USUARIOS
   useEffect(() => {
@@ -104,8 +106,7 @@ const Home = () => {
           <Loader />
         </>
       )}
-
-      <Modal modal={modal} setModal={setModal}></Modal>
+      <Modal modal={modal} setModal={setModal} setNewUser={setNewUser}></Modal>
       {isAuthenticated ? (
         <Grid>
           <CssBaseline />
