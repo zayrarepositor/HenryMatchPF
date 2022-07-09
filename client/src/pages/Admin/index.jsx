@@ -28,7 +28,7 @@ import { NavLink } from "react-router-dom";
 const Admin = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const render = useSelector((state) => state.admin);
+  const render = useSelector((state) => state.renderAdmin);
   const userDetail = useSelector((state) => state.userDetail);
 
   const iAmAdmin = userDetail?.isAdmin;
