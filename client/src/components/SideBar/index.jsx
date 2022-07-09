@@ -114,7 +114,7 @@ export default function SideBar() {
           }}
         >
           <Tooltip placement="top" arrow title="Ve quien te dio LIKE">
-            <IconButton onClick={handleMatches} size="large" color="info">
+            <IconButton onClick={handleChat} size="large" color="info">
               <VolunteerActivismIcon />
             </IconButton>
           </Tooltip>
@@ -128,7 +128,7 @@ export default function SideBar() {
           >
             <Tooltip placement="top" arrow title="Chatea con tus matches">
               <IconButton
-                onClick={handleChat}
+                onClick={handleMatches}
                 size="large"
                 sx={{ color: "white" }}
               >
