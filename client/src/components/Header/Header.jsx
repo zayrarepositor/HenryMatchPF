@@ -22,9 +22,12 @@ import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import SideBar from "../SideBar";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-const Header = () => {
+
+const Header = ({ setPremium }) => {
   const { user, isAuthenticated, isLoading, logout } = useAuth0();
   const userDetail = useSelector((state) => state.userDetail);
+ 
+  
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -86,7 +89,7 @@ const Header = () => {
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="fixed" color="inherit">
             <Toolbar>
-              <SideBar />
+              <SideBar/>
               {/* DESKTOP */}
               <Tooltip title="Solo estoy trabajando!">
                 <NavLink to="/desktop">

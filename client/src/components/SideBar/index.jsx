@@ -26,7 +26,7 @@ import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import ChatIcon from "@mui/icons-material/Chat";
 import { renderSideBar } from "../../Redux/actions";
 
-export default function SideBar() {
+export default function SideBar({ setPremium }) {
   const dispatch = useDispatch();
   const [state, setState] = React.useState({
     left: false,
@@ -37,6 +37,7 @@ export default function SideBar() {
 
   const render = useSelector((state) => state.renderSideBar);
   const users = useSelector((state) => state.users);
+
 
   const handleChat = () => {
     dispatch(renderSideBar("chat"));
@@ -186,6 +187,8 @@ export default function SideBar() {
       {/* <MyNetwork usersDetail={userDetail} users={users} /> */}
     </Box>
   );
+
+
 
   return (
     <div>
