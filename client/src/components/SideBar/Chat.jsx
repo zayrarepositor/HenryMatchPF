@@ -20,14 +20,10 @@ export default function Chat() {
   const { user, isAuthenticated, isLoading } = useAuth0();
 
   useEffect(() => {
-    dispatch(getUserByNick());
-  }, []);
-
-  useEffect(() => {
     if (user) {
-      dispatch(getUserByNick(user.sub)).then(() =>
-        dispatch(filterUserByMatches(userDetail?._id))
-      );
+      // dispatch(getUserByNick(user.sub)).then(() =>
+      dispatch(filterUserByMatches(userDetail?._id));
+      // );
     }
   }, [user, userDetail?._id]);
 

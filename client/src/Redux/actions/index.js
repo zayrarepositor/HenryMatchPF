@@ -10,6 +10,7 @@ import {
   UPDATE_IMG,
   FILTER_USERS_BY_MATCHES,
   RENDER_ADMIN,
+  RENDER_SIDE_BAR,
   /*  GET_USER_BY_GENDERINT, */
   // FILTER_BY_PREFERENCE,
   // FILTER_BY_INTEREST,
@@ -167,6 +168,13 @@ export function clearUserDetail(payload) {
 export function renderAdmin(payload) {
   return {
     type: RENDER_ADMIN,
+    payload: payload,
+  };
+}
+
+export function renderSideBar(payload) {
+  return {
+    type: RENDER_SIDE_BAR,
     payload: payload,
   };
 }
