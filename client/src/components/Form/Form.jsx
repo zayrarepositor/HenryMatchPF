@@ -60,6 +60,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     genderInt: "",
     henryLevel: "",
     description: "",
+    review: "",
     city: "",
     email: "",
     interests: []
@@ -167,6 +168,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
       name: "",
       age: "",
       description: "",
+      review: "",
       city: "",
       email: "",
       interests: []
@@ -324,12 +326,15 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
       </div>
 
       <form>
-
-
         <label > Sobre mi: </label>
-
         <textarea onChange={handleOnChange} type="text" value={input.description} name="description" />
         <button name="description" onClick={handleSend}> Modificar </button>
+      </form>
+
+      <form>
+        <label > Dejanos tu comentario: </label>
+        <textarea onChange={handleOnChange} type="text" value={input.review} name="review" />
+        <button name="review" onClick={handleSend}> Modificar </button>
       </form>
     </>
   );
