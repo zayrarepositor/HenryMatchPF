@@ -1,7 +1,7 @@
 //======PAQUETES Y LIBRERIAS
 import { React, useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   Elements,
   CardElement,
@@ -10,10 +10,12 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+
 //======IMPORTACIONES DE COMPONENTES
 import Loader from "../../components/Loader/Loader";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
+
 //======ESTILO E IMAGENES
 import userImgs from "./userImgs";
 import "./Subscription.css";
@@ -27,6 +29,7 @@ const stripePromise = loadStripe(
 
 //ESTE COMPONENTE VA DENTRO DE CHECKOUTFORM
 const Form = () => {
+  const navigate = useNavigate();
   const users = useSelector((state) => state.users);
   const userDetail = useSelector((state) => state.userDetail);
   const [isLoading, setIsLoading] = useState(false);
@@ -60,6 +63,7 @@ created: 1657295934, type: "card" } */
         showConfirmButton: false,
         timer: 2800,
       });
+      elements.getElement(CardElement).clear();
     }
     //SI NO HAY ERROR, USO EL SERVIDOR PARA HACER LA SOLICITUD Y EN DATA ESTARA LA RESPUESTA DEL SERVIDOR
     if (!error) {
@@ -84,6 +88,7 @@ created: 1657295934, type: "card" } */
           timer: 2800,
         });
         elements.getElement(CardElement).clear();
+        navigate("/", { replace: true });
       } catch (e) {
         console.log(e);
       }

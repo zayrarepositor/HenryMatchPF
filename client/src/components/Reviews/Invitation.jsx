@@ -13,6 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import StarBorderPurple500Icon from "@mui/icons-material/StarBorderPurple500";
 import imgp4 from "./UsersImg/pareja/4.jpg";
+import { NavLink } from "react-router-dom";
 
 export const Invitation = () => {
   return (
@@ -36,11 +37,13 @@ export const Invitation = () => {
           </Typography>
         </CardContent>
         <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-          <IconButton>
-            <StarBorderPurple500Icon fontSize="small" color="primary" />
-            <StarBorderPurple500Icon fontSize="medium" color="primary" />
-            <StarBorderPurple500Icon fontSize="large" color="primary" />
-          </IconButton>
+          <NavLink to="/profile">
+            <IconButton>
+              <StarBorderPurple500Icon fontSize="small" color="primary" />
+              <StarBorderPurple500Icon fontSize="medium" color="primary" />
+              <StarBorderPurple500Icon fontSize="large" color="primary" />
+            </IconButton>
+          </NavLink>
         </Box>
       </Box>
     </Card>

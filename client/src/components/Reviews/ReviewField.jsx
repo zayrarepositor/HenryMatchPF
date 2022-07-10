@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateUser } from "../../Redux/actions";
 
 //======ESTILO E IMAGENES
+import "./ReviewField.css";
 import {
   Button,
   Paper,
@@ -28,11 +29,15 @@ import {
 } from "@mui/material";
 import Swal from "sweetalert2";
 import { shadows } from "@mui/system";
-
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import imgp6 from "./UsersImg/pareja/6.jpg";
 import imgp7 from "./UsersImg/pareja/7.jpg";
+
+const initialForm = {
+  review: "",
+  ranting: 2.5,
+};
 
 const labels = {
   0.5: "No la recomiendo",
@@ -56,7 +61,7 @@ const ReviewField = ({ userDetail }) => {
   //VALORACION
   const [rating, setRating] = useState(2);
   const [hover, setHover] = useState();
-  const [review, setReview] = useState("");
+  const [reviewForm, setReviewForm] = useState({ initialForm });
 
   //PARA RENDERIZAR ALGUN ERROR DE LA VALIDACION
   const [errors, setErrors] = useState({});
@@ -64,30 +69,33 @@ const ReviewField = ({ userDetail }) => {
   //ESTRELLAS
   const handleRating = (e) => {
     e.preventDefault();
-    setRating(Number(e.target.value));
+    const { name, value } = e.target;
+    setReviewForm({ ...reviewForm, [name]: Number(value) });
   };
 
   //TEXTFIELD
   const handleReview = (e) => {
     e.preventDefault();
-    setReview(e.target.value);
+    const { name, value } = e.target;
+    setReviewForm({ ...reviewForm, [name]: value });
   };
 
-  console.log(review);
   //ENVIO LOS DATOS
   function handleSubmit(e) {
     e.preventDefault();
 
-    if ([rating, review].includes("")) {
-      setErrors({ msg: "todos los campos son requeridos" });
+    if (reviewForm.review === "") {
+      setErrors({
+        msg: "Por favor, acompaña tu calificación con un comentario, gracias!",
+      });
 
       setTimeout(() => {
         setErrors({});
-      }, 2000);
+      }, 3000);
 
       return;
     } else {
-      dispatch(updateUser(userDetail._id, { rating, review }));
+      dispatch(updateUser(userDetail._id, { reviewForm }));
       console.log(data);
       console.log(respuesta);
       //ALERT
@@ -100,8 +108,7 @@ const ReviewField = ({ userDetail }) => {
       }); */
 
       //LIMPIO LOS ESTADOS LOCALES
-      setReview("");
-      setRating(2);
+      setReviewForm({ initialForm });
     }
   }
 
@@ -128,7 +135,7 @@ const ReviewField = ({ userDetail }) => {
               alt="HM <3"
               sx={{ width: 300 }}
             />
-            <FormControl onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
               {/* RATING */}
               <Box
                 sx={{
@@ -149,13 +156,12 @@ const ReviewField = ({ userDetail }) => {
                     Que te parece Henry Match?
                   </Typography>
                   <Rating
-                    sx={{ m: 2 }}
+                    sx={{ m: 2, color: "#ffff00d1" }}
                     name="rating"
-                    color="secundary"
                     defaultValue={2}
                     precision={0.5}
                     size="large"
-                    value={rating}
+                    value={reviewForm.rating}
                     getLabelText={getLabelText}
                     onChange={handleRating}
                     onChangeActive={(e, newHover) => {
@@ -196,7 +202,7 @@ const ReviewField = ({ userDetail }) => {
                   </Typography>
                   <TextField
                     type="text"
-                    value={review}
+                    value={reviewForm.review}
                     name="review"
                     id="filled-multiline-static"
                     label="review"
@@ -209,18 +215,24 @@ const ReviewField = ({ userDetail }) => {
                     color="primary"
                     onChange={handleReview}
                   />
-                  {errors.msg && <Typography>{errors.msg}</Typography>}
-                  <Button
+                  {errors.msg && (
+                    <Typography
+                      sx={{ size: "small", color: "#dc3107ed" }}
+                      color="warning">
+                      {errors.msg}
+                    </Typography>
+                  )}
+                  {/*   <Button
                     color="primary"
                     type="button"
                     size="large"
                     variant="contained"
                     sx={{ mt: 3, mb: 1 }}>
-                    ENVIAR
-                  </Button>
+                  </Button> */}
+                  <button className="button">ENVIAR</button>
                 </Box>
               </Box>
-            </FormControl>
+            </form>
           </Box>
         </CardContent>
         <CardMedia
