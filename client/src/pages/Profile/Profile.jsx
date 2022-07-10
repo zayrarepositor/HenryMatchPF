@@ -109,6 +109,14 @@ const Profile = () => {
             </div>
 
             <div className="label">
+              {userProfile?.phone ? (
+                <p> El numero de celular que declaraste es: {userProfile?.phone} </p>
+              ) : (
+                <p className="alert"> Todavia no ingresaste tu numero celular</p>
+              )}
+            </div>
+
+            <div className="label">
               {userProfile?.city ? (
                 <p> Tu ciudad es: {userProfile?.city} </p>
               ) : (
