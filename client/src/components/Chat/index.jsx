@@ -25,6 +25,7 @@ const Chat = ({ userDetail, users, userMatches }) => {
           <PerfilChat />
         </Box>
       )}
+
       <AdminBottomBar />
     </Box>
   );
