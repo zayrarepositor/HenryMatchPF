@@ -58,7 +58,7 @@ const Home = () => {
         photoUrl: user.picture,
         email: user.email || "exampleEmail@gmail.com",
         description: "im Ready to get my first HenryMatch",
-        role: "user",
+        role: "default",
       };
 
       window.localStorage.setItem("currentTalkjsUser", JSON.stringify(userid));
@@ -98,10 +98,10 @@ const Home = () => {
 
   useEffect(() => {
     if (user) {
-      dispatch(getUserByNick(user.sub)).then(() => dispatch(filterUserByMatches(userDetail?._id)))
+      dispatch(getUserByNick(user.sub)).then(() =>
+        dispatch(filterUserByMatches(userDetail?._id))
+      );
     }
-
-
   }, [user, userDetail?._id]);
 
   return (
@@ -123,7 +123,7 @@ const Home = () => {
           <Header />
           <Cards setPremium={setPremium} />
           <BottomBar premium={premium} setPremium={setPremium} />
-          <Box
+          {/* <Box
             position={"absolute"}
             width={300}
             height={400}
@@ -131,11 +131,8 @@ const Home = () => {
             right={20}
             sx={{ color: "dark.main" }}>
             <SwipeableEdgeDrawer />
-          </Box>
-          <MyNetwork
-            userDetail={userDetail}
-            userMatches={userMatches}
-          />
+          </Box> */}
+          {/* <MyNetwork userDetail={userDetail} userMatches={userMatches} /> */}
         </Grid>
       ) : (
         <>
@@ -165,7 +162,8 @@ const Home = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square>
+              square
+            >
               <Box
                 sx={{
                   my: 8,
@@ -173,11 +171,12 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}>
+                }}
+              >
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!
-                 {/*    {users[0]?.name} */}
+                    {/*    {users[0]?.name} */}
                   </Typography>
                   <Box
                     display="flex"
@@ -188,7 +187,8 @@ const Home = () => {
                       left: 0,
                       border: 0,
                       marginTop: 20,
-                    }}>
+                    }}
+                  >
                     <LoginButton />
                   </Box>
                   <Copyright sx={{ mt: 25 }} />

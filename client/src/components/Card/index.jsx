@@ -239,15 +239,13 @@ export default function Cards() {
   };
 
   const goBack = async () => {
-  
     const newIndex = currentIndex + 1;
     updateCurrentIndex(newIndex);
     await childRefs[newIndex].current.restoreCard();
   };
 
   const goBackPremium = async () => {
-  
-   alert("martin pone el modal aca")
+    alert("martin pone el modal aca");
   };
 
   return (
@@ -425,8 +423,7 @@ export default function Cards() {
           >
             <CloseIcon font="large" />
           </IconButton>
-          {
-            currentUser.premium ? (
+          {currentUser?.premium ? (
             <IconButton
               style={{ backgroundColor: !canGoBack }}
               onClick={() => goBack()}
@@ -437,8 +434,8 @@ export default function Cards() {
                 <ArrowBackIcon font="large" />
               </Tooltip>{" "}
             </IconButton>
-            ) : (
-              <IconButton
+          ) : (
+            <IconButton
               style={{ backgroundColor: !canGoBack }}
               onClick={() => goBackPremium()}
               color="primary"
@@ -448,9 +445,8 @@ export default function Cards() {
                 <ArrowBackIcon font="large" />
               </Tooltip>{" "}
             </IconButton>
-            )
-          }
-          
+          )}
+
           <IconButton
             style={{ backgroundColor: !canSwipe && "#c838380773c4d3" }}
             onClick={() => swipe("right")}
