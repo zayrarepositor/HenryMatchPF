@@ -53,7 +53,7 @@ const Landing = () => {
                   right: 0,
                   left: 0,
                   border: 0,
-                  marginTop: 25,
+                  marginTop: 20,
                 }}
               >
                 <LoginButton />
@@ -63,16 +63,16 @@ const Landing = () => {
 
             <Box
             item
-            xs={8}
-            sm={12}
-            md={7}
+            xs={12}
+            /* sm={12}
+            md={7} */
                     sx={{
                       mx: 8,
                       right: 0,
                       left: 0,
                       border: 0,
                       marginTop: -85,
-                      marginRight: -300,
+                      marginRight: -200,
                     }}>
                   <Slider/>
             </Box>
