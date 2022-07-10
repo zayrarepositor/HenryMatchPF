@@ -3,9 +3,10 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import MyNetwork from "../Chat/MyNetwork";
 import BanBottomBar from "./BanBottomBar";
+import BanChat from "./BanChat";
 import BanNavBar from "./BanNavBar";
 
-const Ban = ({ userDetail, users, userMatches }) => {
+const Ban = ({ userDetail, users, allAdmins }) => {
   return (
     <Box>
       <BanNavBar />
@@ -21,12 +22,12 @@ const Ban = ({ userDetail, users, userMatches }) => {
         </NavLink>
         <Box>
           <Typography paddingTop={10} variant="h3">
-            O puedes escribirle al administrador
+            O puedes escribirle a algun administrador
           </Typography>
-          <MyNetwork
+          <BanChat
             userDetail={userDetail}
             users={users}
-            userMatches={userMatches}
+            allAdmins={allAdmins}
           />
         </Box>
       </Box>
