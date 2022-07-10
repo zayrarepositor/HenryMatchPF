@@ -10,7 +10,7 @@ import Slider from "../LandingPage/Slider"
 const Landing = () => {
   return (
     <>
-      <Grid container /* component="main" */ sx={{/*  mx: 80, */ /* height: "90vh" */ }}>
+      <Grid container component="main" sx={{/*  mx: 80, */ /* height: "90vh" */ }}>
         
         {/* <CssBaseline />
         <Grid
@@ -53,7 +53,7 @@ const Landing = () => {
                   right: 0,
                   left: 0,
                   border: 0,
-                  marginTop: 20,
+                  marginTop: 25,
                 }}
               >
                 <LoginButton />
@@ -64,15 +64,15 @@ const Landing = () => {
             <Box
             item
             xs={12}
-            /* sm={12}
-            md={7} */
+            sm={12}
+            /* md={7} */
                     sx={{
-                      mx: 8,
+                      /* mx: 8, */
                       right: 0,
                       left: 0,
                       border: 0,
                       marginTop: -85,
-                      marginRight: -200,
+                      marginRight: -300,
                     }}>
                   <Slider/>
             </Box>
