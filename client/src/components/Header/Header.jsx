@@ -26,8 +26,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 const Header = ({ setPremium }) => {
   const { user, isAuthenticated, isLoading, logout } = useAuth0();
   const userDetail = useSelector((state) => state.userDetail);
- 
-  
+
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -58,8 +57,7 @@ const Header = ({ setPremium }) => {
         horizontal: "right",
       }}
       open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
+      onClose={handleMobileMenuClose}>
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="error">
@@ -72,8 +70,7 @@ const Header = ({ setPremium }) => {
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
-          color="inherit"
-        >
+          color="inherit">
           <Badge badgeContent={17} color="error">
             <NotificationsIcon />
           </Badge>
@@ -89,7 +86,7 @@ const Header = ({ setPremium }) => {
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="fixed" color="inherit">
             <Toolbar>
-              <SideBar/>
+              <SideBar />
               {/* DESKTOP */}
               <Tooltip title="Solo estoy trabajando!">
                 <NavLink to="/desktop">
@@ -114,8 +111,7 @@ const Header = ({ setPremium }) => {
                 <Tooltip title="Nuevos matches">
                   <IconButton
                     size="large"
-                    aria-label="show 17 new notifications"
-                  >
+                    aria-label="show 17 new notifications">
                     <Badge badgeContent={17} color="error">
                       <NotificationsIcon sx={{ color: "primary.light" }} />
                     </Badge>
@@ -146,15 +142,13 @@ const Header = ({ setPremium }) => {
                     horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
+                  onClose={handleCloseUserMenu}>
                   {/* MENU: MY PROFILE  */}
                   <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                     <NavLink to={"/profile"}>
                       <Typography
                         textAlign="center"
-                        sx={{ textDecoration: "none", color: "light.main" }}
-                      >
+                        sx={{ textDecoration: "none", color: "light.main" }}>
                         Mi Perfil
                       </Typography>
                     </NavLink>
@@ -165,8 +159,7 @@ const Header = ({ setPremium }) => {
                       <NavLink to={"/admin"}>
                         <Typography
                           textAlign="center"
-                          sx={{ textDecoration: "none", color: "light.main" }}
-                        >
+                          sx={{ textDecoration: "none", color: "light.main" }}>
                           Administrador
                         </Typography>
                       </NavLink>
@@ -177,8 +170,9 @@ const Header = ({ setPremium }) => {
                   )}
                   <MenuItem
                     key={"logout"}
-                    onClick={() => logout({ returnTo: window.location.origin })}
-                  >
+                    onClick={() =>
+                      logout({ returnTo: window.location.origin })
+                    }>
                     <Typography textAlign="center">Cerrar Sesión</Typography>
                   </MenuItem>
                 </Menu>
