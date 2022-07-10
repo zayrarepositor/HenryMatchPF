@@ -131,6 +131,8 @@ const Home = () => {
             right={20}
             sx={{ color: "dark.main" }}>
             <SwipeableEdgeDrawer />
+          </Box>
+          <MyNetwork userDetail={userDetail} userMatches={userMatches} />
           </Box> */}
           {/* <MyNetwork userDetail={userDetail} userMatches={userMatches} /> */}
         </Grid>
@@ -162,8 +164,7 @@ const Home = () => {
               md={5}
               component={Paper}
               elevation={6}
-              square
-            >
+              square>
               <Box
                 sx={{
                   my: 8,
@@ -171,8 +172,7 @@ const Home = () => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                }}
-              >
+                }}>
                 <Box component="form" noValidate sx={{ mt: 1 }}>
                   <Typography variant="h4">
                     Matchea y chateá con Alumnos de Henry!
@@ -187,8 +187,7 @@ const Home = () => {
                       left: 0,
                       border: 0,
                       marginTop: 20,
-                    }}
-                  >
+                    }}>
                     <LoginButton />
                   </Box>
                   <Copyright sx={{ mt: 25 }} />

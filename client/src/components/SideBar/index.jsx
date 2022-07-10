@@ -25,6 +25,7 @@ import IconButton from "@mui/material/IconButton";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import ChatIcon from "@mui/icons-material/Chat";
 import { renderSideBar } from "../../Redux/actions";
+import { Invitation } from "../Reviews/Invitation";
 
 export default function SideBar({ setPremium }) {
   const dispatch = useDispatch();
@@ -37,7 +38,6 @@ export default function SideBar({ setPremium }) {
 
   const render = useSelector((state) => state.renderSideBar);
   const users = useSelector((state) => state.users);
-
 
   const handleChat = () => {
     dispatch(renderSideBar("chat"));
@@ -66,8 +66,7 @@ export default function SideBar({ setPremium }) {
       sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
       role="presentation"
       // onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
+      onKeyDown={toggleDrawer(anchor, false)}>
       <List>
         {[""].map((text, index) => (
           <>
@@ -79,15 +78,13 @@ export default function SideBar({ setPremium }) {
                       sx={{
                         paddingLeft: 8,
                         paddingBottom: 2,
-                      }}
-                    >
+                      }}>
                       <Tooltip title="Mi Perfil">
                         <IconButton>
                           <Avatar
                             src={user.picture}
                             alt={user.name}
-                            sx={{ width: 76, height: 76 }}
-                          ></Avatar>
+                            sx={{ width: 76, height: 76 }}></Avatar>
                         </IconButton>
                       </Tooltip>
                       {/* <Tooltip title="Editar Perfil">
@@ -112,8 +109,7 @@ export default function SideBar({ setPremium }) {
             paddingTop: 2,
             paddingLeft: 9,
             // transform: "translate(25%)",
-          }}
-        >
+          }}>
           <Tooltip placement="top" arrow title="Ve quien te dio LIKE">
             <IconButton onClick={handleChat} size="large" color="info">
               <VolunteerActivismIcon />
@@ -125,14 +121,12 @@ export default function SideBar({ setPremium }) {
               paddingLeft: "15px",
               display: "inline-block",
               // transform: "translate(25%)",
-            }}
-          >
+            }}>
             <Tooltip placement="top" arrow title="Chatea con tus matches">
               <IconButton
                 onClick={handleMatches}
                 size="large"
-                sx={{ color: "white" }}
-              >
+                sx={{ color: "white" }}>
                 <ChatIcon />
               </IconButton>
             </Tooltip>
@@ -147,8 +141,7 @@ export default function SideBar({ setPremium }) {
               "&::before, &::after": {
                 borderColor: "light.main",
               },
-            }}
-          >
+            }}>
             {" "}
             <Chip
               label="CHAT"
@@ -168,8 +161,7 @@ export default function SideBar({ setPremium }) {
               "&::before, &::after": {
                 borderColor: "light.main",
               },
-            }}
-          >
+            }}>
             {" "}
             <Chip
               label="LIKES RECIBIDOS"
@@ -185,10 +177,12 @@ export default function SideBar({ setPremium }) {
       )}
 
       {/* <MyNetwork usersDetail={userDetail} users={users} /> */}
+      <Divider
+        sx={{ bgcolor: "white", position: "relative", verticalAlign: "bottom" }}
+      />
+      <Invitation />
     </Box>
   );
-
-
 
   return (
     <div>
@@ -200,8 +194,7 @@ export default function SideBar({ setPremium }) {
           <Drawer
             anchor={anchor}
             open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-          >
+            onClose={toggleDrawer(anchor, false)}>
             {list(anchor)}
           </Drawer>
         </React.Fragment>
