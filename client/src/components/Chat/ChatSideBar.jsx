@@ -19,7 +19,6 @@ import { useDispatch, useSelector } from "react-redux";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import PeopleIcon from "@mui/icons-material/People";
-import { renderChat } from "../../Redux/actions";
 
 export default function ChatSideBar({ setRender }) {
   const [state, setState] = React.useState({
