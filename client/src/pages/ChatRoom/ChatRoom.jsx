@@ -17,7 +17,15 @@ const ChatRoom = () => {
   const users = useSelector((state) => state.users);
   const { user, isAuthenticated, isLoading } = useAuth0();
   const dispatch = useDispatch();
-  const iAmBan = userDetail?.active;
+  const iAmActive = userDetail?.active;
+
+  let allAdmins = [];
+
+  let filterAdmins = users.filter((user) => {
+    if (user.isAdmin === true) {
+      allAdmins.push(user);
+    }
+  });
 
   useEffect(() => {
     dispatch(getUsers());
@@ -33,15 +41,11 @@ const ChatRoom = () => {
 
   return (
     <Box>
-      {isAuthenticated && iAmBan === false ? (
+      {isAuthenticated && iAmActive === false ? (
         <>
-          <Ban
-            userDetail={userDetail}
-            users={users}
-            userMatches={userMatches}
-          />
+          <Ban userDetail={userDetail} users={users} allAdmins={allAdmins} />
         </>
-      ) : isAuthenticated && iAmBan === true ? (
+      ) : isAuthenticated && iAmActive === true ? (
         <Chat userDetail={userDetail} users={users} userMatches={userMatches} />
       ) : (
         <Landing />

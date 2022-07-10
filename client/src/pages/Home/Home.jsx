@@ -26,7 +26,16 @@ const Home = () => {
   const userMatches = useSelector((state) => state.userMatches);
   const userDetail = useSelector((state) => state.userDetail);
 
-  const iAmBan = userDetail?.active;
+  const iAmActive = userDetail?.active;
+
+  let allAdmins = [];
+
+  let filterAdmins = users.filter((user) => {
+    if (user.isAdmin === true) {
+      allAdmins.push(user);
+    }
+  });
+
   //MODAL PARA CREAR USUARIO
   const [modal, setModal] = useState(false);
 
@@ -102,17 +111,17 @@ const Home = () => {
           <Loader />
         </>
       )}
-      <Modal modal={modal} setModal={setModal} setNewUser={setNewUser}></Modal>
-      {isAuthenticated && iAmBan === false ? (
+      {isAuthenticated && iAmActive === false ? (
         <>
-          <Ban
-            userDetail={userDetail}
-            users={users}
-            userMatches={userMatches}
-          />
+          <Ban userDetail={userDetail} users={users} allAdmins={allAdmins} />
         </>
-      ) : isAuthenticated && iAmBan === true ? (
+      ) : isAuthenticated && iAmActive === true ? (
         <Grid>
+          <Modal
+            modal={modal}
+            setModal={setModal}
+            setNewUser={setNewUser}
+          ></Modal>
           <Header />
           <Cards setPremium={setPremium} />
           <BottomBar premium={premium} setPremium={setPremium} />
