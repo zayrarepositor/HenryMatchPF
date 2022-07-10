@@ -58,7 +58,7 @@ const Home = () => {
         photoUrl: user.picture,
         email: user.email || "exampleEmail@gmail.com",
         description: "im Ready to get my first HenryMatch",
-        role: "user",
+        role: "default",
       };
 
       window.localStorage.setItem("currentTalkjsUser", JSON.stringify(userid));
@@ -123,7 +123,7 @@ const Home = () => {
           <Header />
           <Cards setPremium={setPremium} />
           <BottomBar premium={premium} setPremium={setPremium} />
-          <Box
+          {/* <Box
             position={"absolute"}
             width={300}
             height={400}
@@ -133,6 +133,8 @@ const Home = () => {
             <SwipeableEdgeDrawer />
           </Box>
           <MyNetwork userDetail={userDetail} userMatches={userMatches} />
+          </Box> */}
+          {/* <MyNetwork userDetail={userDetail} userMatches={userMatches} /> */}
         </Grid>
       ) : (
         <>

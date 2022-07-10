@@ -43,42 +43,6 @@ const Header = ({ setPremium }) => {
     setAnchorElUser(null);
   };
   const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}>
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit">
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-    </Menu>
-  );
   return (
     <>
       {isLoading && <Loader></Loader>}
@@ -101,7 +65,9 @@ const Header = ({ setPremium }) => {
                 <Tooltip title="Nuevos mensajes">
                   <NavLink to={"/chatroom"}>
                     <IconButton size="large" aria-label="show 4 new mails">
-                      <Badge badgeContent={5} color="error">
+                      <Badge
+                        badgeContent={<span id="unread-message-count"></span>}
+                        color="error">
                         <MailIcon sx={{ color: "primary.light" }} />
                       </Badge>
                     </IconButton>
@@ -179,7 +145,6 @@ const Header = ({ setPremium }) => {
               </Box>
             </Toolbar>
           </AppBar>
-          {renderMobileMenu}
         </Box>
       )}
     </>
