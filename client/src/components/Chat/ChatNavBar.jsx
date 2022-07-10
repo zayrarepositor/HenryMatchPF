@@ -18,10 +18,12 @@ import {
   Menu,
   MenuItem,
   Tooltip,
+  Badge,
 } from "@mui/material";
 import Loader from "../Loader/Loader";
 import AdminSideBar from "./ChatSideBar";
 import ChatSideBar from "./ChatSideBar";
+import MailIcon from "@mui/icons-material/Mail";
 
 const ChatNavBar = ({ setRender }) => {
   const { user, isAuthenticated, isLoading, logout } = useAuth0();

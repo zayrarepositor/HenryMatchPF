@@ -32,6 +32,13 @@ class PerfilChat extends Component {
 
         this.inbox = window.talkSession.createInbox();
         this.inbox.mount(this.container);
+
+        talkSession.unreads.onChange(function (conversationIds) {
+          var unreadCount = `${conversationIds.length}`;
+          document.getElementById("unread-message-count").innerHTML =
+            unreadCount;
+          console.log("Conversation ID's", conversationIds);
+        });
       })
       .catch((e) => console.error(e));
   }

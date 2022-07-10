@@ -70,6 +70,13 @@ class MyNetwork extends Component {
         /* Create and mount chatbox in container */
         this.chatbox = window.talkSession.createChatbox(conversation);
         this.chatbox.mount(this.container);
+
+        talkSession.unreads.onChange(function (conversationIds) {
+          var unreadCount = `${conversationIds.length}`;
+          document.getElementById("unread-message-count").innerHTML =
+            unreadCount;
+          console.log("Conversation ID's", conversationIds);
+        });
       })
       .catch((e) => console.error(e));
   }
