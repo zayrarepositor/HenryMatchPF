@@ -20,7 +20,14 @@ import { /* getUsers, */ getUserByNick, updateUser } from "../../Redux/actions";
 //======ESTILO E IMAGENES
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { Avatar, Box, IconButton, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  IconButton,
+  Typography,
+  Button,
+  Paper,
+} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import "./Profile.css";
 
@@ -58,6 +65,7 @@ const Profile = () => {
         <div className="todojunto">
           {/* MENSAJITO SI EL USUARIO NO HA DEJADO SU COMENTARIO AUN */}
           <Invitation2 userDetail={userProfile} />
+          <ReviewField userDetail={userProfile} />
           <div className="informaciondelusuario">
             <Link to="/">
               <button className="returnHomeButton">Return to Home</button>
@@ -192,13 +200,35 @@ const Profile = () => {
           )}
         </div>
       ) : (
-        <div>
-          <h1>Lo siento, pero no estas loggeado</h1>
-          <NavLink to="/">
-            <button>HOME</button>
-          </NavLink>
-          <ReviewField></ReviewField>
-        </div>
+        <Paper>
+          <Box
+            sx={{
+              boxShadow: 25,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}>
+            <Typography
+              component="legend"
+              variant="h4"
+              sx={{
+                mb: 3,
+              }}>
+              Lo siento, pero no estas loggeado
+            </Typography>
+
+            <NavLink to="/">
+              <Button
+                color="primary"
+                type="button"
+                size="large"
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}>
+                HOME{" "}
+              </Button>
+            </NavLink>
+          </Box>
+        </Paper>
       )}
     </>
   );
