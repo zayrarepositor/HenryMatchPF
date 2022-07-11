@@ -32,6 +32,7 @@ const Header = ({ setPremium }) => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const iAmAdmin = userDetail?.isAdmin;
+  const name = userDetail?.name;
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -67,7 +68,8 @@ const Header = ({ setPremium }) => {
                     <IconButton size="large" aria-label="show 4 new mails">
                       <Badge
                         badgeContent={<span id="unread-message-count"></span>}
-                        color="error">
+                        color="error"
+                      >
                         <MailIcon sx={{ color: "primary.light" }} />
                       </Badge>
                     </IconButton>
@@ -77,7 +79,8 @@ const Header = ({ setPremium }) => {
                 <Tooltip title="Nuevos matches">
                   <IconButton
                     size="large"
-                    aria-label="show 17 new notifications">
+                    aria-label="show 17 new notifications"
+                  >
                     <Badge badgeContent={17} color="error">
                       <NotificationsIcon sx={{ color: "primary.light" }} />
                     </Badge>
@@ -86,10 +89,10 @@ const Header = ({ setPremium }) => {
               </Box>
               {/* PROFILE */}
               <Box sx={{ display: { xs: "flex", md: 900 } }}>
-                <Tooltip title={`${user.name.substring(0, 1)} perfil`}>
+                <Tooltip title={name}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
-                      src={userDetail?.picture}
+                      src={userDetail?.image}
                       alt={user.name?.substring(0, 1)}
                     />
                   </IconButton>
@@ -108,13 +111,15 @@ const Header = ({ setPremium }) => {
                     horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}>
+                  onClose={handleCloseUserMenu}
+                >
                   {/* MENU: MY PROFILE  */}
                   <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                     <NavLink to={"/profile"}>
                       <Typography
                         textAlign="center"
-                        sx={{ textDecoration: "none", color: "light.main" }}>
+                        sx={{ textDecoration: "none", color: "light.main" }}
+                      >
                         Mi Perfil
                       </Typography>
                     </NavLink>
@@ -125,7 +130,8 @@ const Header = ({ setPremium }) => {
                       <NavLink to={"/admin"}>
                         <Typography
                           textAlign="center"
-                          sx={{ textDecoration: "none", color: "light.main" }}>
+                          sx={{ textDecoration: "none", color: "light.main" }}
+                        >
                           Administrador
                         </Typography>
                       </NavLink>
@@ -136,9 +142,8 @@ const Header = ({ setPremium }) => {
                   )}
                   <MenuItem
                     key={"logout"}
-                    onClick={() =>
-                      logout({ returnTo: window.location.origin })
-                    }>
+                    onClick={() => logout({ returnTo: window.location.origin })}
+                  >
                     <Typography textAlign="center">Cerrar Sesión</Typography>
                   </MenuItem>
                 </Menu>

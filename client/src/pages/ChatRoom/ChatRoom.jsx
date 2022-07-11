@@ -6,8 +6,10 @@ import {
   getUsers,
 } from "../../Redux/actions";
 import { useAuth0 } from "@auth0/auth0-react";
-import MyNetwork from "../../components/Chat/MyNetwork";
 import Chat from "../../components/Chat";
+import { Box } from "@mui/material";
+import Ban from "../../components/Ban";
+import Landing from "../../components/LandingPage";
 
 const ChatRoom = () => {
   const userDetail = useSelector((state) => state.userDetail);
@@ -15,6 +17,15 @@ const ChatRoom = () => {
   const users = useSelector((state) => state.users);
   const { user, isAuthenticated, isLoading } = useAuth0();
   const dispatch = useDispatch();
+  const iAmActive = userDetail?.active;
+
+  let allAdmins = [];
+
+  let filterAdmins = users.filter((user) => {
+    if (user.isAdmin === true) {
+      allAdmins.push(user);
+    }
+  });
 
   useEffect(() => {
     dispatch(getUsers());
@@ -29,11 +40,17 @@ const ChatRoom = () => {
   }, [user, userDetail?._id]);
 
   return (
-    <div>
-      <div>
+    <Box>
+      {isAuthenticated && iAmActive === false ? (
+        <>
+          <Ban userDetail={userDetail} users={users} allAdmins={allAdmins} />
+        </>
+      ) : isAuthenticated && iAmActive === true ? (
         <Chat userDetail={userDetail} users={users} userMatches={userMatches} />
-      </div>
-    </div>
+      ) : (
+        <Landing />
+      )}
+    </Box>
   );
 };
 

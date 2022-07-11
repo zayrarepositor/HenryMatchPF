@@ -61,7 +61,14 @@ function validate4(input) {
 }
 function validate5(input) {
   let errors5 = {};
+  if (!/[0-9]+/.test(input.phone)) {
+    errors5.age = "El campo solo admite numeros";
+  }
   return errors5;
+}
+function validate6(input) {
+  let errors6 = {};
+  return errors6;
 }
 
 const Formu = ({ setUpdate, setUpdateForm }) => {
@@ -72,6 +79,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
   const [input, setInput] = useState({
     name: "",
     age: "",
+    phone: "",
     gender: "",
     genderInt: "",
     henryLevel: "",
@@ -142,6 +150,12 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
         [e.target.name]: e.target.value,
       })
     );
+    setErrors(
+      validate6({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
   }
 
   function handleSelect(e) {
@@ -191,6 +205,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     setInput({
       name: "",
       age: "",
+      phone: "",
       description: "",
       review: "",
       city: "",
@@ -247,6 +262,23 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
         />
         {errors.age && <p className="error">{errors.age}</p>}
         <button name="age" onClick={handleSend}>
+          {" "}
+          Modificar{" "}
+        </button>
+      </form>
+
+      <form>
+        {/* EDAD */}
+        <label> Tu numero celular: </label>
+        <input
+          onChange={handleOnChange}
+          value={input.phone}
+          type="text"
+          name="phone"
+          placeholder="Escribe tu numero celular"
+        />
+        {errors.phone && <p className="error">{errors.phone}</p>}
+        <button name="phone" onClick={handleSend}>
           {" "}
           Modificar{" "}
         </button>

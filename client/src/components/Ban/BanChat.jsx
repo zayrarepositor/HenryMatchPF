@@ -14,7 +14,6 @@ import {
   Typography,
 } from "@mui/material";
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Talk from "talkjs";
 // import "./index.css";
 import SendIcon from "@mui/icons-material/Send";
@@ -22,7 +21,7 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import InfoIcon from "@mui/icons-material/Info";
 
-class MyNetwork extends Component {
+class BanChat extends Component {
   constructor(props) {
     super(props);
 
@@ -32,16 +31,16 @@ class MyNetwork extends Component {
       currentUser,
     };
   }
- 
+
   handleClick(userId) {
     const { userDetail } = this.props;
-    const { userMatches } = this.props;
+    const { allAdmins } = this.props;
 
     /* Retrieve the two users that will participate in the conversation */
 
     let currUser = { ...userDetail, id: userDetail.nickname };
 
-    const user = userMatches.find((user) => user._id === userId);
+    const user = allAdmins.find((user) => user._id === userId);
     const userFinal = { ...user, id: user.nickname };
 
     /* Session initialization code */
@@ -85,7 +84,7 @@ class MyNetwork extends Component {
   render() {
     const { userDetail } = this.props;
     let currUser = { ...userDetail, id: userDetail?.nickname };
-    const { userMatches } = this.props;
+    const { allAdmins } = this.props;
 
     return (
       <Box display="flex" justifyContent="center" alignItems="center">
@@ -96,10 +95,10 @@ class MyNetwork extends Component {
           sx={{
             right: 0,
             left: 0,
-            marginTop: 10,
+            marginTop: 4,
           }}
         >
-          {userMatches.map((user) => (
+          {allAdmins?.map((user) => (
             <>
               <Card
                 sx={{
@@ -128,11 +127,6 @@ class MyNetwork extends Component {
                     alignItems="center"
                     sx={{ bgcolor: "inherit" }}
                   >
-                    <IconButton color="light" size="large">
-                      <Link to={"/users/"+ user.nickname}>
-                        <InfoIcon />
-                      </Link>
-                    </IconButton>
                     <Typography
                       sx={{
                         fontSize: 23,
@@ -168,4 +162,4 @@ class MyNetwork extends Component {
   }
 }
 
-export default MyNetwork;
+export default BanChat;
