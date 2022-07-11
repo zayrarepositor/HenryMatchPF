@@ -4,10 +4,9 @@ import { NavLink } from "react-router-dom";
 
 //======IMPORTACIONES DE COMPONENTES
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-import { users } from "./UserImgs";
 
 //======ESTILO E IMAGENES
-import { Typography, ButtonBase, Box, Fade } from "@mui/material";
+import { Typography, ButtonBase, Box, Fade, Paper } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Carousel from "react-material-ui-carousel";
@@ -83,7 +82,7 @@ const ImageMarked = styled("span")(({ theme }) => ({
   transition: theme.transitions.create("opacity"),
 }));
 
-const CarouselHM = () => {
+const CarouselHM = ({ users }) => {
   /* ONCHANGE -SIN UTILIDAD AHORA-
   const [index, setIndex] = React.useState(0);
   const handleChange = (cur, prev) => {
@@ -92,89 +91,107 @@ const CarouselHM = () => {
   }; */
 
   return (
-    <Box>
-      <Typography variant="h4">TITULO</Typography>
-      {/* <Modal open={open} onClose={handleClose}> AQUI PUEDE IR EL MODAL SI ES NECESARIO*/}
-      <Box /* sx={{ mt: 10 }} //AFECTA LA UBICACION*/>
-        <Carousel
-          NextIcon={<ChevronRightIcon />} //BOTONES
-          /* next={(next, active) =>
-            console.log(`we left ${active} and are now at ${next}`)} */
-          PrevIcon={<ChevronLeftIcon />} //BOTONES
-          /* prev={(prev, active) =>
+    <Box
+      sx={{
+        textAlign: "center",
+      }}>
+      <Typography
+        variant="h4"
+        sx={{
+          pt: 1,
+        }}>
+        NUESTROS USUARIOS
+      </Typography>
+      <Paper
+        sx={{
+          textAlign: "center",
+        }}>
+        {/* <Modal open={open} onClose={handleClose}> AQUI PUEDE IR EL MODAL SI ES NECESARIO*/}
+        <Box /* sx={{ mt: 10 }} //AFECTA LA UBICACION*/>
+          <Carousel
+            NextIcon={<ChevronRightIcon />} //BOTONES
+            /* next={(next, active) =>
+               console.log(`we left ${active} and are now at ${next}`) 
+              
+            } */
+            PrevIcon={<ChevronLeftIcon />} //BOTONES
+            /* prev={(prev, active) =>
             console.log(`we left ${active} and are now at ${prev}`)} */
-          navButtonsProps={{
-            //CAMBIA ESTILO DE LOS BOTONES
-            style: {
-              color: "#ffff00",
-            },
-          }}
-          animation={"fade"} /*"slide"*/
-          /* index={index} */
-          /*    onChange={handleChange} */
-          interval={4500}
-          indicators={false}
-          stopAutoPlayOnHover
-          swipe
-          /* fullHeightHover */
-          sx={{
-            top: 20,
-            height: 200,
-            width: 400,
-            //ESTOS ATRIBUTOS NO AFECTAN
-            /* position: "relative", */
-            /* left: 1 / 2, */
-            /* textAlign: "center", */
-            /* fontSize: 15, */
-            /* fontWeight: "bold", */
-            /* letterSpacing: 2, */
-            /*  wordSpacing: 2, */
-            /* color: "#fff", */
-            /*   fontWeight: "normal", */
-            /* textDecoration: "none",
+            navButtonsProps={{
+              //CAMBIA ESTILO DE LOS BOTONES
+              style: {
+                color: "#ffff00",
+              },
+            }}
+            animation={"fade"} /*"slide"*/
+            /* index={index} */
+            /*    onChange={handleChange} */
+            interval={4500}
+            indicators={false}
+            stopAutoPlayOnHover
+            swipe
+            /* fullHeightHover */
+            sx={{
+              height: 200,
+              width: "100%",
+              //ESTOS ATRIBUTOS NO AFECTAN
+              /* position: "relative", */
+              /* left: 1 / 2, */
+              /* textAlign: "center", */
+              /* fontSize: 15, */
+              /* fontWeight: "bold", */
+              /* letterSpacing: 2, */
+              /*  wordSpacing: 2, */
+              /* color: "#fff", */
+              /*   fontWeight: "normal", */
+              /* textDecoration: "none",
             fontStyle: "normal",
             fontVariant: "normal",
             textTransform: "none", */
-          }}>
-          {users.map((user) => (
-            <ImageButton
-              key={user.img}
-              /* NO USAR style={{}}//MODIFICAR ARRIBA EN SU FUNCION */
-            >
-              <ImageSrc style={{ backgroundImage: `url(${user.img})` }} />
-              {/* TIENE SU FUNCION */}
-              <ImageBackdrop className="MuiImageBackdrop-root" />
-              {/* TIENE SU FUNCION */}
-              <Image>
-                {/* TIENE SU FUNCION */}
-                <Fade in={true} timeout={2200}>
-                  <Typography
-                    component="span"
-                    variant="h4"
-                    color="inherit"
-                    sx={{
-                      position: "relative",
-                      p: 4,
-                      pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
-                      letterSpacing: 2,
-                      textShadow: "#3e3e3ea6 1px 2px 1px",
-                      "&:hover": {
-                        color: "#474747",
-                        /* textShadow:
-                            "#FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #ffff00 0px 0px 20px, #ffff00 0px 0px 30px, #ffff00 0px 0px 40px, #ffff00 0px 0px 50px, #ffff00 0px 0px 75px", */
-                      },
-                    }}>
-                    {user.description}
-                    <ImageMarked className="MuiImageMarked-root" />
-                  </Typography>
-                </Fade>
-              </Image>
-            </ImageButton>
-          ))}
-        </Carousel>
-      </Box>
-      {/* </Modal> */}
-      <CssBaseline />
+            }}>
+            {users.map((user) => (
+              <NavLink to="/">
+                <ImageButton
+                  key={user.image}
+                  /* NO USAR style={{}}//MODIFICAR ARRIBA EN SU FUNCION */
+                >
+                  <ImageSrc style={{ backgroundImage: `url(${user.image})` }} />
+                  {/* TIENE SU FUNCION */}
+                  <ImageBackdrop className="MuiImageBackdrop-root" />
+                  {/* TIENE SU FUNCION */}
+                  <Image>
+                    {/* TIENE SU FUNCION */}
+                    <Fade in={true} timeout={2200}>
+                      <Typography
+                        component="span"
+                        variant="h5"
+                        color="inherit"
+                        sx={{
+                          position: "relative",
+                          p: 4,
+                          pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                          letterSpacing: 2,
+                          textShadow: "#3e3e3ea6 1px 2px 1px",
+                          "&:hover": {
+                            color: "#474747",
+                          },
+                        }}>
+                        {`                      ${user.name}: ${
+                          user.review ? user.review : user.description
+                        } `}
+
+                        <ImageMarked className="MuiImageMarked-root" />
+                      </Typography>
+                    </Fade>
+                  </Image>
+                </ImageButton>
+              </NavLink>
+            ))}
+          </Carousel>
+        </Box>
+        {/* </Modal> */}
+        <CssBaseline />
+      </Paper>
     </Box>
   );
 };
