@@ -9,7 +9,6 @@ import Desktop from "./pages/Desktop/Desktop";
 import Home from "./pages/Home/Home";
 import Profile from "./pages/Profile/Profile";
 import Subscription from "./pages/Subscription/Subscription";
-
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 //======ESTILO E IMAGENES
 //import { UIProvider } from "../src/components/Context/ContextUI";
