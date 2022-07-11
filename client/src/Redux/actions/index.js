@@ -22,7 +22,7 @@ import {
 import axios from "axios";
 
 //URL PARA LOS USUARIOS
-const url = "https://henrymatch-pg.herokuapp.com/users";
+const url = "/users";
 
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
 export function getUsers() {
@@ -73,7 +73,7 @@ export function updateUser(id, data) {
   return async function (dispatch) {
     try {
       const user = await axios.put(
-        `https://henrymatch-pg.herokuapp.com/usersID/${id}`,
+        `/usersID/${id}`,
         data
       );
 
@@ -91,7 +91,7 @@ export function updateImg(id, data) {
   return async function (dispatch) {
     try {
       const user = await axios.put(
-        `https://henrymatch-pg.herokuapp.com/usersImg/${id}`,
+        `/usersImg/${id}`,
         data
       );
 
@@ -109,7 +109,7 @@ export function updateMatches(id, data) {
   return async function (dispatch) {
     try {
       const user = await axios.put(
-        `https://henrymatch-pg.herokuapp.com/usersMatches/${id}`,
+        `/usersMatches/${id}`,
         data
       );
       return dispatch({
