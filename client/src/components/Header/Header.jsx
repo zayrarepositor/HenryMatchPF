@@ -32,6 +32,7 @@ const Header = ({ setPremium }) => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const iAmAdmin = userDetail?.isAdmin;
+  const name = userDetail?.name;
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -88,7 +89,7 @@ const Header = ({ setPremium }) => {
               </Box>
               {/* PROFILE */}
               <Box sx={{ display: { xs: "flex", md: 900 } }}>
-                <Tooltip title={`${user.name.substring(0, 1)} perfil`}>
+                <Tooltip title={name}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
                       src={userDetail?.image}

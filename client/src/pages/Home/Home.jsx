@@ -115,7 +115,7 @@ const Home = () => {
         <>
           <Ban userDetail={userDetail} users={users} allAdmins={allAdmins} />
         </>
-      ) : isAuthenticated && iAmActive === true ? (
+      ) : isAuthenticated ? (
         <Grid>
           <Modal
             modal={modal}
