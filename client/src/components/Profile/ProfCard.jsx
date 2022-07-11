@@ -235,9 +235,9 @@ const ProfCard = () => {
       </Box>
 
       {updateForm && (
-        <div className="datosacompletar">
+        <Box sx={{ paddingBottom: 10 }}>
           <Formu setUpdate={setUpdate} setUpdateForm={setUpdateForm} />
-        </div>
+        </Box>
       )}
     </Box>
   );

@@ -53,7 +53,7 @@ const ProfNavBar = ({ setRender }) => {
                 <Tooltip title={`${user.name.substring(0, 1)} perfil`}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
-                      src={userDetail?.picture}
+                      src={userDetail?.image}
                       alt={user.name.substring(0, 1)}
                     />
                   </IconButton>

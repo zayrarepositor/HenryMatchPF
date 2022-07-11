@@ -12,6 +12,8 @@ import { /* updateImg, */ updateUser } from "../../Redux/actions";
 //======ESTILO E IMAGENES
 import "./Form.css";
 import Swal from "sweetalert2";
+import { Box } from "@mui/system";
+import { Autocomplete, TextField } from "@mui/material";
 
 //Formik identifica todos los inputs con ese NAME
 // renderer prop: renderizamos el formulario dentro de una funcion y por ahi le vamos a pasar props(valores) de Formik
@@ -334,7 +336,8 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           onChange={handleOnChange}
           type="text"
           value={input.genderInt}
-          name="genderInt">
+          name="genderInt"
+        >
           <option disabled>Seleccionar</option>
           <option value="male">Hombre</option>
           <option value="female">Mujeres</option>
@@ -351,7 +354,8 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           onChange={handleSelect}
           type="text"
           value={input.interests}
-          name="interests">
+          name="interests"
+        >
           <option key={"i"} value={""} disabled>
             Ingresa tu interes
           </option>
@@ -367,6 +371,24 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           Modificar
         </button>
       </div>
+      <Box>
+        <Autocomplete
+          multiple
+          limitTags={2}
+          id="multiple-limit-tags"
+          options={interests}
+          getOptionLabel={(option) =>
+            interests.map((i) => {
+              i.interests;
+            })
+          }
+          defaultValue={[interests[1]]}
+          renderInput={(params) => (
+            <TextField {...params} label="limitTags" placeholder="Favorites" />
+          )}
+          sx={{ width: "500px" }}
+        />
+      </Box>
       <div /* className="formsubtitle" */>
         <p> HAS ELEGIDO:</p>
         <ul>
@@ -377,7 +399,8 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
                 <button
                   className="delbutton"
                   value={i}
-                  onClick={handleDeleteInterests}>
+                  onClick={handleDeleteInterests}
+                >
                   x
                 </button>
               </div>
@@ -391,7 +414,8 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           onChange={handleOnChange}
           value={input.henryLevel}
           type="text"
-          name="henryLevel">
+          name="henryLevel"
+        >
           <option>Seleccionar</option>
           <option value="m1">M1</option>
           <option value="m2">M2</option>

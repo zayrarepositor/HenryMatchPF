@@ -117,11 +117,7 @@ const Home = () => {
         </>
       ) : isAuthenticated ? (
         <Grid>
-          <Modal
-            modal={modal}
-            setModal={setModal}
-            setNewUser={setNewUser}
-          ></Modal>
+          <Modal modal={modal} setModal={setModal} setNewUser={setNewUser} />
           <Header />
           <Cards setPremium={setPremium} />
           <BottomBar premium={premium} setPremium={setPremium} />
