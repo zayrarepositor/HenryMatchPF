@@ -5,12 +5,14 @@ import Copyright from "../Copyright/Copyright";
 import HenryGirl from "../../assets/HenryGirl.jpg";
 import LoginButton from "../LoginButton/LoginButton";
 import Paper from "@mui/material/Paper";
+import Slider from "../LandingPage/Slider"
 
 const Landing = () => {
   return (
     <>
-      <Grid container component="main" sx={{ height: "100vh" }}>
-        <CssBaseline />
+      <Grid container component="main" sx={{/*  mx: 80, */ /* height: "90vh" */ }}>
+        
+        {/* <CssBaseline />
         <Grid
           item
           xs={false}
@@ -26,21 +28,21 @@ const Landing = () => {
             backgroundSize: "cover",
             backgroundPosition: "start",
           }}
-        />
+        /> */}
 
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={5} component={Paper}  elevation={6} square>
           <Box
             sx={{
-              my: 8,
+              my: 0,
               mx: 4,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
           >
-            <Box component="form" noValidate sx={{ mt: 1 }}>
+            <Box component="form" noValidate sx={{ mt: 0, marginTop: 20}}>
               <Typography variant="h4">
-                Matchea y chateá con Alumnos de Henry!
+                Matchea y chatea con Alumnos de Henry!
                 {/*    {users[0]?.name} */}
               </Typography>
               <Box
@@ -51,13 +53,30 @@ const Landing = () => {
                   right: 0,
                   left: 0,
                   border: 0,
-                  marginTop: 20,
+                  marginTop: 25,
                 }}
               >
                 <LoginButton />
               </Box>
-              <Copyright sx={{ mt: 25 }} />
+              <Copyright sx={{ mt: 20 }} />
             </Box>
+
+            <Box
+            item
+            xs={12}
+            sm={12}
+            /* md={7} */
+                    sx={{
+                      /* mx: 8, */
+                      right: 0,
+                      left: 0,
+                      border: 0,
+                      marginTop: -85,
+                      marginRight: -300,
+                    }}>
+                  <Slider/>
+            </Box>
+
           </Box>
         </Grid>
       </Grid>
