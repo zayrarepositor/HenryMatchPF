@@ -4,6 +4,7 @@
 export const GET_USERS = "GET_USERS";
 
 export const GET_USER_BY_NICKNAME = "GET_USER_BY_NICKNAME";
+export const GET_USER_BY_DETAIL = "GET_USER_BY_DETAIL";
 //DONE
 
 export const GET_USER_LIKES = "GET_USER_LIKES";
@@ -59,6 +60,7 @@ const initialState = {
 //-----STATES------//
 //
 export const CLEAR_USER_DETAIL = "CLEAR_USER_DETAIL";
+export const CLEAR_USER_DETAIL_MATCHES = "CLEAR_USER_DETAIL_MATCHES";
 
 //CLEAR_MESSAGE
 

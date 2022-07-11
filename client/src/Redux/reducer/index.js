@@ -11,6 +11,8 @@ import {
   FILTER_USERS_BY_MATCHES,
   RENDER_ADMIN,
   RENDER_SIDE_BAR,
+  GET_USER_BY_DETAIL,
+  CLEAR_USER_DETAIL_MATCHES,
   /*  GET_USER_BY_GENDER,
   GET_USER_BY_GENDERINT, */
 } from "../actions/types.js";
@@ -21,6 +23,7 @@ const initialState = {
   usersSelected: [], //ESTE LO USO PARA ALMACENAR EL RESULTADO DE FILTERS & SORTERS
   userDetail: [], //USADO TAMBIEN PARA CLEAR_USER_DETAIL
   userMatches: [],
+  userDetailMatches:[],
   // OPCIONALES?
   // message: [], //POR EJ:AQUI  GUARDE LA RESPUESTA DEL SERVIDOR DESPUES DEL POST Y EL PUT
   gender: [],
@@ -40,6 +43,9 @@ export default function rootReducer(state = initialState, action) {
     }
     case GET_USER_BY_NICKNAME: {
       return { ...state, userDetail: action.payload };
+    }
+    case GET_USER_BY_DETAIL: {
+      return { ...state, userDetailMatches: action.payload };
     }
 
     case CREATE_USER: {
@@ -110,6 +116,12 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         userDetail: [],
+      };
+    }
+    case CLEAR_USER_DETAIL_MATCHES: {
+      return {
+        ...state,
+        userDetailMatches: [],
       };
     }
 

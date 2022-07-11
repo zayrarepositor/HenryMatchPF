@@ -1,7 +1,7 @@
 import React,{ useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { clearUserDetail, getUserByNick } from "../../Redux/actions";
+import { clearUserDetail, clearUserDetailMatches, getUserByDetail, getUserByNick } from "../../Redux/actions";
 import girlImg from "../../assets/mujerIcon.jpg";
 import manlImg from "../../assets/hombreIcon.jpg";
 import lgbtImg from "../../assets/lgbtIcon.webp";
@@ -11,13 +11,13 @@ const DetailPrueba = () => {
     const {nickname} = useParams();
 
 useEffect(()=>{
-    dispatch(getUserByNick(nickname));
+    dispatch(getUserByDetail(nickname));
     return ()=>{
-        dispatch(clearUserDetail())
+        dispatch(clearUserDetailMatches())
     }
 },[dispatch]);
 
-const userDetail=useSelector(state => state.userDetail);
+const userDetail=useSelector(state => state.userDetailMatches);
   return (
     <div>
         {
