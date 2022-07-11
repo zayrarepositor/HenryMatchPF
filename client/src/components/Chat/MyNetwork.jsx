@@ -14,6 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Talk from "talkjs";
 // import "./index.css";
 import SendIcon from "@mui/icons-material/Send";
@@ -31,7 +32,7 @@ class MyNetwork extends Component {
       currentUser,
     };
   }
-
+ 
   handleClick(userId) {
     const { userDetail } = this.props;
     const { userMatches } = this.props;
@@ -128,7 +129,9 @@ class MyNetwork extends Component {
                     sx={{ bgcolor: "inherit" }}
                   >
                     <IconButton color="light" size="large">
-                      <InfoIcon />
+                      <Link to={"/users/"+ user.nickname}>
+                        <InfoIcon />
+                      </Link>
                     </IconButton>
                     <Typography
                       sx={{

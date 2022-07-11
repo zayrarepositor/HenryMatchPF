@@ -61,15 +61,14 @@ const Header = ({ setPremium }) => {
                 </NavLink>
               </Tooltip>
               <Box sx={{ flexGrow: 1 }} />
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Box sx={{ display: { /* xs: "none" ,*/ md: "flex" } }}>
                 {/* MESSAGES */}
                 <Tooltip title="Nuevos mensajes">
                   <NavLink to={"/chatroom"}>
                     <IconButton size="large" aria-label="show 4 new mails">
                       <Badge
                         badgeContent={<span id="unread-message-count"></span>}
-                        color="error"
-                      >
+                        color="error">
                         <MailIcon sx={{ color: "primary.light" }} />
                       </Badge>
                     </IconButton>
@@ -79,8 +78,7 @@ const Header = ({ setPremium }) => {
                 <Tooltip title="Nuevos matches">
                   <IconButton
                     size="large"
-                    aria-label="show 17 new notifications"
-                  >
+                    aria-label="show 17 new notifications">
                     <Badge badgeContent={17} color="error">
                       <NotificationsIcon sx={{ color: "primary.light" }} />
                     </Badge>
@@ -111,15 +109,13 @@ const Header = ({ setPremium }) => {
                     horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
+                  onClose={handleCloseUserMenu}>
                   {/* MENU: MY PROFILE  */}
                   <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                     <NavLink to={"/profile"}>
                       <Typography
                         textAlign="center"
-                        sx={{ textDecoration: "none", color: "light.main" }}
-                      >
+                        sx={{ textDecoration: "none", color: "light.main" }}>
                         Mi Perfil
                       </Typography>
                     </NavLink>
@@ -130,8 +126,7 @@ const Header = ({ setPremium }) => {
                       <NavLink to={"/admin"}>
                         <Typography
                           textAlign="center"
-                          sx={{ textDecoration: "none", color: "light.main" }}
-                        >
+                          sx={{ textDecoration: "none", color: "light.main" }}>
                           Administrador
                         </Typography>
                       </NavLink>
@@ -142,8 +137,9 @@ const Header = ({ setPremium }) => {
                   )}
                   <MenuItem
                     key={"logout"}
-                    onClick={() => logout({ returnTo: window.location.origin })}
-                  >
+                    onClick={() =>
+                      logout({ returnTo: window.location.origin })
+                    }>
                     <Typography textAlign="center">Cerrar Sesión</Typography>
                   </MenuItem>
                 </Menu>

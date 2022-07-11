@@ -11,6 +11,7 @@ import {
   FILTER_USERS_BY_MATCHES,
   RENDER_ADMIN,
   RENDER_SIDE_BAR,
+  GET_USER_ID,
   /*  GET_USER_BY_GENDERINT, */
   // FILTER_BY_PREFERENCE,
   // FILTER_BY_INTEREST,
@@ -178,6 +179,7 @@ export function renderSideBar(payload) {
     payload: payload,
   };
 }
+
 
 //FUNCION PARA CLEAR_MESSAGE
 
