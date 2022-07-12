@@ -16,7 +16,7 @@ import {
   // FILTER_BY_PREFERENCE,
   // FILTER_BY_INTEREST,
   // SORT_BY_AGE,
-  // sd
+  // sdffs
 } from "./types";
 
 //YA SE SETEO EN EL PACKAGE.JSON ==> NO OLVIDES EL npm install
