@@ -223,7 +223,15 @@ export default function AdminUsers2() {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
+
         });
+
+        const userSelected = filteredUsers.find(i => i._id == id);
+        const { name, email } = userSelected;
+        /*   console.log(userSelected, 'USER SELECTED') */
+
+        axios.post(`https://henrymatch-pg.herokuapp.com/send-mail-message`, { name, email })
+
       } else {
         const dataBanned = {
           active: false,

@@ -86,7 +86,7 @@ export default function SideBar({ setPremium }) {
                       <Tooltip title="Mi Perfil">
                         <IconButton>
                           <Avatar
-                            src={userDetail.image}
+                            src={userDetail?.image}
                             alt={user.name}
                             sx={{ width: 76, height: 76 }}
                           ></Avatar>
