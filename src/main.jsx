@@ -4,7 +4,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { ThemeProvider } from "@mui/system";
 //import reportWebVitals from "./reportWebVitals";?????(ZAYRA)
 import { Provider } from "react-redux";
-import { store } from "./redux/store";
+import { store } from "./Redux/store";
 /* PARA LOS COLORES => import { green, purple } from "@mui/material/colors"; (ZAYRA)*/
 import { theme } from "./theme";
 import { App } from "./App";
