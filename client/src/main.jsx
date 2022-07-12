@@ -11,7 +11,7 @@ import { App } from "./App";
 import dotenv from 'dotenv';
 import axios from 'axios';
 dotenv.config();
-
+//ss
 axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:9000";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
