@@ -81,9 +81,9 @@ export default function rootReducer(state = initialState, action) {
           : myGenderInt === "female"
           ? allMyUsers.filter((e) => e.gender === "female")
           : allMyUsers;
-      const filterIsAdmi = filterByGender.filter((e) => !e.isAdmin);
-      console.log("filterIsAdmi",filterIsAdmi)
-      const filterUserInac = filterIsAdmi.filter((e) => e.active);
+      const filterIsAdmi = filterByGender?.filter((e) => !e.isAdmin);
+      //console.log("filterIsAdmi",filterIsAdmi)
+      const filterUserInac = filterIsAdmi?.filter((e) => e.active);
       
       //console.log("filterUserInac",filterUserInac)
       const filterAddLikeReceived = filterUserInac.filter(

@@ -8,11 +8,11 @@ import { store } from "./Redux/store";
 /* PARA LOS COLORES => import { green, purple } from "@mui/material/colors"; (ZAYRA)*/
 import { theme } from "./theme";
 import { App } from "./App";
-import dotenv from 'dotenv';
+/* import dotenv from 'dotenv';
 import axios from 'axios';
 dotenv.config();
 //ss
-axios.defaults.baseURL = process.env.REACT_APP_API || "http://localhost:9000";
+axios.defaults.baseURL =  process.env.REACT_APP_API || "http://localhost:9000"; */
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
