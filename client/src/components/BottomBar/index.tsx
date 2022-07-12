@@ -114,7 +114,7 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
       <AppBar position="fixed" color="inherit" sx={{ top: "auto", bottom: 0 }}>
         <Toolbar>
           {
-            userDetail.premium ? (
+            userDetail?.premium ? (
               <Tooltip title="YA ERES PREMIUM">
                 <StyledFab
                   color="primary"
