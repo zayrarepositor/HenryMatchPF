@@ -106,11 +106,7 @@ const Home = () => {
 
   return (
     <>
-          <Modal
-            modal={modal}
-            setModal={setModal}
-            setNewUser={setNewUser}
-          ></Modal>
+      <Modal modal={modal} setModal={setModal} setNewUser={setNewUser}></Modal>
       {isLoading && (
         <>
           <Loader />

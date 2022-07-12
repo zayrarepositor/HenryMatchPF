@@ -204,10 +204,9 @@ export default function AdminUsers2() {
       filterName
     );
 
+    console.log(filteredUsers);
     const isUserNotFound = filteredUsers.length === 0;
     // ban de usuarios
-
-    //console.log(selected)
 
     function banUser() {
       // eslint-disable-next-line prefer-const
