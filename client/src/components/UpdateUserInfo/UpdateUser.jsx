@@ -1,7 +1,7 @@
 import React from 'react'
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {updateUser} from "../../Redux/actions/index/index";
+import {updateUser} from "../../Redux/actions/index";
 import { useAuth0 } from "@auth0/auth0-react";
 
 

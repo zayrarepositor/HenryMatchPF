@@ -31,7 +31,7 @@ import { MsgContainer, MsgText } from "../Card/StyleMsg";
 
 import { filterByMe, getUserByNick, updateMatches } from "../../Redux/actions/index";
 import { useEffect } from "react";
-import { getUsers } from "./../../Redux/actions/index/index";
+import { getUsers } from "./../../Redux/actions/index";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;

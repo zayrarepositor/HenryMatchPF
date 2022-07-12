@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { createUser } from "../../Redux/actions/index/index";
+import { createUser } from "../../Redux/actions/index";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const UserPost = ({ gender, setGender }) => {
