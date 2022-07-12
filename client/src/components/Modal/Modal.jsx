@@ -12,7 +12,7 @@ import {
   getUserByNick,
   filterByGender,
   filterByMe,
-} from "../../Redux/actions/index";
+} from "../../Redux/actions/index/index";
 import setterName from "./helpers.js";
 
 //======ESTILO E IMAGENES

@@ -4,7 +4,7 @@ import {
   filterUserByMatches,
   getUserByNick,
   getUsers,
-} from "../../Redux/actions";
+} from "../../Redux/actions/index";
 import { useAuth0 } from "@auth0/auth0-react";
 import Chat from "../../components/Chat";
 import { Box } from "@mui/material";

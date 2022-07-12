@@ -12,7 +12,7 @@ import {
   getUserByNick,
   getUsers,
   renderAdmin,
-} from "../../Redux/actions/index";
+} from "../../Redux/actions/index/index";
 
 //======ESTILO E IMAGENES
 import { Button, Grid, Typography } from "@mui/material";

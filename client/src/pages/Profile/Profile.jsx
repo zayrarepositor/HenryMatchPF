@@ -15,7 +15,7 @@ import Invitation2 from "../../components/Reviews/Invitation2";
 import ReviewField from "../../components/Reviews/ReviewField";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-import { /* getUsers, */ getUserByNick, updateUser } from "../../Redux/actions";
+import { /* getUsers, */ getUserByNick, updateUser } from "../../Redux/actions/index";
 
 //======ESTILO E IMAGENES
 import ImageList from "@mui/material/ImageList";

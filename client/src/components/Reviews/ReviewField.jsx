@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 //======IMPORTACIONES DE COMPONENTES
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-import { updateUser } from "../../Redux/actions";
+import { updateUser } from "../../Redux/actions/index";
 
 //======ESTILO E IMAGENES
 import "./ReviewField.css";

@@ -1,7 +1,7 @@
 import React,{ useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { clearUserDetail, getUserByNick } from "../../Redux/actions";
+import { clearUserDetail, getUserByNick } from "../../Redux/actions/index";
 import girlImg from "../../assets/mujerIcon.jpg";
 import manlImg from "../../assets/hombreIcon.jpg";
 import lgbtImg from "../../assets/lgbtIcon.webp";

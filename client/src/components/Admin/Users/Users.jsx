@@ -35,7 +35,7 @@ import { UserListHead, UserListToolbar, UserMoreMenu } from "./dashboard";
 import axios from "axios";
 import { React, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserByNick } from "../../../Redux/actions";
+import { getUserByNick } from "../../../Redux/actions/index";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 115;

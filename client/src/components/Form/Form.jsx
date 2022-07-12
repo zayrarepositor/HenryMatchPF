@@ -7,7 +7,7 @@ import { useRef } from "react";
 //======IMPORTACIONES DE COMPONENTES
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-import { /* updateImg, */ updateUser } from "../../Redux/actions";
+import { /* updateImg, */ updateUser } from "../../Redux/actions/index";
 
 //======ESTILO E IMAGENES
 import "./Form.css";

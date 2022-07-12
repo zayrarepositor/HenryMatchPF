@@ -29,9 +29,9 @@ import Swal from "sweetalert2";
 import { Box, Divider, Slide } from "@mui/material";
 import { MsgContainer, MsgText } from "../Card/StyleMsg";
 
-import { filterByMe, getUserByNick, updateMatches } from "../../Redux/actions";
+import { filterByMe, getUserByNick, updateMatches } from "../../Redux/actions/index";
 import { useEffect } from "react";
-import { getUsers } from "./../../Redux/actions/index";
+import { getUsers } from "./../../Redux/actions/index/index";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;

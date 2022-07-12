@@ -4,7 +4,7 @@ import {
   getUsers,
   getUserByNick,
   updateMatches,
-} from "../../Redux/actions/index";
+} from "../../Redux/actions/index/index";
 import {
   Avatar,
   Button,

@@ -15,8 +15,8 @@ import BottomBar from "../../components/BottomBar";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
-import { filterByMe, filterUserByMatches, getUsers } from "../../redux/actions";
-import { getUserByNick, clearUserDetail } from "../../redux/actions/index";
+import { filterByMe, filterUserByMatches, getUsers } from "../../Redux/actions/index";
+import { getUserByNick, clearUserDetail } from "../../Redux/actions/index/index";
 
 //======ESTILO E IMAGENES
 import { Typography, Link } from "@mui/material";

@@ -10,7 +10,7 @@ import { Button, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { filterUserByMatches, getUserByNick, getUsers } from "../../Redux/actions";
+import { filterUserByMatches, getUserByNick, getUsers } from "../../Redux/actions/index";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Chat() {

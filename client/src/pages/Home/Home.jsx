@@ -10,7 +10,7 @@ import Loader from "../../components/Loader/Loader";
 import BottomBar from "../../components/BottomBar";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-import { filterByMe, filterUserByMatches, getUsers, getUserByNick } from "../../Redux/actions/index";
+import { filterByMe, filterUserByMatches, getUsers, getUserByNick } from "../../Redux/actions/index/index";
 
 //======ESTILO E IMAGENES
 import { Grid } from "@mui/material";

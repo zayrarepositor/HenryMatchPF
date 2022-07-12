@@ -24,7 +24,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
 import ChatIcon from "@mui/icons-material/Chat";
-import { renderSideBar } from "../../Redux/actions";
+import { renderSideBar } from "../../Redux/actions/index";
 import { Invitation } from "../Reviews/Invitation";
 
 export default function SideBar({ setPremium }) {

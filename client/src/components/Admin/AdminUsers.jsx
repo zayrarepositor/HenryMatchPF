@@ -2,7 +2,7 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUsers } from "./../../Redux/actions/index";
+import { getUsers } from "./../../Redux/actions/index/index";
 import { Box, Divider, Switch } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
 import { pink } from "@mui/material/colors";
