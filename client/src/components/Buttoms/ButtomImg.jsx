@@ -1,14 +1,20 @@
-import * as React from "react";
+//======PAQUETES Y LIBRERIAS
 import { NavLink } from "react-router-dom";
+//======IMPORTACIONES DE COMPONENTES
+
+//======IMPORTACIONES DE FUNCIONES NUESTRAS
+
+//======ESTILO E IMAGENESimport * as
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import Typography from "@mui/material/Typography";
 import { Fade } from "@mui/material";
+import imgp12 from "./12.jpg";
 
 const images = [
   {
-    url: "https://st3.depositphotos.com/10932024/17870/i/450/depositphotos_178706266-stock-photo-vip-is-written-in-abstract.jpg",
+    url: imgp12,
     title: "SUSCRIBIRSE",
     width: "100%",
   },
