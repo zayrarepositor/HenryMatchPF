@@ -13,7 +13,7 @@ import {
   RENDER_SIDE_BAR,
   /*  GET_USER_BY_GENDER,
   GET_USER_BY_GENDERINT, */
-} from "../actions/types.js";
+} from "../actions/types";
 
 const initialState = {
   users: [], //NO MODIFICAR
