@@ -166,7 +166,7 @@ const ProfCard = () => {
                   marginTop: 1,
                 }}
               >
-                {!character.city ? (
+                {!character?.city ? (
                   <Typography sx={{ color: "red" }}>
                     <LocationOnIcon sx={{ color: "red" }} /> Donde vives?
                   </Typography>
@@ -176,7 +176,7 @@ const ProfCard = () => {
                   </Typography>
                 )}
               </Box>
-              {!character.description ? (
+              {!character?.description ? (
                 <Typography sx={{ color: "red" }}>
                   Ingresa una descripcion
                 </Typography>

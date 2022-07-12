@@ -22,6 +22,7 @@ import {
 } from "@mui/material";
 import Loader from "../Loader/Loader";
 import ProfSideBar from "./ProfSideBar";
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 
 const ProfNavBar = ({ setRender }) => {
   const { user, isAuthenticated, isLoading, logout } = useAuth0();
@@ -48,6 +49,17 @@ const ProfNavBar = ({ setRender }) => {
               {/* DESKTOP */}
               <Box sx={{ flexGrow: 1 }} />
 
+              <Tooltip title="MATCHEA">
+                <NavLink to={"/"}>
+                  <IconButton size="large" aria-label="show 4 new mails">
+                    <LocalFireDepartmentIcon
+                      fontSize="large"
+                      sx={{ color: "primary.main" }}
+                    />
+                  </IconButton>
+                </NavLink>
+                {/* MATCHS */}
+              </Tooltip>
               {/* PROFILE */}
               <Box sx={{ display: { xs: "flex", md: 900 } }}>
                 <Tooltip title={`${user.name.substring(0, 1)} perfil`}>
@@ -74,17 +86,17 @@ const ProfNavBar = ({ setRender }) => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
-                    <NavLink to={"/"}>
+                  <NavLink to={"/"}>
+                    <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                       <Typography
                         textAlign="center"
                         sx={{ textDecoration: "none", color: "light.main" }}
                       >
                         Regresar
                       </Typography>
-                    </NavLink>
-                    {/* MENU: LOGOUT  */}
-                  </MenuItem>
+                      {/* MENU: LOGOUT  */}
+                    </MenuItem>
+                  </NavLink>
                   <MenuItem
                     key={"logout"}
                     onClick={() => logout({ returnTo: window.location.origin })}

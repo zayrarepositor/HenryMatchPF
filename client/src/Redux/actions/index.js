@@ -12,6 +12,8 @@ import {
   RENDER_ADMIN,
   RENDER_SIDE_BAR,
   GET_USER_ID,
+  GET_USER_BY_DETAIL,
+  CLEAR_USER_DETAIL_MATCHES,
   /*  GET_USER_BY_GENDERINT, */
   // FILTER_BY_PREFERENCE,
   // FILTER_BY_INTEREST,
@@ -46,6 +48,19 @@ export function getUserByNick(nickname) {
       const user = await axios.get(url + `/${nickname}`);
       return dispatch({
         type: GET_USER_BY_NICKNAME,
+        payload: user.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+export function getUserByDetail(nickname) {
+  return async function (dispatch) {
+    try {
+      const user = await axios.get(url + `/${nickname}`);
+      return dispatch({
+        type: GET_USER_BY_DETAIL,
         payload: user.data,
       });
     } catch (error) {
@@ -162,6 +177,12 @@ export function filterByMe(payload) {
 export function clearUserDetail(payload) {
   return {
     type: CLEAR_USER_DETAIL,
+    payload: payload,
+  };
+}
+export function clearUserDetailMatches(payload) {
+  return {
+    type: CLEAR_USER_DETAIL_MATCHES,
     payload: payload,
   };
 }

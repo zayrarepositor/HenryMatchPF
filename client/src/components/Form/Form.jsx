@@ -13,22 +13,62 @@ import { /* updateImg, */ updateUser } from "../../Redux/actions";
 import "./Form.css";
 import Swal from "sweetalert2";
 import { Box } from "@mui/system";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete, IconButton, TextField } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 //Formik identifica todos los inputs con ese NAME
 // renderer prop: renderizamos el formulario dentro de una funcion y por ahi le vamos a pasar props(valores) de Formik
 // Como es una funcion le puedo poner props e ingreso poniendo props.handleSubmit o sino {}
 
 const interests = [
-  "moda",
-  "artes marciales",
-  "fiestas",
-  "videojuegos",
-  "deportes",
-  "cine",
-  "viajes",
-  "lectura",
-  "programar",
+  { title: "Viajar" },
+  { title: "Leer" },
+  { title: "Redes Sociales" },
+  { title: "Blogging" },
+  { title: "Artes" },
+  { title: "Escritura" },
+  { title: "Cocina" },
+  { title: "Baile" },
+  { title: "Deportes" },
+  { title: "Musica" },
+  { title: "Producción Musical" },
+  { title: "Yoga" },
+  { title: "Idiomas" },
+  { title: "Jardinería" },
+  { title: "Manualidades" },
+  { title: "Maquillaje" },
+  { title: "Aprendizaje" },
+  { title: "Naturaleza" },
+  { title: "Pintura" },
+  { title: "Escritura" },
+  { title: "Fotografía" },
+  { title: "Javascript" },
+  { title: "React" },
+  { title: "CSS" },
+  { title: "Front End" },
+  { title: "Back End" },
+  { title: "Node" },
+  { title: "Java" },
+  { title: "Python" },
+  { title: "C/C++" },
+  { title: "C#" },
+  { title: "Swift" },
+  { title: "PHP" },
+  { title: "Programacion" },
+  { title: "Henry" },
+  { title: "Proyecto Final" },
+  { title: "Proyecto Individual" },
+  { title: "Bootcamp" },
+  { title: "Checkpoint" },
+  { title: "Henry Challenge" },
+  { title: "Henry Staff" },
+  { title: "Henry Mentor" },
+  { title: "Henry Hero" },
+  { title: "Technical Assistant" },
+  { title: "Pair Programing" },
+  { title: "SUP" },
+  { title: "Lecture" },
+  { title: "Code Review" },
 ];
 
 function validate1(input) {
@@ -180,6 +220,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     e.preventDefault();
     dispatch(updateUser(userDetail._id, { [e.target.name]: input.interests }));
     setUpdate(true);
+    console.log(input.interests);
     Swal.fire({
       position: "center",
       icon: "success",
@@ -347,47 +388,27 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           Modificar
         </button>
       </div>
-      <div>
-        {/* INTERESES */}
-        <label> Intereses: </label>
-        <select
-          onChange={handleSelect}
-          type="text"
-          value={input.interests}
-          name="interests"
-        >
-          <option key={"i"} value={""} disabled>
-            Ingresa tu interes
-          </option>
-          {interests.map((i) => {
-            return (
-              <option key={i} value={i}>
-                {i}
-              </option>
-            );
-          })}
-        </select>
-        <button name="interests" onClick={handleSendInterests}>
-          Modificar
-        </button>
-      </div>
+
       <Box>
         <Autocomplete
           multiple
           limitTags={2}
           id="multiple-limit-tags"
           options={interests}
-          getOptionLabel={(option) =>
-            interests.map((i) => {
-              i.interests;
-            })
-          }
-          defaultValue={[interests[1]]}
+          getOptionLabel={(option) => option.title}
+          defaultValue={[userDetail.interests]}
           renderInput={(params) => (
             <TextField {...params} label="limitTags" placeholder="Favorites" />
           )}
           sx={{ width: "500px" }}
         />
+        <IconButton
+          onClick={handleSendInterests}
+          color="primary"
+          aria-label="delete"
+        >
+          <DeleteIcon color="primary" />
+        </IconButton>
       </Box>
       <div /* className="formsubtitle" */>
         <p> HAS ELEGIDO:</p>
