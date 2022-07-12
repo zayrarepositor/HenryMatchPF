@@ -19,6 +19,9 @@ import Modal from "@mui/material/Modal";
 import ButtonBases from "../Buttoms/ButtomImg";
 import Carousel from "react-material-ui-carousel";
 
+
+
+
 const StyledFab = styled(Fab)({
   position: "absolute",
   zIndex: 1,
@@ -57,9 +60,13 @@ var items = [
   },
 ];
 
-export default function BottomBar({ premium, setPremium }) {
+export default function BottomBar({ premium, setPremium, userDetail }) {
   const handleOpen = () => setPremium(true);
   const handleClose = () => setPremium(false);
+
+
+
+
 
   const [index, setIndex] = React.useState(0);
   const handleChange = (cur: number, prev: number) => {
@@ -106,21 +113,42 @@ export default function BottomBar({ premium, setPremium }) {
 
       <AppBar position="fixed" color="inherit" sx={{ top: "auto", bottom: 0 }}>
         <Toolbar>
-          <Tooltip title="PREMIUM">
-            <StyledFab
-              color="primary"
-              aria-label="add"
-              sx={{ width: 60, height: 60 }}
-              onClick={handleOpen}>
-              <DiamondIcon
-                sx={{
-                  color: "dark.main",
-                  "&:hover": { color: "primary.main" },
-                }}
-                fontSize="large"
-              />
-            </StyledFab>
-          </Tooltip>
+          {
+            userDetail.premium ? (
+              <Tooltip title="YA ERES PREMIUM">
+                <StyledFab
+                  color="primary"
+                  aria-label="add"
+                  sx={{ width: 60, height: 60 }}
+                 /*  onClick={handleOpen} */>
+                  <DiamondIcon
+                    sx={{
+                      color: "dark.main",
+                      "&:hover": { color: "primary.main" },
+                    }}
+                    fontSize="large"
+                  />
+                </StyledFab>
+              </Tooltip>) : (
+              <Tooltip title="PREMIUM">
+                <StyledFab
+                  color="primary"
+                  aria-label="add"
+                  sx={{ width: 60, height: 60 }}
+                  onClick={handleOpen}>
+                  <DiamondIcon
+                    sx={{
+                      color: "dark.main",
+                      "&:hover": { color: "primary.main" },
+                    }}
+                    fontSize="large"
+                  />
+                </StyledFab>
+              </Tooltip>
+            )
+          }
+
+
           <Box sx={{ flexGrow: 1 }} />
 
           <Typography variant="body2" color="text.secondary">

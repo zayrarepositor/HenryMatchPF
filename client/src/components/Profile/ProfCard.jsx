@@ -32,6 +32,7 @@ import {
   Collapse,
   CardContent,
   Divider,
+  CardActionArea,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ExpandMore from "@mui/icons-material/ExpandMore";
@@ -105,33 +106,16 @@ const ProfCard = () => {
             borderRadius: 3,
           }}
         >
-          <Box
-            sx={{
-              cursor: "pointer",
-              tr: {
-                background: "#f1f1f1",
-                "&:hover": {
-                  background: "#f00",
-                },
-              },
-            }}
-          >
+          <CardActionArea>
             <CardMedia
               component="img"
               height="566"
               style={{ backgroundImage: "url(" + character?.image + ")" }}
               alt=""
-              sx={{
-                tr: {
-                  background: "#f1f1f1",
-                  "&:hover": {
-                    background: "#f00",
-                  },
-                },
-              }}
               onClick
             />
-          </Box>
+          </CardActionArea>
+
           <CardActions disableSpacing sx={{ bgcolor: "inherit" }}>
             <Typography
               sx={{
@@ -182,13 +166,25 @@ const ProfCard = () => {
                   marginTop: 1,
                 }}
               >
-                <Typography>
-                  <LocationOnIcon /> {character?.city}
-                </Typography>
+                {!character?.city ? (
+                  <Typography sx={{ color: "red" }}>
+                    <LocationOnIcon sx={{ color: "red" }} /> Donde vives?
+                  </Typography>
+                ) : (
+                  <Typography>
+                    <LocationOnIcon /> {character?.city}
+                  </Typography>
+                )}
               </Box>
-              <Typography sx={{ letterSpacing: 3, fontStyle: "oblique" }}>
-                {character?.description}
-              </Typography>
+              {!character?.description ? (
+                <Typography sx={{ color: "red" }}>
+                  Ingresa una descripcion
+                </Typography>
+              ) : (
+                <Typography sx={{ letterSpacing: 3, fontStyle: "oblique" }}>
+                  {character?.description}
+                </Typography>
+              )}
               <Divider color="#ffff00" />
               <Typography textTransform="uppercase">
                 <PersonOutlineIcon /> {character?.gender}
@@ -239,9 +235,9 @@ const ProfCard = () => {
       </Box>
 
       {updateForm && (
-        <div className="datosacompletar">
+        <Box sx={{ paddingBottom: 10 }}>
           <Formu setUpdate={setUpdate} setUpdateForm={setUpdateForm} />
-        </div>
+        </Box>
       )}
     </Box>
   );
