@@ -8,7 +8,7 @@ import Header from "../../components/Header/Header";
 import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 import BottomBar from "../../components/BottomBar";
-import Landing from "../../pages/Landing/Landing";
+
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 import { filterByMe, filterUserByMatches, getUsers } from "../../redux/actions";
 import { getUserByNick, updateMatches } from "../../redux/actions/index";
@@ -70,14 +70,17 @@ const Home = () => {
   useEffect(() => {
     //SIN CONDICIONAL
     dispatch(getUsers());
+    console.log("AAAAAAAAAAAA", users);
     //EL USUARIO ACTUAL ESTA EN LA DB?
     const userInDb = users.find((u) => u.nickname === userAuth.sub);
+    console.log("BBBBBBBBBBBB", userInDb);
 
     //ACTUALIZO USERDETAIL Y FILTROS AL VOLVER A HOME
-    if (isAuthenticated === true && userInDb) {
+    if (isAuthenticated === true && Object.keys(userInDb).length > 0) {
       dispatch(getUserByNick(userAuth.sub));
+      console.log("CCCCCCCCC userAuth.sub", userAuth.sub);
       dispatch(filterByMe());
-      console.log("uuuuuuuuser in DB", userInDb);
+      console.log("DDDDDDDDDDD user in DB", userInDb);
     }
 
     //PARA FILTRAR LO QUE RENDERIZA CARD CUANDO NO SE ABRIO EL MODAL
@@ -106,28 +109,34 @@ const Home = () => {
 
   //PARA ABRIR MODAL SOLO CUANDO EL USUARIO NO ESTA EN LA DB
   useEffect(() => {
-    if (isAuthenticated === true) {
+    if (isAuthenticated === true && Object.keys(users).length > 0) {
       //EL USUARIO ACTUAL ESTA EN LA DB?
+      console.log("1111111111111111111", isAuthenticated);
+      console.log("222222222222222", users);
       const userInDb = users.find((u) => u.nickname === userAuth.sub);
-
+      console.log("33333333333333", userInDb);
       if (userInDb) {
         setModal(false);
         //SI EL USUARIO SI ESTABA EN NUESTRA DB SE LLENA EL userDetail DEL STORE
-        dispatch(getUserByNick(userAuth.sub));
+        //NO TIENE SENTIDO PORQUE NO SE LLENA EL USERDETAIL
+        dispatch(getUserByNick(userInDb.nickname));
+
         dispatch(filterByMe());
+        //console.log("5555555555555 con like?", userDetail);
       } else {
         setModal(true);
       }
     }
-  }, [isAuthenticated]);
+  }, [users]);
 
   //PARA FILTRAR LO QUE RENDERIZA CARD CUANDO SI  SE ABRIO EL MODAL
   useEffect(() => {
     if (isAuthenticated === true && newUser === true) {
       dispatch(filterByMe());
+      console.log("newuser 11111111111", Object.keys(userDetail).length > 0);
       setNewUser(false);
     } else {
-      console.log("USER DETAIL", Object.keys(userDetail).length > 0);
+      console.log("newuser 22222222", Object.keys(userDetail).length > 0);
     }
   }, [newUser]);
 
@@ -135,9 +144,11 @@ const Home = () => {
   useEffect(() => {
     if (cardMoved === true || match === true) {
       dispatch(getUsers());
-      console.log("se han movido caaaaards o se ha matcheado");
+      dispatch(getUserByNick(userAuth.sub));
+      dispatch(filterByMe());
       setCardMoved(false);
       setMatch(false);
+      console.log("CARDMOVED1111111", userDetail);
     }
   }, [cardMoved, match]);
 
@@ -146,6 +157,7 @@ const Home = () => {
     if (cardMoved === true || match === true) {
       dispatch(getUserByNick(userAuth.sub));
       dispatch(filterByMe());
+      console.log("UPDATEMATCHES111111", userDetail);
     }
   }, [updateMatches]);
 
@@ -170,13 +182,15 @@ const Home = () => {
           <Loader />
         </>
       )}
-      {isAuthenticated && iAmActive === false ? (
+      {iAmActive === false ? (
         <>
           <Ban userDetail={userDetail} users={users} allAdmins={allAdmins} />
         </>
-      ) : isAuthenticated ? (
+      ) : (
         <Grid>
-          <Header />
+          <Header 
+          userDetail={userDetail} users={users} allAdmins={allAdmins}
+          />
           <Cards
             setPremium={setPremium}
             setCardMoved={setCardMoved}
@@ -188,8 +202,6 @@ const Home = () => {
             userDetail={userDetail}
           />
         </Grid>
-      ) : (
-        <Landing></Landing>
       )}
     </>
   );

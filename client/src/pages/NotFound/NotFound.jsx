@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 //======IMPORTACIONES DE COMPONENTES
 import Copyright from "../../components/Copyright/Copyright";
-import Slider from "../../components/LandingPage/Slider";
+import Slider from "../Landing/Slider";
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
 //======ESTILO E IMAGENES
