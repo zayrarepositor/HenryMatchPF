@@ -12,6 +12,7 @@ import DetailPrueba from "./components/Detail/DetailPrueba";
 import Terms from "./pages/Terms/Terms";
 import MatchTeam from "./pages/MatchTeam/MatchTeam";
 import NotFound from "./pages/NotFound/NotFound";
+import Landing from "./pages/Landing/Landing";
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 //======ESTILO E IMAGENES
 //import { UIProvider } from "../src/components/Context/ContextUI";
@@ -20,7 +21,9 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<Landing />} />
+        <Route exact path="/home" element={<Home />} />
+
         <Route path="/profile" element={<Profile />} />
         <Route path="/desktop" element={<Desktop />} />
         <Route path="/chatroom" element={<ChatRoom />} />
