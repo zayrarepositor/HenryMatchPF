@@ -27,7 +27,9 @@ export default function AdminBottomBar() {
               to="/terms"
               style={{
                 color: "white",
-              }}>
+              }}
+              target="_blank"
+              rel="noopener noreferrer">
               Henry Match
             </NavLink>{" "}
             {new Date().getFullYear()}
@@ -37,7 +39,9 @@ export default function AdminBottomBar() {
               to="/matchteam"
               style={{
                 color: "white",
-              }}>
+              }}
+              target="_blank"
+              rel="noopener noreferrer">
               alumnos
             </NavLink>{" "}
             de Henry
