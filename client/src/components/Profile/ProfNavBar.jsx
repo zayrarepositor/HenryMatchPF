@@ -50,7 +50,7 @@ const ProfNavBar = ({ setRender }) => {
               <Box sx={{ flexGrow: 1 }} />
 
               <Tooltip title="MATCHEA">
-                <NavLink to={"/"}>
+                <NavLink to={"/home"}>
                   <IconButton size="large" aria-label="show 4 new mails">
                     <LocalFireDepartmentIcon
                       fontSize="large"

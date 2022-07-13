@@ -18,6 +18,7 @@ import {
   Button,
   Chip,
   Divider,
+  Fab,
   FormControl,
   IconButton,
   InputLabel,
@@ -29,6 +30,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
+import AddIcon from "@mui/icons-material/Add";
 
 //Formik identifica todos los inputs con ese NAME
 // renderer prop: renderizamos el formulario dentro de una funcion y por ahi le vamos a pasar props(valores) de Formik
@@ -172,7 +174,6 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
 
   const closeForm = () => {
     setUpdateForm(false);
-    handleSend();
   };
 
   function handleOnChange(e) {
@@ -216,6 +217,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
   }
 
   function handleSelect(e) {
+    e.preventDefault();
     setInput({
       ...input,
       interests: [...new Set([...input.interests, e.target.value])],
@@ -234,7 +236,6 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     e.preventDefault();
     dispatch(updateUser(userDetail._id, { [e.target.name]: input.interests }));
     setUpdate(true);
-    console.log(input.interests);
     Swal.fire({
       position: "center",
       icon: "success",
@@ -274,8 +275,13 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
   return (
     <>
       <Box>
-        <div>
+        <Box sx={{ paddingLeft: 2 }}>
+          <Typography variant="h2">Editar Perfil</Typography>
+        </Box>
+
+        <Box sx={{ bgcolor: "black" }}>
           <input
+            style={{ background: "black" }}
             className="selectAr"
             type="file"
             ref={fileInput}
@@ -283,96 +289,72 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
               setImage(event.target.files[0]);
             }}
           />
-          <button className="cargar" onClick={uploadImage}>
-            Modificar Imagen
-          </button>
-        </div>
+          <Typography sx={{ paddingLeft: 2 }}>Foto de perfil</Typography>
+          <Box sx={{ paddingLeft: "90%" }}>
+            <IconButton className="cargar" onClick={uploadImage}>
+              <AddIcon sx={{ color: "success.main" }} />{" "}
+            </IconButton>
+          </Box>
+        </Box>
 
-        <form>
-          <label> Tu nombre: </label>
+        <TextField
+          id="outlined-multiline-static"
+          label="Tu nombre"
+          onChange={handleOnChange}
+          value={input.name}
+          name="name"
+          fullWidth
+        />
+        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
+          <IconButton onClick={handleSend}>
+            <CheckIcon sx={{ color: "success.main" }} />
+          </IconButton>
+        </Box>
 
-          <input
-            onChange={handleOnChange}
-            type="text"
-            value={input.name}
-            name="name"
-            placeholder="Escribe tu nombre"
-          />
-          {errors.name && <p className="error">{errors.name}</p>}
-          <button name="name" onClick={(e) => handleSend(e)}>
-            {" "}
-            Modificar{" "}
-          </button>
-        </form>
+        <TextField
+          id="outlined-multiline-static"
+          label="Tu edad"
+          onChange={handleOnChange}
+          value={input.age}
+          name="age"
+          fullWidth
+        />
+        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
+          <IconButton onClick={handleSend}>
+            <CheckIcon sx={{ color: "success.main" }} />
+          </IconButton>
+        </Box>
 
-        <form>
-          {/* EDAD */}
-          <label> Tu edad: </label>
-          <input
-            onChange={handleOnChange}
-            value={input.age}
-            type="text"
-            name="age"
-            placeholder="Escribe tu edad"
-          />
-          {errors.age && <p className="error">{errors.age}</p>}
-          <button name="age" onClick={handleSend}>
-            {" "}
-            Modificar{" "}
-          </button>
-        </form>
+        <TextField
+          id="outlined-multiline-static"
+          label="Tu celular"
+          onChange={handleOnChange}
+          value={input.phone}
+          name="phone"
+          fullWidth
+        />
+        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
+          <IconButton onClick={handleSend}>
+            <CheckIcon sx={{ color: "success.main" }} />
+          </IconButton>
+        </Box>
 
-        <form>
-          {/* EDAD */}
-          <label> Tu numero celular: </label>
-          <input
-            onChange={handleOnChange}
-            value={input.phone}
-            type="text"
-            name="phone"
-            placeholder="Escribe tu numero celular"
-          />
-          {errors.phone && <p className="error">{errors.phone}</p>}
-          <button name="phone" onClick={handleSend}>
-            {" "}
-            Modificar{" "}
-          </button>
-        </form>
+        <TextField
+          id="outlined-multiline-static"
+          label="Tu ciudad"
+          onChange={handleOnChange}
+          value={input.city}
+          name="city"
+          fullWidth
+        />
+        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
+          <IconButton onClick={handleSend}>
+            <CheckIcon sx={{ color: "success.main" }} />
+          </IconButton>
+        </Box>
 
-        <form>
-          {/* EMAIL */}
-          <label> Tu email: </label>
-          <input
-            onChange={handleOnChange}
-            type="text"
-            value={input.email}
-            name="email"
-            placeholder="Escribe tu email"
-          />
-          {errors.email && <p className="error">{errors.email}</p>}
-          <button name="email" onClick={(e) => handleSend(e)}>
-            {" "}
-            Modificar{" "}
-          </button>
-        </form>
-        <form>
-          {/* CIUDAD */}
-          <label> Ciudad: </label>
-          <input
-            onChange={handleOnChange}
-            type="text"
-            value={input.city}
-            name="city"
-            placeholder="Escribe tu ciudad"
-          />
-          {errors.city && <p className="error">{errors.city}</p>}
-          <button name="city" onClick={(e) => handleSend(e)}>
-            Modificar
-          </button>
-        </form>
         <FormControl fullWidth>
-          {/* GENERO */}
-          <InputLabel id="Tu sexo">Tu sexo:</InputLabel>
+          <InputLabel id="Tu sexo">Tu sexo</InputLabel>
           <Select
             labelId="Tu sexo"
             onChange={handleOnChange}
@@ -390,17 +372,14 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           </Box>
         </FormControl>
 
-        <Divider sx={{ bgcolor: "white" }} />
-        <Box sx={{ paddingTop: 1 }} />
-
         <FormControl fullWidth>
-          <InputLabel id="Me interesan">Me interesan...</InputLabel>
+          <InputLabel id="Me interesan">Me gustan</InputLabel>
           <Select
             labelId="Me interesan"
             onChange={(e) => handleOnChange(e)}
             value={input.genderInt}
             name="genderInt"
-            label="Me interesan..."
+            label="Me interesan"
           >
             <MenuItem value={"male"}>Hombres</MenuItem>
             <MenuItem value={"female"}> Mujeres</MenuItem>
@@ -413,18 +392,15 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           </IconButton>
         </Box>
 
-        <Divider sx={{ bgcolor: "white" }} />
-        <Box sx={{ paddingTop: 1 }} />
-
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Intereses...</InputLabel>
+          <InputLabel id="demo-simple-select-label">Intereses</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             onChange={handleSelect}
             value={input.interests}
             name="interests"
-            label="Intereses..."
+            label="Intereses"
           >
             {interests.map((i) => {
               return (
@@ -447,16 +423,13 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           </IconButton>
         </Box>
 
-        <Divider sx={{ bgcolor: "white" }} />
-        <Box sx={{ paddingTop: 1 }} />
-
         {/* HENRYLEVEL */}
         <FormControl fullWidth>
-          <InputLabel id="Modulo"> Modulo... </InputLabel>
+          <InputLabel id="Modulo"> Modulo</InputLabel>
           <Select
             id="Tu modulo actual"
             labelId="Modulo"
-            label="Intereses..."
+            label="Intereses"
             onChange={handleOnChange}
             value={input.henryLevel}
             name="henryLevel"
@@ -477,15 +450,22 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
             <CheckIcon sx={{ color: "success.main" }} />
           </IconButton>
         </Box>
+
         <TextField
-          id="standard-multiline-flexible"
-          label="Multiline"
+          id="outlined-multiline-static"
+          label="Tu descripcion"
           multiline
-          maxRows={4}
-          // value={value}
-          // onChange={handleChange}
-          variant="standard"
+          rows={3}
+          onChange={handleOnChange}
+          value={input.description}
+          name="description"
+          fullWidth
         />
+        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
+          <IconButton onClick={handleSend}>
+            <CheckIcon sx={{ color: "success.main" }} />
+          </IconButton>
+        </Box>
 
         {/* <form>
         <label> Dejanos tu comentario: </label>
@@ -500,9 +480,17 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           Modificar{" "}
         </button>
       </form> */}
-        <Button onClick={closeForm} variant="contained" color="success">
-          Success
-        </Button>
+
+        <Box display="block" sx={{ paddingLeft: "86%" }}>
+          <Button
+            size="large"
+            onClick={closeForm}
+            variant="contained"
+            color="secondary"
+          >
+            <Typography sx={{ color: "white" }}>CERRAR</Typography>
+          </Button>
+        </Box>
       </Box>
     </>
   );

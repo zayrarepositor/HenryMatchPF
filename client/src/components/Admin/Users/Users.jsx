@@ -211,6 +211,7 @@ export default function AdminUsers2() {
     function banUser() {
       // eslint-disable-next-line prefer-const
       let id = selected[0];
+      /*    let name = selected[] */
       // eslint-disable-next-line prefer-const
       let active = selected[1];
       if (!active) {
@@ -222,11 +223,26 @@ export default function AdminUsers2() {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
+
         });
+
+        const userSelected = filteredUsers.find(i => i._id == id);
+        const { name, email } = userSelected;
+        /*   console.log(userSelected, 'USER SELECTED') */
+
+        axios.post(`https://henrymatch-pg.herokuapp.com/send-mail-message`, { name, email })
+
       } else {
         const dataBanned = {
           active: false,
         };
+        //ACA LO DE NODEMAILER
+
+        const userSelected = filteredUsers.find(i => i._id == id);
+        const { name, email } = userSelected;
+        /*   console.log(userSelected, 'USER SELECTED') */
+
+        axios.post(`https://henrymatch-pg.herokuapp.com/send-mail-active`, { name, email })
 
         axios.put(
           `https://henrymatch-pg.herokuapp.com/usersID/${id}`,
@@ -338,7 +354,7 @@ export default function AdminUsers2() {
                           rowCount={USERLIST.length}
                           numSelected={1}
                           onRequestSort={handleRequestSort}
-                          // onSelectAllClick={handleSelectAllClick}
+                        // onSelectAllClick={handleSelectAllClick}
                         />
                         <TableBody>
                           {filteredUsers

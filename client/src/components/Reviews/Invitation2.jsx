@@ -54,7 +54,11 @@ const Invitation2 = ({ userDetail }) => {
                 variant="subtitle1"
                 color="text.secondary"
                 component="div">
-                Comparte con los demás tu experiencia!
+                {userDetail.review === ""
+                  ? userDetail.premium === false
+                    ? "Hacete premium y disfruta features extra!"
+                    : "Comparte con los demás tu experiencia en HM!"
+                  : "Gracias por formar parte de esta hermosa comunidad!"}
               </Typography>
             </Box>
           ) : (
