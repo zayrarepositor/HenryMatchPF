@@ -89,7 +89,7 @@ created: 1657295934, type: "card" } */
         /* console.log(userDetail, 'USERDETAIL') */
         if (response === "ok") {
           dispatch(updateUser(userDetail._id, { premium: true }));
-          /* axios.post(`https://henrymatch-pg.herokuapp.com/send-mail-premium`, { name, email }) */
+       /*    axios.post(`https://henrymatch-pg.herokuapp.com/send-mail-premium`, { name, email }) */
         }
 
         setIsLoading(false);
