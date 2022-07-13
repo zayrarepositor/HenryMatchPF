@@ -65,28 +65,21 @@ const Header = ({ setPremium }) => {
               <Box
                 sx={{
                   display: { /* xs: "none" ,*/ md: "flex", paddingRight: 10 },
-                }}>
+                }}
+              >
                 {/* MESSAGES */}
                 <Tooltip title="Nuevos mensajes">
                   <NavLink to={"/chatroom"}>
                     <IconButton size="large" aria-label="show 4 new mails">
                       <Badge
                         badgeContent={<span id="unread-message-count"></span>}
-                        color="error">
+                        color="error"
+                      >
                         <MailIcon sx={{ color: "primary.light" }} />
                       </Badge>
                     </IconButton>
                   </NavLink>
                   {/* MATCHS */}
-                </Tooltip>
-                <Tooltip title="Nuevos matches">
-                  <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications">
-                    <Badge badgeContent={17} color="error">
-                      <NotificationsIcon sx={{ color: "primary.light" }} />
-                    </Badge>
-                  </IconButton>
                 </Tooltip>
               </Box>
               {/* PROFILE */}
@@ -113,13 +106,15 @@ const Header = ({ setPremium }) => {
                     horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}>
+                  onClose={handleCloseUserMenu}
+                >
                   {/* MENU: MY PROFILE  */}
                   <NavLink to={"/profile"}>
                     <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                       <Typography
                         textAlign="center"
-                        sx={{ textDecoration: "none", color: "light.main" }}>
+                        sx={{ textDecoration: "none", color: "light.main" }}
+                      >
                         Mi Perfil
                       </Typography>
                       {/* MENU: LOGOUT  */}
@@ -130,7 +125,8 @@ const Header = ({ setPremium }) => {
                       <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                         <Typography
                           textAlign="center"
-                          sx={{ textDecoration: "none", color: "light.main" }}>
+                          sx={{ textDecoration: "none", color: "light.main" }}
+                        >
                           Administrador
                         </Typography>
                         {/* MENU: LOGOUT  */}
@@ -139,9 +135,8 @@ const Header = ({ setPremium }) => {
                   )}
                   <MenuItem
                     key={"logout"}
-                    onClick={() =>
-                      logout({ returnTo: window.location.origin })
-                    }>
+                    onClick={() => logout({ returnTo: window.location.origin })}
+                  >
                     <Typography textAlign="center">Cerrar Sesión</Typography>
                   </MenuItem>
                 </Menu>

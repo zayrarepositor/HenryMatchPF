@@ -362,6 +362,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
         />
 
         <br />
+        <br />
 
         <Box sx={{ display: "inline-block" }}>
           <Button
@@ -405,6 +406,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
         />
         {errors.city && <p className="error">{errors.city}</p>}
 
+        <br />
         <br />
         <br />
 
@@ -457,6 +459,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           </Select>
         </FormControl>
 
+        <br />
         <br />
 
         <Box sx={{ display: "inline-block" }}>
@@ -526,6 +529,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           </Select>
         </FormControl>
 
+        <br />
         <br />
         <br />
 

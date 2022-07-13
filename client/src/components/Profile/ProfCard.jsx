@@ -95,18 +95,20 @@ const ProfCard = () => {
       duration: theme.transitions.duration.shortest,
     }),
   }));
+
   return (
     <Box>
       {/* MENSAJITO SI EL USUARIO NO HA DEJADO SU COMENTARIO AUN */}
-      {/* <Invitation2 userDetail={userProfile} />
-      <ReviewField userDetail={userProfile} /> */}
+      <Box sx={{ paddingTop: 10 }}>
+        <Invitation2 />
+      </Box>
       <Box
         key={character?._id}
         display="flex"
         justifyContent="center"
         alignItems="center"
         sx={{
-          marginTop: 18,
+          marginTop: 3,
           right: 0,
           left: 0,
           boxShadow: 3,
@@ -213,7 +215,7 @@ const ProfCard = () => {
                   <LocationOnIcon /> {character?.city}
                 </Typography>
               )}
-              {character.genderInt?.length === 0 ? (
+              {character?.genderInt?.length === 0 ? (
                 <Typography sx={{ color: "red" }}>
                   <TransgenderIcon sx={{ color: "red" }} /> Ingresa tu
                   orientacion sexual
@@ -233,7 +235,7 @@ const ProfCard = () => {
                 </Typography>
               )}
 
-              {character.henryLevel?.length === 0 ? (
+              {character?.henryLevel?.length === 0 ? (
                 <Typography sx={{ color: "red" }}>
                   <AttachFileIcon sx={{ color: "red" }} /> Ingresa tu modulo
                 </Typography>
@@ -261,14 +263,14 @@ const ProfCard = () => {
                   marginTop: 1,
                 }}
               >
-                {character.interests?.length === 0 ? (
+                {character?.interests?.length === 0 ? (
                   <Typography sx={{ color: "red" }}>
                     <InterestsIcon sx={{ color: "red" }} /> Ingresa intereses
                   </Typography>
                 ) : (
                   <Typography>
                     <InterestsIcon />{" "}
-                    {character.interests?.map((i) => {
+                    {character?.interests?.map((i) => {
                       return <div key={i}>{i}</div>;
                     })}
                   </Typography>

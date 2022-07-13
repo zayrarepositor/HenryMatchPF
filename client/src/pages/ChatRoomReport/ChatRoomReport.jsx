@@ -1,19 +1,17 @@
-
-
-  //======PAQUETES Y LIBRERIAS
+//======PAQUETES Y LIBRERIAS
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
 import Chat from "../../components/Chat";
 import Ban from "../../components/Ban";
-import Landing from "../../components/LandingPage";
+// import Landing from "../../components/LandingPage";
 import ReviewCarouselHM from "../../components/Reviews/ReviewCarouselHM";
 import Invitation2 from "../../components/Reviews/Invitation2";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 import {
-    clearUserDetailMatches,
+  clearUserDetailMatches,
   filterUserByMatches,
   getUserByNick,
   getUsers,
@@ -24,9 +22,7 @@ import ChatReport from "../../components/ChatReport/ChatReport";
 import AdminBottomBar from "../../components/Admin/AdminBottomBar";
 import ProfNavBar from "../../components/Profile/ProfNavBar";
 
-
 const ChatRoomReport = () => {
-
   const userDetail = useSelector((state) => state.userDetail);
   const userMatches = useSelector((state) => state.userMatches);
   const users = useSelector((state) => state.users);
@@ -42,7 +38,6 @@ const ChatRoomReport = () => {
     }
   });
 
-
   useEffect(() => {
     dispatch(getUsers());
     if (user) {
@@ -50,27 +45,28 @@ const ChatRoomReport = () => {
         dispatch(filterUserByMatches(userDetail?._id))
       );
     }
-    return ()=>{
-        dispatch(clearUserDetailMatches())
-    }
+    return () => {
+      dispatch(clearUserDetailMatches());
+    };
   }, [user, userDetail?._id]);
 
   return (
     <Box>
-      {isAuthenticated && iAmActive === true ? (
+      {isAuthenticated && (
         <>
-          <ProfNavBar/>
-          <Box sx={{paddingTop: 10}}>
-          <ChatReport userDetail={userDetail} users={users} allAdmins={allAdmins} />
+          <ProfNavBar />
+          <Box sx={{ paddingTop: 10 }}>
+            <ChatReport
+              userDetail={userDetail}
+              users={users}
+              allAdmins={allAdmins}
+            />
           </Box>
-          <AdminBottomBar/>
+          <AdminBottomBar />
         </>
-      ) : (
-        <Landing />
       )}
     </Box>
   );
 };
-
 
 export default ChatRoomReport;
