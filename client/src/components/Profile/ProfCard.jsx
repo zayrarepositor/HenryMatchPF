@@ -19,6 +19,7 @@ import { /* getUsers, */ getUserByNick, updateUser } from "../../Redux/actions";
 //======ESTILO E IMAGENES
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import { styled } from "@mui/material/styles";
 import {
   Avatar,
   Box,
@@ -33,9 +34,9 @@ import {
   CardContent,
   Divider,
   CardActionArea,
+  Tooltip,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CakeIcon from "@mui/icons-material/Cake";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -45,6 +46,7 @@ import WorkIcon from "@mui/icons-material/Work";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InterestsIcon from "@mui/icons-material/Interests";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import EditIcon from "@mui/icons-material/Edit";
 
 const ProfCard = () => {
   const dispatch = useDispatch();
@@ -65,6 +67,7 @@ const ProfCard = () => {
   //ACTUALIZO CAMBIOS
   const handleClick = () => {
     setUpdateForm(true);
+    handleExpandClick();
   };
 
   //EXPANDIR INFO
@@ -80,6 +83,16 @@ const ProfCard = () => {
     alert("Tu cuenta ha sido eliminada");
   }
 
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
   return (
     <Box>
       {/* MENSAJITO SI EL USUARIO NO HA DEJADO SU COMENTARIO AUN */}
@@ -117,6 +130,14 @@ const ProfCard = () => {
           </CardActionArea>
 
           <CardActions disableSpacing sx={{ bgcolor: "inherit" }}>
+            <Box sx={{ display: "flex", left: 0 }}>
+              <Tooltip title="Editar perfil">
+                <IconButton onClick={handleClick}>
+                  {" "}
+                  <EditIcon color={"primary"} />{" "}
+                </IconButton>
+              </Tooltip>
+            </Box>
             <Typography
               sx={{
                 fontSize: 30,
@@ -143,8 +164,9 @@ const ProfCard = () => {
               onClick={handleExpandClick}
               aria-expanded={expanded}
               aria-label="show more"
+              sx={{ color: "white" }}
             >
-              <ExpandMoreIcon color="light" />
+              <ExpandMoreIcon />
             </ExpandMore>
           </CardActions>
           <Collapse
@@ -231,14 +253,12 @@ const ProfCard = () => {
             </CardContent>
           </Collapse>
         </Card>
-        <Button onClick={handleClick}> Actualiza tus Datos </Button>
+        {updateForm && (
+          <Box sx={{ paddingBottom: 10, paddingLeft: 5 }}>
+            <Formu setUpdate={setUpdate} setUpdateForm={setUpdateForm} />
+          </Box>
+        )}
       </Box>
-
-      {updateForm && (
-        <Box sx={{ paddingBottom: 10 }}>
-          <Formu setUpdate={setUpdate} setUpdateForm={setUpdateForm} />
-        </Box>
-      )}
     </Box>
   );
 };

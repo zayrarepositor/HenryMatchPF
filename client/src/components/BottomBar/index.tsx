@@ -19,7 +19,6 @@ import Carousel from "react-material-ui-carousel";
 
 // import ChatBox from "../ChatBox/Container";
 
-
 const StyledFab = styled(Fab)({
   position: "absolute",
   zIndex: 1,
@@ -58,7 +57,7 @@ var items = [
   },
 ];
 
-export default function BottomBar({ premium, setPremium }) {
+export default function BottomBar({ premium, setPremium, userDetail }) {
   const handleOpen = () => setPremium(true);
   const handleClose = () => setPremium(false);
 
@@ -68,6 +67,7 @@ export default function BottomBar({ premium, setPremium }) {
     console.log(cur, prev);
   };
 
+  console.log(userDetail);
   return (
     <Box>
       <Modal open={premium} onClose={handleClose}>
@@ -96,7 +96,8 @@ export default function BottomBar({ premium, setPremium }) {
               fontStyle: "normal",
               fontVariant: "normal",
               textTransform: "none",
-            }}>
+            }}
+          >
             {items.map((item, i) => (
               <Item key={i} item={item} />
             ))}
@@ -112,7 +113,8 @@ export default function BottomBar({ premium, setPremium }) {
               color="primary"
               aria-label="add"
               sx={{ width: 60, height: 60 }}
-              onClick={handleOpen}>
+              onClick={handleOpen}
+            >
               <DiamondIcon
                 sx={{
                   color: "dark.main",
