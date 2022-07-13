@@ -47,6 +47,7 @@ const initialForm = {
   dislike: [],
   matches: [],
   interests: [],
+  city: "",
   review: "",
   rating: 0,
 };

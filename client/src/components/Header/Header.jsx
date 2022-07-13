@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
+import Loader from "../Loader/Loader";
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 //======ESTILO E IMAGENES
 import {
@@ -46,7 +47,7 @@ const Header = ({ setPremium }) => {
   const mobileMenuId = "primary-search-account-menu-mobile";
   return (
     <>
-      {isLoading && <Loader></Loader>}
+      {isLoading && <Loader />}
       {isAuthenticated && (
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="fixed" color="inherit">

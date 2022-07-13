@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
 import Chat from "../../components/Chat";
 import Ban from "../../components/Ban";
-import Landing from "../../components/LandingPage";
+import Landing from "../Landing/Landing";
 import ReviewCarouselHM from "../../components/Reviews/ReviewCarouselHM";
 import Invitation2 from "../../components/Reviews/Invitation2";
 
