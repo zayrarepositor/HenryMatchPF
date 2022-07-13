@@ -19,6 +19,7 @@ import { /* getUsers, */ getUserByNick, updateUser } from "../../Redux/actions";
 //======ESTILO E IMAGENES
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
+import { styled } from "@mui/material/styles";
 import {
   Avatar,
   Box,
@@ -33,9 +34,9 @@ import {
   CardContent,
   Divider,
   CardActionArea,
+  Tooltip,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ExpandMore from "@mui/icons-material/ExpandMore";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import CakeIcon from "@mui/icons-material/Cake";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -45,6 +46,9 @@ import WorkIcon from "@mui/icons-material/Work";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InterestsIcon from "@mui/icons-material/Interests";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import EditIcon from "@mui/icons-material/Edit";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
+import TransgenderIcon from "@mui/icons-material/Transgender";
 
 const ProfCard = () => {
   const dispatch = useDispatch();
@@ -65,6 +69,7 @@ const ProfCard = () => {
   //ACTUALIZO CAMBIOS
   const handleClick = () => {
     setUpdateForm(true);
+    handleExpandClick();
   };
 
   //EXPANDIR INFO
@@ -80,6 +85,16 @@ const ProfCard = () => {
     alert("Tu cuenta ha sido eliminada");
   }
 
+  const ExpandMore = styled((props) => {
+    const { expand, ...other } = props;
+    return <IconButton {...other} />;
+  })(({ theme, expand }) => ({
+    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest,
+    }),
+  }));
   return (
     <Box>
       {/* MENSAJITO SI EL USUARIO NO HA DEJADO SU COMENTARIO AUN */}
@@ -117,6 +132,14 @@ const ProfCard = () => {
           </CardActionArea>
 
           <CardActions disableSpacing sx={{ bgcolor: "inherit" }}>
+            <Box sx={{ display: "flex", left: 0 }}>
+              <Tooltip title="Editar perfil">
+                <IconButton onClick={handleClick}>
+                  {" "}
+                  <EditIcon color={"primary"} />{" "}
+                </IconButton>
+              </Tooltip>
+            </Box>
             <Typography
               sx={{
                 fontSize: 30,
@@ -143,8 +166,9 @@ const ProfCard = () => {
               onClick={handleExpandClick}
               aria-expanded={expanded}
               aria-label="show more"
+              sx={{ color: "white" }}
             >
-              <ExpandMoreIcon color="light" />
+              <ExpandMoreIcon />
             </ExpandMore>
           </CardActions>
           <Collapse
@@ -166,15 +190,9 @@ const ProfCard = () => {
                   marginTop: 1,
                 }}
               >
-                {!character?.city ? (
-                  <Typography sx={{ color: "red" }}>
-                    <LocationOnIcon sx={{ color: "red" }} /> Donde vives?
-                  </Typography>
-                ) : (
-                  <Typography>
-                    <LocationOnIcon /> {character?.city}
-                  </Typography>
-                )}
+                <Typography textTransform="uppercase">
+                  <PersonOutlineIcon /> {character?.gender}
+                </Typography>
               </Box>
               {!character?.description ? (
                 <Typography sx={{ color: "red" }}>
@@ -186,12 +204,52 @@ const ProfCard = () => {
                 </Typography>
               )}
               <Divider color="#ffff00" />
-              <Typography textTransform="uppercase">
-                <PersonOutlineIcon /> {character?.gender}
-              </Typography>
-              <Typography>
-                <CakeIcon /> {character?.birthday}
-              </Typography>
+              {!character?.city ? (
+                <Typography sx={{ color: "red" }}>
+                  <LocationOnIcon sx={{ color: "red" }} /> Ingresa tu ciudad
+                </Typography>
+              ) : (
+                <Typography>
+                  <LocationOnIcon /> {character?.city}
+                </Typography>
+              )}
+              {character.genderInt?.length === 0 ? (
+                <Typography sx={{ color: "red" }}>
+                  <TransgenderIcon sx={{ color: "red" }} /> Ingresa tu
+                  orientacion sexual
+                </Typography>
+              ) : (
+                <Typography>
+                  <TransgenderIcon /> {character?.genderInt}
+                </Typography>
+              )}
+              {!character?.phone ? (
+                <Typography sx={{ color: "red" }}>
+                  <LocalPhoneIcon sx={{ color: "red" }} /> Ingresa tu celular
+                </Typography>
+              ) : (
+                <Typography>
+                  <LocalPhoneIcon /> {character?.phone}
+                </Typography>
+              )}
+
+              {character.henryLevel?.length === 0 ? (
+                <Typography sx={{ color: "red" }}>
+                  <AttachFileIcon sx={{ color: "red" }} /> Ingresa tu modulo
+                </Typography>
+              ) : (
+                <Typography
+                  textTransform="uppercase"
+                  sx={{
+                    display: "inline",
+                    letterSpacing: 2,
+                    fontFamily: "Proxima Nova",
+                  }}
+                >
+                  <AttachFileIcon /> {character?.henryLevel}
+                </Typography>
+              )}
+
               <Divider color="#ffff00" />
               <Box
                 display="flex"
@@ -203,42 +261,28 @@ const ProfCard = () => {
                   marginTop: 1,
                 }}
               >
-                <Typography
-                  textTransform="uppercase"
-                  sx={{
-                    display: "inline",
-                    letterSpacing: 2,
-                    fontFamily: "Proxima Nova",
-                  }}
-                >
-                  <WorkIcon /> {character?.job}
-                </Typography>
-                <Typography
-                  textTransform="uppercase"
-                  sx={{
-                    display: "inline",
-                    letterSpacing: 2,
-                    fontFamily: "Proxima Nova",
-                  }}
-                >
-                  <AttachFileIcon /> {character?.henryLevel}
-                </Typography>
-                <InterestsIcon />{" "}
-                {character?.interests?.map((i) => {
-                  return <div key={i}>{i}</div>;
-                })}
+                {character.interests?.length === 0 ? (
+                  <Typography sx={{ color: "red" }}>
+                    <InterestsIcon sx={{ color: "red" }} /> Ingresa intereses
+                  </Typography>
+                ) : (
+                  <Typography>
+                    <InterestsIcon />{" "}
+                    {character.interests?.map((i) => {
+                      return <div key={i}>{i}</div>;
+                    })}
+                  </Typography>
+                )}
               </Box>
             </CardContent>
           </Collapse>
         </Card>
-        <Button onClick={handleClick}> Actualiza tus Datos </Button>
+        {updateForm && (
+          <Box sx={{ paddingBottom: 20, paddingLeft: 5 }}>
+            <Formu setUpdate={setUpdate} setUpdateForm={setUpdateForm} />
+          </Box>
+        )}
       </Box>
-
-      {updateForm && (
-        <Box sx={{ paddingBottom: 10 }}>
-          <Formu setUpdate={setUpdate} setUpdateForm={setUpdateForm} />
-        </Box>
-      )}
     </Box>
   );
 };
