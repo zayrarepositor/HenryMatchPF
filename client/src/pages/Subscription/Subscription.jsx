@@ -86,7 +86,7 @@ created: 1657295934, type: "card" } */
           });
         //MENSAJE DEL SERVIDOR
         const response = data?.message;
-/* console.log(userDetail, 'USERDETAIL') */
+        /* console.log(userDetail, 'USERDETAIL') */
         if (response === "ok") {
           dispatch(updateUser(userDetail._id, { premium: true }));
           /* axios.post(`https://henrymatch-pg.herokuapp.com/send-mail-premium`, { name, email }) */
@@ -103,9 +103,18 @@ created: 1657295934, type: "card" } */
           timer: 2800,
         });
         elements.getElement(CardElement).clear();
-        navigate("/", { replace: true });
+        navigate("/home", { replace: true });
       } catch (e) {
-        console.log(e);
+        setIsLoading(false);
+        //ALERT
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: e.message,
+          showConfirmButton: false,
+          timer: 2800,
+        });
+        elements.getElement(CardElement).clear();
       }
     }
   };
@@ -198,7 +207,7 @@ created: 1657295934, type: "card" } */
               </button>
             </div>
           </form>
-          <NavLink className="link" to="/">
+          <NavLink className="link" to="/home">
             <h3>
               volver a <span>HOME</span>
             </h3>

@@ -8,7 +8,7 @@ import Header from "../../components/Header/Header";
 import Cards from "../../components/Card";
 import Loader from "../../components/Loader/Loader";
 import BottomBar from "../../components/BottomBar";
-import Landing from "../../pages/Landing/Landing";
+
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 import { filterByMe, filterUserByMatches, getUsers } from "../../redux/actions";
 import { getUserByNick, updateMatches } from "../../redux/actions/index";
@@ -182,11 +182,11 @@ const Home = () => {
           <Loader />
         </>
       )}
-      {isAuthenticated && iAmActive === false ? (
+      {iAmActive === false ? (
         <>
           <Ban userDetail={userDetail} users={users} allAdmins={allAdmins} />
         </>
-      ) : isAuthenticated ? (
+      ) : (
         <Grid>
           <Header 
           userDetail={userDetail} users={users} allAdmins={allAdmins}
@@ -202,8 +202,6 @@ const Home = () => {
             userDetail={userDetail}
           />
         </Grid>
-      ) : (
-        <Landing></Landing>
       )}
     </>
   );
