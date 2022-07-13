@@ -106,9 +106,8 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
 
       <AppBar position="fixed" color="inherit" sx={{ top: "auto", bottom: 0 }}>
         <Toolbar>
-
-          {userDetail ? userDetail.premium === true ? (
-
+          {userDetail ? (
+            userDetail.premium === true ? (
               <Tooltip title="YA ERES PREMIUM">
                 <StyledFab
                   color="primary"
@@ -142,7 +141,7 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
                 </StyledFab>
               </Tooltip>
             )
-           : (
+          ) : (
             <Tooltip title="PREMIUM">
               <StyledFab
                 color="primary"
@@ -168,7 +167,9 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
               to="/terms"
               style={{
                 color: "white",
-              }}>
+              }}
+              target="_blank"
+              rel="noopener noreferrer">
               Henry Match
             </NavLink>{" "}
             {new Date().getFullYear()}
@@ -178,7 +179,9 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
               to="/matchteam"
               style={{
                 color: "white",
-              }}>
+              }}
+              target="_blank"
+              rel="noopener noreferrer">
               alumnos
             </NavLink>{" "}
             de Henry

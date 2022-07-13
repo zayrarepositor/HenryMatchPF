@@ -33,13 +33,22 @@ const initialForm = {
   age: "",
   nickname: "",
   email: "",
+  premium: false,
+  isAdmin: false,
+  active: true,
+  role: "default",
   image: "",
-  description: "",
   gender: "",
   genderInt: "",
-  password: null,
-  likeGiven: [],
+  description: "",
+  dislikeReceived: [],
   likeRecieved: [],
+  likeGiven: [],
+  dislike: [],
+  matches: [],
+  interests: [],
+  review: "",
+  rating: 0,
 };
 
 const Modal = ({ modal, setModal, setNewUser }) => {
@@ -232,7 +241,9 @@ const Modal = ({ modal, setModal, setNewUser }) => {
                   style={{
                     color: "white",
                   }}
-                  to="/terms">
+                  to="/terms"
+                  target="_blank"
+                  rel="noopener noreferrer">
                   términos y condiciones
                 </NavLink>
               </InputLabel>

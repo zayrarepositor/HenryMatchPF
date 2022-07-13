@@ -80,9 +80,9 @@ export default function Cards({ setPremium, setCardMoved, setMatch }) {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, []); */
 
   const [currentIndex, setCurrentIndex] = React.useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();
@@ -160,6 +160,11 @@ export default function Cards({ setPremium, setCardMoved, setMatch }) {
   const swiped = (direction, name, index, id) => {
     const currentCard = db.find((ss) => ss._id === id);
 
+    console.log(
+      "CARD1111111111111111 currentUser?nickname",
+      currentUser?.nickname
+    );
+
     dispatch(getUserByNick(currentUser?.nickname));
 
     const miID = currentUser?._id;
@@ -177,10 +182,11 @@ export default function Cards({ setPremium, setCardMoved, setMatch }) {
           likeGiven: cardID,
         })
       );
-
+      console.log("CARD1111111111111111RIGHT currentUser", currentUser);
       dispatch(getUserByNick(currentUser?.nickname));
       dispatch(filterByMe());
       setCardMoved(true);
+      console.log("CARD2222222222222RIGHT currentUser", currentUser);
     }
 
     if (direction === "left") {
@@ -198,6 +204,7 @@ export default function Cards({ setPremium, setCardMoved, setMatch }) {
 
       //dispatch(getUserByNick(currentUser?.nickname));
       dispatch(filterByMe());
+      console.log("CARD111111111111111LEFT currentUser", currentUser);
       setCardMoved(true);
     }
 
@@ -224,6 +231,7 @@ export default function Cards({ setPremium, setCardMoved, setMatch }) {
       );
       setMatch(true);
       alert(`hiciste match con ${name}`);
+      console.log("CARD3333333333333FOUNDMATCH currentUser", currentUser);
       dispatch(getUserByNick(currentUser?.nickname));
     }
 
