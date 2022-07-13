@@ -95,6 +95,7 @@ const ProfCard = () => {
       duration: theme.transitions.duration.shortest,
     }),
   }));
+
   return (
     <Box>
       {/* MENSAJITO SI EL USUARIO NO HA DEJADO SU COMENTARIO AUN */}
