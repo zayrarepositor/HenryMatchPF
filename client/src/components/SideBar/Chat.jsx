@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { filterUserByMatches, getUserByNick, getUsers } from "../../Redux/actions";
 import { useAuth0 } from "@auth0/auth0-react";
+import { NavLink } from "react-router-dom";
 
 export default function Chat() {
   const dispatch = useDispatch();
@@ -47,9 +48,11 @@ export default function Chat() {
               secondary={user.interests.join(", ")}
               sx={{ color: "primary.contrastText" }}
             />
-            <IconButton color="primary" size="large" >
-              <SendIcon />
-            </IconButton>
+            <NavLink to="/chatroom">
+              <IconButton color="primary" size="large" >
+                <SendIcon />
+              </IconButton>
+            </NavLink>
           </ListItem>
 
           <Divider variant="inset" component="li" />
