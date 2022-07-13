@@ -142,7 +142,7 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
                 </StyledFab>
               </Tooltip>
             )
-          ) : (
+           : (
             <Tooltip title="PREMIUM">
               <StyledFab
                 color="primary"
