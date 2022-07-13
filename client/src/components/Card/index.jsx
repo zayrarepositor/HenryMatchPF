@@ -250,6 +250,71 @@ export default function Cards({ setPremium }) {
 
   return (
     <>
+    <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          position: "absolute",
+          top: 10,
+          right: 0,
+          left: 0,
+        }}>
+       
+        <Box
+          display="flex"
+          justifyContent="space-around"
+          alignItems="center"
+          sx={{
+            position: "absolute",
+            top: 80,
+            mx: "auto",
+            width: 300,
+          }}>
+          <Tooltip title="Dislike">
+          <IconButton
+            /* style={{ backgroundColor: !canSwipe && "#83838077" }} */
+            onClick={() => swipe("left")}
+            color="warning"
+            size="large">
+            <CloseIcon font="large" />
+          </IconButton>
+          </Tooltip>
+          {currentUser?.premium ? (
+            <Tooltip title="Arrepentirse">
+            <IconButton
+              /* style={{ backgroundColor: !canGoBack }} */
+              onClick={() => goBack()}
+              color="primary"
+              size="large">
+                <ArrowBackIcon font="large" />
+            </IconButton>
+              </Tooltip>
+          ) : (
+            <Tooltip title="Arrepentirse">
+            <IconButton
+            /*   style={{ backgroundColor: !canGoBack }} */
+              onClick={() => goBackPremium()}
+              color="primary"
+              size="large">
+              
+                <ArrowBackIcon font="large" />
+              
+            </IconButton>
+            </Tooltip>
+          )}
+          <Tooltip title="Like">
+          <IconButton
+            /* style={{ backgroundColor: !canSwipe && "#c838380773c4d3" }} */
+            onClick={() => swipe("right")}
+            color="info"
+            size="large">
+            <FavoriteIcon font="large" />
+          </IconButton>
+          </Tooltip>
+        </Box>
+      </Box>
+      
       {db.map((character, index) => (
         <Box
           key={character._id}
@@ -382,64 +447,8 @@ export default function Cards({ setPremium }) {
           </TinderCard>
         </Box>
       ))}
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        sx={{
-          position: "absolute",
-          top: 10,
-          right: 0,
-          left: 0,
-        }}>
-        <Box
-          display="flex"
-          justifyContent="space-around"
-          alignItems="center"
-          sx={{
-            position: "absolute",
-            top: 80,
-            mx: "auto",
-            width: 300,
-          }}>
-          <IconButton
-            style={{ backgroundColor: !canSwipe && "#83838077" }}
-            onClick={() => swipe("left")}
-            color="warning"
-            size="large">
-            <CloseIcon font="large" />
-          </IconButton>
-          {currentUser?.premium ? (
-            <IconButton
-              style={{ backgroundColor: !canGoBack }}
-              onClick={() => goBack()}
-              color="primary"
-              size="large">
-              <Tooltip title="go back">
-                <ArrowBackIcon font="large" />
-              </Tooltip>{" "}
-            </IconButton>
-          ) : (
-            <IconButton
-              style={{ backgroundColor: !canGoBack }}
-              onClick={() => goBackPremium()}
-              color="primary"
-              size="large">
-              <Tooltip title="go back">
-                <ArrowBackIcon font="large" />
-              </Tooltip>{" "}
-            </IconButton>
-          )}
-
-          <IconButton
-            style={{ backgroundColor: !canSwipe && "#c838380773c4d3" }}
-            onClick={() => swipe("right")}
-            color="info"
-            size="large">
-            <FavoriteIcon font="large" />
-          </IconButton>
-        </Box>
-      </Box>
+      
+      
       {!canSwipe ? (
         <MsgContainer ref={containerRef} overflow="hidden">
           <Slide

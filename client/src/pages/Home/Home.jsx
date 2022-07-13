@@ -34,7 +34,8 @@ const Home = () => {
       allAdmins.push(user);
     }
   });
-
+  //OBJETO USER DE AUTH0 Y SU SUB (NUESTRO NICKNAME)
+  const userAuth = user;
   //MODAL PARA CREAR USUARIO
   const [modal, setModal] = useState(false);
 
