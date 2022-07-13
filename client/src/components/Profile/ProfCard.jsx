@@ -253,7 +253,7 @@ const ProfCard = () => {
               )}
 
               <Divider color="#ffff00" />
-              <Box
+              {/* <Box
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
@@ -275,7 +275,7 @@ const ProfCard = () => {
                     })}
                   </Typography>
                 )}
-              </Box>
+              </Box> */}
             </CardContent>
           </Collapse>
         </Card>
