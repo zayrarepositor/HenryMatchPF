@@ -80,16 +80,6 @@ const Header = ({ setPremium }) => {
                   </NavLink>
                   {/* MATCHS */}
                 </Tooltip>
-                <Tooltip title="Nuevos matches">
-                  <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                  >
-                    <Badge badgeContent={17} color="error">
-                      <NotificationsIcon sx={{ color: "primary.light" }} />
-                    </Badge>
-                  </IconButton>
-                </Tooltip>
               </Box>
               {/* PROFILE */}
               <Box sx={{ display: { xs: "flex", md: 900 } }}>
