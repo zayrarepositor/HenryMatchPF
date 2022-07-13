@@ -461,7 +461,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
 
         <br />
         <br />
-        {/* 
+
         <Box sx={{ display: "inline-block" }}>
           <Button
             color="success"
@@ -496,7 +496,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
             <Button color="secondary" value={i} onClick={handleDeleteInterests}>
               {i}
             </Button>
-          ))} */}
+          ))}
 
         <Box sx={{ display: "inline-block" }}>
           <Button
