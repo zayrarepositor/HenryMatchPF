@@ -1,6 +1,6 @@
 //======PAQUETES Y LIBRERIAS
 import { React, useState, useEffect, Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //======IMPORTACIONES DE COMPONENTES
 import Copyright from "../../components/Copyright/Copyright";
@@ -25,8 +25,10 @@ const NotFound = () => {
             }}>
             <Box component="form" noValidate sx={{ mt: 0, marginTop: 20 }}>
               <Typography variant="h4">
-                Matchea y chatea con Alumnos de Henry!
+                No estas en una pagina de Henry Match!
               </Typography>
+
+              <Link className="link" to="/home"> VOLVER A HOME</Link>
               <Box
                 display="flex"
                 justifyContent="center"

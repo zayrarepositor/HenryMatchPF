@@ -396,7 +396,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           id="multiple-limit-tags"
           options={interests}
           getOptionLabel={(option) => option.title}
-          defaultValue={[userDetail.interests]}
+          defaultValue={[userDetail?.interests]}
           renderInput={(params) => (
             <TextField {...params} label="limitTags" placeholder="Favorites" />
           )}

@@ -1,131 +1,40 @@
-//======PAQUETES Y LIBRERIAS
-import { React, useState, useEffect, Fragment } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useAuth0 } from "@auth0/auth0-react";
+import React from "react"
+import { Link } from "react-router-dom";
 
-//======IMPORTACIONES DE COMPONENTES
-import Header from "../../components/Header/Header";
-import Cards from "../../components/Card";
-import Loader from "../../components/Loader/Loader";
-import BottomBar from "../../components/BottomBar";
-
-//======IMPORTACIONES DE FUNCIONES NUESTRAS
-import { filterByMe, filterUserByMatches, getUsers } from "../../redux/actions";
-import { getUserByNick } from "../../redux/actions/index";
-
-//======ESTILO E IMAGENES
-import { Grid } from "@mui/material";
-import Modal from "../../components/Modal/Modal";
-import Ban from "../../components/Ban";
-import Landing from "../Landing/Landing";
-
-const Home = () => {
-  const dispatch = useDispatch();
-  const { user, isAuthenticated, isLoading } = useAuth0();
-  const users = useSelector((state) => state.users);
-  const userMatches = useSelector((state) => state.userMatches);
-  const userDetail = useSelector((state) => state.userDetail);
-
-  const iAmActive = userDetail?.active;
-
-  let allAdmins = [];
-
-  let filterAdmins = users.filter((user) => {
-    if (user.isAdmin === true) {
-      allAdmins.push(user);
-    }
-  });
-
-  //MODAL PARA CREAR USUARIO
-  const [modal, setModal] = useState(false);
-
-  //PARA ABRIR MODAL PREMIUM
-  const [premium, setPremium] = useState(false);
-
-  //IDENTIFICO CUANDO SE CREO UN USUARIO NUEVO
-  const [newUser, setNewUser] = useState(false);
-
-  //PARA LLENAR EL STORE CON TODOS LOS USUARIOS
-  useEffect(() => {
-    dispatch(getUsers());
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      const userid = {
-        name: user.name,
-        id: user.sub,
-        photoUrl: user.picture,
-        email: user.email || "exampleEmail@gmail.com",
-        description: "im Ready to get my first HenryMatch",
-        role: "default",
-      };
-
-      window.localStorage.setItem("currentTalkjsUser", JSON.stringify(userid));
-    }
-  }, [user]);
-
-  //PARA ABRIR MODAL SOLO CUANDO EL USUARIO NO ESTA EN LA DB
-  useEffect(() => {
-    if (isAuthenticated === true) {
-      //ME GUARDO EL SUB (NUESTRO NICKNAME) DEL USUARIO DE AUTH0 EN ESTA VARIABLE
-      const localUserNickname = user.sub;
-
-      //EN ESTA VARIABLE SER GUARDA EL LOCAL USER SI ESTA EN LA DB
-      const userInDb = users.find((u) => u.nickname === localUserNickname);
-
-      //======> SI ESTAS EN LA DB =======> console.log(userInDb);
-      //SI NO HAY NADA EN userInDb SE ABRE EL MODAL
-      if (!userInDb || userInDb === undefined) {
-        setModal(true);
-      } else {
-        setModal(false);
-        //SI EL USUARIO SI ESTABA EN NUESTRA DB SE LLENA EL userDetail DEL STORE
-        dispatch(getUserByNick(localUserNickname));
-      }
-    }
-  }, [isAuthenticated]);
-
-  //PARA FILTRAR USUARIO POR GENERO
-  /*   useEffect(() => {
-    dispatch(filterByGender(userDetail?.genderInt));
-     }, [modal]); */
-
-  //PARA MONTAR CON LOS FILTROS GENERO,LIKES, DISLIKES APLICADOS
-  useEffect(() => {
-    dispatch(filterByMe());
-  }, [userDetail]);
-
-  useEffect(() => {
-    if (user) {
-      dispatch(getUserByNick(user.sub)).then(() =>
-        dispatch(filterUserByMatches(userDetail?._id))
-      );
-    }
-  }, [user, userDetail?._id]);
-
+export default function Terms() {
   return (
-    <>
-      {isLoading && (
-        <>
-          <Loader />
-        </>
-      )}
-      {isAuthenticated && iAmActive === false ? (
-        <>
-          <Ban userDetail={userDetail} users={users} allAdmins={allAdmins} />
-        </>
-      ) : isAuthenticated ? (
-        <Grid>
-          <Header />
+    <div>
+      <h1>TERMINOS Y CONDICIONES</h1>
+      <br />
+      <h3>Su Contrato de servicios ahora es más claro:</h3>
+      <p>Vamos a actualizar el Contrato de servicios de HENRY MATCH que se aplica a los productos y servicios para consumidores online de HENRY MATCH que usa. Estamos realizando estas actualizaciones para aportar mayor claridad a nuestros términos y asegurarnos de que son transparentes para los usuarios, así como para cubrir nuevos productos, servicios y características de HENRY MATCH.
 
-          <BottomBar premium={premium} setPremium={setPremium} />
-        </Grid>
-      ) : (
-        <Landing />
-      )}
-    </>
-  );
-};
+        Las actualizaciones, que se resumen a continuación, entrarán en vigor el 15 de agosto de 2022. Si sigue usando nuestros productos y servicios a partir del 15 de agosto de 2022, se considerará una aceptación del Contrato de servicios de HENRY MATCH actualizado.</p>
+      <br />
+      <h3>Preguntas frecuentes:</h3>
+      <br />
+      <h4>¿Qué es el Contrato de servicios de HENRY MATCH?</h4>
+      <p>El Contrato de servicios de HENRY MATCH es un contrato entre usted y HENRY MATCH (o una de sus filiales) que rige el uso que hace de los productos y servicios para consumidores online de HENRY MATCH. Puede ver una lista completa de los productos y servicios cubiertos aquí.</p>
 
-export default Home;
+      <br />
+      <h3>¿Cuáles son los productos y servicios que el Contrato de servicios de HENRY MATCH no cubre?</h3>
+      <p>El Contrato de servicios de HENRY MATCH no se aplica a los productos y servicios específicos de clientes del ámbito empresarial, como HENRY MATCH 365 para organizaciones empresariales, educativas y gubernamentales, Azure, Yammer o Skype for Business. Para conocer los compromisos relativos a la seguridad, la privacidad y el cumplimiento y obtener información relacionada con HENRY MATCH 365 para empresas, visite el centro de confianza de HENRY MATCH.
+      </p>
+      <br />
+      <h3>¿Qué cambios está haciendo HENRY MATCH al Contrato de servicios de HENRY MATCH?</h3>
+      <p>Hemos hecho un resumen de los cambios más importantes aquí.
+        Para ver todos los cambios, le recomendamos que lea el Contrato de servicios de HENRY MATCH completo.</p>
+
+      <br />
+      <h3>¿Cuándo entran en vigor estos términos?</h3>
+      <p> Las actualizaciones del Contrato de servicios de HENRY MATCH entrarán en vigor el 15 de agosto de 2022. Hasta entonces, las condiciones actuales permanecen en vigor.</p>
+      <br />
+      <h3>¿Cómo acepto estos términos?</h3>
+      <p> Si sigue usando nuestros productos y servicios o accede a ellos a partir del 15 de agosto de 2022, se considerará una aceptación del Contrato de servicios de HENRY MATCH actualizado. Si no los acepta, puede optar por dejar de usar los productos y servicios y cerrar su cuenta de HENRY MATCH antes del 15 de agosto de 2022.</p>
+      <br/>
+      <Link className="link" to="/home"> VOLVER A HOME</Link>
+    </div>
+  )
+}
+
+
