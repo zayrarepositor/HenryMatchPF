@@ -17,7 +17,7 @@ import { getUserByNick } from "../../redux/actions/index";
 import { Grid } from "@mui/material";
 import Modal from "../../components/Modal/Modal";
 import Ban from "../../components/Ban";
-import Landing from "../../components/LandingPage";
+import Landing from "../Landing/Landing";
 
 const Home = () => {
   const dispatch = useDispatch();

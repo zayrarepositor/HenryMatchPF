@@ -50,7 +50,7 @@ const messages = [
   "Por favor regresa más tarde.",
 ];
 
-export default function Cards({ setPremium }) {
+export default function Cards({ setPremium, setCardMoved, setMatch }) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -147,16 +147,16 @@ export default function Cards({ setPremium }) {
         .map((i) => React.createRef()),
     []
   );
-
+  //ACTUALIZA EL INDICE ACTUAL DEL ARREGLO
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
   };
-
+  //EL INDICE ACTUAL ES MENOR QUE EL ULTIMO INDICE DEL ARREGLO?
   const canGoBack = currentIndex < db.length - 1;
-
+  //EL INDICE ACTUAL ES >= 0
   const canSwipe = currentIndex >= 0;
-
+  //FUNCION QUE SETEA LA ULTIMA DIRECCION Y MERMA EL INDICE ACTUAL
   const swiped = (direction, name, index, id) => {
     const currentCard = db.find((ss) => ss._id === id);
 
@@ -180,6 +180,7 @@ export default function Cards({ setPremium }) {
 
       dispatch(getUserByNick(currentUser?.nickname));
       dispatch(filterByMe());
+      setCardMoved(true);
     }
 
     if (direction === "left") {
@@ -195,8 +196,9 @@ export default function Cards({ setPremium }) {
         })
       );
 
-      dispatch(getUserByNick(currentUser?.nickname));
-      //dispatch(filterByMe());
+      //dispatch(getUserByNick(currentUser?.nickname));
+      dispatch(filterByMe());
+      setCardMoved(true);
     }
 
     const foundMatch = currentCard.likeGiven?.includes(miID);
@@ -220,6 +222,7 @@ export default function Cards({ setPremium }) {
           matches: id,
         })
       );
+      setMatch(true);
       alert(`hiciste match con ${name}`);
       dispatch(getUserByNick(currentUser?.nickname));
     }
@@ -227,7 +230,7 @@ export default function Cards({ setPremium }) {
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
   };
-
+  //// handle the case in which go back is pressed before card goes outOfFrame
   const outOfFrame = (name, idx) => {
     currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
   };
@@ -237,7 +240,7 @@ export default function Cards({ setPremium }) {
       await childRefs[currentIndex].current.swipe(dir);
     }
   };
-
+  // increase current index and show card
   const goBack = async () => {
     const newIndex = currentIndex + 1;
     updateCurrentIndex(newIndex);
