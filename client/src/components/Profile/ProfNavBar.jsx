@@ -62,7 +62,7 @@ const ProfNavBar = ({ setRender }) => {
               </Tooltip>
               {/* PROFILE */}
               <Box sx={{ display: { xs: "flex", md: 900 } }}>
-                <Tooltip title={`${user.name.substring(0, 1)} perfil`}>
+                <Tooltip title={user.name}>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
                       src={userDetail?.image}
