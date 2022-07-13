@@ -31,6 +31,8 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import CheckIcon from "@mui/icons-material/Check";
 import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
+import { NavLink } from "react-router-dom";
 
 //Formik identifica todos los inputs con ese NAME
 // renderer prop: renderizamos el formulario dentro de una funcion y por ahi le vamos a pasar props(valores) de Formik
@@ -272,14 +274,48 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     });
   }
 
+  const handleBanUser = () => {
+    const data = {
+      active: false,
+    };
+
+    axios.put(
+      `https://henrymatch-pg.herokuapp.com/usersID/${userDetail._id}`,
+      data,
+      {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      }
+    );
+    alert("Tu cuenta se ha desactivado, ya no apareceras en la aplicacion");
+  };
+
   return (
     <>
       <Box>
-        <Box sx={{ paddingLeft: 2 }}>
-          <Typography variant="h2">Editar Perfil</Typography>
+        <Box>
+          <Box display="inline-block" sx={{ paddingLeft: 1 }}>
+            <IconButton size="large" onClick={closeForm} color="info">
+              <CloseIcon />{" "}
+            </IconButton>
+          </Box>
+          <Box sx={{ paddingLeft: 2 }} display="block">
+            <Typography variant="h2">Editar Perfil</Typography>
+          </Box>
         </Box>
 
-        <Box sx={{ bgcolor: "black" }}>
+        <Box sx={{ bgcolor: "black", paddingLeft: 2 }}>
+          <Box sx={{ display: "inline-block" }}>
+            <Button
+              color="success"
+              name="name"
+              onClick={(e) => uploadImage(e)}
+              sx={{ fontSize: 20 }}
+            >
+              + Foto
+            </Button>
+          </Box>
           <input
             style={{ background: "black" }}
             className="selectAr"
@@ -289,71 +325,100 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
               setImage(event.target.files[0]);
             }}
           />
-          <Typography sx={{ paddingLeft: 2 }}>Foto de perfil</Typography>
-          <Box sx={{ paddingLeft: "90%" }}>
-            <IconButton className="cargar" onClick={uploadImage}>
-              <AddIcon sx={{ color: "success.main" }} />{" "}
-            </IconButton>
-          </Box>
         </Box>
 
+        <Box sx={{ display: "inline-block" }}>
+          <Button
+            color="success"
+            name="name"
+            onClick={(e) => handleSend(e)}
+            sx={{ fontSize: 25 }}
+          >
+            ✓{" "}
+          </Button>
+        </Box>
         <TextField
-          id="outlined-multiline-static"
           label="Tu nombre"
           onChange={handleOnChange}
           value={input.name}
           name="name"
-          fullWidth
         />
-        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
-          <IconButton onClick={handleSend}>
-            <CheckIcon sx={{ color: "success.main" }} />
-          </IconButton>
-        </Box>
 
+        <Box sx={{ display: "inline-block" }}>
+          <Button
+            color="success"
+            name="age"
+            onClick={(e) => handleSend(e)}
+            sx={{ fontSize: 25 }}
+          >
+            ✓{" "}
+          </Button>
+        </Box>
         <TextField
-          id="outlined-multiline-static"
           label="Tu edad"
           onChange={handleOnChange}
           value={input.age}
           name="age"
-          fullWidth
         />
-        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
-          <IconButton onClick={handleSend}>
-            <CheckIcon sx={{ color: "success.main" }} />
-          </IconButton>
-        </Box>
 
+        <br />
+
+        <Box sx={{ display: "inline-block" }}>
+          <Button
+            color="success"
+            name="phone"
+            onClick={(e) => handleSend(e)}
+            sx={{ fontSize: 25 }}
+          >
+            ✓{" "}
+          </Button>
+        </Box>
         <TextField
-          id="outlined-multiline-static"
+          onChange={handleOnChange}
           label="Tu celular"
-          onChange={handleOnChange}
           value={input.phone}
+          type="text"
           name="phone"
-          fullWidth
         />
-        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
-          <IconButton onClick={handleSend}>
-            <CheckIcon sx={{ color: "success.main" }} />
-          </IconButton>
-        </Box>
+        {errors.phone && <p className="error">{errors.phone}</p>}
 
+        <Box sx={{ display: "inline-block" }}>
+          <Button
+            color="success"
+            name="city"
+            onClick={(e) => handleSend(e)}
+            sx={{ fontSize: 25 }}
+          >
+            ✓{" "}
+          </Button>
+        </Box>
         <TextField
-          id="outlined-multiline-static"
-          label="Tu ciudad"
+          // id="outlined-multiline-static"
+          // label="Tu ciudad"
           onChange={handleOnChange}
+          type="text"
+          label="Tu ciudad"
           value={input.city}
           name="city"
-          fullWidth
+          placeholder="Tu ciudad"
+          sx={{ display: "inline-block" }}
         />
-        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
-          <IconButton onClick={handleSend}>
-            <CheckIcon sx={{ color: "success.main" }} />
-          </IconButton>
-        </Box>
+        {errors.city && <p className="error">{errors.city}</p>}
 
-        <FormControl fullWidth>
+        <br />
+        <br />
+
+        <Box sx={{ display: "inline-block" }}>
+          <Button
+            color="success"
+            name="gender"
+            onClick={(e) => handleSend(e)}
+            sx={{ fontSize: 25 }}
+          >
+            ✓{" "}
+          </Button>
+        </Box>
+        <FormControl sx={{ width: 210 }}>
           <InputLabel id="Tu sexo">Tu sexo</InputLabel>
           <Select
             labelId="Tu sexo"
@@ -365,14 +430,19 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
             <MenuItem value={"male"}>Hombre</MenuItem>
             <MenuItem value={"female"}>Mujer</MenuItem>
           </Select>
-          <Box sx={{ display: "flex", paddingLeft: "95%" }}>
-            <IconButton onClick={handleSend}>
-              <CheckIcon sx={{ color: "success.main" }} />
-            </IconButton>
-          </Box>
         </FormControl>
 
-        <FormControl fullWidth>
+        <Box sx={{ display: "inline-block" }}>
+          <Button
+            color="success"
+            name="genderInt"
+            onClick={(e) => handleSend(e)}
+            sx={{ fontSize: 25 }}
+          >
+            ✓{" "}
+          </Button>
+        </Box>
+        <FormControl sx={{ width: 210 }}>
           <InputLabel id="Me interesan">Me gustan</InputLabel>
           <Select
             labelId="Me interesan"
@@ -386,13 +456,20 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
             <MenuItem value={"both"}> Ambos</MenuItem>
           </Select>
         </FormControl>
-        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
-          <IconButton onClick={handleSend}>
-            <CheckIcon sx={{ color: "success.main" }} />
-          </IconButton>
-        </Box>
 
-        <FormControl fullWidth>
+        <br />
+
+        <Box sx={{ display: "inline-block" }}>
+          <Button
+            color="success"
+            name="interests"
+            onClick={(e) => handleSend(e)}
+            sx={{ fontSize: 25 }}
+          >
+            ✓{" "}
+          </Button>
+        </Box>
+        <FormControl sx={{ width: 210 }}>
           <InputLabel id="demo-simple-select-label">Intereses</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -417,40 +494,51 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
               {i}
             </Button>
           ))}
-        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
-          <IconButton onClick={handleSendInterests}>
-            <CheckIcon sx={{ color: "success.main" }} />
-          </IconButton>
-        </Box>
 
-        {/* HENRYLEVEL */}
-        <FormControl fullWidth>
+        <Box sx={{ display: "inline-block" }}>
+          <Button
+            color="success"
+            name="henryLevel"
+            onClick={(e) => handleSend(e)}
+            sx={{ fontSize: 25 }}
+          >
+            ✓{" "}
+          </Button>
+        </Box>
+        <FormControl sx={{ width: 210 }}>
           <InputLabel id="Modulo"> Modulo</InputLabel>
           <Select
-            id="Tu modulo actual"
             labelId="Modulo"
-            label="Intereses"
-            onChange={handleOnChange}
+            onChange={(e) => handleOnChange(e)}
             value={input.henryLevel}
             name="henryLevel"
+            label="Modulo"
           >
-            <MenuItem value="m1">M1</MenuItem>
-            <MenuItem value="m2">M2</MenuItem>
-            <MenuItem value="m3">M3</MenuItem>
-            <MenuItem value="m4">M4</MenuItem>
-            <MenuItem value="m5">M5</MenuItem>
-            <MenuItem value="m6">M6</MenuItem>
-            <MenuItem value="pi">PI</MenuItem>
-            <MenuItem value="pf">PF</MenuItem>
-            <MenuItem value="graduate">Graduado</MenuItem>
+            <MenuItem value={"m1"}>M1</MenuItem>
+            <MenuItem value={"m2"}>M2</MenuItem>
+            <MenuItem value={"m3"}>M3</MenuItem>
+            <MenuItem value={"m4"}>M4</MenuItem>
+            <MenuItem value={"m5"}>M5</MenuItem>
+            <MenuItem value={"m6"}>M6</MenuItem>
+            <MenuItem value={"pi"}>PI</MenuItem>
+            <MenuItem value={"pf"}>PF</MenuItem>
+            <MenuItem value={"graduate"}>Graduado</MenuItem>
           </Select>
         </FormControl>
-        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
-          <IconButton onClick={handleSend}>
-            <CheckIcon sx={{ color: "success.main" }} />
-          </IconButton>
-        </Box>
 
+        <br />
+        <br />
+
+        <Box sx={{ display: "inline-block" }}>
+          <Button
+            color="success"
+            name="description"
+            onClick={(e) => handleSend(e)}
+            sx={{ fontSize: 25 }}
+          >
+            ✓{" "}
+          </Button>
+        </Box>
         <TextField
           id="outlined-multiline-static"
           label="Tu descripcion"
@@ -459,13 +547,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           onChange={handleOnChange}
           value={input.description}
           name="description"
-          fullWidth
         />
-        <Box sx={{ display: "flex", paddingLeft: "95%" }}>
-          <IconButton onClick={handleSend}>
-            <CheckIcon sx={{ color: "success.main" }} />
-          </IconButton>
-        </Box>
 
         {/* <form>
         <label> Dejanos tu comentario: </label>
@@ -480,16 +562,19 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
           Modificar{" "}
         </button>
       </form> */}
-
-        <Box display="block" sx={{ paddingLeft: "86%" }}>
-          <Button
-            size="large"
-            onClick={closeForm}
-            variant="contained"
-            color="secondary"
-          >
-            <Typography sx={{ color: "white" }}>CERRAR</Typography>
-          </Button>
+        <br />
+        <br />
+        <Box display="inline-block" sx={{ paddingLeft: 2 }}>
+          <NavLink to={"/home"}>
+            <Button
+              size="large"
+              onClick={handleBanUser}
+              variant="contained"
+              color="secondary"
+            >
+              <Typography sx={{ color: "white" }}>ELIMINAR CUENTA</Typography>
+            </Button>
+          </NavLink>
         </Box>
       </Box>
     </>

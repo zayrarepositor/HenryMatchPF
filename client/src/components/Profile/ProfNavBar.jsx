@@ -86,7 +86,7 @@ const ProfNavBar = ({ setRender }) => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  <NavLink to={"/"}>
+                  <NavLink to={"/home"}>
                     <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                       <Typography
                         textAlign="center"
