@@ -13,6 +13,7 @@ import Terms from "./pages/Terms/Terms";
 import MatchTeam from "./pages/MatchTeam/MatchTeam";
 import NotFound from "./pages/NotFound/NotFound";
 import Landing from "./pages/Landing/Landing";
+import ChatRoomReport from "./pages/ChatRoomReport/ChatRoomReport";
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 //======ESTILO E IMAGENES
 //import { UIProvider } from "../src/components/Context/ContextUI";
@@ -33,6 +34,7 @@ export const App = () => {
         <Route path="/admin" element={<Admin />} />
         <Route path="/users/:nickname" element={<DetailPrueba />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/report" element={<ChatRoomReport/>}/>
       </Routes>
     </BrowserRouter>
   );
