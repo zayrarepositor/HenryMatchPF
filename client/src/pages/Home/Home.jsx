@@ -188,7 +188,9 @@ const Home = () => {
         </>
       ) : (
         <Grid>
-          <Header />
+          <Header 
+          userDetail={userDetail} users={users} allAdmins={allAdmins}
+          />
           <Cards
             setPremium={setPremium}
             setCardMoved={setCardMoved}
