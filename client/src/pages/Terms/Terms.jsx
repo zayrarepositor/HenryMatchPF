@@ -32,7 +32,7 @@ export default function Terms() {
       <h3>¿Cómo acepto estos términos?</h3>
       <p> Si sigue usando nuestros productos y servicios o accede a ellos a partir del 15 de agosto de 2022, se considerará una aceptación del Contrato de servicios de HENRY MATCH actualizado. Si no los acepta, puede optar por dejar de usar los productos y servicios y cerrar su cuenta de HENRY MATCH antes del 15 de agosto de 2022.</p>
       <br/>
-      <Link className="link" to="/home"> VOLVER A HOME</Link>
+      <Link className="link" to="/"> VOLVER</Link>
     </div>
   )
 }

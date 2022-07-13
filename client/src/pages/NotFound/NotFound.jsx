@@ -28,7 +28,7 @@ const NotFound = () => {
                 No estas en una pagina de Henry Match!
               </Typography>
 
-              <Link className="link" to="/home"> VOLVER A HOME</Link>
+              <Link className="link" to="/"> VOLVER</Link>
               <Box
                 display="flex"
                 justifyContent="center"
