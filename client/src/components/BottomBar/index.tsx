@@ -172,6 +172,8 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
               style={{
                 color: "white",
               }}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Henry Match
             </NavLink>{" "}
@@ -183,6 +185,8 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
               style={{
                 color: "white",
               }}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               alumnos
             </NavLink>{" "}
