@@ -49,6 +49,19 @@ const Home = () => {
     dispatch(getUsers());
   }, []);
 
+  //PARA ABRIR MODAL SOLO CUANDO EL USUARIO NO ESTA EN LA DB
+  useEffect(() => {
+    if (isAuthenticated === true && Object.keys(users).length > 0) {
+      //EL USUARIO ACTUAL ESTA EN LA DB?
+      const userInDb = users.find((u) => u.nickname === userAuth.sub);
+      if (userInDb) {
+        setModal(false);
+      } else {
+        setModal(true);
+      }
+    }
+  }, [users]);
+
   useEffect(() => {
     if (user) {
       const userid = {
@@ -89,6 +102,7 @@ const Home = () => {
   /*   useEffect(() => {
     dispatch(filterByGender(userDetail?.genderInt));
      }, [modal]); */
+
 
   //PARA MONTAR CON LOS FILTROS GENERO,LIKES, DISLIKES APLICADOS
   useEffect(() => {
