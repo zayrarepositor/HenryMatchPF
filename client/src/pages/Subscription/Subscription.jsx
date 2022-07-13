@@ -86,10 +86,12 @@ created: 1657295934, type: "card" } */
           });
         //MENSAJE DEL SERVIDOR
         const response = data?.message;
-        /* console.log(userDetail, 'USERDETAIL') */
+
+      const {name, email} = userDetail;
+      
         if (response === "ok") {
           dispatch(updateUser(userDetail._id, { premium: true }));
-       /*    axios.post(`https://henrymatch-pg.herokuapp.com/send-mail-premium`, { name, email }) */
+          axios.post(`https://henrymatch-pg.herokuapp.com/send-mail-premium`, { name, email })
         }
 
         setIsLoading(false);
