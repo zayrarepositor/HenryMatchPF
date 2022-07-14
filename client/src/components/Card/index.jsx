@@ -220,7 +220,14 @@ export default function Cards({ setPremium }) {
           matches: id,
         })
       );
-      alert(`hiciste match con ${name}`);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title:`hiciste match con ${name}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    /*   alert(`hiciste match con ${name}`); */
       dispatch(getUserByNick(currentUser?.nickname));
     }
 
