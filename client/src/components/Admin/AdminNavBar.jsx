@@ -87,7 +87,7 @@ const AdminNavBar = ({ setRender }) => {
                   onClose={handleCloseUserMenu}
                 >
                   <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
-                    <NavLink to={"/"}>
+                    <NavLink to={"/home"}>
                       <Typography
                         textAlign="center"
                         sx={{ textDecoration: "none", color: "light.main" }}

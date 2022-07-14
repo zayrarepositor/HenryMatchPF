@@ -88,7 +88,7 @@ export default function AdminSideBar({ setRender }) {
           </ListItemButton>
         </ListItem>
 
-        {/* <ListItem>
+        <ListItem>
           <ListItemButton onClick={handleStatistics}>
             <ListItemIcon>
               <ListItemIcon>
@@ -99,7 +99,7 @@ export default function AdminSideBar({ setRender }) {
             </ListItemIcon>
             <ListItemText primary="Estadisticas" />
           </ListItemButton>
-        </ListItem> */}
+        </ListItem>
 
         <ListItem>
           <ListItemButton onClick={handleInbox}>
@@ -120,7 +120,7 @@ export default function AdminSideBar({ setRender }) {
           rel="noopener noreferrer"
           href="https://dashboard.stripe.com/test/payments"
           underline="none"
-          target="_blank"
+          // target="_blank"
         >
           <ListItem>
             <ListItemButton onClick={handleInbox}>

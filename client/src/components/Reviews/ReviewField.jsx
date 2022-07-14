@@ -96,9 +96,10 @@ const ReviewField = () => {
 
       return;
     } else {
+
       dispatch(updateUser(userDetail._id, reviewForm));
-      //dispatch(updateUser(userDetail._id, { [e.target.name]: input }));
-      /* dispatch(updateUser(userDetail._id,  [e.target.name]: input)); */
+     
+     
       //ALERT
       Swal.fire({
         position: "top-end ",
