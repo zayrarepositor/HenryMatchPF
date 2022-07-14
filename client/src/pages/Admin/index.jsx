@@ -24,6 +24,7 @@ import AdminUsers2 from "../../components/Admin/Users/Users";
 import { NavLink } from "react-router-dom";
 import PerfilChat from "../../components/Chat/PerfilChat";
 import { Box } from "@mui/system";
+import DashboardApp from "../../components/Admin/Statistics/Dashboard";
 
 //PABLO CUANDO PUEDAS CONTAME DE ESTA FUNCION <`*.*´> (ZAYRA)
 
@@ -70,7 +71,9 @@ const Admin = () => {
             </Box>
           )}
           {render === "statistics" && (
-            <Box sx={{ paddingTop: 10 }}>Aqui estaran las estadisticas xD</Box>
+            <Box sx={{ paddingTop: 40, paddingLeft: 40 }}>
+              <DashboardApp />
+            </Box>
           )}
           <AdminBottomBar />
         </Grid>

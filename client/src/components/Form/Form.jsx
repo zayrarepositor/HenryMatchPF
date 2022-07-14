@@ -218,7 +218,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     );
   }
 
- /*  function handleSelect(e) {
+  /*  function handleSelect(e) {
     e.preventDefault();
     setInput({
       ...input,
@@ -226,7 +226,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
     });
   }
  */
-/*   function handleDeleteInterests(e) {
+  /*   function handleDeleteInterests(e) {
     e.preventDefault();
     setInput({
       ...input,
@@ -462,7 +462,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
         <br />
         <br />
 
-      {/*   <Box sx={{ display: "inline-block" }}>
+        {/*   <Box sx={{ display: "inline-block" }}>
           <Button
             color="success"
             name="interests"
