@@ -7,7 +7,7 @@ import { Card, CardHeader } from "@mui/material";
 // utils
 import { fNumber } from "./formatNumber";
 // components
-import { BaseOptionChart } from "./charts";
+import { BaseOptionChart } from "./index";
 
 // ----------------------------------------------------------------------
 
@@ -48,9 +48,9 @@ export default function AppCurrentVisits({
 }) {
   const theme = useTheme();
 
-  const chartLabels = chartData.map((i) => i.label);
+  const chartLabels = chartData?.map((i) => i.label);
 
-  const chartSeries = chartData.map((i) => i.value);
+  const chartSeries = chartData?.map((i) => i.value);
 
   const chartOptions = merge(BaseOptionChart(), {
     colors: chartColors,
