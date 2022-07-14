@@ -284,114 +284,148 @@ export default function Cards({ setPremium }) {
             onSwipe={(dir) => swiped(dir, character.name, index, character._id)}
             onCardLeftScreen={() => outOfFrame(character.name, index)}>
             <Card
+          sx={{
+            width: 375,
+            marginBottom: 14,
+            borderColor: "none",
+            borderRadius: 3,
+          }}
+        >
+          <CardActionArea>
+            <CardMedia
+              component="img"
+              height="566"
+              style={{ backgroundImage: "url(" + userDetail?.image + ")" }}
+              alt=""
+              onClick
+            />
+          </CardActionArea>
+
+          <CardActions disableSpacing sx={{ bgcolor: "inherit" }}>
+            <Typography
               sx={{
-                width: 375,
-                marginBottom: 14,
-                borderColor: "none",
-                borderRadius: 3,
-              }}>
-              <CardMedia
-                component="img"
-                height="566"
-                style={{ backgroundImage: "url(" + character.image + ")" }}
-                alt=""
-                sx={{ borderColor: "#000" }}
-              />
-              <CardActions disableSpacing sx={{ bgcolor: "inherit" }}>
-                <Typography
-                  sx={{
-                    fontSize: 30,
-                    fontWeight: 900,
-                    // letterSpacing: 1,
-                    fontFamily: "Proxima Nova",
-                  }}>
-                  {character.name}{" "}
-                  <Typography
-                    sx={{
-                      fontWeight: 300,
-                      display: "inline",
-                      fontSize: 20,
-                      letterSpacing: 2,
-                      fontFamily: "Proxima Nova",
-                    }}>
-                    {character.age}
-                  </Typography>
-                </Typography>
-                <ExpandMore
-                  expand={expanded}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
-                  aria-label="show more">
-                  <ExpandMoreIcon color="light" />
-                </ExpandMore>
-              </CardActions>
-              <Collapse
-                in={expanded}
-                timeout="auto"
-                unmountOnExit
+                fontSize: 30,
+                fontWeight: 900,
+                // letterSpacing: 1,
+                fontFamily: "Proxima Nova",
+              }}
+            >
+              {userDetail?.name}{" "}
+              <Typography
                 sx={{
-                  marginTop: -3,
-                }}>
-                <CardContent>
-                  <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    sx={{
-                      right: 0,
-                      left: 0,
-                      marginTop: 1,
-                    }}>
-                    <Typography>
-                      <LocationOnIcon /> {character.city}
-                    </Typography>
-                  </Box>
-                  <Typography sx={{ letterSpacing: 3, fontStyle: "oblique" }}>
-                    {character.description}
-                  </Typography>
-                  <Divider color="#ffff00" />
-                  <Typography textTransform="uppercase">
-                    <PersonOutlineIcon /> {character.gender}
-                  </Typography>
+                  fontWeight: 300,
+                  display: "inline",
+                  fontSize: 20,
+                  letterSpacing: 2,
+                  fontFamily: "Proxima Nova",
+                }}
+              >
+                {userDetail?.age}
+              </Typography>
+            </Typography>
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+              sx={{ color: "white" }}
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </CardActions>
+          <Collapse
+            in={expanded}
+            timeout="auto"
+            unmountOnExit
+            sx={{
+              marginTop: -3,
+            }}
+          >
+            <CardContent>
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                sx={{
+                  right: 0,
+                  left: 0,
+                  marginTop: 1,
+                }}
+              >
+                <Typography textTransform="uppercase">
+                  <PersonOutlineIcon /> {userDetail?.gender}
+                </Typography>
+              </Box>
+              {!userDetail?.description ? (
+                <div />
+              ) : (
+                <Typography sx={{ letterSpacing: 3, fontStyle: "oblique" }}>
+                  {userDetail?.description}
+                </Typography>
+              )}
+              <Divider color="#ffff00" />
+              {!userDetail?.city ? (
+                <div />
+              ) : (
+                <Typography>
+                  <LocationOnIcon /> {userDetail?.city}
+                </Typography>
+              )}
+              {userDetail?.genderInt?.length === 0 ? (
+                <div />
+              ) : (
+                <Typography>
+                  <TransgenderIcon /> {userDetail?.genderInt}
+                </Typography>
+              )}
+              {!userDetail?.phone ? (
+                <div />
+              ) : (
+                <Typography>
+                  <LocalPhoneIcon /> {userDetail?.phone}
+                </Typography>
+              )}
+
+              {userDetail?.henryLevel?.length === 0 ? (
+                <div />
+              ) : (
+                <Typography
+                  textTransform="uppercase"
+                  sx={{
+                    display: "inline",
+                    letterSpacing: 2,
+                    fontFamily: "Proxima Nova",
+                  }}
+                >
+                  <AttachFileIcon /> {userDetail?.henryLevel}
+                </Typography>
+              )}
+
+              <Divider color="#ffff00" />
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                sx={{
+                  right: 0,
+                  left: 0,
+                  marginTop: 1,
+                }}
+              >
+                {userDetail?.interests?.length === 0 ? (
+                  <div />
+                ) : (
                   <Typography>
-                    <CakeIcon /> {character.birthday}
-                  </Typography>
-                  <Divider color="#ffff00" />
-                  <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    sx={{
-                      right: 0,
-                      left: 0,
-                      marginTop: 1,
-                    }}>
-                    <Typography
-                      textTransform="uppercase"
-                      sx={{
-                        display: "inline",
-                        letterSpacing: 2,
-                        fontFamily: "Proxima Nova",
-                      }}>
-                      <WorkIcon /> {character.job}
-                    </Typography>
-                    <Typography
-                      textTransform="uppercase"
-                      sx={{
-                        display: "inline",
-                        letterSpacing: 2,
-                        fontFamily: "Proxima Nova",
-                      }}>
-                      <AttachFileIcon /> {character.henryLevel}
-                    </Typography>
                     <InterestsIcon />{" "}
-                    {character.interests?.map((i) => {
+                    {userDetail?.interests?.map((i) => {
                       return <div key={i}>{i}</div>;
                     })}
-                  </Box>
-                </CardContent>
-              </Collapse>
-            </Card>
+                  </Typography>
+                )}
+              </Box>
+            </CardContent>
+          </Collapse>
+        </Card>
           </TinderCard>
         </Box>
       ))}
