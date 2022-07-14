@@ -76,7 +76,7 @@ export default function Cards({ setPremium }) {
 
   const db = useSelector((state) => state.usersSelected);
 
-  const currentUser = useSelector((state) => state.userDetail);
+  const userDetail = useSelector((state) => state.userDetail);
 
   const dispatch = useDispatch();
 
@@ -108,9 +108,9 @@ export default function Cards({ setPremium }) {
   const swiped = (direction, name, index, id) => {
     const currentCard = db.find((ss) => ss._id === id);
 
-    dispatch(getUserByNick(currentUser?.nickname));
+    dispatch(getUserByNick(userDetail?.nickname));
 
-    const miID = currentUser?._id;
+    const miID = userDetail?._id;
     const cardID = currentCard._id;
 
     if (direction === "right") {
@@ -126,7 +126,7 @@ export default function Cards({ setPremium }) {
         })
       );
 
-      dispatch(getUserByNick(currentUser?.nickname));
+      dispatch(getUserByNick(userDetail?.nickname));
       dispatch(filterByMe());
     }
 
@@ -143,7 +143,7 @@ export default function Cards({ setPremium }) {
         })
       );
 
-      dispatch(getUserByNick(currentUser?.nickname));
+      dispatch(getUserByNick(userDetail?.nickname));
       //dispatch(filterByMe());
     }
 
@@ -169,7 +169,7 @@ export default function Cards({ setPremium }) {
         })
       );
       
-      dispatch(getUserByNick(currentUser?.nickname));
+      dispatch(getUserByNick(userDetail?.nickname));
     }
 
     setLastDirection(direction);
@@ -228,7 +228,7 @@ export default function Cards({ setPremium }) {
             <CloseIcon font="large" />
           </IconButton>
           </Tooltip>
-          {currentUser?.premium ? (
+          {userDetail?.premium ? (
             <Tooltip title="Arrepentirse">
             <IconButton
               /* style={{ backgroundColor: !canGoBack }} */
