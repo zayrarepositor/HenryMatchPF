@@ -14,7 +14,7 @@ import {
   filterUserByMatches,
   getUserByNick,
   getUsers,
-} from "../../Redux/actions";
+} from "../../Redux/actions/index";
 import { useAuth0 } from "@auth0/auth0-react";
 import { NavLink } from "react-router-dom";
 

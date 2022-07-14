@@ -50,11 +50,8 @@ var items = [
   {
     name: "Random Name #2",
     description: "BOTON DE ARREPENTIMIENTO",
-  },
-  {
-    name: "Random Name #3",
-    description: "FILTRA POR EDAD",
-  },
+  }
+ 
 ];
 
 export default function BottomBar({ premium, setPremium, userDetail }) {

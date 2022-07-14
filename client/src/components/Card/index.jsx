@@ -88,58 +88,6 @@ export default function Cards({ setPremium }) {
   const [lastDirection, setLastDirection] = useState();
   const currentIndexRef = useRef(currentIndex);
 
-  //infinito
-  /*  useEffect(()=>{
-    dispatch(filterByMe())
-    console.log('ahora me estoy montando')
-    }) */
-
-  //convierte al userDetail en null
-  /* useEffect(()=>{
-      dispatch(filterByMe())
-      console.log('ahora me estoy montando')
-      },[currentUser]) */
-
-  //FILTERBYME EN EL EFFECT TE DEVUELVE  USERDETAIL NULL!!!!!!!!
-
-  /*  useEffect(()=>{
-        dispatch(filterByMe())
-        console.log('ahora me estoy montando')
-        },[]) */
-
-  /*  useLayoutEffect(()=>{
-      dispatch(filterByMe())
-      dispatch(getUsers())
-      },[]) */
-
-  //userDetail en NULL
-  /*  useEffect(()=>{
-      dispatch(getUserByNick(currentUser.nickname));
-      dispatch(getUsers())
-      dispatch(filterByMe())
-        console.log('ahora me estoy montando')
-      },[updateMatches]) 
- */
-  //userDetail en NULL
-  /* useEffect(()=>{
-        dispatch(getUsers())
-        dispatch(getUserByNick(currentUser.nickname));
-           console.log('ahora me estoy montando')
-        },[updateMatches]) 
- */
-  /*  useEffect(()=>{
-          dispatch(getUsers())
-                      console.log('ahora me estoy montando')
-          },[updateMatches])  */
-  //atrasado 2 pasos
-  /*    useEffect(()=>{
-            dispatch(getUsers())
-            },[])  */
-
-  /*    useEffect(()=>{
-              return () => dispatch(clearUserDetail())
-              },[dispatch])   */
-
   const childRefs = useMemo(
     () =>
       Array(db?.length)
@@ -220,7 +168,7 @@ export default function Cards({ setPremium }) {
           matches: id,
         })
       );
-      alert(`hiciste match con ${name}`);
+      
       dispatch(getUserByNick(currentUser?.nickname));
     }
 

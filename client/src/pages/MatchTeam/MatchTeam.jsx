@@ -14,7 +14,7 @@ import {
   filterUserByMatches,
   getUserByNick,
   getUsers,
-} from "../../Redux/actions";
+} from "../../Redux/actions/index";
 //======ESTILO E IMAGENES
 import { Box, Typography } from "@mui/material";
 

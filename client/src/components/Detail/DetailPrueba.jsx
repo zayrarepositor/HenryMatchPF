@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { clearUserDetailMatches, getUserByDetail } from "../../Redux/actions";
+import { clearUserDetailMatches, getUserByDetail } from "../../Redux/actions/index";
 import { styled } from "@mui/material/styles";
 import Invitation2 from "../../components/Reviews/Invitation2";
 import {

@@ -14,7 +14,7 @@ import {
   filterByGender,
   filterByMe,
 } from "../../Redux/actions/index";
-import setterName from "./helpers.js";
+import setterName from "./helpers.jsx";
 
 //======ESTILO E IMAGENES
 import Dialog from "@mui/material/Dialog";
