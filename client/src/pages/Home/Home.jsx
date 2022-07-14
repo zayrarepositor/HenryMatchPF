@@ -138,7 +138,7 @@ const Home = () => {
         <Grid>
           <Header />
           <Cards setPremium={setPremium} />
-          <BottomBar premium={premium} setPremium={setPremium} />
+          <BottomBar premium={premium} setPremium={setPremium} userDetail={userDetail} />
         </Grid>
       ) : (
         <Landing />
