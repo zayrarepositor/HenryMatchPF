@@ -26,7 +26,7 @@ import axios from "axios";
 
 //URL PARA LOS USUARIOS
 //const url = "/users";
-const baseUrl = process.env.REACT_APP_API || "http://localhost:9000";
+const baseUrl = process.env.VITE_VERCEL_URL || "http://localhost:9000";
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
 export function getUsers() {
   return async function (dispatch) {
