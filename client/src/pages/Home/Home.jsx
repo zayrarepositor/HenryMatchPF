@@ -16,7 +16,7 @@ import { filterByMe, filterUserByMatches, getUsers, getUserByNick } from "../../
 import { Grid } from "@mui/material";
 import Modal from "../../components/Modal/Modal";
 import Ban from "../../components/Ban";
-import Landing from "../../components/LandingPage";
+import Landing from "../Landing/Landing";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,8 @@ const Home = () => {
       allAdmins.push(user);
     }
   });
-
+  //OBJETO USER DE AUTH0 Y SU SUB (NUESTRO NICKNAME)
+  const userAuth = user;
   //MODAL PARA CREAR USUARIO
   const [modal, setModal] = useState(false);
 
@@ -48,6 +49,19 @@ const Home = () => {
   useEffect(() => {
     dispatch(getUsers());
   }, []);
+
+  //PARA ABRIR MODAL SOLO CUANDO EL USUARIO NO ESTA EN LA DB
+  useEffect(() => {
+    if (isAuthenticated === true && Object.keys(users).length > 0) {
+      //EL USUARIO ACTUAL ESTA EN LA DB?
+      const userInDb = users.find((u) => u.nickname === userAuth.sub);
+      if (userInDb) {
+        setModal(false);
+      } else {
+        setModal(true);
+      }
+    }
+  }, [users]);
 
   useEffect(() => {
     if (user) {
@@ -89,6 +103,7 @@ const Home = () => {
   /*   useEffect(() => {
     dispatch(filterByGender(userDetail?.genderInt));
      }, [modal]); */
+
 
   //PARA MONTAR CON LOS FILTROS GENERO,LIKES, DISLIKES APLICADOS
   useEffect(() => {

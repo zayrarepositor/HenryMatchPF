@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 //======IMPORTACIONES DE COMPONENTES
+import Loader from "../Loader/Loader";
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 //======ESTILO E IMAGENES
 import {
@@ -46,7 +47,7 @@ const Header = ({ setPremium }) => {
   const mobileMenuId = "primary-search-account-menu-mobile";
   return (
     <>
-      {isLoading && <Loader></Loader>}
+      {isLoading && <Loader />}
       {isAuthenticated && (
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="fixed" color="inherit">
@@ -61,7 +62,11 @@ const Header = ({ setPremium }) => {
                 </NavLink>
               </Tooltip>
               <Box sx={{ flexGrow: 1 }} />
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Box
+                sx={{
+                  display: { /* xs: "none" ,*/ md: "flex", paddingRight: 10 },
+                }}
+              >
                 {/* MESSAGES */}
                 <Tooltip title="Nuevos mensajes">
                   <NavLink to={"/chatroom"}>
@@ -75,16 +80,6 @@ const Header = ({ setPremium }) => {
                     </IconButton>
                   </NavLink>
                   {/* MATCHS */}
-                </Tooltip>
-                <Tooltip title="Nuevos matches">
-                  <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                  >
-                    <Badge badgeContent={17} color="error">
-                      <NotificationsIcon sx={{ color: "primary.light" }} />
-                    </Badge>
-                  </IconButton>
                 </Tooltip>
               </Box>
               {/* PROFILE */}
@@ -114,31 +109,29 @@ const Header = ({ setPremium }) => {
                   onClose={handleCloseUserMenu}
                 >
                   {/* MENU: MY PROFILE  */}
-                  <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
-                    <NavLink to={"/profile"}>
+                  <NavLink to={"/profile"}>
+                    <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                       <Typography
                         textAlign="center"
                         sx={{ textDecoration: "none", color: "light.main" }}
                       >
                         Mi Perfil
                       </Typography>
-                    </NavLink>
-                    {/* MENU: LOGOUT  */}
-                  </MenuItem>
-                  {iAmAdmin === true ? (
-                    <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
-                      <NavLink to={"/admin"}>
+                      {/* MENU: LOGOUT  */}
+                    </MenuItem>
+                  </NavLink>
+                  {iAmAdmin === true && (
+                    <NavLink to={"/admin"}>
+                      <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                         <Typography
                           textAlign="center"
                           sx={{ textDecoration: "none", color: "light.main" }}
                         >
                           Administrador
                         </Typography>
-                      </NavLink>
-                      {/* MENU: LOGOUT  */}
-                    </MenuItem>
-                  ) : (
-                    <div />
+                        {/* MENU: LOGOUT  */}
+                      </MenuItem>
+                    </NavLink>
                   )}
                   <MenuItem
                     key={"logout"}
