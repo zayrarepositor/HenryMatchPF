@@ -6,18 +6,29 @@ import { NavLink } from "react-router-dom";
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 
 //======ESTILO E IMAGENES
+
 import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
 import Fab from "@mui/material/Fab";
+import MenuIcon from "@mui/icons-material/Menu";
+import AddIcon from "@mui/icons-material/Add";
 import DiamondIcon from "@mui/icons-material/Diamond";
-import { Link, Tooltip, Typography } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import MoreIcon from "@mui/icons-material/MoreVert";
+import { Button, Fade, Link, Tooltip, Typography } from "@mui/material";
 import Favorite from "@mui/icons-material/Favorite";
 import Modal from "@mui/material/Modal";
 import ButtonBases from "../Buttoms/ButtomImg";
 import Carousel from "react-material-ui-carousel";
+
+
+
+// import ChatBox from "../ChatBox/Container";
+
 
 const StyledFab = styled(Fab)({
   position: "absolute",
@@ -61,13 +72,16 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
   const handleOpen = () => setPremium(true);
   const handleClose = () => setPremium(false);
 
+
+
+
+
   const [index, setIndex] = React.useState(0);
   const handleChange = (cur: number, prev: number) => {
     setIndex(cur);
     console.log(cur, prev);
   };
 
-  console.log(userDetail);
   return (
     <Box>
       <Modal open={premium} onClose={handleClose}>
@@ -96,8 +110,7 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
               fontStyle: "normal",
               fontVariant: "normal",
               textTransform: "none",
-            }}
-          >
+            }}>
             {items.map((item, i) => (
               <Item key={i} item={item} />
             ))}
@@ -105,18 +118,19 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
         </Box>
       </Modal>
       <CssBaseline />
-
+      
       <AppBar position="fixed" color="inherit" sx={{ top: "auto", bottom: 0 }}>
         <Toolbar>
-          {userDetail ? (
-            userDetail.premium === true ? (
+       
+          {
+            userDetail && userDetail.premium ===true ? (
+             
               <Tooltip title="YA ERES PREMIUM">
                 <StyledFab
                   color="primary"
                   aria-label="add"
                   sx={{ width: 60, height: 60 }}
-                  /*  onClick={handleOpen} */
-                >
+                 /*  onClick={handleOpen} */>
                   <DiamondIcon
                     sx={{
                       color: "dark.main",
@@ -125,15 +139,13 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
                     fontSize="large"
                   />
                 </StyledFab>
-              </Tooltip>
-            ) : (
+              </Tooltip>) : (
               <Tooltip title="PREMIUM">
                 <StyledFab
                   color="primary"
                   aria-label="add"
                   sx={{ width: 60, height: 60 }}
-                  onClick={handleOpen}
-                >
+                  onClick={handleOpen}>
                   <DiamondIcon
                     sx={{
                       color: "dark.main",
@@ -144,53 +156,20 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
                 </StyledFab>
               </Tooltip>
             )
-          ) : (
-            <Tooltip title="YA ERES PREMIUM">
-            <StyledFab
-              color="primary"
-              aria-label="add"
-              sx={{ width: 60, height: 60 }}
-              /*  onClick={handleOpen} */
-            >
-              <DiamondIcon
-                sx={{
-                  color: "dark.main",
-                  "&:hover": { color: "primary.main" },
-                }}
-                fontSize="large"
-              />
-            </StyledFab>
-          </Tooltip>
-           
-          )}
+          }
+
 
           <Box sx={{ flexGrow: 1 }} />
-
           <Typography variant="body2" color="text.secondary">
-            {}
-            <NavLink
-              to="/terms"
-              style={{
-                color: "white",
-              }}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link color="inherit" href="#">
               Henry Match
-            </NavLink>{" "}
+            </Link>{" "}
             {new Date().getFullYear()}
             {". "}
             Hecho con <Favorite fontSize="small" color="primary" /> por{" "}
-            <NavLink
-              to="/matchteam"
-              style={{
-                color: "white",
-              }}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link color="inherit" href="#">
               alumnos
-            </NavLink>{" "}
+            </Link>{" "}
             de Henry
           </Typography>
         </Toolbar>
