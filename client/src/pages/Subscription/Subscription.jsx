@@ -106,7 +106,7 @@ created: 1657295934, type: "card" } */
           timer: 2800,
         });
         elements.getElement(CardElement).clear();
-        navigate("/home", { replace: true });
+        navigate("/", { replace: true });
       } catch (e) {
         setIsLoading(false);
         //ALERT
