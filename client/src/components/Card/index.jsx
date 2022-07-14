@@ -28,7 +28,8 @@ import Swal from "sweetalert2";
 import { CardActionArea } from "@mui/material";
 import { Box, Divider, Slide } from "@mui/material";
 import { MsgContainer, MsgText } from "../Card/StyleMsg";
-
+import TransgenderIcon from "@mui/icons-material/Transgender";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import { filterByMe, getUserByNick, updateMatches } from "../../Redux/actions/index";
 import { useEffect } from "react";
 import { getUsers } from "./../../Redux/actions/index";
