@@ -97,7 +97,14 @@ const ReviewField = () => {
       return;
     } else {
       dispatch(updateUser(userDetail._id, { reviewForm }));
-      alert("Tu review se envio con exito");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title:"Tu review se envio con exito",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+     /*  alert("Tu review se envio con exito"); */
       //ALERT
       /* Swal.fire({
         position: "center",
