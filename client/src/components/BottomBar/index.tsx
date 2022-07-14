@@ -105,15 +105,15 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
 
       <AppBar position="fixed" color="inherit" sx={{ top: "auto", bottom: 0 }}>
         <Toolbar>
-          {userDetail ? (
-            userDetail.premium === true ? (
+        {
+            userDetail && userDetail.premium ===true ? (
+             
               <Tooltip title="YA ERES PREMIUM">
                 <StyledFab
                   color="primary"
                   aria-label="add"
                   sx={{ width: 60, height: 60 }}
-                  /*  onClick={handleOpen} */
-                >
+                 /*  onClick={handleOpen} */>
                   <DiamondIcon
                     sx={{
                       color: "dark.main",
@@ -122,15 +122,13 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
                     fontSize="large"
                   />
                 </StyledFab>
-              </Tooltip>
-            ) : (
+              </Tooltip>) : (
               <Tooltip title="PREMIUM">
                 <StyledFab
                   color="primary"
                   aria-label="add"
                   sx={{ width: 60, height: 60 }}
-                  onClick={handleOpen}
-                >
+                  onClick={handleOpen}>
                   <DiamondIcon
                     sx={{
                       color: "dark.main",
@@ -141,25 +139,8 @@ export default function BottomBar({ premium, setPremium, userDetail }) {
                 </StyledFab>
               </Tooltip>
             )
-          ) : (
-            <Tooltip title="PREMIUM">
-              <StyledFab
-                color="primary"
-                aria-label="add"
-                sx={{ width: 60, height: 60 }}
-                onClick={handleOpen}
-              >
-                <DiamondIcon
-                  sx={{
-                    color: "dark.main",
-                    "&:hover": { color: "primary.main" },
-                  }}
-                  fontSize="large"
-                />
-              </StyledFab>
-            </Tooltip>
-          )}
-
+          }
+          
           <Box sx={{ flexGrow: 1 }} />
 
           <Typography variant="body2" color="text.secondary">
