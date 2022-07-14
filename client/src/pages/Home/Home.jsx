@@ -17,7 +17,7 @@ import { Grid } from "@mui/material";
 import Modal from "../../components/Modal/Modal";
 import Ban from "../../components/Ban";
 import Landing from "../Landing/Landing";
-
+//
 const Home = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
