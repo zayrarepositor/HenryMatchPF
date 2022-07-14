@@ -50,7 +50,7 @@ const AdminNavBar = ({ setRender }) => {
               <Typography variant="h3">Panel del Administrador</Typography>
               <Box sx={{ flexGrow: 1 }} />
               <Tooltip title="MATCHEA">
-                <NavLink to={"/home"}>
+                <NavLink to={"/"}>
                   <IconButton size="large" aria-label="show 4 new mails">
                     <LocalFireDepartmentIcon
                       fontSize="large"
@@ -87,7 +87,7 @@ const AdminNavBar = ({ setRender }) => {
                   onClose={handleCloseUserMenu}
                 >
                   <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
-                    <NavLink to={"/home"}>
+                    <NavLink to={"/"}>
                       <Typography
                         textAlign="center"
                         sx={{ textDecoration: "none", color: "light.main" }}

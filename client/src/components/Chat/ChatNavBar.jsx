@@ -61,7 +61,7 @@ const ChatNavBar = ({ setRender }) => {
 
               {/* PROFILE */}
               <Tooltip title="MATCHEA">
-                <NavLink to={"/home"}>
+                <NavLink to={"/"}>
                   <IconButton size="large" aria-label="show 4 new mails">
                     <LocalFireDepartmentIcon
                       fontSize="large"

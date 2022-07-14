@@ -569,7 +569,7 @@ const Formu = ({ setUpdate, setUpdateForm }) => {
         <br />
         <br />
         <Box display="inline-block" sx={{ paddingLeft: 2 }}>
-          <NavLink to={"/home"}>
+          <NavLink to={"/"}>
             <Button
               size="large"
               onClick={handleBanUser}
