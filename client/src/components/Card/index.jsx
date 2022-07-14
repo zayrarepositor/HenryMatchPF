@@ -25,7 +25,7 @@ import WorkIcon from "@mui/icons-material/Work";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import InterestsIcon from "@mui/icons-material/Interests";
 import Swal from "sweetalert2";
-
+import { CardActionArea } from "@mui/material";
 import { Box, Divider, Slide } from "@mui/material";
 import { MsgContainer, MsgText } from "../Card/StyleMsg";
 
