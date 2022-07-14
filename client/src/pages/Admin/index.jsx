@@ -71,7 +71,7 @@ const Admin = () => {
             </Box>
           )}
           {render === "statistics" && (
-            <Box sx={{ paddingTop: 10 }}>
+            <Box sx={{ paddingTop: 40, paddingLeft: 40 }}>
               <DashboardApp />
             </Box>
           )}

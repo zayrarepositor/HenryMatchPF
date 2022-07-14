@@ -74,29 +74,32 @@ export default function DashboardApp() {
     // dispatch(fetchAllLocations());
   }, []);
 
-  //   const { AllcarTypes } = useSelector((state) => state.carsResults);
+  const users = useSelector((state) => state.users);
   //   const { locations } = useSelector((state) => state.searchBar);
 
-  //   const carTypesChartData = AllcarTypes.map((cartype) => {
-  //     let values = 0;
-  //     Bookings.data?.forEach((dato) => {
-  //       if (dato.cartypeId === cartype.id) {
-  //         values++;
-  //       }
-  //     });
+  const carTypesChartData = users?.map((gender) => {
+    let values = 0;
+    users?.forEach((gender) => {
+      if (users.gender) {
+        values++;
+      }
+    });
 
-  //     return {
-  //       label: `${cartype.make} ${cartype.model}`,
-  //       value: values,
-  //     };
-  //   });
+    return {
+      label: `${gender}`,
+      value: values,
+    };
+  });
+  console.log(carTypesChartData);
 
   const theme = useTheme();
 
   const todooos = currentCustomers?.data;
   const active = todooos?.map((e) => e.active);
   const baneados = active?.filter((e) => e === false);
-  console.log(baneados);
+
+  const premium = todooos?.map((e) => e.premium);
+  const pros = premium?.filter((e) => e === true);
 
   return (
     <div title="Dashboard">
@@ -115,8 +118,8 @@ export default function DashboardApp() {
               <Grid item xs={12} sm={6} md={3}>
                 <AppWidgetSummary
                   title="Usuarios Premium"
-                  total={currentCustomers?.data?.length}
-                  icon={"clarity:car-line"}
+                  total={pros?.length}
+                  icon={"ic:baseline-diamond"}
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={3}>
@@ -124,7 +127,7 @@ export default function DashboardApp() {
                   title="Usuarios baneados"
                   total={baneados?.length}
                   color="warning"
-                  icon={"material-symbols:car-rental"}
+                  icon={"el:ban-circle"}
                 />
               </Grid>
               {/* <Grid item xs={12} sm={6} md={3}>
@@ -168,19 +171,11 @@ export default function DashboardApp() {
 
           <Grid item xs={12} md={6} lg={6}>
             <AppCurrentVisits
-              title="Vehiculos rentados historicamente"
-              //   chartData={carTypesChartData}
+              title="Grafico por genero"
+              chartData={carTypesChartData}
               chartColors={[
-                theme.palette.primary.main,
-                theme.palette.secondary.main,
-                theme.palette.error.main,
-                theme.palette.warning.main,
                 theme.palette.info.main,
                 theme.palette.success.main,
-                theme.palette.primary.light,
-                theme.palette.secondary.light,
-                theme.palette.error.light,
-                theme.palette.warning.light,
               ]}
             />
           </Grid>

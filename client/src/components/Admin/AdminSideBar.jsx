@@ -120,7 +120,7 @@ export default function AdminSideBar({ setRender }) {
           rel="noopener noreferrer"
           href="https://dashboard.stripe.com/test/payments"
           underline="none"
-          target="_blank"
+          // target="_blank"
         >
           <ListItem>
             <ListItemButton onClick={handleInbox}>

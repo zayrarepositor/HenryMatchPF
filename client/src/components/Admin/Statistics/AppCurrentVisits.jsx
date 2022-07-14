@@ -74,16 +74,16 @@ export default function AppCurrentVisits({
 
   return (
     <Card {...other}>
-      <CardHeader title={title} subheader={subheader} />
+      {/* <CardHeader title={title} subheader={subheader} /> */}
 
-      <ChartWrapperStyle dir="ltr">
+      {/* <ChartWrapperStyle dir="ltr">
         <ReactApexChart
           type="pie"
           series={chartSeries}
           options={chartOptions}
           height={280}
         />
-      </ChartWrapperStyle>
+      </ChartWrapperStyle> */}
     </Card>
   );
 }
