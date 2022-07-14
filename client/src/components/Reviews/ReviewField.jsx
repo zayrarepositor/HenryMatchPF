@@ -4,11 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 //======IMPORTACIONES DE COMPONENTES
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
-<<<<<<< HEAD
-import { updateUser } from "../../Redux/actions/index";
-=======
 import { updateUser, createUser } from "../../Redux/actions/index";
->>>>>>> 1356c82492c0be506c6529ace2eb267741467f04
 
 //======ESTILO E IMAGENES
 import "./ReviewField.css";
