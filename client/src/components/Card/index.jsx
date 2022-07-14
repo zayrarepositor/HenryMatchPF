@@ -296,7 +296,7 @@ export default function Cards({ setPremium }) {
             <CardMedia
               component="img"
               height="566"
-              style={{ backgroundImage: "url(" + userDetail?.image + ")" }}
+              style={{ backgroundImage: "url(" + character?.image + ")" }}
               alt=""
               onClick
             />
@@ -311,7 +311,7 @@ export default function Cards({ setPremium }) {
                 fontFamily: "Proxima Nova",
               }}
             >
-              {userDetail?.name}{" "}
+              {character?.name}{" "}
               <Typography
                 sx={{
                   fontWeight: 300,
@@ -321,7 +321,7 @@ export default function Cards({ setPremium }) {
                   fontFamily: "Proxima Nova",
                 }}
               >
-                {userDetail?.age}
+                {character?.age}
               </Typography>
             </Typography>
             <ExpandMore
@@ -354,40 +354,40 @@ export default function Cards({ setPremium }) {
                 }}
               >
                 <Typography textTransform="uppercase">
-                  <PersonOutlineIcon /> {userDetail?.gender}
+                  <PersonOutlineIcon /> {character?.gender}
                 </Typography>
               </Box>
-              {!userDetail?.description ? (
+              {!character?.description ? (
                 <div />
               ) : (
                 <Typography sx={{ letterSpacing: 3, fontStyle: "oblique" }}>
-                  {userDetail?.description}
+                  {character?.description}
                 </Typography>
               )}
               <Divider color="#ffff00" />
-              {!userDetail?.city ? (
+              {!character?.city ? (
                 <div />
               ) : (
                 <Typography>
-                  <LocationOnIcon /> {userDetail?.city}
+                  <LocationOnIcon /> {character?.city}
                 </Typography>
               )}
-              {userDetail?.genderInt?.length === 0 ? (
+              {character?.genderInt?.length === 0 ? (
                 <div />
               ) : (
                 <Typography>
-                  <TransgenderIcon /> {userDetail?.genderInt}
+                  <TransgenderIcon /> {character?.genderInt}
                 </Typography>
               )}
-              {!userDetail?.phone ? (
+              {!character?.phone ? (
                 <div />
               ) : (
                 <Typography>
-                  <LocalPhoneIcon /> {userDetail?.phone}
+                  <LocalPhoneIcon /> {character?.phone}
                 </Typography>
               )}
 
-              {userDetail?.henryLevel?.length === 0 ? (
+              {character?.henryLevel?.length === 0 ? (
                 <div />
               ) : (
                 <Typography
@@ -398,7 +398,7 @@ export default function Cards({ setPremium }) {
                     fontFamily: "Proxima Nova",
                   }}
                 >
-                  <AttachFileIcon /> {userDetail?.henryLevel}
+                  <AttachFileIcon /> {character?.henryLevel}
                 </Typography>
               )}
 
@@ -413,12 +413,12 @@ export default function Cards({ setPremium }) {
                   marginTop: 1,
                 }}
               >
-                {userDetail?.interests?.length === 0 ? (
+                {character?.interests?.length === 0 ? (
                   <div />
                 ) : (
                   <Typography>
                     <InterestsIcon />{" "}
-                    {userDetail?.interests?.map((i) => {
+                    {character?.interests?.map((i) => {
                       return <div key={i}>{i}</div>;
                     })}
                   </Typography>
