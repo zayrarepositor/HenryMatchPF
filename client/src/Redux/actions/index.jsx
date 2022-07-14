@@ -26,12 +26,14 @@ import axios from "axios";
 
 //URL PARA LOS USUARIOS
 //const url = "/users";
-/* const baseUrl = process.env.VITE_VERCEL_URL || "http://localhost:9000"; */
+
+const baseUrl = process.env.VITE_VERCEL_URL || "http://localhost:9000";
+
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
 export function getUsers() {
   return async function (dispatch) {
     try {
-      const users = await axios.get(/* baseUrl+ */"/users");
+      const users = await axios.get(baseUrl+"/users");
       return dispatch({
         type: GET_USERS,
         payload: users.data,
@@ -46,8 +48,8 @@ export function getUsers() {
 export function getUserByNick(nickname) {
   return async function (dispatch) {
     try {
-      const user = await axios.get(`/users/${nickname}`);
-      //const user = await axios.get(`${baseUrl}/users/${nickname}`);
+      //const user = await axios.get(`/users/${nickname}`);
+      const user = await axios.get(`${baseUrl}/users/${nickname}`);
       return dispatch({
         type: GET_USER_BY_NICKNAME,
         payload: user.data,
@@ -60,8 +62,8 @@ export function getUserByNick(nickname) {
 export function getUserByDetail(nickname) {
   return async function (dispatch) {
     try {
-      const user = await axios.get(`/users/${nickname}`);
-      //const user = await axios.get(`${baseUrl}/users/${nickname}`);
+      //const user = await axios.get(`/users/${nickname}`);
+      const user = await axios.get(`${baseUrl}/users/${nickname}`);
       return dispatch({
         type: GET_USER_BY_DETAIL,
         payload: user.data,
@@ -76,8 +78,8 @@ export function getUserByDetail(nickname) {
 export function createUser(data) {
   return async function (dispatch) {
     try {
-      const user = await axios.post("/users", data);
-      //const user = await axios.post(baseUrl+"/users", data);
+      //const user = await axios.post("/users", data);
+      const user = await axios.post(baseUrl+"/users", data);
       return dispatch({
         type: CREATE_USER,
         payload: user.data,
@@ -92,8 +94,8 @@ export function updateUser(id, data) {
   return async function (dispatch) {
     try {
       const user = await axios.put(
-        `/usersID/${id}`,
-        /* `${baseUrl}/usersID/${id}`, */
+        /* `/usersID/${id}`, */
+        `${baseUrl}/usersID/${id}`,
         data
       );
 
@@ -111,8 +113,8 @@ export function updateImg(id, data) {
   return async function (dispatch) {
     try {
       const user = await axios.put(
-        `/usersImg/${id}`,
-        /* `${baseUrl}/usersImg/${id}`, */
+       /*  `/usersImg/${id}`, */
+        `${baseUrl}/usersImg/${id}`,
         data
       );
 
@@ -130,8 +132,8 @@ export function updateMatches(id, data) {
   return async function (dispatch) {
     try {
       const user = await axios.put(
-        `/usersMatches/${id}`,
-        /* `${baseUrl}/usersMatches/${id}`, */
+     /*    `/usersMatches/${id}`, */
+        `${baseUrl}/usersMatches/${id}`,
         data
       );
       return dispatch({

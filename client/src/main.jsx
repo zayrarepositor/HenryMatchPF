@@ -14,7 +14,7 @@ dotenv.config();
 //ss
 axios.defaults.baseURL =  process.env.REACT_APP_API || "http://localhost:9000"; */
 
-const baseUrl = process.env.REACT_APP_API || "http://localhost:9000";
+/* const baseUrl = process.env.REACT_APP_API || "http://localhost:9000"; */
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
