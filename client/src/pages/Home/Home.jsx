@@ -11,13 +11,13 @@ import BottomBar from "../../components/BottomBar";
 
 //======IMPORTACIONES DE FUNCIONES NUESTRAS
 import { filterByMe, filterUserByMatches, getUsers, getUserByNick } from "../../Redux/actions/index";
-
+//
 //======ESTILO E IMAGENES
 import { Grid } from "@mui/material";
 import Modal from "../../components/Modal/Modal";
 import Ban from "../../components/Ban";
 import Landing from "../Landing/Landing";
-
+//
 const Home = () => {
   const dispatch = useDispatch();
   const { user, isAuthenticated, isLoading } = useAuth0();
