@@ -20,7 +20,7 @@ import {
   // SORT_BY_AGE,
   // sdffs
 } from "./types";
-
+//
 //YA SE SETEO EN EL PACKAGE.JSON ==> NO OLVIDES EL npm install
 import axios from "axios";
 
