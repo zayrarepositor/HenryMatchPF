@@ -20,7 +20,7 @@ import {
   // SORT_BY_AGE,
   // sdffs
 } from "./types";
-
+//
 //YA SE SETEO EN EL PACKAGE.JSON ==> NO OLVIDES EL npm install
 import axios from "axios";
 
@@ -31,7 +31,7 @@ import axios from "axios";
 export function getUsers() {
   return async function (dispatch) {
     try {
-      const users = await axios.get(url);
+      const users = await axios.get("/users");
       return dispatch({
         type: GET_USERS,
         payload: users.data,
@@ -74,7 +74,7 @@ export function getUserByDetail(nickname) {
 export function createUser(data) {
   return async function (dispatch) {
     try {
-      const user = await axios.post(url, data);
+      const user = await axios.post("/users", data);
       return dispatch({
         type: CREATE_USER,
         payload: user.data,
