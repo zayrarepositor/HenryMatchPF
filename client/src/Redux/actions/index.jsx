@@ -25,7 +25,7 @@ import {
 import axios from "axios";
 
 //URL PARA LOS USUARIOS
-const url = "/users";
+//const url = "/users";
 
 //----THUNK FUNCTIONS---// LAS QUE HACEN REQUIRES A LA DB Y SON ASINCRONAS
 export function getUsers() {
@@ -46,7 +46,7 @@ export function getUsers() {
 export function getUserByNick(nickname) {
   return async function (dispatch) {
     try {
-      const user = await axios.get(url + `/${nickname}`);
+      const user = await axios.get(`/users/${nickname}`);
       return dispatch({
         type: GET_USER_BY_NICKNAME,
         payload: user.data,
@@ -59,7 +59,7 @@ export function getUserByNick(nickname) {
 export function getUserByDetail(nickname) {
   return async function (dispatch) {
     try {
-      const user = await axios.get(url + `/${nickname}`);
+      const user = await axios.get(`/users/${nickname}`);
       return dispatch({
         type: GET_USER_BY_DETAIL,
         payload: user.data,
