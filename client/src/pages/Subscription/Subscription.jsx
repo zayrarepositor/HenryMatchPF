@@ -80,7 +80,7 @@ created: 1657295934, type: "card" } */
       try {
         const { data } = await axios
           //http://localhost:9000 ===> https://henrymatch-pg.herokuapp.com,
-          .post("/subscription", {
+          .post("http://localhost:9000/subscription", {
             id,
             amount: 20000,
           });
@@ -210,7 +210,7 @@ created: 1657295934, type: "card" } */
               </button>
             </div>
           </form>
-          <NavLink className="link" to="/home">
+          <NavLink className="link" to="/">
             <h3>
               volver a <span>HOME</span>
             </h3>
