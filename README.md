@@ -40,9 +40,8 @@ Deploy Front (vercel) ☞ <a href="https://henry-front.vercel.app/">Henry Match-
 ✎ Next update: not defined yet.
 
 ## Personal Contact info:
-
-    linkedIn ☞ <a href="https://www.linkedin.com/in/zayra-velasco">Zayra Velasco</a>
-    mail ☞ <a href="mailto:zayra.contacto@gmail.com">zayra.contacto(gmail)</a>
+linkedIn ☞ <a href="https://www.linkedin.com/in/zayra-velasco">Zayra Velasco</a>
+mail ☞ <a href="mailto:zayra.contacto@gmail.com">zayra.contacto(gmail)</a>
 
 ## Snips
 ☢ You could check out some snips here:
