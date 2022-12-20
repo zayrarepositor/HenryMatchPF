@@ -14,10 +14,6 @@ Devs:
 - Arturo Flores
 - Pablo Carranza
 
-## Deploy
-Deploy Back (Mongo) 
-Deploy Front (vercel) ☞ <a href="https://henry-front.vercel.app/">Henry Match-Vercel</a>
-
 ## About
 ☑ Henry Match was thought as an API to meet Henry students. It filter users according you gender interest. 
 ☑ You can login, create an account and edit your profile.
